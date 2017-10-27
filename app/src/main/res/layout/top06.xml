@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:elevation="10dp"
+    android:background="@drawable/top_bar">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/login">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="分享"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="@drawable/top_bar"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center">
+            <ImageButton
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginRight="15dp"
+                android:textColor="#fff"
+                android:textSize="13sp"
+                android:id="@+id/id_tab06_addFriend"
+                android:layout_gravity="right|center_vertical"
+                android:background="@drawable/addfriend"/>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

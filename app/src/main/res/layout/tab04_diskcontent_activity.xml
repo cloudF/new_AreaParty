@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <!--title和当前路径信息-->
+    <LinearLayout
+        android:id="@+id/page04DiskContentTitleLL"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#f0f0f0">
+        <!--盘符-->
+        <TextView
+            android:id="@+id/page04DiskContentTitleTV"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:elevation="4dp"
+            android:background="@drawable/top_bar"
+            android:gravity="center"
+            android:text="C盘"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"/>
+        <!--当前路径-->
+        <TextView
+            android:id="@+id/page04DiskContentCurrentPathTV"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="5dp"
+            android:textSize="14sp"
+            android:textColor="#a8a8a8"
+            android:text="C:/fd>fdh>"/>
+    </LinearLayout>
+
+    <!--磁盘内容信息ListView-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/page04DiskContentTitleLL"
+        android:scrollbars="none"
+        android:visibility="visible">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--磁盘当前内容列表-->
+            <com.androidlearning.boris.familycentralcontroler.fragment01.ui.SwipeListView
+                android:id="@+id/page04DiskContentLV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@drawable/list_divider04"
+                android:dividerHeight="1px"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#FFFFFF"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/page04DiskContentErrorIV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/page04DiskContentTitleLL"
+        android:src="@drawable/error"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        android:clickable="true"/>
+
+    <!-- 初始显示的操作栏 -->
+    <LinearLayout
+        android:id="@+id/page04DiskContentActionBar01LL"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/barback04"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible">
+        <!-- 新建文件夹 -->
+        <LinearLayout
+            android:id="@+id/bar01AddFolderLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar01IconAddIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/addfolder_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar01TxAddTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="新建文件夹"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 刷新 -->
+        <LinearLayout
+            android:id="@+id/bar01RefreshLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar01IconRefreshIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/refresh_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar01TxRefreshTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="刷新"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 排序 -->
+        <LinearLayout
+            android:id="@+id/bar01SortLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar01IconSortIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/sort_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar01TxSortTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="排序"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 搜索 -->
+        <LinearLayout
+            android:id="@+id/bar01SearchLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar01IconSearchIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/search_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar01TxSearchTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="搜索"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 更多 -->
+        <LinearLayout
+            android:id="@+id/bar01MoreLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar01IconMoreIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/more_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar01TxMoreTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="更多"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <!-- 长按列表Item弹出的操作栏 -->
+    <LinearLayout
+        android:id="@+id/page04DiskContentActionBar02LL"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/barback04"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+        <!-- 复制 -->
+        <LinearLayout
+            android:id="@+id/bar02CopyLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar02IconCopyIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/copy_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar02TxCopyTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="复制"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 移动 -->
+        <LinearLayout
+            android:id="@+id/bar02CutLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar02IconCutIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/cut_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar02TxCutTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="移动"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 删除 -->
+        <LinearLayout
+            android:id="@+id/bar02DeleteLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar02IconDeleteIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/delete_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar02TxDeleteTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="删除"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 全选 -->
+        <LinearLayout
+            android:id="@+id/bar02SelectAllLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar02IconSelectAllIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/selectedall_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar02TxSelectAllTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="全选"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 更多 -->
+        <LinearLayout
+            android:id="@+id/bar02MoreLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar02IconMoreIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/more_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar02TxMoreTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="更多"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <!-- 点击复制后弹出的菜单栏 -->
+    <LinearLayout
+        android:id="@+id/page04DiskContentCopyBarLL"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/barback04"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+        <!-- 新建文件夹 -->
+        <LinearLayout
+            android:id="@+id/copyAddFolderLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/copyAddFolderIconIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/addfolder_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/copyAddFolderTxTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="新建文件夹"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 取消 -->
+        <LinearLayout
+            android:id="@+id/copyCancelLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/cancel_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="取消"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 粘贴 -->
+        <LinearLayout
+            android:id="@+id/copyPasteLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/copyPasteIconIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/copy_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/copyPasteTxTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="粘贴"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <!-- 点击移动后弹出的菜单栏 -->
+    <LinearLayout
+        android:id="@+id/page04DiskContentCutBarLL"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/barback04"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+        <!-- 新建文件夹 -->
+        <LinearLayout
+            android:id="@+id/cutAddFolderLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/cutAddFolderIconIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/addfolder_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/cutAddFolderTxTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="新建文件夹"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 取消 -->
+        <LinearLayout
+            android:id="@+id/cutCancelLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/cancel_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="取消"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 粘贴 -->
+        <LinearLayout
+            android:id="@+id/cutPasteLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/cutPasteIconIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/cut_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/cutPasteTxTV"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="粘贴"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <!--初始菜单点击更多弹出的菜单-->
+    <LinearLayout
+        android:id="@+id/page04DiskContentBar01MoreRootLL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:elevation="6dp"
+        android:gravity="end"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/bar01MoreBarLL"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:elevation="2dp"
+            android:background="@drawable/menuback04"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="60dp"
+            android:layout_marginEnd="4dp">
+
+            <TextView
+                android:id="@+id/bar01MoreAction1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp"
+                android:text="传输管理"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:clickable="true" />
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="0.1dp"
+                android:background="#33000000"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/bar01MoreAction2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp"
+                android:text="设置"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:clickable="true" />
+        </LinearLayout>
+    </LinearLayout>
+    <!--二级操作菜单点击更多弹出的菜单-->
+    <LinearLayout
+        android:id="@+id/page04DiskContentBar02MoreRootLL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:elevation="6dp"
+        android:gravity="end|bottom"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/bar02MoreBarLL"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:elevation="2dp"
+            android:background="@drawable/menuback04"
+            android:layout_marginBottom="60dp"
+            android:layout_marginEnd="4dp">
+            <!-- 重命名 -->
+            <LinearLayout
+                android:id="@+id/bar02MoreRenameLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/bar02MoreRenameTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="0dp"
+                    android:text="重命名"
+                    android:textSize="14sp"
+                    android:textColor="#000000"/>
+                <ImageView
+                    android:layout_width="160dp"
+                    android:layout_height="0.1dp"
+                    android:background="#33000000"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+            <!--分享-->
+            <LinearLayout
+                android:id="@+id/bar02MoreShareLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/bar02MoreShareTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="0dp"
+                    android:text="分享"
+                    android:textSize="14sp"
+                    android:textColor="#000000" />
+                <ImageView
+                    android:layout_width="160dp"
+                    android:layout_height="0.1dp"
+                    android:background="#33000000"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+            <!--详情-->
+            <LinearLayout
+                android:id="@+id/bar02MoreDetailLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/bar02MoreDetailTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="0dp"
+                    android:text="详情"
+                    android:textSize="14sp"
+                    android:textColor="#000000" />
+                <ImageView
+                    android:layout_width="160dp"
+                    android:layout_height="0.1dp"
+                    android:background="#33000000"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+            <!--保存到本地-->
+            <LinearLayout
+                android:id="@+id/bar02MoreSaveLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/bar02MoreSaveTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="0dp"
+                    android:text="保存到本地"
+                    android:textSize="14sp"
+                    android:textColor="#000000"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

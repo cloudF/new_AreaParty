@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--item -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:id="@+id/fileImg"
+        android:layout_gravity="center_vertical|left"
+        android:gravity="center_vertical|left"
+        />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/fileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textColor="#000"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/fileInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/file_download_btn"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:background="@drawable/buttonradius"
+        android:text="下载"
+        android:textColor="#fff"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="10dp"/>
+
+</LinearLayout>

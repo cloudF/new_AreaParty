@@ -1,0 +1,185 @@
+     
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"  
+        android:layout_height="fill_parent"  
+        android:background="@drawable/webmanager_bkcolor"
+        android:orientation="vertical" >  
+      
+        <LinearLayout  
+            android:layout_width="fill_parent"  
+            android:layout_height="50dp"  
+            android:background="@drawable/webmanager_topbk_color"
+            android:gravity="center_vertical"  
+            android:orientation="horizontal" >  
+      
+            <Button  
+                android:id="@+id/cancel"  
+                
+                android:layout_width="65.83dp"  
+                android:layout_height="37.5dp"  
+                android:layout_marginStart="10dp" 
+                android:background="@drawable/webmanager_normal_btn"
+                android:text="@string/cancel"  
+                android:textColor="#ffffff"
+                 />  
+      
+            <TextView  
+                android:id="@+id/tv_friend_title"  
+                android:layout_width="wrap_content"  
+                android:layout_height="50dip"  
+                android:layout_weight="1"  
+                android:gravity="center"  
+                
+                android:text="HDHome"  
+                android:textColor="#ffffff"  
+                android:textSize="20dip" 
+                />  
+      
+            <Button  
+                android:id="@+id/login_in"  
+                android:layout_width="65.83dp"  
+                android:layout_height="37.5dp"  
+                android:layout_marginRight="10dp"  
+                android:background="@drawable/webmanager_normal_btn"
+                android:text="@string/login_in"  
+                android:textColor="#ffffff" />  
+        </LinearLayout>  
+      
+        <RelativeLayout  
+            android:id="@+id/editRel"  
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content" >  
+      
+            <RelativeLayout  
+                android:id="@+id/accountRel"  
+                android:layout_width="fill_parent"  
+                android:layout_height="wrap_content"  
+                android:layout_marginTop="14dp"  
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/webmanager_edittext_color1"
+                android:clickable="true"  
+                android:gravity="center_vertical" >  
+      
+                <TextView  
+                    android:id="@+id/account"  
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"  
+                    android:padding="8dp"  
+                    android:text="@string/account"  
+                    android:textColor="#000"  
+                    android:textSize="17sp" />  
+      
+                <EditText
+                    android:id="@+id/accountEdittext"
+                    android:layout_width="fill_parent"
+                    
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dip"
+                    android:layout_toRightOf="@id/account"
+                    android:background="@null"
+                    android:hint="账户"
+                    android:textSize="15sp" />
+  
+            </RelativeLayout>  
+      
+            <RelativeLayout  
+                android:id="@+id/pwdRel"  
+                android:layout_width="fill_parent"  
+                android:layout_height="wrap_content"  
+                android:layout_below="@id/accountRel"  
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/webmanager_edittext_color2"
+                android:clickable="true"  
+                android:gravity="center_vertical" >  
+      
+                <TextView  
+                    android:id="@+id/pwd"  
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"  
+                    android:padding="8dp"  
+                    android:text="@string/pwd"  
+                    android:textColor="#000"  
+                    android:textSize="17sp" />  
+      
+                <EditText  
+                    android:id="@+id/pwdEdittext"  
+                    android:layout_width="fill_parent"  
+                    android:layout_height="30dp"  
+                    android:layout_centerVertical="true"  
+                    android:layout_marginLeft="20dip"  
+                    android:layout_toRightOf="@id/pwd"  
+                    android:inputType="textPassword"
+                    android:background="@null"  
+                    android:hint="密码"  
+                    android:textSize="15sp" />  
+                    
+            </RelativeLayout>  
+          
+        </RelativeLayout>
+          <RelativeLayout  
+                
+                android:layout_width="fill_parent"  
+                android:layout_height="wrap_content"  
+                android:layout_below="@id/accountRel"  
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/webmanager_edittext_color3"
+                android:clickable="true"  
+                android:gravity="center_vertical" >  
+      
+                <TextView  
+                    android:id="@+id/tv"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"  
+                    android:padding="8dp"  
+                    android:text="@string/checkcode"  
+                    android:textColor="#000"  
+                    android:textSize="17sp" />  
+      
+                <EditText  
+                    android:id="@+id/checkCode"  
+                    android:layout_width="80dp"  
+                    android:layout_height="30dp"  
+                    android:layout_centerVertical="true"  
+                    android:layout_marginLeft="20dip"  
+                    android:layout_toRightOf="@id/tv" 
+                    android:background="@null"  
+                    android:textSize="15sp" />  
+                    
+                <ImageView 
+                    android:id="@+id/checkCode_picture"
+                  
+                      android:layout_width="fill_parent"  
+                      android:layout_toRightOf="@id/checkCode" 
+                    android:layout_height="30dp"  
+                    android:layout_centerVertical="true" 
+                    />
+                    
+            </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/auto_login"
+            android:textColor="#29981A" />
+
+        <TextView
+            android:id="@+id/sound_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_marginTop="15dip"
+            android:text="@string/forget_pwd"
+            android:textColor="#29981A" />
+
+      
+      
+    </LinearLayout>

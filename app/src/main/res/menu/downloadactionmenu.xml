@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/toobar_action1"
+        android:title="全部开始"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/toobar_action2"
+        android:title="全部暂停"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/toobar_action3"
+        android:title="全部删除"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/toobar_action4"
+        android:title="全部文件1"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/toobar_action5"
+        android:title="全部文件2"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/toobar_action6"
+        android:title="全部文件3"
+        app:showAsAction="never"/>
+</menu>

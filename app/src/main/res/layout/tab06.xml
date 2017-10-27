@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/top06" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center_vertical|center"
+                android:background="#fff">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:id="@+id/newFriend_wrap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/newFriend_img"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/newfriend" />
+                            <TextView
+                                android:id="@+id/newFriend_num"
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:layout_marginLeft="-5dp"
+                                android:layout_toRightOf="@+id/newFriend_img"
+                                android:background="@drawable/request_num_bg"
+                                android:visibility="gone"
+                                android:gravity="center" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="新朋友"
+                            android:textColor="#000"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:id="@+id/transform_wrap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/transform_img"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/transform" />
+                            <TextView
+                                android:id="@+id/transform_num"
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:layout_toRightOf="@+id/transform_img"
+                                android:background="@drawable/request_num_bg"
+                                android:visibility="gone"
+                                android:gravity="center"/>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="审批下载"
+                            android:textColor="#000" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:id="@+id/download_wrap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/download_img"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/download" />
+                            <TextView
+                                android:id="@+id/download_num"
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:layout_marginLeft="-5dp"
+                                android:layout_toRightOf="@+id/download_img"
+                                android:background="@drawable/request_num_bg"
+                                android:visibility="gone"
+                                android:gravity="center"/>
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="下载管理"
+                            android:textColor="#000" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#efefef"/>
+
+            <LinearLayout
+                android:id="@+id/id_tab06_friendWrap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/itemborder"
+                android:layout_marginTop="10dp">
+                <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical">
+
+                    <ImageButton
+                        android:id="@+id/id_tab06_friendButton"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="20dp"
+                        android:scaleType="center"
+                        android:background="@drawable/tab06_item_merge"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="好友"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:id="@+id/friendView" />
+
+                </LinearLayout>
+                <com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView
+                    android:id="@+id/id_tab06_userFriend"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:numColumns="2"
+                    android:background="@drawable/border"
+                    android:visibility="gone">
+                </com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_tab06_netWrap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/itemborder"
+                android:layout_marginTop="10dp">
+                <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical">
+
+                    <ImageButton
+                        android:id="@+id/id_tab06_netButton"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="20dp"
+                        android:scaleType="center"
+                        android:background="@drawable/tab06_item_merge"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="速传用户"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:id="@+id/netTextView" />
+
+                </LinearLayout>
+                <com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView
+                    android:id="@+id/id_tab06_userNet"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:numColumns="2"
+                    android:background="@drawable/border"
+                    android:visibility="gone">
+                </com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_tab06_shareWrap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/itemborder"
+                android:layout_marginTop="10dp">
+                <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical">
+                    <ImageButton
+                        android:id="@+id/id_tab06_shareButton"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="20dp"
+                        android:scaleType="center"
+                        android:background="@drawable/tab06_item_merge"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="推荐用户"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:id="@+id/shareTextView" />
+
+
+                </LinearLayout>
+                <com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView
+                    android:id="@+id/id_tab06_userShare"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:numColumns="2"
+                    android:background="@drawable/border"
+                    android:visibility="gone">
+                </com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_tab06_fileWrap"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/itemborder"
+                android:layout_marginTop="10dp">
+                <LinearLayout
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical">
+
+                    <ImageButton
+                        android:id="@+id/id_tab06_fileButton"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="20dp"
+                        android:scaleType="center"
+                        android:background="@drawable/tab06_item_merge"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="我分享的文件"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:id="@+id/fileTextView" />
+
+                </LinearLayout>
+                <com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView
+                    android:id="@+id/id_tab06_fileComputer"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:numColumns="2"
+                    android:background="@drawable/border"
+                    android:visibility="gone">
+                </com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

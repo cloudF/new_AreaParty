@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_play_status"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context="com.androidlearning.boris.familycentralcontroler.Activities.PlayStatusActivity">
+
+
+    <include layout="@layout/top_playstatus"></include>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight = "1"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/imageButton5"
+        android:layout_marginTop="19dp">
+        <Switch
+            android:id="@+id/switch_mode"
+            android:text="模式切换"
+            android:textColor="#000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="专业模式"
+            android:textOff="普通模式" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+
+        <ImageView
+            android:id="@+id/img_play_thumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/coupon_left_red"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <SeekBar
+            android:id="@+id/seek_play_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentStart="true"
+            style="@android:style/Widget.DeviceDefault.Light.SeekBar"
+            android:layout_alignParentEnd="true" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_media_play"
+            android:layout_below="@+id/seek_play_progress"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_media_next"
+            android:id="@+id/imageButton3"
+            android:layout_below="@+id/seek_play_progress"
+            android:layout_toEndOf="@+id/imageButton2" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_media_previous"
+            android:id="@+id/imageButton4"
+            android:layout_below="@+id/seek_play_progress"
+            android:layout_toStartOf="@+id/imageButton2" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_media_ff"
+            android:id="@+id/imageButton5"
+            android:layout_below="@+id/seek_play_progress"
+            android:layout_toEndOf="@+id/imageButton3" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_media_rew"
+            android:id="@+id/imageButton6"
+            android:layout_below="@+id/seek_play_progress"
+            android:layout_toStartOf="@+id/imageButton4" />
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/sound_volume"
+            android:id="@+id/imageButton8"
+            android:layout_below="@+id/seek_play_progress"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp" />
+    </RelativeLayout>
+
+
+
+</LinearLayout>

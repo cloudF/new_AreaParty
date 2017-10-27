@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/activity_main"
+    android:background="#F0F0F0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#e65757"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="自助登陆服务"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:paddingStart="10dp"
+            android:textColor="#fff"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/btn_auto_login_service"
+            android:text="已开启"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+        <TextView
+            android:text=" 爱奇艺"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/btn_login_iqiyi"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:shadowEnabled="true"
+                app:buttonColor="#ecf0f1"
+                android:shadowColor="#bdc3c7"
+                android:layout_gravity="center"
+                android:text="自动登录"
+                android:textColor="#000000"/>
+            <info.hoang8f.widget.FButton
+                android:id="@+id/btn_logout_iqiyi"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:shadowEnabled="true"
+                app:buttonColor="#ecf0f1"
+                android:shadowColor="#bdc3c7"
+                android:layout_gravity="center"
+                android:text="退出登录"
+                android:textColor="#000000"/>
+        </LinearLayout>
+
+        <TextView
+            android:text=" 优酷"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <info.hoang8f.widget.FButton
+                android:id="@+id/btn_login_youku"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:shadowEnabled="true"
+                app:buttonColor="#ecf0f1"
+                android:shadowColor="#bdc3c7"
+                android:layout_gravity="center"
+                android:text="自动登录"
+                android:textColor="#000000"/>
+            <info.hoang8f.widget.FButton
+                android:id="@+id/btn_logout_youku"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:shadowEnabled="true"
+                app:buttonColor="#ecf0f1"
+                android:shadowColor="#bdc3c7"
+                android:layout_gravity="center"
+                android:text="退出登录"
+                android:textColor="#000000"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

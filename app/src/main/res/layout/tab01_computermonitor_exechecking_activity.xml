@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/top_bar">
+
+        <ImageButton
+            android:id="@+id/returnLogo_imgButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:src="@drawable/returnlogo"
+            android:scaleType="fitXY"
+            android:background="#00000000" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:text="应用信息"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/exeContentLV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FcFcFc"
+        android:divider="@drawable/list_divider04"
+        android:dividerHeight="1px" />
+
+</LinearLayout>

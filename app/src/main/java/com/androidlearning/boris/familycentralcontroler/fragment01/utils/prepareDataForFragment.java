@@ -1,0 +1,224 @@
+package com.androidlearning.boris.familycentralcontroler.fragment01.utils;
+
+import android.util.Log;
+
+import com.androidlearning.boris.familycentralcontroler.FileTypeConst;
+import com.androidlearning.boris.familycentralcontroler.IPAddressConst;
+import com.androidlearning.boris.familycentralcontroler.MyConnector;
+import com.androidlearning.boris.familycentralcontroler.OrderConst;
+import com.androidlearning.boris.familycentralcontroler.fragment01.model.downloadedFileBean;
+import com.androidlearning.boris.familycentralcontroler.model_comman.TVCommandItem;
+import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.CommandUtil;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.AddPathToHttpParamBean;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.FileInforFormat;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.FolderInforFormat;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.JsonUitl;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.NodeFormat;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.ReceivedActionMessageFormat;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.ReceivedAddPathToHttpMessageFormat;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.ReceivedDiskListFormat;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.ReceivedFileManagerMessageFormat;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.RequestFormat;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.RequestFormatAddPathToHttp;
+
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Project Name： FamilyCentralControler
+ * Description:
+ * Author: boris
+ * Time: 2017/2/16 21:41
+ */
+
+public class prepareDataForFragment {
+
+    public static boolean getDlnaCastState(downloadedFileBean file) {
+        boolean state = false;
+        String ip = MyApplication.getIPStr();
+        String TVIp = MyApplication.getSelectedTVIP().ip;
+        if(!(ip.equals("")) && !(TVIp.equals(""))) {
+            String fileType = "";
+            if(file.getFileType() == FileTypeConst.video) {
+                fileType = "video";
+            } else if(file.getFileType() == FileTypeConst.music) {
+                fileType = "audio";
+            } else if(file.getFileType() == FileTypeConst.pic) {
+                fileType = "image";
+            }
+            String secondcommand = "http://" + ip + ":" +
+                    IPAddressConst.DLNAPHONEHTTPPORT_B + "/" + URLEncoder.encode(file.getPath());
+            Log.e("test", secondcommand);
+            String fourthcommand = file.getName();
+            String fifthcommand  = fileType;
+            TVCommandItem tvCommandItem = CommandUtil.createPlayUrlFileOnTVCommand(secondcommand, fourthcommand, fifthcommand);
+            String requestStr = JsonUitl.objectToString(tvCommandItem);
+            state = MyConnector.getInstance().sendMsgToIP(TVIp, IPAddressConst.TVRECEIVEPORT_MM, requestStr);
+        }
+
+        return state;
+    }
+
+    /**
+     * <summary>
+     *  发送磁盘操作指令并获取执行状态
+     * </summary>
+     * <param name="name">操作名称</param>
+     * <param name="command">操作</param>
+     * <param name="param">参数</param>
+     * <returns>执行结果</returns>
+     */
+    public static Object getDiskActionStateData(String name, String command, String param) {
+        Object message = new Object();
+        RequestFormat request = new RequestFormat();
+        request.setName(name);
+        request.setCommand(command);
+        request.setParam(param);
+        String requestString = JsonUitl.objectToString(request);
+        Log.e("IPGET", "loadDisksPre");
+        switch (command) {
+            case OrderConst.diskAction_get_command:
+                String msgReceived;
+                msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);
+                Log.e("IPGET", "loadDisksjisdfj");
+                if(!msgReceived.equals("")) {
+                    message = JsonUitl.stringToBean(msgReceived, ReceivedDiskListFormat.class);
+                }
+                break;
+        }
+        Log.e("page04Fragment", "disk返回");
+        return message;
+    }
+
+
+    /**
+     * <summary>
+     *  发送文件或文件夹操作指令并获取执行状态
+     * </summary>
+     * <param name="name">操作名称</param>
+     * <param name="command">操作</param>
+     * <param name="param">参数</param>
+     * <returns>执行结果</returns>
+     */
+    public static Object getFileActionStateData(String name, String command, String param) {
+        Object message = new Object();
+
+        RequestFormat request = new RequestFormat();
+        request.setName(name);
+        request.setCommand(command);
+        request.setParam(param);
+        String requestString = JsonUitl.objectToString(request);
+        switch (command) {
+            case OrderConst.fileAction_share_command:
+            case OrderConst.folderAction_addInComputer_command:
+            case OrderConst.fileAction_openInComputer_command:
+            case OrderConst.fileOrFolderAction_deleteInComputer_command:
+            case OrderConst.fileOrFolderAction_renameInComputer_command:
+            case OrderConst.fileOrFolderAction_copy_command:
+            case OrderConst.fileOrFolderAction_cut_command: {
+                String msgReceived;
+                msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);
+                Log.e("PCAction", command + ": " + msgReceived);
+                if(!msgReceived.equals("")) {
+                    message = JsonUitl.stringToBean(msgReceived, ReceivedActionMessageFormat.class);
+                }
+            }
+                break;
+            case OrderConst.folderAction_openInComputer_command: {
+                message = getFolerInforArray(request);
+            }
+                break;
+            case OrderConst.diskAction_get_command:
+                String msgReceived;
+                msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);
+                if(!msgReceived.equals("")) {
+                    message = JsonUitl.stringToBean(msgReceived, ReceivedDiskListFormat.class);
+                }
+                break;
+        }
+        return message;
+    }
+
+    /**
+     * <summary>
+     *  发送添加指定路径到Http服务器指令并获取执行状态
+     * </summary>
+     * <param name="path">路径信息</param>
+     * <returns>执行结果</returns>
+     */
+    public static Object getAddPathToHttpState(List<String> paths) {
+        Object message = new Object();
+
+        AddPathToHttpParamBean param = new AddPathToHttpParamBean();
+        param.setPaths(paths);
+        RequestFormatAddPathToHttp request = new RequestFormatAddPathToHttp();
+        request.setName(OrderConst.addPathToHttp_Name);
+        request.setCommand(OrderConst.addPathToHttp_command);
+        request.setParam(param);
+        String requestString = JsonUitl.objectToString(request);
+        String msgReceived = MyConnector.getInstance().getAddPathToHttpStateMsg(requestString);
+        Log.w("prepareDataForFragment",msgReceived);
+        if(!msgReceived.equals("")) {
+            message = JsonUitl.stringToBean(msgReceived, ReceivedAddPathToHttpMessageFormat.class);
+        }
+        return message;
+    }
+
+    /**
+     * <summary>
+     *  发送请求并获取指定文件夹下所有文件组、文件夹组，并组合起来，形成新的节点信息
+     * </summary>
+     * <param name="request">请求(类)</param>
+     * <returns>重组并封装好的节点信息组</returns>
+     */
+    private static ReceivedFileManagerMessageFormat getFolerInforArray(RequestFormat request) {
+        List<ReceivedFileManagerMessageFormat> receivedFileInforArray = new ArrayList<>();
+        String requestMsg = JsonUitl.objectToString(request);
+
+        ReceivedFileManagerMessageFormat messageTemp = new ReceivedFileManagerMessageFormat();
+        String msgReceived = MyConnector.getInstance().getActionStateMsg(requestMsg);
+        try {
+            messageTemp = JsonUitl.stringToBean(msgReceived, ReceivedFileManagerMessageFormat.class);
+        } catch (Exception e) {}
+        receivedFileInforArray.add(messageTemp);
+
+        boolean signal = (messageTemp.getStatus() == OrderConst.success
+                && messageTemp.getMessage().equals(OrderConst.folderAction_openInComputer_more_message));
+        while(signal) {
+            request.setParam(OrderConst.folderAction_openInComputer_more_param);
+            requestMsg = JsonUitl.objectToString(request);
+            msgReceived = MyConnector.getInstance().getActionStateMsg(requestMsg);
+            try {
+                messageTemp = JsonUitl.stringToBean(msgReceived, ReceivedFileManagerMessageFormat.class);
+            } catch (Exception e) {}
+            receivedFileInforArray.add(messageTemp);
+            signal = (messageTemp.getStatus() == OrderConst.success &&
+                    messageTemp.getMessage().equals(OrderConst.folderAction_openInComputer_more_message));
+        }
+
+        ReceivedFileManagerMessageFormat allFileInfor = new ReceivedFileManagerMessageFormat();
+        List<FileInforFormat> allFiles = new ArrayList<>();
+        List<FolderInforFormat> allFolders = new ArrayList<>();
+        for (ReceivedFileManagerMessageFormat temp : receivedFileInforArray) {
+            allFolders.addAll(temp.getData().getFolders());
+            allFiles.addAll(temp.getData().getFiles());
+        }
+        NodeFormat nodeTemp = new NodeFormat();
+        nodeTemp.setPath(messageTemp.getData().getPath());
+        nodeTemp.setFolders(allFolders);
+        nodeTemp.setFiles(allFiles);
+        int status = OrderConst.success;
+        String message = null;
+        if(allFiles.size() == 0 && allFolders.size() == 0) {
+            status = messageTemp.getStatus();
+            message = messageTemp.getMessage();
+        }
+        allFileInfor.setStatus(status);
+        allFileInfor.setData(nodeTemp);
+        allFileInfor.setMessage(message);
+
+        return allFileInfor;
+    }
+}

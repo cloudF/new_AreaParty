@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">AreaParty</string>
+    <string name="rebootHelper">即将重启电脑，此过程将无法获取监控信息。\n一旦重启成功，应用将自动获取监控信息。\n重启前请确保电脑能够开机自动登录。</string>
+    <string name="autoLoginLinker">windows开机自动登录指南</string>
+
+    //TabHost页头
+    <string name="title_section1">蓝牙设备</string>
+    <string name="title_section2">其他设备</string>
+
+    <drawable name="key_pressed">#303030</drawable>
+    <drawable name="key_normal">#424242</drawable>
+    <drawable name="key_sticky">#303030</drawable>
+    <drawable name="black">#000000</drawable>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="login_in">登录</string>
+    <string name="account">账户:</string>
+    <string name="cancel">取消</string>
+    <string name="pwd">密码:</string>
+    <string name="logout">注销</string>
+    <string name="auto_login">自动登录</string>
+    <string name="forget_pwd">忘记密码</string>
+    <string name="checkcode">验证码:</string>
+
+    <string name="service_name">自动登录服务</string>
+</resources>

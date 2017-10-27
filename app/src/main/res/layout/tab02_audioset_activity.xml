@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/top_bar">
+
+        <ImageButton
+            android:id="@+id/returnLogoIB"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:src="@drawable/returnlogo"
+            android:scaleType="fitXY"
+            android:background="?android:attr/selectableItemBackground" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="45dp"
+            android:text="创建的音频列表"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:gravity="start"
+            android:layout_gravity="center" />
+        <ImageView
+            android:id="@+id/addNewSetIV"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="12dp"
+            android:src="@drawable/icon_add_white"
+            android:layout_gravity="center_vertical"
+            android:background="?android:attr/selectableItemBackground"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fileSGV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp"
+        android:focusable="true"
+        android:background="#fff" />
+
+</LinearLayout>

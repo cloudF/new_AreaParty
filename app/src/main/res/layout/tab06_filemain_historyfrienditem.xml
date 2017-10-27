@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1">
+    <TextView
+        android:id="@+id/history_friendMsgTime"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="2017-5-16 22:22"
+        android:textColor="#888"
+        android:textSize="12sp"
+        android:gravity="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/history_friendHead"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        <TextView
+            android:maxWidth="250dp"
+            android:id="@+id/history_friendChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="15sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/chatfrom_bg_normal"
+            android:lineSpacingExtra="2dp" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#f5f5f5"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include layout="@layout/top01" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--对中间部分的四个按钮进行布局-->
+            <include layout="@layout/tab01_part02" />
+            <!--对中间部分的图片切换区域进行布局-->
+            <com.youth.banner.Banner
+                android:id="@+id/bannerB"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                app:indicator_drawable_selected="@drawable/indicator_select"
+                app:indicator_drawable_unselected="@drawable/indicator_unselect"/>
+            <!--对第三部分信息系统进行布局-->
+            <include layout="@layout/third01" />
+            <!--对第四部分爱生活进行布局-->
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#fff"
+                android:focusable="false"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="最近使用(TV)"
+                    android:textStyle="bold"
+                    android:textColor="#000000" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="智能生活 弹指之间"
+                    android:textColor="#a8a8a8" />
+            </LinearLayout>
+            <com.androidlearning.boris.familycentralcontroler.fragment03.ui.SwipeGridView
+                android:id="@+id/TVRecentAppSGV"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:verticalSpacing="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:gravity="center"
+                android:numColumns="4"
+                android:focusable="false"
+                android:scrollbars="none"/>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#fff"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="最近使用(PC)"
+                    android:textStyle="bold"
+                    android:textColor="#000000" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="智能生活 弹指之间"
+                    android:textColor="#a8a8a8" />
+            </LinearLayout>
+            <com.androidlearning.boris.familycentralcontroler.fragment03.ui.SwipeGridView
+                android:id="@+id/PCRecentAppSGV"
+                android:background="#fff"
+                android:focusable="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:verticalSpacing="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:gravity="center"
+                android:numColumns="4"
+                android:scrollbars="none"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#eeffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 顶部状态栏 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:orientation="vertical"
+        android:paddingTop="25dp"
+        android:paddingBottom="10dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="0dp"
+        android:elevation="5dp"
+        android:background="#E65757">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="应用"
+            android:textSize="15sp"
+            android:textColor="#ffffff"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <!-- PC状态 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/PCStateIV"
+                    android:layout_width="35dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/pcbroke"
+                    android:scaleType="fitCenter"/>
+                <TextView
+                    android:id="@+id/PCNameTV"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="离线中"
+                    android:textSize="8sp"
+                    android:textColor="#dbdbdb"/>
+            </LinearLayout>
+            <!-- TV状态 -->
+            <LinearLayout
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/TVStateIV"
+                    android:layout_width="35dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/tvbroke"
+                    android:scaleType="fitCenter"/>
+                <TextView
+                    android:id="@+id/TVNameTV"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="离线中"
+                    android:textSize="8sp"
+                    android:textColor="#dbdbdb"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 中部按钮选择区域 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/barback03">
+
+        <TextView
+            android:id="@+id/TVBarTV"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="电视应用"
+            android:textSize="12sp"
+            android:textColor="#FF5050"
+            android:clickable="true"
+            style="@style/Widget.AppCompat.Button"
+            android:background="@drawable/barback03_left_pressed"/>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="#e65757"/>
+        <TextView
+            android:id="@+id/PCBarTV"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="电脑应用"
+            android:textSize="12sp"
+            android:textColor="#707070"
+            android:clickable="true"
+            style="@style/Widget.AppCompat.Button"
+            android:background="@drawable/barback03_right_normal"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 电视应用界面 -->
+        <ScrollView
+            android:id="@+id/TVPageSV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="0dp"
+                android:paddingBottom="30dp">
+                <!-- 操作栏 -->
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:elevation="5dp"
+                        android:background="@drawable/circlecornersmallllbg">
+
+                        <!-- 第一行操作栏 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0.1sp"
+                            android:gravity="center">
+
+                            <!-- 电视信息 -->
+                            <LinearLayout
+                                android:id="@+id/TVInforLL"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:clickable="true"
+                                android:background="@drawable/linearlayout_selector02">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:padding="0dp"
+                                    android:src="@drawable/icon_tvinfor"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text="电视信息"
+                                    android:textSize="12sp"/>
+                            </LinearLayout>
+                            <!-- 重启电视 -->
+                            <LinearLayout
+                                android:id="@+id/TVRestartLL"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="0.1sp"
+                                android:gravity="center"
+                                android:clickable="true"
+                                android:background="@drawable/linearlayout_selector02">
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:padding="6dp"
+                                    android:src="@drawable/icon_tvrestart"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text="重启电视"
+                                    android:textSize="12sp"/>
+                            </LinearLayout>
+                            <!-- 关闭电视 -->
+                            <LinearLayout
+                                android:id="@+id/TVShutdownLL"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="0.1sp"
+                                android:gravity="center"
+                                android:clickable="true"
+                                android:background="@drawable/linearlayout_selector02">
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:padding="4dp"
+                                    android:src="@drawable/icon_tvshutdown"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text="关闭电视"
+                                    android:textSize="12sp"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                        <!-- 第二行操作栏 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="0.1sp">
+
+                            <!-- 设备（蓝牙设备） -->
+                            <LinearLayout
+                                android:id="@+id/TVDevicesLL"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:clickable="true"
+                                android:background="@drawable/linearlayout_selector02">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:padding="2dp"
+                                    android:src="@drawable/icon_tvdevice"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text="外部设备"
+                                    android:textSize="12sp"/>
+                            </LinearLayout>
+                            <!-- 卸载应用 -->
+                            <LinearLayout
+                                android:id="@+id/TVUninstallAppLL"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="0.1sp"
+                                android:gravity="center"
+                                android:clickable="true"
+                                android:background="@drawable/linearlayout_selector02">
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:padding="5dp"
+                                    android:src="@drawable/icon_tvuninstall"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text="应用卸载"
+                                    android:textSize="12sp"/>
+                            </LinearLayout>
+                            <!-- 电视设置 -->
+                            <LinearLayout
+                                android:id="@+id/TVSettingLL"
+                                android:layout_width="0dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="0.1sp"
+                                android:gravity="center"
+                                android:clickable="true"
+                                android:background="@drawable/linearlayout_selector02">
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:padding="4dp"
+                                    android:src="@drawable/icon_tvsetting"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text="电视设置"
+                                    android:textSize="12sp"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <!-- 已安装应用栏 -->
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:gravity="center_vertical"
+                            android:text="已经安装应用"
+                            android:textSize="14sp"
+                            android:textColor="#000"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.1sp"
+                            android:background="#66000000"/>
+                        <!-- 应用栏 -->
+                        <com.androidlearning.boris.familycentralcontroler.fragment03.ui.SwipeGridView
+                            android:id="@+id/TVInstalledAppSGV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:verticalSpacing="20dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:gravity="center"
+                            android:numColumns="4"
+                            android:scrollbars="none"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <!-- 系统应用栏 -->
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:gravity="center_vertical"
+                            android:text="系统自带应用"
+                            android:textSize="14sp"
+                            android:textColor="#000"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.1sp"
+                            android:background="#66000000"/>
+                        <!-- 应用栏 -->
+                        <com.androidlearning.boris.familycentralcontroler.fragment03.ui.SwipeGridView
+                            android:id="@+id/TVOwnAppSGV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:verticalSpacing="20dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:gravity="center"
+                            android:numColumns="4"
+                            android:scrollbars="none"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- 电脑应用界面 -->
+        <ScrollView
+            android:id="@+id/PCPageSV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="0dp"
+                android:paddingBottom="30dp"
+                android:orientation="vertical">
+                <!-- 操作栏 -->
+                <!-- 第一行操作栏 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0.1sp"
+                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:elevation="5dp"
+                    android:padding="0.1sp"
+                    android:background="@drawable/circlecornersmallllbg"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <!-- PC信息 -->
+                    <LinearLayout
+                        android:id="@+id/PCInforLL"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:background="@drawable/linearlayout_selector02">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:padding="0dp"
+                            android:src="@drawable/icon_tvinfor"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="电脑信息"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+                    <!-- 使用介绍 -->
+                    <LinearLayout
+                        android:id="@+id/PCUsingHelpLL"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="0.1sp"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:background="@drawable/linearlayout_selector02">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:padding="3dp"
+                            android:src="@drawable/logo_use"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="使用帮助"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+                    <!-- 关启PC -->
+                    <LinearLayout
+                        android:id="@+id/PCShutdown_RestartLL"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="0.1sp"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:background="@drawable/linearlayout_selector02">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="4dp"
+                            android:src="@drawable/icon_tvshutdown"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="关-启电脑"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- 应用栏 -->
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/circlecornersmallllbgnormal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="应用"
+                                android:textSize="14sp"
+                                android:textColor="#000"/>
+                            <TextView
+                                android:id="@+id/PCAppOpenModelNameTV"
+                                android:layout_width="0dp"
+                                android:layout_weight="4"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:text="(当前打开模式为RDP模式)"
+                                android:textSize="12sp"
+                                android:visibility="visible"/>
+                            <ImageView
+                                android:id="@+id/PCAppOpenModelNoticeIV"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:padding="8dp"
+                                android:clickable="true"
+                                android:src="@drawable/icon_notice"
+                                android:scaleType="fitEnd"
+                                android:background="@drawable/linearlayout_selector02"/>
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.1sp"
+                            android:background="#66000000"/>
+                        <!-- 应用栏 -->
+                        <com.androidlearning.boris.familycentralcontroler.fragment03.ui.SwipeGridView
+                            android:id="@+id/PCAppSGV"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:verticalSpacing="20dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:gravity="center"
+                            android:numColumns="4"
+                            android:stretchMode="columnWidth"
+                            android:scrollbars="none"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <!-- 游戏栏 -->
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/circlecornersmallllbgnormal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="6"
+                                android:layout_height="wrap_content"
+                                android:text="游戏"
+                                android:textSize="14sp"
+                                android:textColor="#000"/>
+                            <ImageView
+                                android:id="@+id/PCGameNoticeIV"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:padding="8dp"
+                                android:src="@drawable/icon_notice"
+                                android:scaleType="fitEnd"
+                                android:clickable="true"
+                                android:background="@drawable/linearlayout_selector02"/>
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.1sp"
+                            android:background="#66000000"/>
+                        <!-- 应用栏 -->
+                        <com.androidlearning.boris.familycentralcontroler.fragment03.ui.SwipeGridView
+                            android:id="@+id/PCGameSGV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:verticalSpacing="20dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:gravity="center"
+                            android:numColumns="4"
+                            android:scrollbars="none"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+</LinearLayout>

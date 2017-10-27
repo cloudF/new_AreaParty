@@ -1,0 +1,114 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/shape_background"
+     >
+	<EditText
+		android:id="@+id/edit_query"
+		android:textColor="#FFFFFF"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:visibility="visible"
+		/>
+    <RelativeLayout
+		android:id="@+id/layout_mouse"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        >
+
+
+		<!--<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="asdfg"
+			android:textColor="#FFFFFF"
+			android:textSize="20dp"
+			/>-->
+        
+		<ImageView
+			android:id="@+id/mouse_view"
+		    android:layout_width="250dp"
+		    android:layout_height="250dp"
+		    android:background="@drawable/circle"
+			android:layout_centerInParent="true"
+		    />
+		<!-- <ImageView
+		    android:layout_width="200dp"
+		    android:layout_height="200dp"
+		    android:src="@drawable/mouse_circle"
+		    android:layout_centerInParent="true"
+		    /> -->
+		<ImageView
+		    android:layout_width="248dp"
+		    android:layout_height="248dp"
+		    android:background="@drawable/ring"
+		    android:layout_centerInParent="true"
+		    />
+
+		<ImageView
+		    android:layout_width="83dp"
+		    android:layout_height="83dp"
+		    android:background="@drawable/ring"
+		    android:layout_centerInParent="true"
+
+		    />
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+			android:background="@drawable/background_whitecircle"
+			>
+
+            <Button
+            	android:id="@+id/btn_left"
+            	android:layout_width="40dp"
+            	android:layout_height="80dp"
+            	android:layout_gravity="center"
+
+            	android:text="左"
+            	android:textColor="#FFFFFF"
+            	android:background="@drawable/btn_leftcircle"
+            	android:scaleType="fitCenter" />
+
+
+        	<Button
+	            android:id="@+id/btn_right"
+	            android:layout_width="40dp"
+	            android:layout_height="80dp"
+	            android:layout_gravity="center"
+				android:text="右"
+				android:textColor="#FFFFFF"
+				android:shadowColor="#FFFFFF"
+	            android:background="@drawable/btn_rightcircle"
+	            android:scaleType="fitCenter" /> 
+            
+        </LinearLayout>
+         
+
+    </RelativeLayout>
+
+    <RelativeLayout
+		android:id="@+id/layout_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+		android:layout_weight="9"
+        >
+
+        <android.inputmethodservice.KeyboardView
+            android:id="@+id/keyboard_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/background"
+            android:focusable="true"
+            android:paddingTop="5dp"
+            android:focusableInTouchMode="true"
+            android:keyBackground="@drawable/key_background"
+            android:keyTextColor="#FFFFFF"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>
+

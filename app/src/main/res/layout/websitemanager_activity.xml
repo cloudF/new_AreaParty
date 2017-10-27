@@ -1,0 +1,193 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativelayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/webmanager_bkcolor"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:id="@+id/linerlayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/webmanager_red_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dip"
+            android:layout_weight="1"
+            android:gravity="center"
+
+            android:text="网络媒体库"
+            android:textColor="#ffffff"
+            android:textSize="20dip"
+            />
+
+    </LinearLayout>
+
+   <RelativeLayout
+       android:layout_below="@id/linerlayout1"
+       android:id="@+id/relativelayout2"
+       android:layout_width="fill_parent"
+       android:layout_marginTop="50dp"
+       android:background="@drawable/webmanager_edittext_color4"
+       android:layout_height="wrap_content">
+       <TextView
+
+           android:id="@+id/tv_select"
+           android:layout_width="wrap_content"
+           android:layout_height="35dp"
+           android:layout_marginLeft="20dp"
+           android:textSize="25dp"
+           android:textColor="#ff6a6a"
+           android:text="网络媒体平台:" />
+   </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_width="fill_parent"
+        android:background="@drawable/webmanager_edittext_color4"
+        android:layout_below="@id/relativelayout2"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.55">
+
+        <RelativeLayout
+            android:id="@+id/layoutWeb1080"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/webmanager_edittext_color3"
+            android:clickable="true"
+            android:gravity="center_vertical" >
+
+          <android.support.design.widget.CheckableImageButton
+              android:id="@+id/web1080"
+              android:layout_width="wrap_content"
+              android:layout_height="50dp"
+              android:layout_marginLeft="2dp"
+              android:background="@drawable/webmanager_web1080_logo"/>
+            <Button
+                android:id="@+id/ButtonWeb1080"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="2dp"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:text="www.1080.net"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutBlufans"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layoutWeb1080"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/webmanager_edittext_color3"
+            android:clickable="true"
+            android:gravity="center_vertical" >
+
+            <android.support.design.widget.CheckableImageButton
+                android:id="@+id/blufans"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/webmanager_webchcdchd_logo"/>
+            <Button
+                android:id="@+id/ButtonBlufans"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="2dp"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:text="www.chdchd.com"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutHdchd"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layoutBlufans"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/webmanager_edittext_color3"
+            android:clickable="true"
+            android:gravity="center_vertical" >
+
+            <android.support.design.widget.CheckableImageButton
+                android:id="@+id/hdchd"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/webmanager_hdchd_logo"/>
+            <Button
+                android:id="@+id/ButtonHdchd"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="2dp"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:text="www.hdchd.org"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layoutHdchd"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/webmanager_edittext_color3"
+            android:clickable="true"
+            android:gravity="center_vertical" >
+
+            <android.support.design.widget.CheckableImageButton
+                android:id="@+id/hdhome"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/webmanager_hdhome_logo"/>
+            <Button
+                android:id="@+id/ButtonHdhome"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="2dp"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:text="www.hdhome.org"/>
+
+        </RelativeLayout>
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+       <Button
+           android:id="@+id/downloadManagement"
+           android:layout_alignParentBottom="true"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="下载管理" />
+
+
+
+</RelativeLayout>

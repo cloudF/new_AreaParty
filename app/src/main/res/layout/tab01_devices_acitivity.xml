@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+            <com.androidlearning.boris.familycentralcontroler.fragment01.ui.DiffuseView
+                android:id="@+id/wifiExistDV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/wifiexist"
+                app:diffuse_color="#fff"
+                app:diffuse_coreImage="@drawable/find_wifi_normal"
+                app:diffuse_coreRadius="165"
+                app:diffuse_maxWidth="300"
+                app:diffuse_speed="2"
+                app:diffuse_width="4" />
+            <ImageView
+                android:id="@+id/noWifibgIV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/find_wifi_normal"
+                android:scaleType="fitCenter"
+                android:paddingTop="90dp"
+                android:paddingBottom="90dp"
+                android:background="@drawable/nowifi"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingTop="30dp">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/devicesRefreshSRL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:padding="5dp">
+                    <com.androidlearning.boris.familycentralcontroler.fragment01.ui.SwipeListView
+                        android:id="@+id/devicesLV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="2dp"
+                        android:background="@drawable/circlecornersmallllbgnormal"
+                        android:divider="@drawable/list_divider01"
+                        android:dividerHeight="1px"
+                        android:scrollbars="none"
+                        android:visibility="visible"
+                        android:elevation="2dp"/>
+                </ScrollView>
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+
+            <LinearLayout
+                android:id="@+id/noWifiNoticeLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/no_wifi_hint"/>
+                <TextView
+                    android:id="@+id/noWifiNoticeTxtTV"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="需和TV设备处于同一WiFi才能检测TV"/>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="35dp"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:background="#0000"
+            android:id="@+id/returnLogoIB"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="14dp"
+            android:src="@drawable/returnlogo"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/wifiStateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WiFi已连接至'VirtualGroup'"
+            android:textColor="#fff"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+</RelativeLayout>

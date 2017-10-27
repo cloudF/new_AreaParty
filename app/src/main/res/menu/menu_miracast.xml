@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/PCVitrualKMLL"
+        android:title="虚拟键鼠" />
+    <item android:id="@+id/PCMobileBluetoothKMLL"
+        android:title="中转键鼠" />
+</menu>

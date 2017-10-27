@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FcFcFc"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/top_bar">
+
+            <ImageButton
+                android:id="@+id/tvmediaset_returnLogo_imgButton"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:padding="10dp"
+                android:src="@drawable/returnlogo"
+                android:scaleType="fitXY"
+                android:background="#00000000" />
+            <TextView
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:text="蓝牙设备"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TextView
+            android:text="选择连接到TV上的蓝牙音箱"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/>
+        <TextView
+            android:text="您需要的蓝牙设备若正连接在其他设备上，请先点击下方蓝牙按钮跳转至设置界面，将设备断开"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <!--<LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/tvmediaset_checkpc"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="TV"/>
+            <CheckBox
+                android:id="@+id/tvmediaset_checkph"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="手机"/>
+        </LinearLayout>
+-->
+        <!--<Button
+            android:id="@+id/btn_devicesfresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="刷新"/>-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical" android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <!--<LinearLayout
+                    android:id="@+id/tvmediaset_ph_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:background="#F5F5F5">
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="bottom"
+                        android:id="@+id/tvmediaset_ph_getDevices"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:text="手机：可连接设备"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="right">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="蓝牙开关"/>
+
+                        <Switch
+                            android:id="@+id/tvmediaset_swc_bluetooth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#666666"
+                            android:textSize="14sp"
+                            />
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <com.androidlearning.boris.familycentralcontroler.Bluetoothxie.ListViewForScrollView
+                    android:id="@+id/tvmediaset_list_ph_getDevices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FcFcFc"
+                    android:divider="@drawable/list_divider04"
+                    android:dividerHeight="1px" >
+
+                </com.androidlearning.boris.familycentralcontroler.Bluetoothxie.ListViewForScrollView>
+
+                <LinearLayout
+                    android:id="@+id/tvmediaset_ph_conlayout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:background="#F5F5F5">
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="bottom"
+                        android:id="@+id/tvmediaset_ph_conDevices"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:text="手机：已配对设备"/>
+
+                </LinearLayout>
+
+                <com.androidlearning.boris.familycentralcontroler.Bluetoothxie.ListViewForScrollView
+                    android:id="@+id/tvmediaset_list_ph_conDevices"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FcFcFc"
+                    android:divider="@drawable/list_divider04"
+                    android:dividerHeight="1px" >
+
+                </com.androidlearning.boris.familycentralcontroler.Bluetoothxie.ListViewForScrollView>
+
+                <LinearLayout
+                    android:id="@+id/tvmediaset_pc_layout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:background="#F5F5F5">
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="bottom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvmediaset_get_bluetoothdevices"
+                        android:text="PC:可连接设备"
+                        android:textSize="14sp"
+                        />
+
+                </LinearLayout>
+
+                <com.androidlearning.boris.familycentralcontroler.Bluetoothxie.ListViewForScrollView
+                    android:id="@+id/tvmediaset_list_getDevices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FcFcFc"
+                    android:divider="@drawable/list_divider04"
+                    android:dividerHeight="1px">
+
+                </com.androidlearning.boris.familycentralcontroler.Bluetoothxie.ListViewForScrollView>
+                &lt;!&ndash;<Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/connect_bluetoothdevices"
+                android:text="连接蓝牙设备"
+                />&ndash;&gt;
+                <LinearLayout
+                    android:id="@+id/tvmediaset_pc_conlayout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:background="#F5F5F5">
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="bottom"
+                        android:id="@+id/tvmediaset_connected_bluetoothdevices"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PC:已连接设备"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <com.androidlearning.boris.familycentralcontroler.Bluetoothxie.ListViewForScrollView
+                    android:id="@+id/tvmediaset_list_conDevices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FcFcFc"
+                    android:divider="@drawable/list_divider04"
+                    android:dividerHeight="1px" >
+
+                </com.androidlearning.boris.familycentralcontroler.Bluetoothxie.ListViewForScrollView>-->
+                <LinearLayout
+                    android:id="@+id/tvmediaset_tv_layout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:background="#F5F5F5">
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="bottom"
+                        android:id="@+id/tvmediaset_tv_getDevices"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:text="TV：当前无可连接设备"/>
+
+                </LinearLayout>
+
+                <com.androidlearning.boris.familycentralcontroler.bluetoothxie.ListViewForScrollView
+                    android:id="@+id/tvmediaset_list_tv_getDevices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FcFcFc"
+                    android:divider="@drawable/list_divider04"
+                    android:dividerHeight="1px" >
+
+                </com.androidlearning.boris.familycentralcontroler.bluetoothxie.ListViewForScrollView>
+
+                <LinearLayout
+                    android:id="@+id/tvmediaset_tv_conlayout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:background="#F5F5F5">
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="bottom"
+                        android:id="@+id/tvmediaset_tv_conDevices"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:text="TV:当前无已连接设备"/>
+
+                </LinearLayout>
+
+                <com.androidlearning.boris.familycentralcontroler.bluetoothxie.ListViewForScrollView
+                    android:id="@+id/tvmediaset_list_tv_conDevices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FcFcFc"
+                    android:divider="@drawable/list_divider04"
+                    android:dividerHeight="1px" >
+
+                </com.androidlearning.boris.familycentralcontroler.bluetoothxie.ListViewForScrollView>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+    <!--&lt;!&ndash;点击更多弹出的菜单&ndash;&gt;
+    <LinearLayout
+        android:id="@+id/bar01MoreRootLL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:elevation="6dp"
+        android:gravity="end"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/bar01MoreBarLL"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:elevation="2dp"
+            android:background="@drawable/menuback04"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="75dp"
+            android:layout_marginEnd="4dp">
+
+            <TextView
+                android:id="@+id/bar01MoreAction1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp"
+                android:text="虚拟键鼠"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:clickable="true" />
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="0.1dp"
+                android:background="#33000000"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/bar01MoreAction2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp"
+                android:text="蓝牙键鼠"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:clickable="true" />
+        </LinearLayout>
+    </LinearLayout>
+-->
+    <LinearLayout
+        android:id="@+id/tvmediaset_diskListActionBarLL"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:elevation="2dp"
+        android:background="@drawable/barback04"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible">
+        <!-- 刷新 -->
+        <LinearLayout
+            android:id="@+id/tvmediaset_diskListRefreshLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/refresh_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="刷新"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 更多 -->
+        <LinearLayout
+            android:id="@+id/tvmediaset_diskListMoreLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/bluetooth"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="蓝牙"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

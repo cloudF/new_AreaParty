@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/webmanager_cover_default"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_alignBaseline="@+id/textView1"
+                android:layout_alignBottom="@+id/textView1"
+                android:layout_alignLeft="@+id/textView1"
+                android:layout_marginLeft="62dp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_above="@+id/button2"
+                android:layout_centerHorizontal="true"
+                android:text="你好！"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:layout_alignRight="@+id/username"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="18dp"
+                android:text="签到得魔力值"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="430dp"
+        android:layout_weight="2"
+        android:background="@color/lift_backgourd"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/go_next"
+            android:layout_width="170dp"
+            android:layout_height="66dp"
+            android:layout_marginRight="1dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:gravity="fill_vertical"
+                android:text="魔力值："
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/meilizhi"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:gravity="fill_vertical"
+                android:text=""
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/go_collection"
+            android:layout_width="150dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="1dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:gravity="fill_vertical"
+                android:text="分享率："
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/fenxianglv"
+                android:layout_width="wrap_content"
+                android:layout_height="59dp"
+                android:gravity="fill_vertical"
+                android:text=""
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="430dp"
+        android:layout_weight="2"
+        android:background="@color/lift_backgourd"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/go_next1"
+            android:layout_width="170dp"
+            android:layout_height="66dp"
+            android:layout_marginRight="1dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:gravity="fill_vertical"
+                android:text="上传量："
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/shangchuanliang"
+                android:layout_width="wrap_content"
+                android:layout_height="59dp"
+                android:gravity="fill_vertical"
+                android:text=""
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/go_collection2"
+            android:layout_width="fill_parent"
+            android:layout_height="75dp"
+            android:layout_marginLeft="1dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:gravity="fill_vertical"
+                android:text="下载量："
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/xiazailiang"
+                android:layout_width="wrap_content"
+                android:layout_height="59dp"
+                android:layout_weight="0.75"
+                android:gravity="fill_vertical"
+                android:text=""
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout style="@style/wrap_layout" >
+
+        <!-- 上圆角-->
+        <LinearLayout style="@style/top_layout"
+            android:layout_height="67dp">
+
+            <TextView style="@style/usertext" android:text="我的好友" />
+            <ImageView style="@style/img_arrow"
+                android:id="@+id/myfriend"/>
+        </LinearLayout>
+
+        <!-- 分割线 -->
+        <View style="@style/bg_line"/>
+        <!-- 无圆角-->
+        <LinearLayout style="@style/mid_layout">
+            <TextView style="@style/usertext" android:text="我的收藏" />
+            <ImageView style="@style/img_arrow"
+                android:id="@+id/myshoucang"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <!-- 下圆角-->
+        <LinearLayout style="@style/bottom_layout">
+            <TextView style="@style/usertext" android:text="RSS下载筐" />
+            <ImageView style="@style/img_arrow"
+                android:id="@+id/myrss"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!-- 全圆角-->
+    <LinearLayout style="@style/wrap_layout">
+        <LinearLayout style="@style/single_layout">
+            <TextView style="@style/usertext" android:text="修改密码"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="注销" />
+
+</LinearLayout>
+
+

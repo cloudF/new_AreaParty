@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/idbottom_linearLayout"
+    android:orientation="vertical"
+    android:paddingTop="5dp"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:elevation="10dp"
+    android:layout_height="50dp">
+
+
+    <LinearLayout
+        android:baselineAligned="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/id_tab01"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/id_tab01_image"
+                android:clickable="false"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/tab01_normal"
+                android:scaleType="fitCenter"
+                android:background="#0000" />
+
+            <TextView
+                android:id="@+id/id_tab01_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="首页"
+                android:textColor="#999999" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/id_tab02"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/id_tab02_image"
+                android:clickable="false"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/tab02_normal"
+                android:scaleType="fitCenter"
+                android:background="#0000" />
+
+            <TextView
+                android:id="@+id/id_tab02_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="媒体"
+                android:textColor="#999999" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/id_tab03"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/id_tab03_image"
+                android:clickable="false"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/tab03_normal"
+                android:scaleType="fitCenter"
+                android:background="#0000" />
+
+            <TextView
+                android:id="@+id/id_tab03_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="应用"
+                android:textColor="#999999" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/id_tab04"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/id_tab04_image"
+                android:clickable="false"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/tab06_normal"
+                android:scaleType="fitCenter"
+                android:background="#0000" />
+
+            <TextView
+                android:id="@+id/id_tab04_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="分享"
+                android:textColor="#999999" />
+        </LinearLayout>
+    </LinearLayout>
+    <!--<HorizontalScrollView-->
+        <!--android:id="@+id/id_tabBar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scrollbars="none"-->
+        <!--android:nestedScrollingEnabled="true">-->
+
+
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/id_tab05"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_height="match_parent">-->
+
+                <!--<ImageButton-->
+                    <!--android:id="@+id/id_tab05_image"-->
+                    <!--android:clickable="false"-->
+                    <!--android:layout_width="25dp"-->
+                    <!--android:layout_height="25dp"-->
+                    <!--android:src="@drawable/tab04_normal"-->
+                    <!--android:scaleType="fitCenter"-->
+                    <!--android:background="#0000" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/id_tab05_text"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--android:text="文件"-->
+                    <!--android:textColor="#999999" />-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/id_tab06"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_height="match_parent">-->
+
+                <!--<ImageButton-->
+                    <!--android:id="@+id/id_tab06_image"-->
+                    <!--android:clickable="false"-->
+                    <!--android:layout_width="25dp"-->
+                    <!--android:layout_height="25dp"-->
+                    <!--android:src="@drawable/tab05_normal"-->
+                    <!--android:scaleType="fitCenter"-->
+                    <!--android:background="#0000" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/id_tab06_text"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--android:text="VIP"-->
+                    <!--android:textColor="#999999" />-->
+            <!--</LinearLayout>-->
+    <!--</HorizontalScrollView>-->
+
+
+</LinearLayout>

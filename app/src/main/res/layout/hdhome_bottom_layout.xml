@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    android:background="@drawable/webmanager_bottom_bar" >
+
+    <LinearLayout
+        android:id="@+id/id_tab_movieSeed"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+<!-- android:clickable="false" 是为了防止ImageButton截取了触摸事件 ，这里事件要给它的上一级linearlayout-->
+
+        <ImageButton
+            android:id="@+id/id_tab_movieSeed_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/webmanager_tab_movieseed_pressed"
+            android:clickable="false" />
+
+        <TextView
+            android:id="@+id/id_tab_movieSeed_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="movieSeed" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_tab_download"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/id_tab_download_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/webmanager_tab_download_pressed"
+            android:clickable="false" />
+
+        <TextView
+            android:id="@+id/id_tab_download_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="download" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_tab_forum"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"  >
+
+        <ImageButton
+            android:id="@+id/id_tab_forum_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/webmanager_tab_forum_pressed"
+            android:clickable="false" />
+
+        <TextView
+            android:id="@+id/id_tab_forum_tv"
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="forum"  />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_tab_me"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"  >
+
+        <ImageButton
+            android:id="@+id/id_tab_me_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/webmanager_tab_me_pressed"
+            android:clickable="false" />
+
+        <TextView
+            android:id="@+id/id_tab_me_tv"
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="me"  />
+
+    </LinearLayout>
+
+</LinearLayout>

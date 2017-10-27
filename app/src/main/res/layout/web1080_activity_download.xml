@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".DownloadActivity">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/login_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/Theme.AppCompat.Light"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:id="@+id/lly_menu"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:layout_alignParentBottom="true"
+            android:background="#e6e6e6">
+
+            <TextView
+                android:id="@+id/tv_select_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:drawableTop="@drawable/webmanager_ic_select_all"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:text="全选"
+                android:textColor="@android:color/black"
+                />
+            <TextView
+                android:id="@+id/tv_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/webmanager_ic_share"
+                android:layout_marginLeft="50dp"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:text="分享"
+                android:textColor="@android:color/black"
+                />
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/webmanager_ic_delete"
+                android:layout_marginLeft="50dp"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:text="删除"
+                android:textColor="@android:color/black"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

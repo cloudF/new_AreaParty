@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.androidkun:xversionupdate-1.0.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/xversionupdate-1.0.4.aar/613425e081031a4d029e4f31f3376b43/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/xversionupdate-1.0.4.aar/613425e081031a4d029e4f31f3376b43/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.androidkun/xversionupdate/1.0.4/9ffe9f148ec1edcb42e1b3ba6ce0e5d3bec7bec6/xversionupdate-1.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

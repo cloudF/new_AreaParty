@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:elevation="3dp"
+            android:background="@drawable/top_bar">
+            <ImageButton
+                android:id="@+id/returnToDiskListIM"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:src="@drawable/returnlogo"
+                android:scaleType="fitXY"
+                android:background="#00000000" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:text="我的分享"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_gravity="center" />
+        </LinearLayout>
+        <ScrollView
+            android:id="@+id/sharedFileSV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="乐分享"
+                            android:textStyle="bold"
+                            android:textColor="#000000" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="智能生活 你我之间"
+                            android:textColor="#a8a8a8" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:baselineAligned="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/sharedPicLL"
+                            android:clickable="true"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/linearlayout_selector02"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+                            <ImageButton
+                                android:clickable="false"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/pic_share"
+                                android:scaleType="fitCenter"
+                                android:background="#0000" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="图片"
+                                android:textSize="14sp"
+                                android:textColor="#000000" />
+                            <TextView
+                                android:id="@+id/sharedPicNumTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:text="(0)"
+                                android:textSize="12sp"
+                                android:textColor="#88000000" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/sharedMusicLL"
+                            android:clickable="true"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/linearlayout_selector02"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+                            <ImageButton
+                                android:clickable="false"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/music_share"
+                                android:scaleType="fitCenter"
+                                android:background="#0000" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="音频"
+                                android:textSize="14sp"
+                                android:textColor="#000000" />
+                            <TextView
+                                android:id="@+id/sharedMusicNumTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:text="(0)"
+                                android:textSize="12sp"
+                                android:textColor="#88000000" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/sharedMovieLL"
+                            android:clickable="true"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/linearlayout_selector02"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+                            <ImageButton
+                                android:clickable="false"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/movie_share"
+                                android:scaleType="fitCenter"
+                                android:background="#0000" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="视频"
+                                android:textSize="14sp"
+                                android:textColor="#000000" />
+                            <TextView
+                                android:id="@+id/sharedMovieNumTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:text="(0)"
+                                android:textSize="12sp"
+                                android:textColor="#88000000" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:baselineAligned="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/sharedDocumentLL"
+                            android:clickable="true"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/linearlayout_selector02"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+                            <ImageButton
+                                android:clickable="false"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/document_share"
+                                android:scaleType="fitCenter"
+                                android:background="#0000" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="文档"
+                                android:textSize="14sp"
+                                android:textColor="#000000" />
+                            <TextView
+                                android:id="@+id/sharedDocumentNumTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:text="(0)"
+                                android:textSize="12sp"
+                                android:textColor="#88000000" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/sharedRarLL"
+                            android:clickable="true"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/linearlayout_selector02"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+                            <ImageButton
+                                android:clickable="false"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/rar_share"
+                                android:scaleType="fitCenter"
+                                android:background="#0000" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="压缩包"
+                                android:textSize="14sp"
+                                android:textColor="#000000" />
+                            <TextView
+                                android:id="@+id/sharedRarNumTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:text="(0)"
+                                android:textSize="12sp"
+                                android:textColor="#88000000" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/sharedOtherLL"
+                            android:clickable="true"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/linearlayout_selector02"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+                            <ImageButton
+                                android:clickable="false"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/otherfile_share"
+                                android:scaleType="fitCenter"
+                                android:background="#0000" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="其他"
+                                android:textSize="14sp"
+                                android:textColor="#000000" />
+                            <TextView
+                                android:id="@+id/sharedOtherNumTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="1dp"
+                                android:text="(0)"
+                                android:textSize="12sp"
+                                android:textColor="#88000000" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#f5f5f5"/>
+                <com.androidlearning.boris.familycentralcontroler.fragment01.ui.SwipeListView
+                    android:id="@+id/sharedFileContentLV"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:divider="@drawable/list_divider04"
+                    android:dividerHeight="1px" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/sharedFileActionBarLL"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/barback04"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible">
+        <!-- 刷新 -->
+        <LinearLayout
+            android:id="@+id/sharedFileRefreshLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/refresh_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="刷新"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 更多 -->
+        <LinearLayout
+            android:id="@+id/sharedFileMoreLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/more_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="更多"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

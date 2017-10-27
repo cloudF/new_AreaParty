@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 顶部状态栏 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/top_bar">
+
+        <ImageButton
+            android:id="@+id/returnLogoIB"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:src="@drawable/returnlogo"
+            android:scaleType="fitXY"
+            android:background="?android:attr/selectableItemBackground" />
+        <TextView
+            android:id="@+id/setNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="45dp"
+            android:text="测试集合"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:gravity="start"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#F2F2F2">
+
+        <!-- part02 -->
+        <!-- 播放全部 -->
+        <LinearLayout
+            android:id="@+id/playAllLL"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:background="@drawable/linearlayout_selector02">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="14dp"
+                android:src="@drawable/playmusictop" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="播放全部"
+                android:textColor="#000"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/numTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(共0首)"
+                android:textColor="#88000000"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- part03 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- 列表 -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fileSGV"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:focusable="true" />
+            <!-- 当前播放 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
+                android:gravity="center_vertical"
+                android:background="#fff">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/logo_music_diezi"/>
+                <TextView
+                    android:id="@+id/currentMusicNameTV"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    android:text="无"/>
+                <ImageView
+                    android:id="@+id/playOrPauseIV"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="14dp"
+                    android:clickable="false"
+                    android:src="@drawable/music_pause" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

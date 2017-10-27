@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/top02" />
+    <LinearLayout
+        android:id="@+id/layout_topbar"
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:layout_height="40dp">
+        <ImageButton
+            android:id="@+id/btn_return"
+            android:background="@drawable/returnlogofw"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="3dp"
+            android:visibility="visible"
+            android:elevation="0dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/btn_show_pc"
+                android:text="PC"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="4"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/my_btn00"
+                android:textColor="#fff"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/btn_show_tv"
+                android:text="TV"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="4"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="0dp"
+                android:background="@drawable/my_btn01"
+                android:textColor="#bfbfbf"
+                android:visibility="visible" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txt_media_name"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="PC"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="智能生活 弹指之间     "
+            android:textColor="#a8a8a8"/>
+        <ImageView
+            android:id="@+id/btn_media_mouse"
+            android:src="@drawable/mousekeyboardblack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="2dp"-->
+    <!--android:layout_marginTop="3dp"-->
+    <!--android:background="#eee"/>-->
+
+
+    <LinearLayout
+        android:id="@+id/listview_container"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#fff"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/layout_playlist"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_manage_playlist"
+                    android:text="管理播放列表"
+                    android:textColor="#fff"
+                    android:textSize="12sp"
+                    android:background="@drawable/myborder_02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="2px"
+                android:layout_height="match_parent"
+                android:background="#bfbfbf"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize = "12sp"
+                        android:textColor="#5D8DE3"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/textview_blueborder"
+                        android:text="上次打开的播放列表" />
+
+                    <TextView
+                        android:id="@+id/text_last_playlist_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:text="播放列表七"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:textSize="12sp"
+                                android:text="播放到第" />
+                            <TextView
+                                android:id="@+id/text_last_playlist_audio_order"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="105"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:textColor="#5D8DE3"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="首"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+
+                        <ImageButton
+                            android:id="@+id/btn_last_playlist_audio_play"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/run"/>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="#fff"/>
+
+
+        <ListView
+            android:id="@+id/list_medias"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+    </LinearLayout>
+
+
+    <View
+        android:background="#bfbfbf"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+
+</LinearLayout>

@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff">
+        <ImageView
+            android:id="@+id/folderFileImg"
+            android:clickable="false"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/torrent"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginLeft="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="5dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/folderFileName"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="我是文件名"
+                android:textColor="#000"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/folderFileInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="我是文件描述"
+                android:gravity="center_vertical"
+                android:textSize="12sp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/folderFileDownload"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:background="@drawable/buttonradius"
+            android:textSize="10sp"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:layout_gravity="end|center_vertical"
+            android:text="下载"
+            android:layout_marginEnd="15dp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/prefresh_list_cutline" />
+</LinearLayout>
