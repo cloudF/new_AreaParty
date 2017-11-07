@@ -178,6 +178,12 @@ public class PtTorrentManagement extends AppCompatActivity {
                 });
                 dialog.show();
             }
+
+            @Override
+            public void selectModel() {
+
+            }
+
         });
     }
 }

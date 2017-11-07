@@ -202,6 +202,10 @@ public class OrderConst {
     public static final String VLCAction_Appoint_Play_Position_secondCommand = "PLAY_APPOINT_POSITION";
     public static final String CHECK_ACCESSIBILITY_ISOPEN_firCommand= "CHECK_ACCESSIBILITY" ;
 
+    public static final String VLCAction_HideSubtitle_SecondCommand = "HIDE_SUBTITLE";
+    public static final String VLCAction_LoadSubtitle_SecondCommand = "LOAD_SUBTITLE";
+
+    public static final String GET_AREAPARTY_PATH = "GETAREAPARTYPATH";
 
     // ...
 }

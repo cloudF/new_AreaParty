@@ -268,8 +268,10 @@ public class Send2PCThread extends Thread {
                         List<MediaItem> folders = new ArrayList<>();
                         int size = mediaList.size();
                         for(int i = 0; i < size; ++i) {
-                            if(mediaList.get(i).getType().equals("FOLDER"))
+                            if(mediaList.get(i).getType().equals("FOLDER")){
                                 folders.add(mediaList.get(i));
+                                Log.w("SendToPCThread",mediaList.get(i).getName());
+                            }
                             else files.add(mediaList.get(i));
                         }
                         MediafileHelper.setMediaFiles(files, folders);

@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.androidlearning.boris.familycentralcontroler.IPAddressConst;
 import com.androidlearning.boris.familycentralcontroler.MyConnector;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
@@ -21,6 +22,8 @@ import com.androidlearning.boris.familycentralcontroler.androideventbusutils.eve
 import com.androidlearning.boris.familycentralcontroler.androideventbusutils.events.changeSelectedDeviceNameEvent;
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.SharedfileBean;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utils.HttpServer;
+import com.androidlearning.boris.familycentralcontroler.fragment01.websitemanager.web1080.RemoteDownloadActivity;
+import com.androidlearning.boris.familycentralcontroler.fragment01.utils.prepareDataForFragment;
 import com.androidlearning.boris.familycentralcontroler.fragment03.utils.TVAppHelper;
 import com.androidlearning.boris.familycentralcontroler.myapplication.inforUtils.FillingIPInforList;
 import com.androidlearning.boris.familycentralcontroler.myapplication.inforUtils.Update_ReceiveMsgBean;
@@ -30,6 +33,9 @@ import com.androidlearning.boris.familycentralcontroler.utils_comman.PreferenceU
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.IPInforBean;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.JsonUitl;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.ReceivedActionMessageFormat;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.ReceivedDiskListFormat;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.ReceivedExeListFormat;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.RequestFormat;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.netWork.NetBroadcastReceiver;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.netWork.NetUtil;
 import com.google.gson.Gson;
@@ -42,6 +48,7 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okserver.OkDownload;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONException;
 import org.simple.eventbus.EventBus;
 
 import java.io.BufferedReader;
@@ -119,6 +126,43 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         MyConnector.getInstance().initial(selectedPCIP.ip);
         EventBus.getDefault().post(new SelectedDeviceChangedEvent(selectedPCOnline, selectedPCIP), "selectedPCChanged");
 
+        getPcAreaPartyPath();
+
+    }
+    public static void getPcAreaPartyPath(){//发送请求获取AreaParty安装目录
+        if (selectedPCOnline && !TextUtils.isEmpty(selectedPCIP.ip)){
+            try {
+                RequestFormat request = new RequestFormat();
+                request.setName(OrderConst.GET_AREAPARTY_PATH);
+                request.setCommand("");
+                request.setParam("");
+                final String requestString = JsonUitl.objectToString(request);
+                Log.w("GET_AREAPARTY_PATH",requestString);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);
+                        if (TextUtils.isEmpty(msgReceived)) {
+                            Log.w("GET_AREAPARTY_PATH", "msgReceived is null");
+                        }
+                        try {
+                            org.json.JSONObject jsonObject = new org.json.JSONObject(msgReceived);
+                            Log.w("GET_AREAPARTY_PATH",msgReceived);
+                            String path = jsonObject.getString("message");
+                            Log.w("GET_AREAPARTY_PATH",path);
+                            if (!TextUtils.isEmpty(path)){
+                                RemoteDownloadActivity.btFilesPath = path + "BtFiles\\";
+                                Log.w("GET_AREAPARTY_PATH",RemoteDownloadActivity.btFilesPath);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }).start();
+            }catch (Exception e){e.printStackTrace(); Log.w("GET_AREAPARTY_PATH","Exception");}
+
+        }
     }
 
     public static void setSelectedTVIP(IPInforBean selectedTVIP) {
@@ -248,6 +292,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                         Log.e("stateChange", "连接PC成功");
                         PCOnline = true;
                         FillingIPInforList.addPCInfor(selectedPCIP);
+                        if (TextUtils.isEmpty(RemoteDownloadActivity.btFilesPath)){getPcAreaPartyPath();}
                     } catch (IOException e) {
                         Log.e("stateChange", "连接PC失败" + selectedPCIP.ip);
                         PCOnline = false;
@@ -373,8 +418,13 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         String TVString = new PreferenceUtil(context).read("lastChosenTV");
         String PCString = new PreferenceUtil(context).read("lastChosenPC");
         Log.e("PCMacsStr",PCMacsStr+PCString);
-        PCMacs = parse(PCMacsStr);
-        TVMacs = parse(TVMacsStr);
+        try {
+            PCMacs = parse(PCMacsStr);
+            TVMacs = parse(TVMacsStr);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         if (TVString != null && !TVString.equals("")) {
             selectedTVIP = JsonUitl.stringToBean(TVString, IPInforBean.class);
 
@@ -382,12 +432,15 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         if(PCString != null && !PCString.equals("")) {
             selectedPCIP = JsonUitl.stringToBean(PCString, IPInforBean.class);
             MyConnector.getInstance().initial(selectedPCIP.ip);
+            getPcAreaPartyPath();
         }
 
 
         if(MyApplication.getSelectedPCIP()!=null&&MyApplication.getSelectedTVIP()!=null){
             TVAppHelper.currentPcInfo2TV();
         }
+
+
     }
 
     private static HashMap<String, String> parse(String str) {
@@ -497,8 +550,9 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        verifyLastPCMac();
+        try {
+            verifyLastPCMac();
+        }catch (Exception e){e.printStackTrace();}
         verifyLastTVMac();
         startStateRefreshTimer();
         startCheckIsNewVersionExist();

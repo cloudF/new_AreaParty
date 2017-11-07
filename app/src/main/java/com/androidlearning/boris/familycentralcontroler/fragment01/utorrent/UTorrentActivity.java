@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.adapter.UTorrentAdapter;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.adapter.WrapContentLinearLayoutManager;
+import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.customView.MyItemDecoration;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.listener.OnRecycleViewClickListener;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.model.Torrent;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.utils.OkHttpUtils;
@@ -85,16 +86,16 @@ public class UTorrentActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new MyItemDecoration());
         recyclerView.setAdapter(adapter);
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.utorrent_toolbar, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.utorrent_toolbar, menu);
+//        return true;
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -104,9 +105,8 @@ public class UTorrentActivity extends AppCompatActivity {
                 case 1:
                     List<String> list = data.getStringArrayListExtra("paths");
                     if (list!=null && list.size()>0 && list.get(0).endsWith(".torrent")){
-                        String path = list.get(0);
                         String url = "http://"+ UrlUtils.ip_port+"/gui/?token="+UrlUtils.token+"&action=add-file&download_dir=0&path=";
-                        OkHttpUtils.getInstance().setUrl(url).postBuild(path)
+                        OkHttpUtils.getInstance().setUrl(url).postBuild(list)
                                 .execute(new Callback() {
                                     @Override
                                     public void onFailure(Call call, IOException e) {
@@ -146,6 +146,7 @@ public class UTorrentActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //startActivity();
+                        startActivityForResult(new Intent(UTorrentActivity.this, TorrentFileActivity.class),1);
                     }
                 });
                 builder.setNeutralButton("从电脑添加", new DialogInterface.OnClickListener() {
@@ -202,7 +203,7 @@ public class UTorrentActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toasty.error(getApplicationContext(),"网络信号差").show();
+                                //Toasty.error(getApplicationContext(),"网络信号差").show();
                             }
                         });
                     }
@@ -245,12 +246,7 @@ public class UTorrentActivity extends AppCompatActivity {
                 .execute(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toasty.error(getApplicationContext(),"网络故障").show();
-                            }
-                        });
+//
                     }
 
                     @Override

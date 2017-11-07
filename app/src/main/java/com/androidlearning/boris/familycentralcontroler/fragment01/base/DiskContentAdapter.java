@@ -112,21 +112,25 @@ public class DiskContentAdapter extends BaseAdapter {
                 }
             }
         });
+        try{
+            fileBean fileBeanTemp = datas.get(i);
 
-        fileBean fileBeanTemp = datas.get(i);
-        if(fileBeanTemp.isShow) {
-            holder.checkBox.setVisibility(View.VISIBLE);
-            holder.checkBox.setClickable(true);
-            if(fileBeanTemp.isChecked) {
-                holder.checkBox.setChecked(true);
+            if(fileBeanTemp.isShow) {
+                holder.checkBox.setVisibility(View.VISIBLE);
+                holder.checkBox.setClickable(true);
+                if(fileBeanTemp.isChecked) {
+                    holder.checkBox.setChecked(true);
+                } else {
+                    holder.checkBox.setChecked(false);
+                }
             } else {
-                holder.checkBox.setChecked(false);
+                holder.checkBox.setVisibility(View.GONE);
+                holder.checkBox.setClickable(false);
             }
-        } else {
-            holder.checkBox.setVisibility(View.GONE);
-            holder.checkBox.setClickable(false);
+            setHolder(holder, fileBeanTemp);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        setHolder(holder, fileBeanTemp);
 
         return view;
     }

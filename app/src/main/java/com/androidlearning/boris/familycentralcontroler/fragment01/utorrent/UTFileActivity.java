@@ -13,6 +13,7 @@ import android.util.Log;
 import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.adapter.TFileAdapter;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.adapter.WrapContentLinearLayoutManager;
+import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.customView.MyItemDecoration;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.listener.OnCheckBoxChangeListener;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.model.TFile;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.utils.OkHttpUtils;
@@ -62,7 +63,7 @@ public class UTFileActivity extends AppCompatActivity {
         adapter.setListener(listener);
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new MyItemDecoration());
         recyclerView.setAdapter(adapter);
 
         initData();

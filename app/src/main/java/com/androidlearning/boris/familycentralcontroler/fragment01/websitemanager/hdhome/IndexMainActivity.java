@@ -1012,6 +1012,12 @@ public class IndexMainActivity extends Activity {
 				});
 				dialog.show();
 			}
+
+			@Override
+			public void selectModel() {
+
+			}
+
 		});
 	}
 

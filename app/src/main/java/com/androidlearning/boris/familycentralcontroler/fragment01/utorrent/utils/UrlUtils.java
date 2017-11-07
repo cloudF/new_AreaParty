@@ -11,8 +11,6 @@ import java.util.List;
  */
 
 public class UrlUtils {
-
-
     public static String ip_port;
     private String action;
     private List<String> hashList;

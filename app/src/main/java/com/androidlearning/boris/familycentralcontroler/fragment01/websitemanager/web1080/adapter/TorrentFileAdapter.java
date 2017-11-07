@@ -7,12 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 
 import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.fragment01.websitemanager.web1080.callback.OnTorrentFileItemListener;
+import com.androidlearning.boris.familycentralcontroler.fragment02.ui.BreakTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,15 +31,17 @@ public class TorrentFileAdapter extends RecyclerView.Adapter<TorrentFileAdapter.
     static class ViewHolder extends RecyclerView.ViewHolder{
 
         CardView cardView;
-        TextView torrentFileName;
+        BreakTextView torrentFileName;
         Button downloadBtn, deleteBtn;
+        CheckBox checkBox;
 
         public ViewHolder(View view){
             super(view);
             cardView = (CardView) view;
-            torrentFileName = (TextView) view.findViewById(R.id.torrent_file_name);
+            torrentFileName = (BreakTextView) view.findViewById(R.id.torrent_file_name);
             downloadBtn = (Button) view.findViewById(R.id.download);
             deleteBtn = (Button) view.findViewById(R.id.delete);
+            checkBox = (CheckBox) view.findViewById(R.id.checkBox);
         }
     }
 
@@ -58,7 +63,13 @@ public class TorrentFileAdapter extends RecyclerView.Adapter<TorrentFileAdapter.
     @Override
     public void onBindViewHolder(final TorrentFileAdapter.ViewHolder holder,final int position) {
         final TorrentFile torrent = mTorrentList.get(position);
-
+        if (torrent.isShow()){
+            holder.checkBox.setVisibility(View.VISIBLE);
+            holder.checkBox.setClickable(false);
+            holder.checkBox.setChecked(torrent.isChecked());
+        }else {
+            holder.checkBox.setVisibility(View.GONE);
+        }
         holder.torrentFileName.setText(torrent.getTorrentFileName());
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +83,37 @@ public class TorrentFileAdapter extends RecyclerView.Adapter<TorrentFileAdapter.
                 mListener.download(position);
             }
         });
+        if (!torrent.isShow() && holder.checkBox.getVisibility() == View.GONE){//长按进入选择模式
+            holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    for (TorrentFile f : mTorrentList){
+                        f.setShow(true);
+                        f.setChecked(false);
+                    }
+                    torrent.setChecked(true);
+                    notifyDataSetChanged();
+                    mListener.selectModel();
+                    return true;
+                }
+            });
+        }
+        if (torrent.isShow() && holder.checkBox.getVisibility() == View.VISIBLE){
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(torrent.isChecked()){
+                        torrent.setChecked(false);
+                        holder.checkBox.setChecked(false);
+                    }else {
+                        torrent.setChecked(true);
+                        holder.checkBox.setChecked(true);
+                    }
+                }
+            });
+        }
+
+
 //        holder.cbSelect.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -111,5 +153,15 @@ public class TorrentFileAdapter extends RecyclerView.Adapter<TorrentFileAdapter.
 
     public TorrentFile getItem(int pos){
         return mTorrentList.get(pos);
+    }
+
+    private List<TorrentFile> getSelectedTorrent(){
+        List<TorrentFile> selectList = new ArrayList<>();
+        for (TorrentFile f : mTorrentList){
+            if (f.isShow()&&f.isChecked()){
+                selectList.add(f);
+            }
+        }
+        return selectList;
     }
 }

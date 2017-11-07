@@ -697,4 +697,19 @@ public class CommandUtil {
         return cmd;
     }
 
+    public static TVCommandItem createLoadSubtitleVLCCommand() {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.VLCAction_firCommand);
+        cmd.setSecondcommand(OrderConst.VLCAction_LoadSubtitle_SecondCommand);
+        return cmd;
+    }
+
+
+    public static TVCommandItem createHideSubtitleVLCCommand() {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.VLCAction_firCommand);
+        cmd.setSecondcommand(OrderConst.VLCAction_HideSubtitle_SecondCommand);
+        return cmd;
+    }
+
 }

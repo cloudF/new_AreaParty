@@ -275,10 +275,15 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
                     InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                     manager.hideSoftInputFromWindow(actionDialogAddFolder.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     ((TextView)(loadingView.findViewById(R.id.note))).setText("执行中...");
-                    dialog.show();
+
+
                     IdentityVerify.identifyPC(myHandler, code, infor.ip, infor.port);
 
                     actionDialogAddFolder.dismiss();
+
+                    try {
+                        dialog.show();
+                    }catch (Exception e){e.printStackTrace();}
                 }
             }
         });

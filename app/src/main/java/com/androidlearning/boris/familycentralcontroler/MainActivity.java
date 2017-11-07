@@ -171,7 +171,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         MyApplication.getInstance().addActivity(this);
 
-        if(FillingIPInforList.getStatisticThread() != null)
+        if(FillingIPInforList.getStatisticThread() != null && !FillingIPInforList.getStatisticThread().isAlive())
             FillingIPInforList.getStatisticThread().start();
 
         /**

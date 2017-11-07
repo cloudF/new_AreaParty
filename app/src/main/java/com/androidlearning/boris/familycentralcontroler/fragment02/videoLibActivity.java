@@ -51,6 +51,7 @@ public class videoLibActivity extends Activity implements View.OnClickListener{
     MyAdapter<MediaItem> fileAdapter;
     private MediaItem currentFile;
 
+
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {

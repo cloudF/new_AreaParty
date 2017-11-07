@@ -210,4 +210,13 @@ public class TVAppHelper {
     public static TVInforBean getTvInfor() {
         return tvInfor;
     }
-}
+
+    public static void vedioPlayControlHideSubtitle() {
+        String cmd = JsonUitl.objectToString(CommandUtil.createHideSubtitleVLCCommand());
+        new Send2TVThread(cmd).start();
+    }
+    public static void vedioPlayControlLoadSubtitle() {
+        String cmd = JsonUitl.objectToString(CommandUtil.createLoadSubtitleVLCCommand());
+        new Send2TVThread(cmd).start();
+    }
+    }

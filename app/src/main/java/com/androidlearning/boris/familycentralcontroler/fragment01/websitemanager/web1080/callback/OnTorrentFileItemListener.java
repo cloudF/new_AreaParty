@@ -7,4 +7,5 @@ package com.androidlearning.boris.familycentralcontroler.fragment01.websitemanag
 public interface OnTorrentFileItemListener {
     void delete(int position);
     void download(int position);
+    void selectModel();
 }

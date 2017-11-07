@@ -327,7 +327,7 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
                         lastVideoCastIB.setVisibility(View.VISIBLE);
                         mediaFile = MediafileHelper.getRecentVideos().get(0);
                         lastVideoNameTV.setText(mediaFile.getName());
-                        Glide.with(mContext)
+                        Glide.with(MyApplication.getContext())
                                 .load(mediaFile.getThumbnailurl()).apply(new RequestOptions().placeholder(R.drawable.videotest).dontAnimate().centerCrop())
                                 .into(lastVideoThumbnailIV);
                     } else {

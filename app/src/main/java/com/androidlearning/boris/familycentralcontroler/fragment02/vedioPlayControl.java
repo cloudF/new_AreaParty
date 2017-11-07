@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -33,6 +34,8 @@ public class vedioPlayControl extends AppCompatActivity {
     public static  TextView player_overlay_time;
     public static TextView player_title;
     public static TextView player_overlay_length;
+    public static Button load_Subtitle;
+    public static Button hide_Subtitle;
 
 
     private boolean isChanging=false;//互斥变量，防止定时器与SeekBar拖动时进度冲突
@@ -100,7 +103,19 @@ public class vedioPlayControl extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new MySeekbar());
 
 
-
+        //字幕
+        load_Subtitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TVAppHelper.vedioPlayControlLoadSubtitle();
+            }
+        });
+        hide_Subtitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TVAppHelper.vedioPlayControlHideSubtitle();
+            }
+        });
 
         //然后是调用，调用代码就简单的放几句吧，应该看得懂的
         RemoteControlView roundMenuView=new RemoteControlView(this);
@@ -335,6 +350,8 @@ public class vedioPlayControl extends AppCompatActivity {
         player_overlay_length=(TextView)findViewById(R.id.player_overlay_length);
         player_overlay_time=(TextView)findViewById(R.id.player_overlay_time);
         player_title=(TextView)findViewById(R.id.player_title);
+        load_Subtitle=(Button) findViewById(R.id.load_subtitle);
+        hide_Subtitle=(Button)findViewById(R.id.hide_subtitle);
 
 
     }

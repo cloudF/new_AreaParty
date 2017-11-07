@@ -204,7 +204,7 @@ public class diskContentActivity extends Activity implements View.OnClickListene
             isCheckBoxIn = false;
         page04DiskContentErrorIV.setVisibility(View.VISIBLE);
         dialog.dismiss();
-        Toasty.error(this, msg.getData().getString("error"), Toast.LENGTH_SHORT, true).show();
+        Toasty.error(this, msg.getData().getString("error")+"", Toast.LENGTH_SHORT, true).show();
     }
 
     public void actionSuccess(Message msg) {

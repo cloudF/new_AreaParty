@@ -18,4 +18,6 @@ public class IPAddressConst {
     public static final int statisticServer_port = 10000;
     public static final int checkNewVersion_port = 10001;
     public static final int REVEIVE_FROM_TVPLAYER_PORT = 9323;
+
+    public static final int UTORRENT_PORT = 9324;
 }

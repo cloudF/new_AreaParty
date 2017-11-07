@@ -349,6 +349,55 @@ public class PCFileHelper {
 
     /**
      * <summary>
+     *  删除选中文件和文件夹，并发出消息
+     * </summary>
+     */
+    public void deleteFile(final List<String> paths) {
+        Log.e("PCFileHelper", "开始删除选中的文件(夹)" + (paths.size()));
+        reCeivedActionErrorMessageList.clear();
+        new Thread(){
+            @Override
+            public void run() {
+                // 依次删除选中的文件
+                for (String path:paths) {
+                    try {
+                        ReceivedActionMessageFormat tmp = (ReceivedActionMessageFormat)
+                                prepareDataForFragment.getFileActionStateData(
+                                        OrderConst.fileAction_name,
+                                        OrderConst.fileOrFolderAction_deleteInComputer_command,
+                                        path);
+                        if(tmp.getStatus() == OrderConst.failure) {
+                            reCeivedActionErrorMessageList.add(tmp.getMessage());
+                        }
+                    } catch(Exception e) {
+                        reCeivedActionErrorMessageList.add(e.getMessage());
+                    }
+                }
+                // 执行成功
+                if(reCeivedActionErrorMessageList.size() == 0) {
+                    Message message = new Message();
+                    message.what = OrderConst.actionSuccess_order;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("actionType", OrderConst.fileOrFolderAction_deleteInComputer_command);
+                    message.setData(bundle);
+                    myHandler.sendMessage(message);
+                } else {
+                    // 执行失败
+                    Message message = new Message();
+                    message.what = OrderConst.actionFail_order;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("error", "部分文件删除出错，详情请查看错误日志。");
+                    bundle.putString("actionType", OrderConst.fileOrFolderAction_deleteInComputer_command);
+                    message.setData(bundle);
+                    myHandler.sendMessage(message);
+                }
+            }
+
+        }.start();
+    }
+
+    /**
+     * <summary>
      *  移动选中文件和文件夹，并发出消息
      * </summary>
      */
@@ -496,6 +545,53 @@ public class PCFileHelper {
                 isInitial = true;
                 selectedFolders.clear();
                 selectedFiles.clear();
+            }
+        }.start();
+    }
+    /**
+     * <summary>
+     *  复制选中文件和文件夹，并发出消息
+     * </summary>
+     */
+    public void copyFile(final List<String> paths, final String targetPath) {
+        Log.e("PCFileHelper", "开始复制选中的文件(夹)到" + targetPath);
+        reCeivedActionErrorMessageList.clear();
+        new Thread(){
+            @Override
+            public void run() {
+                for (String  path : paths) {
+                    try {
+                        ReceivedActionMessageFormat tmp = (ReceivedActionMessageFormat)
+                                prepareDataForFragment.getFileActionStateData(
+                                        OrderConst.fileAction_name,
+                                        OrderConst.fileOrFolderAction_copy_command,
+                                        OrderConst.paramSourcePath + path + OrderConst.paramTargetPath +
+                                                targetPath.substring(0, targetPath.length() - 1));
+                        if(tmp.getStatus() == OrderConst.failure) {
+                            reCeivedActionErrorMessageList.add(tmp.getMessage());
+                        }
+                    } catch(Exception e) {
+                        reCeivedActionErrorMessageList.add(e.getMessage());
+                    }
+                }
+                // 执行成功
+                if(reCeivedActionErrorMessageList.size() == 0) {
+                    Message message = new Message();
+                    message.what = OrderConst.actionSuccess_order;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("actionType", OrderConst.fileOrFolderAction_copy_command);
+                    message.setData(bundle);
+                    myHandler.sendMessage(message);
+                } else {
+                    // 执行失败
+                    Message message = new Message();
+                    message.what = OrderConst.actionFail_order;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("error", "部分文件复制出错，详情请查看错误日志。");
+                    bundle.putString("actionType", OrderConst.fileOrFolderAction_copy_command);
+                    message.setData(bundle);
+                    myHandler.sendMessage(message);
+                }
             }
         }.start();
     }

@@ -197,6 +197,9 @@ public class UTorrentAdapter extends RecyclerView.Adapter<UTorrentAdapter.ViewHo
             case "Finding peers":
                 newStatus = "寻找种源";
                 break;
+            case "Deleting":
+                newStatus = "删除中";
+                break;
             default:
                 newStatus = status;
                 break;

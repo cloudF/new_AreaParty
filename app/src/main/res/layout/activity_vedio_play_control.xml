@@ -7,25 +7,45 @@ android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/control_circle"
-        android:layout_width="368dp"
-        android:layout_height="600dp"
-        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
         android:layout_alignParentStart="true">
 
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/seekbar"
-        android:layout_below="@+id/control_circle"
+        android:layout_alignParentBottom="true"
 
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="400dp">
+        android:layout_marginBottom="100dp"
+
+        >
+
+        <Button
+            android:id="@+id/load_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="在线字幕"
+            android:layout_marginStart="26dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/player_overlay_time"
+            android:layout_alignBottom="@+id/hide_subtitle" />
+
+        <Button
+            android:id="@+id/hide_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="隐藏字幕"
+            android:layout_alignParentTop="true"
+            android:layout_alignEnd="@+id/player_overlay_seekbar"
+            android:layout_marginEnd="18dp" />
 
         <SeekBar
+            android:layout_below="@+id/load_subtitle"
             android:id="@+id/player_overlay_seekbar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -35,11 +55,11 @@ android:layout_height="match_parent">
             android:paddingBottom="4dp"
             android:paddingLeft="@dimen/time_margin_sides"
             android:paddingRight="@dimen/time_margin_sides"
-            android:paddingTop="4dp"
+            android:paddingTop="6dp"
             android:progressDrawable="@drawable/po_seekbar"
             android:splitTrack="false"
             android:thumb="@drawable/seekbar_thumb"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
             android:layout_alignEnd="@+id/player_overlay_length"
             />
 

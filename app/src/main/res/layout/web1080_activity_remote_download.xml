@@ -20,29 +20,80 @@
         android:layout_height="0dp"
         android:layout_marginTop="1dp"
         android:layout_weight="1">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="已下载种子文件"
-            android:background="#eee"/>
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/ptTorrentListView">
-        </ListView>
+            android:elevation="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/barback03">
+
+            <TextView
+                android:id="@+id/app_file"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="手机种子"
+                android:textSize="12sp"
+                android:textColor="#FF5050"
+                android:clickable="true"
+                style="@style/Widget.AppCompat.Button"
+                android:background="@drawable/barback03_left_pressed"/>
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#e65757"/>
+            <TextView
+                android:id="@+id/pc_file"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="电脑种子"
+                android:textSize="12sp"
+                android:textColor="#707070"
+                android:clickable="true"
+                style="@style/Widget.AppCompat.Button"
+                android:background="@drawable/barback03_right_normal"/>
+        </LinearLayout>
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_torrent_file"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_torrent_file"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_torrent_pcFile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/ptTorrentListView">
+                </ListView>
+            </LinearLayout>
+
+
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
@@ -51,4 +102,170 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="电脑下载远程控制" />
+    <LinearLayout
+        android:id="@+id/menu_list"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/barback04"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone">
+        <!-- 添加到下载列表 -->
+        <LinearLayout
+            android:id="@+id/addToDownload"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar01IconAddIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/addfolder_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar01TxAddTV"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="添加到下载列表"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 传送到电脑 -->
+        <LinearLayout
+            android:id="@+id/sendToPc"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar01IconRefreshIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/upload_img"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar01TxRefreshTV"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="传送到电脑"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 删除 -->
+        <LinearLayout
+            android:id="@+id/torrentDelete"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar01IconSortIV"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/delete_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar01TxSortTV"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="删除"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/menu_list_pc"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/barback04"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone">
+        <!-- 添加到下载列表 -->
+        <LinearLayout
+            android:id="@+id/addToDownload_pc"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar01IconAddIV_pc"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/addfolder_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar01TxAddTV_pc"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="添加到下载列表"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 删除 -->
+        <LinearLayout
+            android:id="@+id/torrentDelete_pc"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/bar01IconSortIV_pc"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/delete_normal"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/bar01TxSortTV_pc"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="删除"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

@@ -205,10 +205,10 @@
             <ImageView
                 android:id="@+id/bar01IconMoreIV"
                 android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_height="13dp"
                 android:clickable="false"
-                android:src="@drawable/more_normal"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/more_normal" />
 
             <TextView
                 android:id="@+id/bar01TxMoreTV"

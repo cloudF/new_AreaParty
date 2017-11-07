@@ -3,660 +3,123 @@
 
     <item
         is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\aliyun-java-sdk-dysmsapi-1.0.0-SNAPSHOT.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="db3f63a2a77d02e919db4e2680124c95788a0745">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\2.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\hellocharts-library-1.5.8.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="700944cb3a8ce4fe543cfac1a9146a11cbf702dc">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\9.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.8.0\5a11f020cce2d11eb71ba916700600e18c4547e7\okhttp-3.8.0.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="5a11f020cce2d11eb71ba916700600e18c4547e7">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\52.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\disklrucache\4.0.0\d88059003509074dd59fa226c822724bcf5ec0ca\disklrucache-4.0.0.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="d88059003509074dd59fa226c822724bcf5ec0ca">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\48.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\065e87cc94c545166e03a5f029a5cdd8\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\14.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\library-1.4.1.aar\b164209c6b975345ca8ed497700a19df\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="772452261af8eb9c1df9ae71fb621afe393277da">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\12.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\4.0.0\dff931af436f0a2815d0109ab2258bbce2d6275d\glide-4.0.0.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="dff931af436f0a2815d0109ab2258bbce2d6275d">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\27.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\android-shapeLoadingView-1.0.3.2.aar\c93f2dfdc862f9a5a25c38815cdd4f9c\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="0cc1eadbbbd59d1ac49015550ce8e11e2dff5eff">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\21.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\okgo-3.0.1.aar\dc5c759ba64db006aa122b343ee6099e\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="2eaadd8180a26732dfdc8def99cee3096d5e533f">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\51.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\commons-codec-1.3.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="fd32786786e2adb664d5ecc965da47629dca14ba">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\commons-codec-1.3_5809c845dd4c00d835ddc3757b8a65eeed4b6c1f.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\commons-logging-1.0.4.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="f029a2aefe2b3e1517573c580f948caac31b1056">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\6.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\47.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\banner-1.4.9.aar\24071eac5e4ad5cc9ddbeea5e4744e0e\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="5f49fbc1bda3fa9073a82dd87de3e1ceea24268d">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\34.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\modules-2\files-2.1\org.jsoup\jsoup\1.10.3\b842f960942503cf1abbcc8c173a7f2c19d43726\jsoup-1.10.3.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="b842f960942503cf1abbcc8c173a7f2c19d43726">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\35.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.1.1.aar\7853e1a2af2e918fe3268c154e3e0ed1\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\38.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\library-0.0.2.aar\55a391ee9a81dba0032266e73190ba3d\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="2fc859b7abb78d29169f6a582b45cbe1f3f1a4cc">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\25.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\mouseandboard.jar"
+        jar="F:\new_AreaParty\app\libs\mouseandboard.jar"
         jumboMode="false"
         min-sdk-version="21"
         optimize="true"
         revision="26.0.2"
         sha1="a5b09138d9a91dc158c0eae957df8f89acea31bd">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\10.jar" />
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\10.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\8281c8d19fb1a9e76553b34c04b8723f\jars\classes.jar"
+        jar="F:\new_AreaParty\app\libs\hellocharts-library-1.5.8.jar"
         jumboMode="false"
         min-sdk-version="21"
         optimize="true"
         revision="26.0.2"
-        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\29.jar" />
+        sha1="700944cb3a8ce4fe543cfac1a9146a11cbf702dc">
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\9.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\library-2.1.3.aar\a43313d9b37a0a990d618b2ec06e27e2\jars\classes.jar"
+        jar="F:\new_AreaParty\app\libs\Client.jar"
         jumboMode="false"
         min-sdk-version="21"
         optimize="true"
         revision="26.0.2"
-        sha1="e699699fae0092703de1d02b217f43803d0f7e0a">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\20.jar" />
+        sha1="51966761755edf899661666edee9435713c36238">
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\3.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\gson.jar"
+        jar="F:\new_AreaParty\app\libs\commons-httpclient-3.0-rc4.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e728d6667d5cf161ddede1247d6a59ae5bc9e183">
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\new_AreaParty\mth\build\intermediates\intermediate-jars\release\classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2a9979ee250c7b55ced79c397621380c46d5f627">
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\54.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\new_AreaParty\app\libs\aliyun-java-sdk-dysmsapi-1.0.0-SNAPSHOT.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="db3f63a2a77d02e919db4e2680124c95788a0745">
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\new_AreaParty\app\libs\gson.jar"
         jumboMode="false"
         min-sdk-version="21"
         optimize="true"
         revision="26.0.2"
         sha1="c4ba5371a29ac9b2ad6129b1d39ea38750043eff">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\8.jar" />
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\8.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\library-1.3.0.aar\2319bcdf7bf6f5b3c56eddabf8449d1f\jars\classes.jar"
+        jar="F:\new_AreaParty\app\libs\commons-logging-1.0.4.jar"
         jumboMode="false"
         min-sdk-version="21"
         optimize="true"
         revision="26.0.2"
-        sha1="8ec8378e8d7aa3104f60823e6350f2728d3609ba">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\23.jar" />
+        sha1="f029a2aefe2b3e1517573c580f948caac31b1056">
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\6.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\support-fragment-25.1.1.aar\85ce1b6043a649bbb43d05352e92c2a1\jars\classes.jar"
+        jar="F:\new_AreaParty\app\libs\aliyun-java-sdk-core-3.2.3.jar"
         jumboMode="false"
         min-sdk-version="21"
         optimize="true"
         revision="26.0.2"
-        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\41.jar" />
+        sha1="6412211c65e7e4c1aa3e28ed4e5abc88d4cd6725">
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\1.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\xversionupdate-1.0.4.aar\613425e081031a4d029e4f31f3376b43\jars\classes.jar"
+        jar="F:\new_AreaParty\app\libs\protobuf-java-2.5.0.jar"
         jumboMode="false"
         min-sdk-version="21"
         optimize="true"
         revision="26.0.2"
-        sha1="446fa70b3784b8103ad3d09fea09a2a95c3556d5">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\16.jar" />
+        sha1="5f9ff0e862bf744b3792a5d618381c649202891f">
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\11.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.0.aar\b6b6d2ed4f8d0e0881db45579647a737\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="93c10d68ab5ea070f15782ae6d3a28d1f1d8f45e">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\45.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.1.1.aar\5debee994d6a511f7b6a703c27511472\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\43.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\mth\build\intermediates\bundles\default\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="2a9979ee250c7b55ced79c397621380c46d5f627">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\classes_38fa6dfacd9a6eb940003cce8f5646a02e40010d.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\commons-codec-1.3.jar"
+        jar="F:\new_AreaParty\app\libs\commons-codec-1.3.jar"
         jumboMode="false"
         min-sdk-version="21"
         optimize="true"
         revision="26.0.2"
         sha1="fd32786786e2adb664d5ecc965da47629dca14ba">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\4.jar" />
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\4.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\hellocharts-library-1.5.8.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="700944cb3a8ce4fe543cfac1a9146a11cbf702dc">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\hellocharts-library-1.5.8_72717c515a08057761f0b8e6b178c9acfdae522f.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\cardview-v7-24.2.1.aar\49dad99a2d512ebce693371addd7a810\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="c5e6490573cd2cc8018417f60ddd251138b6ed61">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\30.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.1.1.aar\1ebd079f74c1aa72fac8f0f4b357875a\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\17.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\Client.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="51966761755edf899661666edee9435713c36238">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\Client_24df5552852d282ef51b57ef5f5060d28e61d079.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\modules-2\files-2.1\com.alibaba\fastjson\1.2.14\ebe0a01b96fd0151e9efabcf1b10b3cf37b02a4a\fastjson-1.2.14.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="ebe0a01b96fd0151e9efabcf1b10b3cf37b02a4a">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\fastjson-1.2.14_d060f301b0f30091d3a8f5019ef2a7926b8a13cf.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\fbutton-1.0.5.aar\ed4796fc3802a916e8ded26e855824bf\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="2c12397a785c3b1868fbebeffc9553457b27803f">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\31.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.5\2852e6e05fbb95076fc091f6d1780f1f8fe35e0f\commons-io-2.5.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="2852e6e05fbb95076fc091f6d1780f1f8fe35e0f">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\22.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\annotations\4.0.0\f80192e6fd828d41c7da6f3552b0bef5d89cb26e\annotations-4.0.0.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="f80192e6fd828d41c7da6f3552b0bef5d89cb26e">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\49.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\modules-2\files-2.1\com.alibaba\fastjson\1.2.14\ebe0a01b96fd0151e9efabcf1b10b3cf37b02a4a\fastjson-1.2.14.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="ebe0a01b96fd0151e9efabcf1b10b3cf37b02a4a">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\36.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\okserver-2.0.1.aar\d1f360bbf266e067bb9fdfd2aff26546\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="f6d765c19a152d8243abdf92615d670b674b8fd9">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\32.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.13.0\a9283170b7305c8d92d25aff02a6ab7e45d06cbe\okio-1.13.0.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\53.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\BaseRecyclerViewAdapterHelper-v1.9.7.aar\1c6671a5f1bcbc4c930315452f4a41cf\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="21377185320779732882fcfaaf968ba157b3838b">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\18.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\Client.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="51966761755edf899661666edee9435713c36238">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\3.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\bottomdialog-1.1.9.aar\3723b03961cba13920603fb43a7039cc\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="868c991077c574f6ff2b324b1032ee30a1bccd93">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\24.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\citypickerview-1.0.0.aar\f3cd084d5d8fffe9bcfce59d5ab4cf5c\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="77b8f3605cd6ba013b6ca809c391c3d238ebbe5f">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\15.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\dom4j-1.6.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="5d3ccc056b6f056dbf0dddfdf43894b9065a8f94">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\dom4j-1.6.1_85a832b1f6d0e938b0e111defab43c54c3f1b634.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.1.1.aar\7efd28ec7b23c673df59792e852ab071\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\44.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\gifdecoder\4.0.0\47c487cc4e64e6ab127a517669ca9a7b49f8c61d\gifdecoder-4.0.0.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="47c487cc4e64e6ab127a517669ca9a7b49f8c61d">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\39.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\50.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife-annotations\8.8.1\bc373fb6bc7bca3035041b924f158fd2b946ee8d\butterknife-annotations-8.8.1.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="bc373fb6bc7bca3035041b924f158fd2b946ee8d">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\40.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\protobuf-java-2.5.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="5f9ff0e862bf744b3792a5d618381c649202891f">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\protobuf-java-2.5.0_34d3830d1678a58592cc58418718459873f875d5.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\gson.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="c4ba5371a29ac9b2ad6129b1d39ea38750043eff">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\gson_68998cfe59f6509849acd3046f49a40c50035ea5.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-24.2.1.aar\9ba5f9297704c844a48638e7ba7480c4\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\19.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\commons-httpclient-3.0-rc4.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="e728d6667d5cf161ddede1247d6a59ae5bc9e183">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\5.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\commons-httpclient-3.0-rc4.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="e728d6667d5cf161ddede1247d6a59ae5bc9e183">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\commons-httpclient-3.0-rc4_1a5032823641674dd42a3737899a4a22988cdbd0.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.1.1.aar\2bf8e803cd969a9047b9bb31e2065016\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\37.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\butterknife-8.8.1.aar\14b8a94a401803f466cfad405e434115\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="6a2bcb61342d09fe9acf55c9daf63961c8866cc0">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\33.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\androideventbus-1.0.5.1.aar\0b77500a9fa7b4cfb85cd55357cb2b62\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="fe03e79c796c9b2615a2ec315e61333834448560">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\28.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.1.1.aar\39222364612e6b168df7003782bb734a\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\42.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\mouseandboard.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="a5b09138d9a91dc158c0eae957df8f89acea31bd">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\mouseandboard_90bdf8639a0ec186948b26f2dfece090397ef181.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.3.1\support-annotations-25.3.1.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\46.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\dom4j-1.6.1.jar"
+        jar="F:\new_AreaParty\app\libs\dom4j-1.6.1.jar"
         jumboMode="false"
         min-sdk-version="21"
         optimize="true"
         revision="26.0.2"
         sha1="5d3ccc056b6f056dbf0dddfdf43894b9065a8f94">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\7.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\aliyun-java-sdk-dysmsapi-1.0.0-SNAPSHOT.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="db3f63a2a77d02e919db4e2680124c95788a0745">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\aliyun-java-sdk-dysmsapi-1.0.0-SNAPSHOT_efe4cb8314c9b84d8ef1c6fb6cc138520c424ded.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\commons-logging-1.0.4.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="f029a2aefe2b3e1517573c580f948caac31b1056">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\commons-logging-1.0.4_78c8dbf3f5502776a0a3033cf3c381a473156bdc.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\protobuf-java-2.5.0.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="5f9ff0e862bf744b3792a5d618381c649202891f">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\11.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\aliyun-java-sdk-core-3.2.3.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="6412211c65e7e4c1aa3e28ed4e5abc88d4cd6725">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\1.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\app\libs\aliyun-java-sdk-core-3.2.3.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="6412211c65e7e4c1aa3e28ed4e5abc88d4cd6725">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\pre-dexed\debug\aliyun-java-sdk-core-3.2.3_9cbca009167ce1710c02f15004833085b298e25b.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\support-v4-25.1.1.aar\8664ffae8aba8ca6f166c58f1074059c\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\26.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="F:\AreaParty\android0829_0918\android0829\android\mth\build\intermediates\intermediate-jars\release\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="2a9979ee250c7b55ced79c397621380c46d5f627">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\54.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\Toasty-1.1.3.aar\0436e5911b621943101572e75331330b\jars\classes.jar"
-        jumboMode="false"
-        min-sdk-version="21"
-        optimize="true"
-        revision="26.0.2"
-        sha1="aa13c67643afa4a5f7353095eb7fb985d55a18e1">
-        <dex dex="F:\AreaParty\android0829_0918\android0829\android\app\build\intermediates\transforms\preDex\release\13.jar" />
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\7.jar" />
     </item>
 
 </items>

@@ -244,6 +244,7 @@
         <activity android:name=".fragment01.utorrent.MainActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".fragment01.utorrent.UTorrentActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".fragment01.utorrent.UTFileActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".fragment01.utorrent.TorrentFileActivity" android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 

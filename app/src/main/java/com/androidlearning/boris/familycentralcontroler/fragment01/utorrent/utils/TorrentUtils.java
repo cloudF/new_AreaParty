@@ -84,7 +84,7 @@ public class TorrentUtils {
         } else {
             size = size*10 / 1024;
         }
-        if (size < 1024) {
+        if (size < 10240) {
             //保留1位小数，
             return String.valueOf((size / 10)) + "."
                     + String.valueOf((size % 10)) + "MB";
