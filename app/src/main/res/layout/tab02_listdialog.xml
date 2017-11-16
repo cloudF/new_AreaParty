@@ -20,10 +20,13 @@
             android:text="音频: "
             android:textSize="14sp"
             />
-        <TextView
+        <com.androidlearning.boris.familycentralcontroler.fragment02.view.AlwaysMarqueeTextView
             android:id="@+id/nameTV"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
             android:gravity="bottom"
             android:textColor="#8000"
             android:text="测试.mp3"/>

@@ -670,6 +670,34 @@ public class PCFileHelper {
         }.start();
     }
 
+    public void addToVideoList(fileBean file,String type){
+        final String path = type + nowFilePath + file.name;
+        Log.w("PCFileHelper",path);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int status = (int) prepareDataForFragment.addPathToList(path);
+                if (status == OrderConst.success){
+                    Message message = new Message();
+                    message.what = OrderConst.actionSuccess_order;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("actionType", OrderConst.folderAction_addToList_command);
+                    message.setData(bundle);
+                    myHandler.sendMessage(message);
+                }else {
+                    Message message = new Message();
+                    message.what = OrderConst.actionFail_order;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("error", "添加到媒体库出错，详情请查看错误日志。");
+                    bundle.putString("actionType", OrderConst.folderAction_addToList_command);
+                    message.setData(bundle);
+                    myHandler.sendMessage(message);
+                }
+            }
+        }).start();
+
+    }
+
     public static String getSource() {
         if(isCopy)
             return "copy";

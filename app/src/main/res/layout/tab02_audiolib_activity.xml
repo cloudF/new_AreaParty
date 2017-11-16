@@ -101,17 +101,63 @@
         android:orientation="vertical"
         android:background="#F2F2F2">
 
+
+
+
+        <LinearLayout
+            android:id="@+id/shiftBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/barback03">
+
+            <TextView
+                android:id="@+id/pc_file"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="电脑音频"
+                android:textSize="12sp"
+                android:textColor="#FF5050"
+                android:clickable="true"
+                style="@style/Widget.AppCompat.Button"
+                android:background="@drawable/barback03_left_pressed"/>
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#e65757"/>
+            <TextView
+                android:id="@+id/app_file"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="本地音频"
+                android:textSize="12sp"
+                android:textColor="#707070"
+                android:clickable="true"
+                style="@style/Widget.AppCompat.Button"
+                android:background="@drawable/barback03_right_normal"/>
+        </LinearLayout>
         <!-- 播放列表栏目 -->
         <LinearLayout
+            android:id="@+id/play_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="0dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:orientation="vertical"
             android:elevation="2dp"
-            android:background="@drawable/circlecornersmallllbgnormal">
+            android:background="@drawable/circlecornersmallllbgnormal"
+            android:visibility="visible">
 
             <!-- 我的音频播放列表 -->
             <LinearLayout
@@ -158,6 +204,7 @@
         </LinearLayout>
         <!-- 音频数量 -->
         <LinearLayout
+            android:id="@+id/music_count"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
@@ -165,7 +212,9 @@
             android:layout_marginEnd="10dp"
             android:layout_marginTop="6dp"
             android:clickable="true"
-            android:background="#fff">
+            android:elevation="2dp"
+            android:visibility="gone"
+            android:background="#FFF">
 
             <ImageView
                 android:layout_width="50dp"
@@ -238,12 +287,14 @@
             </ScrollView>
             <!-- 当前播放 -->
             <LinearLayout
+                android:id="@+id/audio_play_control"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:paddingStart="0dp"
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"
-                android:background="#fff">
+                android:background="#fff"
+                android:visibility="visible">
 
                 <ImageView
                     android:layout_width="50dp"
@@ -268,6 +319,51 @@
                     android:padding="14dp"
                     android:clickable="false"
                     android:src="@drawable/music_pause" />
+            </LinearLayout>
+            <!--菜单列表-->
+            <LinearLayout
+                android:id="@+id/menu_list"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:elevation="5dp"
+                android:background="@drawable/barback04"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:visibility="gone">
+                <!-- 添加到播放列表 -->
+                <LinearLayout
+                    android:id="@+id/addToList"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/bar01IconAddIV"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:clickable="false"
+                        android:src="@drawable/addfolder_normal"
+                        android:scaleType="fitCenter" />
+
+                    <TextView
+                        android:id="@+id/bar01TxAddTV"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:clickable="false"
+                        android:layout_marginTop="1dp"
+                        android:text="添加到列表"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

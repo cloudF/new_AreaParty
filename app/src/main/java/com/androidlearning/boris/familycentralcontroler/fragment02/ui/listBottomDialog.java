@@ -21,10 +21,12 @@ import com.androidlearning.boris.familycentralcontroler.fragment02.Model.MediaSe
 import com.androidlearning.boris.familycentralcontroler.fragment02.base.BottomDialogAdapter;
 import com.androidlearning.boris.familycentralcontroler.fragment02.utils.MediafileHelper;
 import com.androidlearning.boris.familycentralcontroler.fragment01.ui.ActionDialog_addFolder;
+import com.androidlearning.boris.familycentralcontroler.fragment02.view.AlwaysMarqueeTextView;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -39,16 +41,27 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
  */
 
 public class listBottomDialog extends BaseBottomDialog implements View.OnClickListener{
-    private TextView typeNameTV, nameTV;
+    private TextView typeNameTV;
+    private AlwaysMarqueeTextView nameTV;
     private RecyclerView fileSGV;
     private LinearLayout addNewSetLL;
     List<MediaSetBean> setList;
-    MediaItem currentFile;
+    //MediaItem currentFile;
+    List<MediaItem> currentFileList;
     BottomDialogAdapter adapter;
     private Context context;
 
     public void setFile(MediaItem currentFile) {
-        this.currentFile = currentFile;
+        if (currentFileList == null){
+            currentFileList = new ArrayList<>();
+            currentFileList.add(currentFile);
+        }else {
+            currentFileList.clear();
+            currentFileList.add(currentFile);
+        }
+    }
+    public void setFileList(List<MediaItem> currentFileList) {
+        this.currentFileList = currentFileList;
     }
 
     @Override
@@ -68,18 +81,23 @@ public class listBottomDialog extends BaseBottomDialog implements View.OnClickLi
     @Override
     public void bindView(View v) {
         typeNameTV = (TextView) v.findViewById(R.id.typeNameTV);
-        nameTV = (TextView) v.findViewById(R.id.nameTV);
+        nameTV = (AlwaysMarqueeTextView) v.findViewById(R.id.nameTV);
         fileSGV = (RecyclerView) v.findViewById(R.id.fileSGV);
         addNewSetLL = (LinearLayout) v.findViewById(R.id.addNewSetLL);
         addNewSetLL.setClickable(true);
         addNewSetLL.setFocusable(true);
         addNewSetLL.setOnClickListener(this);
 
-        if(currentFile.getType().equals(OrderConst.audioAction_name)) {
+        if(currentFileList.get(0).getType().equals(OrderConst.audioAction_name)) {
             typeNameTV.setText("音频: ");
         } else typeNameTV.setText("图片: ");
 
-        nameTV.setText(currentFile.getName());
+        StringBuilder sBuilder = new StringBuilder();
+        for (MediaItem item : currentFileList){
+            sBuilder.append(item.getName());
+            sBuilder.append(", ");
+        }
+        nameTV.setText(sBuilder.toString());
         fileSGV.setItemAnimator(new DefaultItemAnimator());
         fileSGV.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         fileSGV.setAdapter(adapter);
@@ -127,11 +145,13 @@ public class listBottomDialog extends BaseBottomDialog implements View.OnClickLi
         adapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int i) {
-                List<MediaItem> files = new ArrayList<>();
-                files.add(currentFile);
+//                List<MediaItem> files = new ArrayList<>();
+//                files.add(currentFile);
                 if(MyApplication.isSelectedPCOnline()) {
-                    MediafileHelper.addFilesToSet(setList.get(i).name, files, myHandler);
-                    MediafileHelper.addFileToLocalSet(setList.get(i).name, currentFile);
+                    for (MediaItem item: currentFileList){
+                        MediafileHelper.addFilesToSet(setList.get(i).name, Arrays.asList(item), myHandler);
+                    }
+                    MediafileHelper.addFileToLocalSet(setList.get(i).name, currentFileList);
                     listBottomDialog.this.dismiss();
                     Toasty.success(context, "添加成功", Toast.LENGTH_SHORT, true).show();
                 } else {

@@ -39,6 +39,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private String urlHdchd="http://www.hdchd.cc";
     private String urlXunleicun="http://www.webmanager_xunleicun.com/misc.php?mod=mobile";
 
+    private int a;
+
 
 
 

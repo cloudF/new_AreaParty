@@ -101,7 +101,52 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_margin="10dp">
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:id="@+id/shiftBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/barback03">
+
+                <TextView
+                    android:id="@+id/pc_file"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="电脑视频"
+                    android:textSize="12sp"
+                    android:textColor="#FF5050"
+                    android:clickable="true"
+                    style="@style/Widget.AppCompat.Button"
+                    android:background="@drawable/barback03_left_pressed"/>
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="#e65757"/>
+                <TextView
+                    android:id="@+id/app_file"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="本地视频"
+                    android:textSize="12sp"
+                    android:textColor="#707070"
+                    android:clickable="true"
+                    style="@style/Widget.AppCompat.Button"
+                    android:background="@drawable/barback03_right_normal"/>
+            </LinearLayout>
 
             <com.androidlearning.boris.familycentralcontroler.fragment01.ui.SwipeListView
                 android:id="@+id/folderSLV"

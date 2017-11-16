@@ -512,6 +512,18 @@ public class CommandUtil {
         return cmd;
     }
 
+    public static PCCommandItem createDeleteCommand(String path, String type) {
+        PCCommandItem cmd = new PCCommandItem();
+        cmd.setName(type);
+        cmd.setCommand(OrderConst.mediaAction_DELETE_command);
+        Map<String, String> params = new HashMap<>();
+
+        params.put("folder", path);
+
+        cmd.param = params;
+        return cmd;
+    }
+
     /**
      * <summary>
      *  构建获取最近播放媒体文件列表的指令
@@ -641,6 +653,16 @@ public class CommandUtil {
         cmd.param = params;
         return cmd;
     }
+    public static PCCommandItem createPlayAsBGMCommand(String type, String setname, String tvname) {
+        PCCommandItem cmd = new PCCommandItem();
+        cmd.setName(type);
+        cmd.setCommand(OrderConst.mediaAction_playSet_command_BGM);
+        Map<String, String> params = new HashMap<>();
+        params.put("setname", setname);
+        params.put("tvname", tvname);
+        cmd.param = params;
+        return cmd;
+    }
 
     /**
      * <summary>
@@ -709,6 +731,25 @@ public class CommandUtil {
         TVCommandItem cmd = new TVCommandItem();
         cmd.setFirstcommand(OrderConst.VLCAction_firCommand);
         cmd.setSecondcommand(OrderConst.VLCAction_HideSubtitle_SecondCommand);
+        return cmd;
+    }
+
+    public static TVCommandItem createSubtitleBeforeVLCCommand() {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.VLCAction_firCommand);
+        cmd.setSecondcommand(OrderConst.VLCAction_Subtitle_Before_SecondCommand);
+        return cmd;
+    }
+    public static TVCommandItem createSubtitleDelayVLCCommand() {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.VLCAction_firCommand);
+        cmd.setSecondcommand(OrderConst.VLCAction_SubtitleDelay_SecondCommand);
+        return cmd;
+    }
+
+    public static TVCommandItem closeRdp() {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.CLOSERDP);
         return cmd;
     }
 

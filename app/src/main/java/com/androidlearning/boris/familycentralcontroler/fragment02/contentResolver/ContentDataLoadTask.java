@@ -18,11 +18,16 @@ public class ContentDataLoadTask extends AsyncTask<Void, Void, Void> {
   private Context mContext;
 
   private ContentResolver mContentResolver;
+  private FileSystemType type;
 
   private OnContentDataLoadListener mOnContentDataLoadListener;
 
   public ContentDataLoadTask(Context mContext) {
     this.mContext = mContext;
+  }
+  public ContentDataLoadTask(Context mContext,FileSystemType type) {
+    this.mContext = mContext;
+    this.type = type;
   }
 
   public OnContentDataLoadListener getmOnContentDataLoadListener() {
@@ -50,16 +55,21 @@ public class ContentDataLoadTask extends AsyncTask<Void, Void, Void> {
   protected Void doInBackground(Void... params) {
 
 
-    ContentDataControl.addFileListByType(FileSystemType.photo, getAllPhoto());
+//    ContentDataControl.addFileListByType(FileSystemType.photo, getAllPhoto());
 
-    ContentDataControl.addFileListByType(FileSystemType.music, getAllMusic());
+//    ContentDataControl.addFileListByType(FileSystemType.music, getAllMusic());
+    switch (type){
+      case video:ContentDataControl.addFileListByType(type, getAllVideo());break;
+      case music:ContentDataControl.addFileListByType(type, getAllMusic());break;
+      case photo:ContentDataControl.addFileListByType(type, getAllPhoto());break;
+    }
 
-    ContentDataControl.addFileListByType(FileSystemType.video, getAllVideo());
-
-    ContentDataControl.addFileListByType(FileSystemType.text, getAllText());
 
 
-    ContentDataControl.addFileListByType(FileSystemType.zip, getAllZip());
+//    ContentDataControl.addFileListByType(FileSystemType.text, getAllText());
+
+
+//    ContentDataControl.addFileListByType(FileSystemType.zip, getAllZip());
 
 
     return null;

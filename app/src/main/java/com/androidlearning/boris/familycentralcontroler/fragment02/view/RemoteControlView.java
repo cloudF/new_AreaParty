@@ -123,8 +123,21 @@ public class RemoteControlView extends View {
 
                 //画图案
                 Matrix matrix = new Matrix();
-                matrix.postTranslate((float) ((coreX + getWidth() / 2 * roundMenu.iconDistance) - (roundMenu.icon.getWidth() / 2)), coreY - (roundMenu.icon.getHeight() / 2));
-                matrix.postRotate(((i + 1) * sweepAngle), coreX, coreY);
+                switch (i){
+                    case 0:
+                        matrix.postTranslate((float)(coreX-roundMenu.icon.getWidth()/2),(float)(coreY+getWidth()/2*roundMenu.iconDistance)-(roundMenu.icon.getHeight()/2));
+                        break;
+                    case 1:
+                        matrix.postTranslate((float) ((coreX - getWidth() / 2 * roundMenu.iconDistance) - (roundMenu.icon.getWidth() / 2)), coreY - (roundMenu.icon.getHeight() / 2));
+                        break;
+
+                    case 2:
+                        matrix.postTranslate((float)(coreX-roundMenu.icon.getWidth()/2),(float)(coreY-getWidth()/2*roundMenu.iconDistance)-(roundMenu.icon.getHeight()/2));
+                        break;
+                    case 3:
+                        matrix.postTranslate((float) ((coreX + getWidth() / 2 * roundMenu.iconDistance) - (roundMenu.icon.getWidth() / 2)), coreY - (roundMenu.icon.getHeight() / 2));
+                        break;
+                }
                 canvas.drawBitmap(roundMenu.icon, matrix, null);
             }
         }
@@ -156,7 +169,7 @@ public class RemoteControlView extends View {
             }
         }
 
-        //画电源圆圈
+        //画停止圆圈
         if (isPowerMenu) {
             //填充
             RectF rect1 = new RectF(100, 50, 250 , 200 );
@@ -476,7 +489,7 @@ public class RemoteControlView extends View {
         public int solidColor = 0x000000ff;//背景颜色,默认透明
         public int selectSolidColor = 0x00000000;//背景颜色,默认透明
         public int strokeColor = 0x000000ff;//描边颜色,默认透明
-        public int strokeSize = 1;//描边的宽度,默认1
+        public int strokeSize = 2;//描边的宽度,默认1
         public Bitmap icon;//菜单的图片
         public OnClickListener onClickListener;//点击监听
         public  OnTouchListener onTouchListener;

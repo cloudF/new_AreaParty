@@ -21,6 +21,7 @@
         android:gravity="center_vertical"
         android:text="我是文件名"
         android:maxLines="1"
+        android:singleLine="true"
         android:ellipsize="end"
         android:textSize="14sp" />
 </LinearLayout>

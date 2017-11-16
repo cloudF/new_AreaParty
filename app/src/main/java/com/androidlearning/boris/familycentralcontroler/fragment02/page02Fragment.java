@@ -262,14 +262,9 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
     }
     @Subscriber(tag="tvPlayerStateChanged")
     private void updateRemoteControl(TvPlayerChangeEvent event){
-        if (event.isPlayerRun()){
             Glide.with(mContext).load(R.drawable.remote_control).into(remoteControlImg);
             remoteControlLayout.setVisibility(View.VISIBLE);
             remoteControlLayout.setOnClickListener(this);
-        }else if (!event.isPlayerRun()){
-            //Glide.with(mContext).load(R.drawable.remote_control_off).into(remoteControlImg);
-            remoteControlLayout.setVisibility(View.GONE);
-        }
     }
 
 
@@ -352,7 +347,7 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
                 case OrderConst.videoAction_name:
                     lastVideoCastIB.setVisibility(View.GONE);
                     lastVideoNameTV.setText("暂无数据");
-                    Glide.with(mContext).load(R.drawable.nothing).into(lastVideoThumbnailIV);
+                    Glide.with(MyApplication.getContext()).load(R.drawable.nothing).into(lastVideoThumbnailIV);
                     break;
                 case OrderConst.audioAction_name:
                     lastAudioCastIB.setVisibility(View.GONE);

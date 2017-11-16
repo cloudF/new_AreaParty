@@ -7,6 +7,7 @@ import com.androidlearning.boris.familycentralcontroler.IPAddressConst;
 import com.androidlearning.boris.familycentralcontroler.MyConnector;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.downloadedFileBean;
+import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileItem;
 import com.androidlearning.boris.familycentralcontroler.model_comman.TVCommandItem;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.CommandUtil;
@@ -22,6 +23,10 @@ import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.RequestFormat;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.RequestFormatAddPathToHttp;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +55,7 @@ public class prepareDataForFragment {
             }
             String secondcommand = "http://" + ip + ":" +
                     IPAddressConst.DLNAPHONEHTTPPORT_B + "/" + URLEncoder.encode(file.getPath());
-            Log.e("test", secondcommand);
+            Log.e("test", secondcommand+"***"+file.getPath());
             String fourthcommand = file.getName();
             String fifthcommand  = fileType;
             TVCommandItem tvCommandItem = CommandUtil.createPlayUrlFileOnTVCommand(secondcommand, fourthcommand, fifthcommand);
@@ -60,6 +65,36 @@ public class prepareDataForFragment {
 
         return state;
     }
+    public static boolean getDlnaCastState(FileItem file, String fileType) {
+        boolean state = false;
+        String ip = MyApplication.getIPStr();
+        String TVIp = MyApplication.getSelectedTVIP().ip;
+        if(!(ip.equals("")) && !(TVIp.equals(""))) {
+            String secondcommand = "http://" + ip + ":" +
+                    IPAddressConst.DLNAPHONEHTTPPORT_B + "/" + URLEncoder.encode(file.getmFilePath());
+            Log.e("test", secondcommand+"***"+file.getmFilePath());
+            String fourthcommand = file.getmFileName();
+            String fifthcommand  = fileType;
+            TVCommandItem tvCommandItem = CommandUtil.createPlayUrlFileOnTVCommand(secondcommand, fourthcommand, fifthcommand);
+            String requestStr = JsonUitl.objectToString(tvCommandItem);
+            state = MyConnector.getInstance().sendMsgToIP(TVIp, IPAddressConst.TVRECEIVEPORT_MM, requestStr);
+        }
+
+        return state;
+    }
+
+    public static boolean closeRDP() {
+        boolean state = false;
+        String TVIp = MyApplication.getSelectedTVIP().ip;
+        if(!(TVIp.equals(""))) {
+            TVCommandItem tvCommandItem = CommandUtil.closeRdp();
+            String requestStr = JsonUitl.objectToString(tvCommandItem);
+            state = MyConnector.getInstance().sendMsgToIP(TVIp, IPAddressConst.TVRECEIVEPORT_MM, requestStr);
+        }
+
+        return state;
+    }
+
 
     /**
      * <summary>
@@ -82,7 +117,7 @@ public class prepareDataForFragment {
             case OrderConst.diskAction_get_command:
                 String msgReceived;
                 msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);
-                Log.e("IPGET", "loadDisksjisdfj");
+                Log.e("IPGET", msgReceived);
                 if(!msgReceived.equals("")) {
                     message = JsonUitl.stringToBean(msgReceived, ReceivedDiskListFormat.class);
                 }
@@ -164,6 +199,25 @@ public class prepareDataForFragment {
             message = JsonUitl.stringToBean(msgReceived, ReceivedAddPathToHttpMessageFormat.class);
         }
         return message;
+    }
+
+    public static Object addPathToList(String path) {
+        RequestFormat request = new RequestFormat();
+        request.setName(OrderConst.folderAction_name);
+        request.setCommand(OrderConst.folderAction_addToList_command);
+        request.setParam(path);
+        String requestString = JsonUitl.objectToString(request);
+        String msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);
+        Log.w("prepareDataForFragment",msgReceived);
+        int status;
+        try {
+            JSONObject jsonObject = new JSONObject(msgReceived);
+            status = jsonObject.getInt("status");
+        }catch (JSONException e){
+            status = 404;
+        }
+
+        return status;
     }
 
     /**

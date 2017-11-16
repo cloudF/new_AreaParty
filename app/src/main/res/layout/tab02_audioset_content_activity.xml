@@ -64,11 +64,25 @@
                 android:textSize="14sp" />
             <TextView
                 android:id="@+id/numTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="(共0首)"
                 android:textColor="#88000000"
                 android:textSize="12sp" />
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#F2F2F2"/>
+            <TextView
+                android:id="@+id/play_as_bgm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:text="作为背景音乐"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <!-- part03 -->

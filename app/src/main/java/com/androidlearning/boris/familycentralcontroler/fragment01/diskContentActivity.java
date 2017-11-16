@@ -29,6 +29,7 @@ import com.androidlearning.boris.familycentralcontroler.fragment01.base.DiskCont
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.SharedfileBean;
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.fileBean;
 import com.androidlearning.boris.familycentralcontroler.fragment01.ui.ActionDialog_addFolder;
+import com.androidlearning.boris.familycentralcontroler.fragment01.ui.AddToMediaListDialog;
 import com.androidlearning.boris.familycentralcontroler.fragment01.ui.DeleteDialog;
 import com.androidlearning.boris.familycentralcontroler.fragment01.ui.SharedFileDialog;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utils.PCFileHelper;
@@ -92,10 +93,12 @@ public class diskContentActivity extends Activity implements View.OnClickListene
     private LinearLayout bar02MoreShareLL;                  // 分享
     private LinearLayout bar02MoreDetailLL;                 // 详情
     private LinearLayout bar02MoreSaveLL;                   // 保存到本地
+    private LinearLayout bar02MoreAddToVideoList;           //添加到视频库
     private TextView     bar02MoreRenameTV;
     private TextView     bar02MoreShareTV;
     private TextView     bar02MoreDetailTV;
     private TextView     bar02MoreSaveTV;
+    private TextView     bar02MoreAddToVideoListTV;
 
     private View loadingView;
     private AlertDialog dialog;
@@ -209,6 +212,7 @@ public class diskContentActivity extends Activity implements View.OnClickListene
 
     public void actionSuccess(Message msg) {
         String actionType = msg.getData().getString("actionType");
+        if (actionType == null) actionType = "";
         if(actionType.equals(OrderConst.fileOrFolderAction_copy_command)) {
             page04DiskContentCopyBarLL.setVisibility(View.GONE);
             page04DiskContentActionBar01LL.setVisibility(View.VISIBLE);
@@ -534,6 +538,8 @@ public class diskContentActivity extends Activity implements View.OnClickListene
                         } else {
                             bar02MoreShareLL.setVisibility(View.GONE);
                         }
+                        bar02MoreAddToVideoList.setClickable(false);
+                        bar02MoreAddToVideoListTV.setTextColor(Color.rgb(211, 211, 211));
                     } else {
                         bar02MoreSaveLL.setClickable(false);
                         bar02MoreSaveTV.setTextColor(Color.rgb(211, 211, 211));
@@ -543,12 +549,16 @@ public class diskContentActivity extends Activity implements View.OnClickListene
                         } else {
                             bar02MoreShareLL.setVisibility(View.GONE);
                         }
+                        bar02MoreAddToVideoList.setClickable(true);
+                        bar02MoreAddToVideoListTV.setTextColor(Color.rgb(0, 0, 0));
                     }
                 } else {
                     bar02MoreRenameLL.setClickable(false);
                     bar02MoreRenameTV.setTextColor(Color.rgb(211, 211, 211));
                     bar02MoreDetailLL.setClickable(false);
                     bar02MoreDetailTV.setTextColor(Color.rgb(211, 211, 211));
+                    bar02MoreSaveLL.setClickable(false);
+                    bar02MoreSaveTV.setTextColor(Color.rgb(211, 211, 211));
                     if(selectedFolderList.size() != 0) {
                         bar02MoreSaveLL.setClickable(false);
                         bar02MoreSaveTV.setTextColor(Color.rgb(211, 211, 211));
@@ -655,6 +665,22 @@ public class diskContentActivity extends Activity implements View.OnClickListene
                 PCFileHelper.downloadSelectedFiles();
             }
                 break;
+            case R.id.bar02MoreAddToVideoList:
+                page04DiskContentBar02MoreRootLL.setVisibility(View.GONE);
+                List<fileBean> selectedFolderList = PCFileHelper.getSelectedFolders();
+                selectedFolderList.clear();
+                for (fileBean file : PCFileHelper.getDatas()) {
+                    if (file.isChecked) {
+                        if (file.type == FileTypeConst.folder)
+                            selectedFolderList.add(file);
+                    }
+                }
+                if (selectedFolderList.size()>0){
+                    addToMediaList(selectedFolderList.get(0));
+                }
+                page04DiskContentBar02MoreRootLL.setVisibility(View.GONE);
+
+
         }
     }
 
@@ -686,6 +712,7 @@ public class diskContentActivity extends Activity implements View.OnClickListene
         bar02MoreShareLL.setOnClickListener(this);
         bar02MoreDetailLL.setOnClickListener(this);
         bar02MoreSaveLL.setOnClickListener(this);
+        bar02MoreAddToVideoList.setOnClickListener(this);
         NetBroadcastReceiver.mListeners.add(this);
 
         page04DiskContentLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -780,10 +807,12 @@ public class diskContentActivity extends Activity implements View.OnClickListene
         bar02MoreShareLL = (LinearLayout) findViewById(R.id.bar02MoreShareLL);
         bar02MoreDetailLL = (LinearLayout) findViewById(R.id.bar02MoreDetailLL);
         bar02MoreSaveLL = (LinearLayout) findViewById(R.id.bar02MoreSaveLL);
+        bar02MoreAddToVideoList = (LinearLayout) findViewById(R.id.bar02MoreAddToVideoList);
         bar02MoreRenameTV = (TextView) findViewById(R.id.bar02MoreRenameTV);
         bar02MoreShareTV = (TextView) findViewById(R.id.bar02MoreShareTV);
         bar02MoreDetailTV = (TextView) findViewById(R.id.bar02MoreDetailTV);
         bar02MoreSaveTV = (TextView) findViewById(R.id.bar02MoreSaveTV);
+        bar02MoreAddToVideoListTV = (TextView) findViewById(R.id.bar02MoreAddToVideoListTV);
 
         loadingView = LayoutInflater.from(this).inflate(R.layout.tab04_loadingcontent, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -931,6 +960,40 @@ public class diskContentActivity extends Activity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 sharedFileDialog.dismiss();
+            }
+        });
+    }
+    /**
+     * <summary>
+     *  显示添加到视频库对话框并执行相应监听操作
+     * </summary>
+     */
+    private void addToMediaList(final fileBean file){
+        final AddToMediaListDialog addToMediaListDialog = new AddToMediaListDialog(this);
+        addToMediaListDialog.setCanceledOnTouchOutside(false);
+        addToMediaListDialog.show();
+        addToMediaListDialog.setVideoButtonListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PCFileHelper.addToVideoList(file,"VIDEO");
+                addToMediaListDialog.dismiss();
+                dialog.show();
+            }
+        });
+        addToMediaListDialog.setAudioButtonListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PCFileHelper.addToVideoList(file,"AUDIO");
+                addToMediaListDialog.dismiss();
+                dialog.show();
+            }
+        });
+        addToMediaListDialog.setImageButtonListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PCFileHelper.addToVideoList(file,"IMAGE");
+                addToMediaListDialog.dismiss();
+                dialog.show();
             }
         });
     }

@@ -3,6 +3,7 @@ package com.androidlearning.boris.familycentralcontroler.utils_comman;
 import android.os.Handler;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
 import com.androidlearning.boris.familycentralcontroler.fragment02.Model.MediaItem;
 import com.androidlearning.boris.familycentralcontroler.fragment02.utils.MediafileHelper;
@@ -18,6 +19,8 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -90,12 +93,20 @@ public class Send2PCThread extends Thread {
         this.commandType = OrderConst.appMediaAction_getList_command;
     }
 
+    public Send2PCThread(String type, String commandType, String path, Handler myhandler) {
+        this.typeName = type;
+        this.path = path;
+        this.commandType = commandType;
+        this.myhandler = myhandler;
+    }
+
 
 
     @Override
     public void run() {
         IPInforBean pcIpInfor = MyApplication.getSelectedPCIP();
         if(pcIpInfor != null && !pcIpInfor.ip.equals("")) {
+            Log.i("Send2PCThread", "执行线程" );
             String cmdStr = createCmdStr();
             String dataReceived = "";
             Socket client = new Socket();
@@ -207,6 +218,12 @@ public class Send2PCThread extends Thread {
                     case OrderConst.mediaAction_playSet_command:
                         cmdStr = JsonUitl.objectToString(CommandUtil.createOpenPcMediaSetCommand(typeName, param.get("setname"), param.get("tvname")));
                         break;
+                    case OrderConst.mediaAction_playSet_command_BGM:
+                        cmdStr = JsonUitl.objectToString(CommandUtil.createPlayAsBGMCommand(typeName, param.get("setname"), param.get("tvname")));
+                        break;
+                    case OrderConst.mediaAction_DELETE_command:
+                        cmdStr = JsonUitl.objectToString(CommandUtil.createDeleteCommand(path,typeName));
+                        break;
                 }
             }   break;
         }
@@ -280,11 +297,14 @@ public class Send2PCThread extends Thread {
                         Map<String, List<MediaItem>> mediaMap = gson.fromJson(reader, new TypeToken<Map<String, List<MediaItem>>>(){}.getType());
                         MediafileHelper.setMediaSets(mediaMap, typeName);
                         break;
+                    case OrderConst.mediaAction_DELETE_command:
+                        break;
                     case OrderConst.mediaAction_play_command:
                     case OrderConst.mediaAction_addSet_command:
                     case OrderConst.mediaAction_deleteSet_command:
                     case OrderConst.mediaAction_addFilesToSet_command:
                         break;
+
                 }
             }   break;
         }
@@ -340,6 +360,9 @@ public class Send2PCThread extends Thread {
                         case OrderConst.mediaAction_play_command:
                             myhandler.sendEmptyMessage(OrderConst.playPCMedia_OK);
                             break;
+                        case OrderConst.mediaAction_DELETE_command:
+                            myhandler.sendEmptyMessage(OrderConst.mediaAction_DELETE_OK);
+                            break;
                     }
                     break;
                 case OrderConst.audioAction_name:
@@ -368,6 +391,9 @@ public class Send2PCThread extends Thread {
                         case OrderConst.mediaAction_addFilesToSet_command:
                             myhandler.sendEmptyMessage(OrderConst.addPCFilesToSet_OK);
                             break;
+                        case OrderConst.mediaAction_DELETE_command:
+                            myhandler.sendEmptyMessage(OrderConst.mediaAction_DELETE_OK);
+                            break;
                     }
                     break;
                 case OrderConst.imageAction_name:
@@ -392,6 +418,9 @@ public class Send2PCThread extends Thread {
                             break;
                         case OrderConst.mediaAction_addFilesToSet_command:
                             myhandler.sendEmptyMessage(OrderConst.addPCFilesToSet_OK);
+                            break;
+                        case OrderConst.mediaAction_DELETE_command:
+                            myhandler.sendEmptyMessage(OrderConst.mediaAction_DELETE_OK);
                             break;
                     }
                     break;
@@ -440,6 +469,9 @@ public class Send2PCThread extends Thread {
                         case OrderConst.mediaAction_play_command:
                             myhandler.sendEmptyMessage(OrderConst.playPCMedia_Fail);
                             break;
+                        case OrderConst.mediaAction_DELETE_command:
+                            myhandler.sendEmptyMessage(OrderConst.mediaAction_DELETE_Fail);
+                            break;
                     }
                     break;
                 case OrderConst.audioAction_name:
@@ -468,6 +500,9 @@ public class Send2PCThread extends Thread {
                         case OrderConst.mediaAction_addFilesToSet_command:
                             myhandler.sendEmptyMessage(OrderConst.addPCFilesToSet_Fail);
                             break;
+                        case OrderConst.mediaAction_DELETE_command:
+                            myhandler.sendEmptyMessage(OrderConst.mediaAction_DELETE_Fail);
+                            break;
                     }
                     break;
                 case OrderConst.imageAction_name:
@@ -492,6 +527,9 @@ public class Send2PCThread extends Thread {
                             break;
                         case OrderConst.mediaAction_addFilesToSet_command:
                             myhandler.sendEmptyMessage(OrderConst.addPCFilesToSet_Fail);
+                            break;
+                        case OrderConst.mediaAction_DELETE_command:
+                            myhandler.sendEmptyMessage(OrderConst.mediaAction_DELETE_Fail);
                             break;
                     }
                     break;

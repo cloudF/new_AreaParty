@@ -2,6 +2,8 @@ package com.androidlearning.boris.familycentralcontroler.model_comman;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.util.Log;
 import android.util.SparseArray;
@@ -18,7 +20,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jay on 2015/9/22 0022.
@@ -210,6 +214,15 @@ public abstract class MyAdapter<T> extends BaseAdapter {
             view.setImageURI(uri);
             return this;
         }
+        public ViewHolder setImageWithPath(int id, String path, int default_thumbnail,Context mContext) {
+            ImageView view = getView(id);
+           // Glide.with(mContext).load(Uri.fromFile(new File(path))).apply(new RequestOptions().placeholder(default_thumbnail)).into((ImageView)view);
+//            MediaMetadataRetriever media = new MediaMetadataRetriever();
+//            media.setDataSource(path);
+//            Bitmap bitmap = media.getFrameAtTime();
+            view.setImageResource(default_thumbnail);
+            return this;
+        }
 
 
 
@@ -218,6 +231,25 @@ public abstract class MyAdapter<T> extends BaseAdapter {
          */
         public ViewHolder setOnClickListener(int id, View.OnClickListener listener) {
             getView(id).setOnClickListener(listener);
+            return this;
+        }
+        public ViewHolder setOnClickListener(View.OnClickListener listener) {
+            item.setOnClickListener(listener);
+            return this;
+        }
+
+        /*设置长按监听*/
+        public ViewHolder setOnLongClickListener(View.OnLongClickListener listener) {
+            item.setOnLongClickListener(listener);
+            return this;
+        }
+        /*设置背景*/
+        public ViewHolder setBackgroundSelect() {
+            item.setBackgroundColor(Color.parseColor("#D4D4D4"));
+            return this;
+        }
+        public ViewHolder clearBackgroundSelect() {
+            item.setBackgroundColor(Color.parseColor("#F2F2F2"));
             return this;
         }
 
@@ -241,4 +273,10 @@ public abstract class MyAdapter<T> extends BaseAdapter {
 
     }
 
+    public void setmData(ArrayList<T> mData) {
+        if (mData == null){
+            mData = new ArrayList<>();
+        }
+        this.mData.addAll(mData);
+    }
 }

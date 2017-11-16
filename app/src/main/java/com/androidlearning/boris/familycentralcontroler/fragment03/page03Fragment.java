@@ -40,6 +40,8 @@ import org.simple.eventbus.Subscriber;
 
 import es.dmoral.toasty.Toasty;
 
+import static com.androidlearning.boris.familycentralcontroler.fragment01.utils.prepareDataForFragment.closeRDP;
+
 /**
  * Created by boris on 2016/11/29.
  * TAB03---应用的Fragment
@@ -66,7 +68,7 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
     // PC内容页面
     private LinearLayout PCInforLL, PCShutdown_RestartLL, PCUsingHelpLL;
     private TextView PCAppOpenModelNameTV;
-    private ImageView PCAppOpenModelNoticeIV, PCGameNoticeIV;
+    private ImageView PCAppOpenModelNoticeIV, PCGameNoticeIV, openPcDesk, closeRdp;
     private SwipeGridView PCAppSGV, PCGameSGV;
 
     private MyAdapter<AppItem> pcAppAdapter, pcGameAdapter;
@@ -184,6 +186,43 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
             case R.id.PCGameNoticeIV:
                 startActivity(new Intent(mContext, pcGameHelpActivity.class));
                 break;
+            case R.id.openPcDesk:
+                if(MyApplication.isSelectedPCOnline()) {
+                    if(MyApplication.isSelectedTVOnline()) {
+                        if(PCAppHelper.getCurrentMode() == PCAppHelper.NONEMODE) {
+                            TVAppHelper.loadMouses(myHandler);
+                        }
+                        if(MyApplication.AccessibilityIsOpen){
+                            TVAppHelper.openTVRDP();
+
+                            // 需要用户手动点击进入
+                            PCAppHelper.setCurrentMode(PCAppHelper.RDPMODE);
+                            PCAppHelper.openApp_Rdp("back",
+                                    "desk", myHandler);
+                        }else {
+                            TVAppHelper.openTVAccessibility();
+                            Toast.makeText(getContext(),"请在TV上对[AreaParty]授权",Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toasty.warning(mContext, "应用即将投放的屏幕不在线", Toast.LENGTH_SHORT, true).show();
+                    }
+                } else{
+                    Toasty.warning(mContext, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                }
+                break;
+            case R.id.closeRDP:
+                if (MyApplication.isSelectedTVOnline()){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            closeRDP();
+                        }
+                    }).start();
+
+                }else
+                    Toasty.warning(mContext, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+                break;
+
         }
     }
 
@@ -201,12 +240,15 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
         PCUsingHelpLL.setOnClickListener(this);
         PCAppOpenModelNoticeIV.setOnClickListener(this);
         PCGameNoticeIV.setOnClickListener(this);
+        openPcDesk.setOnClickListener(this);
+        closeRdp.setOnClickListener(this);
 
         TVInstalledAppSGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(MyApplication.isSelectedTVOnline()) {
                     TVAppHelper.openApp(TVAppHelper.installedAppList.get(i).getPackageName());
+                    Log.w("page03Fragment",TVAppHelper.installedAppList.get(i).getPackageName());
                     //TVAppHelper.installedAppList.get(i).setRunning(true);
                     //tvInstalledAppAdapter.notifyDataSetChanged();
                     tvpcAppHelper.addTVApps(TVAppHelper.installedAppList.get(i));
@@ -344,6 +386,8 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
         PCAppOpenModelNameTV = (TextView) rootView.findViewById(R.id.PCAppOpenModelNameTV);
         PCGameNoticeIV = (ImageView) rootView.findViewById(R.id.PCGameNoticeIV);
         PCAppOpenModelNoticeIV = (ImageView) rootView.findViewById(R.id.PCAppOpenModelNoticeIV);
+        openPcDesk = (ImageView) rootView.findViewById(R.id.openPcDesk);
+        closeRdp = (ImageView) rootView.findViewById(R.id.closeRDP);
 
         updateDeviceNetState(new TVPCNetStateChangeEvent(MyApplication.isSelectedTVOnline(),
                 MyApplication.isSelectedPCOnline()));

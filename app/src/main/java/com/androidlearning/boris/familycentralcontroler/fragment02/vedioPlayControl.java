@@ -34,8 +34,9 @@ public class vedioPlayControl extends AppCompatActivity {
     public static  TextView player_overlay_time;
     public static TextView player_title;
     public static TextView player_overlay_length;
-    public static Button load_Subtitle;
-    public static Button hide_Subtitle;
+    public static Button Subtitle;
+    public static Button subtitle_before;
+    public static Button subtitle_delay;
 
 
     private boolean isChanging=false;//互斥变量，防止定时器与SeekBar拖动时进度冲突
@@ -60,60 +61,74 @@ public class vedioPlayControl extends AppCompatActivity {
         seekBar.setMax(500000);//设置进度条.500秒
         seekBar.setProgress(0);
 
-        //----------定时器记录播放进度---------//
-        mTimer = new Timer();
-        mTimerTask = new TimerTask() {
-            @Override
-            public void run() {
-
-
-                if(isChanging==true||isplaying==false||!ReceiveCommandFromTVPlayer.getPlayerIsRun()) {
-                    return;
-                }else {
-                    SimpleDateFormat sd = new SimpleDateFormat("HH:mm:ss");
-                    sd.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
-                    try {
-                        Date date = sd.parse(player_overlay_time.getText().toString());
-
-                        final String updateTime=sd.format(new Date((date.getTime()+1000)>seekBar.getMax()?seekBar.getMax():(date.getTime()+1000)));
-                        System.out.println(updateTime);
-                        player_overlay_time.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                player_overlay_time.setText(updateTime);
-                                seekBar.setProgress((seekBar.getProgress()+1000)>seekBar.getMax()?seekBar.getMax():(seekBar.getProgress()+1000));
-                            }
-                        });
-
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-
-
-
-
-
-            }
-        };
-
-        mTimer.schedule(mTimerTask, 1000, 1000);
+//        //----------定时器记录播放进度---------//
+//        mTimer = new Timer();
+//        mTimerTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//
+//
+//                if(isChanging==true||isplaying==false||!ReceiveCommandFromTVPlayer.getPlayerIsRun()) {
+//                    return;
+//                }else {
+//                    SimpleDateFormat sd = new SimpleDateFormat("HH:mm:ss");
+//                    sd.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
+//                    try {
+//                        Date date = sd.parse(player_overlay_time.getText().toString());
+//
+//                        final String updateTime=sd.format(new Date((date.getTime()+1000)>seekBar.getMax()?seekBar.getMax():(date.getTime()+1000)));
+//                        System.out.println(updateTime);
+//                        player_overlay_time.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                player_overlay_time.setText(updateTime);
+//                                seekBar.setProgress((seekBar.getProgress()+1000)>seekBar.getMax()?seekBar.getMax():(seekBar.getProgress()+1000));
+//                            }
+//                        });
+//
+//                    }
+//                    catch (Exception e){
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//
+//
+//
+//
+//            }
+//        };
+//
+//        mTimer.schedule(mTimerTask, 1000, 1000);
 
         seekBar.setOnSeekBarChangeListener(new MySeekbar());
 
 
         //字幕
-        load_Subtitle.setOnClickListener(new View.OnClickListener() {
+        Subtitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TVAppHelper.vedioPlayControlLoadSubtitle();
+                if(Subtitle.getText().equals("加载字幕")){
+                    TVAppHelper.vedioPlayControlLoadSubtitle();
+                    Subtitle.setText("隐藏字幕");
+                }else {
+                    TVAppHelper.vedioPlayControlHideSubtitle();
+                    Subtitle.setText("加载字幕");
+                }
+
             }
         });
-        hide_Subtitle.setOnClickListener(new View.OnClickListener() {
+        subtitle_before.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TVAppHelper.vedioPlayControlHideSubtitle();
+                TVAppHelper.vedioPlayControlSubtitleBefore();
+            }
+        });
+
+        subtitle_delay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TVAppHelper.vedioPlayControlSubtitleDelay();
             }
         });
 
@@ -126,19 +141,17 @@ public class vedioPlayControl extends AppCompatActivity {
 
         //下面的按钮，VolumeDown
         RemoteControlView.RoundMenu roundMenu = new RemoteControlView.RoundMenu();
-        roundMenu.selectSolidColor = Color.GRAY;
-        roundMenu.strokeColor =Color.GRAY;
+        roundMenu.selectSolidColor = Color.CYAN;
+        roundMenu.strokeColor =Color.RED;
 
         roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_down);
 
         roundMenu.onClickListener=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ReceiveCommandFromTVPlayer.getPlayerIsRun()) {
+
                     TVAppHelper.vedioPlayControlVolumeDown();
-                }else {
-                    Toast.makeText(getApplicationContext(),"当前无播放视频",Toast.LENGTH_SHORT).show();
-                }
+
 
             }
         };
@@ -147,8 +160,8 @@ public class vedioPlayControl extends AppCompatActivity {
 
         //左面的按钮，快退
         roundMenu = new RemoteControlView.RoundMenu();
-        roundMenu.selectSolidColor =Color.GRAY;
-        roundMenu.strokeColor =Color.GRAY;
+        roundMenu.selectSolidColor = Color.CYAN;
+        roundMenu.strokeColor =Color.RED;
         roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_left);
         //TODO:by ervincm.点击事件改为touch事件
 //        roundMenu.onClickListener=new View.OnClickListener() {
@@ -172,15 +185,14 @@ public class vedioPlayControl extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
                         //----------定时器控制快进---------//
 
-                        if(ReceiveCommandFromTVPlayer.getPlayerIsRun()&&isplaying) {
+
                             mTimerFast = new Timer();
                             mTimerTaskFast = new TimerTask() {
                                 @Override
                                 public void run() {
                                     try {
 
-                                        TVAppHelper.vedioPlayControlFast();
-                                        seekBar.setProgress(seekBar.getProgress()-10000);
+                                        TVAppHelper.vedioPlayControlRewind();
                                         updateTimeInThread();
                                     }
                                     catch (Exception e){
@@ -190,9 +202,7 @@ public class vedioPlayControl extends AppCompatActivity {
                             };
 
                             mTimerFast.schedule(mTimerTaskFast, 0, 300);//300ms执行一次快进
-                        } else {
-                            Toast.makeText(getApplicationContext(),"当前无播放视频或视频暂停",Toast.LENGTH_SHORT).show();
-                        }
+
                         break;
                     case MotionEvent.ACTION_UP:
 
@@ -210,27 +220,22 @@ public class vedioPlayControl extends AppCompatActivity {
         //上面的按钮，VloumeUp
 
         roundMenu = new RemoteControlView.RoundMenu();
-        roundMenu.selectSolidColor =Color.GRAY;
-        roundMenu.strokeColor =Color.GRAY;
+        roundMenu.selectSolidColor = Color.CYAN;
+        roundMenu.strokeColor =Color.RED;
         roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_up);
         roundMenu.onClickListener=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ReceiveCommandFromTVPlayer.getPlayerIsRun()) {
                     TVAppHelper.vedioPlayControlVolumeUp();
-                }else {
-                    Toast.makeText(getApplicationContext(),"当前无播放视频",Toast.LENGTH_SHORT).show();
-                }
-
             }
         };
         roundMenuView.addRoundMenu(roundMenu);
 
         //右面的按钮，快进
         roundMenu = new RemoteControlView.RoundMenu();
-        roundMenu.selectSolidColor =Color.GRAY;
-        roundMenu.strokeColor =Color.GRAY;
-        roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_left);
+        roundMenu.selectSolidColor = Color.CYAN;
+        roundMenu.strokeColor =Color.RED;
+        roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_right);
 
         //TODO:by ervincm.点击事件改为touch事件
 //        roundMenu.onClickListener=new View.OnClickListener() {
@@ -255,7 +260,7 @@ public class vedioPlayControl extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
                        //----------定时器控制快进---------//
 
-                        if(ReceiveCommandFromTVPlayer.getPlayerIsRun()&&isplaying) {
+
                             mTimerFast = new Timer();
                             mTimerTaskFast = new TimerTask() {
                                 @Override
@@ -263,7 +268,6 @@ public class vedioPlayControl extends AppCompatActivity {
                                     try {
 
                                         TVAppHelper.vedioPlayControlFast();
-                                        seekBar.setProgress(seekBar.getProgress()+10000);
                                         updateTimeInThread();
                                     }
                                     catch (Exception e){
@@ -273,9 +277,7 @@ public class vedioPlayControl extends AppCompatActivity {
                             };
 
                             mTimerFast.schedule(mTimerTaskFast, 0, 300);//300ms执行一次快进
-                        } else {
-                            Toast.makeText(getApplicationContext(),"当前无播放视频或视频暂停",Toast.LENGTH_SHORT).show();
-                        }
+
                         break;
                     case MotionEvent.ACTION_UP:
 
@@ -298,20 +300,18 @@ public class vedioPlayControl extends AppCompatActivity {
                 , 1, 0.43, BitmapFactory.decodeResource(getResources(), vedio_play_control_pause), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(ReceiveCommandFromTVPlayer.getPlayerIsRun()){
+
                             if(isplaying){
                                 isplaying=false;
                                 RemoteControlView.coreBitmap=BitmapFactory.decodeResource(getResources(), vedio_play_control_play);
-                                TVAppHelper.vedioPlayControlPause();
+                                TVAppHelper.vedioPlayControlPlayPause();
                             }else {
                                 isplaying=true;
                                 RemoteControlView.coreBitmap=BitmapFactory.decodeResource(getResources(), vedio_play_control_pause);
-                                TVAppHelper.vedioPlayControlPlay();
+                                TVAppHelper.vedioPlayControlPlayPause();
                             }
               //              TVAppHelper.vedioPlayControlPlayPause();
-                        }else {
-                            Toast.makeText(getApplicationContext(),"当前无播放视频",Toast.LENGTH_SHORT).show();
-                        }
+
 
 
                     }
@@ -322,18 +322,19 @@ public class vedioPlayControl extends AppCompatActivity {
                 , 1, 0.43, BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_back), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(mTimer!=null)
                         mTimer.cancel();
                         vedioPlayControl.this.finish();
 
                     }
                 });
-        roundMenuView.setStopMenu(Color.WHITE,
-                Color.GRAY, Color.GRAY
-                , 1, 0.43, BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_stop), new View.OnClickListener() {
+        roundMenuView.setStopMenu(Color.GREEN,
+                Color.CYAN, Color.RED
+                , 2, 0.43, BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_stop), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         TVAppHelper.vedioPlayControlExit();
-
+                        if(mTimer!=null)
                         mTimer.cancel();
 
                         vedioPlayControl.this.finish();
@@ -350,8 +351,9 @@ public class vedioPlayControl extends AppCompatActivity {
         player_overlay_length=(TextView)findViewById(R.id.player_overlay_length);
         player_overlay_time=(TextView)findViewById(R.id.player_overlay_time);
         player_title=(TextView)findViewById(R.id.player_title);
-        load_Subtitle=(Button) findViewById(R.id.load_subtitle);
-        hide_Subtitle=(Button)findViewById(R.id.hide_subtitle);
+        Subtitle=(Button) findViewById(R.id.subtitle);
+        subtitle_before=(Button)findViewById(R.id.subtitle_before);
+        subtitle_delay=(Button)findViewById(R.id.subtitle_delay);
 
 
     }
@@ -507,6 +509,7 @@ public class vedioPlayControl extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             //TODO something
+            if(mTimer!=null)
             mTimer.cancel();
             vedioPlayControl.this.finish();
             return true;

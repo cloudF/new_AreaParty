@@ -713,6 +713,23 @@
                     android:textSize="14sp"
                     android:textColor="#000000"/>
             </LinearLayout>
+            <!--添加到视频库-->
+            <LinearLayout
+                android:id="@+id/bar02MoreAddToVideoList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/bar02MoreAddToVideoListTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="0dp"
+                    android:text="添加到媒体库"
+                    android:textSize="14sp"
+                    android:textColor="#000000"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

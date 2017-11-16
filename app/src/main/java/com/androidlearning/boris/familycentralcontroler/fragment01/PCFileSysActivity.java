@@ -70,6 +70,7 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
     final String disk_SYS = "Fixed_SYS";
     final String disk_Fixed = "Fixed";
     final String disk_Removable = "Removable";
+    final  String disk_Network = "Network";
     DiskInformat[] diskDatas;
     private MyDiskAdapater diskAdapater;
 
@@ -115,10 +116,12 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
             }
 
             DiskInformat fileBeanTemp = diskDatas[i];
+
             String infor =  fileBeanTemp.volumeLabel + " " + fileBeanTemp.totalFreeSpace + "G/" + fileBeanTemp.totalSize + "G";
             String tabel = fileBeanTemp.name + "盘";
             holder.nameView.setText(tabel);
             holder.inforView.setText(infor);
+
             switch (fileBeanTemp.driveType) {
                 case disk_SYS:
                     holder.typeView.setImageResource(R.drawable.frag04_driver_system_icon);
@@ -128,6 +131,10 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
                     holder.typeView.setImageResource(R.drawable.frag04_driver_normal_icon);
                     break;
                 case disk_Removable:
+                    holder.typeView.setImageResource(R.drawable.frag04_driver_usb_icon);
+                    holder.typeView.setPadding(10, 10, 10, 10);
+                    break;
+                case disk_Network:
                     holder.typeView.setImageResource(R.drawable.frag04_driver_usb_icon);
                     holder.typeView.setPadding(10, 10, 10, 10);
                     break;

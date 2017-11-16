@@ -67,6 +67,8 @@ public class OrderConst {
     public static final int deletePCSet_Fail = 0x218;
     public static final int playPCMediaSet_OK = 0x219;
     public static final int playPCMediaSet_Fail = 0x220;
+    public static final int mediaAction_DELETE_OK = 0x221;
+    public static final int mediaAction_DELETE_Fail = 0x222;
 
     public static final int addFriend_order = 0x600;
     public static final int getUserMsgFail_order = 0x601;
@@ -121,6 +123,7 @@ public class OrderConst {
     public static final String fileOrFolderAction_deleteInComputer_command = "DELETE";
     public static final String fileOrFolderAction_renameInComputer_command = "RENAME";
     public static final String folderAction_addInComputer_command = "ADDFOLDER";
+    public static final String folderAction_addToList_command = "ADDTOHTTP";
     public static final String fileOrFolderAction_copy_command = "COPY";
     public static final String fileOrFolderAction_cut_command = "CUT";
     public static final String fileAction_share_command = "SHAREFILE";
@@ -163,6 +166,8 @@ public class OrderConst {
     public static final String appAction_rdpOpen_command = "OPEN_RDP";
     public static final String mediaAction_play_command = "PLAY";
     public static final String mediaAction_playSet_command = "PLAYSET";
+    public static final String mediaAction_playSet_command_BGM = "PLAYSETASBGM";
+    public static final String mediaAction_DELETE_command = "DELETE";
     public static final String gameAction_open_command = "OPEN";
     public static final String mediaAction_getSets_command = "GETSETS";
     public static final String mediaAction_addSet_command = "ADDSET";
@@ -206,6 +211,10 @@ public class OrderConst {
     public static final String VLCAction_LoadSubtitle_SecondCommand = "LOAD_SUBTITLE";
 
     public static final String GET_AREAPARTY_PATH = "GETAREAPARTYPATH";
+
+    public static final String VLCAction_Subtitle_Before_SecondCommand = "SUBTITLE_BEFORE";
+    public static final String VLCAction_SubtitleDelay_SecondCommand = "SUBTITLE_DELAY";
+    public static final String CLOSERDP = "RDP_BACK";
 
     // ...
 }

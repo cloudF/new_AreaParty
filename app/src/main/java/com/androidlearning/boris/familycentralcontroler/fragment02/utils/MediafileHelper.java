@@ -178,6 +178,9 @@ public class MediafileHelper {
             isRoot = isPathContained(currentPath, startPathList);
         new Send2PCThread(mediaType, currentPath, isRoot, handler).start();
     }
+    public static void deleteMediaLibFiles(Handler handler, String path) {
+        new Send2PCThread(mediaType, path, false, handler).start();
+    }
 
     public static boolean isPathContained(String path, List<String> lists) {
         if(lists.size() == 0)
@@ -231,6 +234,13 @@ public class MediafileHelper {
         new Send2PCThread(setType, OrderConst.mediaAction_playSet_command, param, myhandler).start();
     }
 
+    public static void playMediaSetAsBGM(String setType, String setName, String tvname, Handler myhandler) {
+        Map<String, String> param = new HashMap<>();
+        param.put("setname", setName);
+        param.put("tvname", tvname);
+        new Send2PCThread(setType, OrderConst.mediaAction_playSet_command_BGM, param, myhandler).start();
+    }
+
 
     public static void vlcContinue() {
         new Send2TVThread(JsonUitl.objectToString(CommandUtil.createPlayVLCCommand())).start();
@@ -280,6 +290,7 @@ public class MediafileHelper {
         }
         if(mediaList.size() > 0) {
             String liststr = JsonUitl.objectToString(mediaList);
+            Log.w("MediafileHelper liststr",liststr);
             Map<String, String> param = new HashMap<>();
             param.put("setname", setname);
             param.put("liststr", liststr);
@@ -300,6 +311,24 @@ public class MediafileHelper {
                 state = true;
         if(!state)
             currentSet.add(file);
+    }
+
+    public static void addFileToLocalSet(String name, List<MediaItem> fileList) {
+        List<MediaItem> currentSet;
+        if(mediaType.equals(OrderConst.audioAction_name)) {
+            currentSet = audioSets.get(name);
+        } else {
+            currentSet = imageSets.get(name);
+        }
+        for (MediaItem file : fileList){
+            boolean state = false;
+            for(int i = 0; i < currentSet.size(); ++i)
+                if(currentSet.get(i).equals(file))
+                    state = true;
+            if(!state)
+                currentSet.add(file);
+        }
+
     }
 
     /**

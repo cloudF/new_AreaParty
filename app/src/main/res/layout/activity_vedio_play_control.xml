@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/remote_control"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
+    android:background="#ffffec"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <RelativeLayout
@@ -26,26 +27,33 @@ android:layout_height="match_parent">
         >
 
         <Button
-            android:id="@+id/load_subtitle"
+            android:id="@+id/subtitle_before"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="在线字幕"
-            android:layout_marginStart="26dp"
+            android:text="字幕提前"
+            android:layout_marginEnd="12dp"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/player_overlay_time"
-            android:layout_alignBottom="@+id/hide_subtitle" />
+            android:layout_toStartOf="@+id/subtitle_delay" />
 
         <Button
-            android:id="@+id/hide_subtitle"
+            android:id="@+id/subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="隐藏字幕"
+            android:text="加载字幕"
+            android:layout_marginStart="13dp"
             android:layout_alignParentTop="true"
-            android:layout_alignEnd="@+id/player_overlay_seekbar"
-            android:layout_marginEnd="18dp" />
+            android:layout_alignStart="@+id/player_overlay_time" />
+
+        <Button
+            android:id="@+id/subtitle_delay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="字幕延迟"
+            android:layout_alignParentTop="true"
+            android:layout_alignEnd="@+id/player_overlay_seekbar" />
 
         <SeekBar
-            android:layout_below="@+id/load_subtitle"
+            android:layout_below="@+id/subtitle"
             android:id="@+id/player_overlay_seekbar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -75,7 +83,10 @@ android:layout_height="match_parent">
             android:layout_below="@+id/player_overlay_seekbar"
             android:layout_alignParentStart="true"
             android:layout_marginStart="13dp" />
-        <TextView
+        <com.androidlearning.boris.familycentralcontroler.fragment02.view.AlwaysMarqueeTextView
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
             android:id="@+id/player_title"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -97,6 +108,7 @@ android:layout_height="match_parent">
             android:text="00:00:00"
             android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
             android:textSize="16sp"
+            android:textColor="@color/orange500"
             android:layout_below="@+id/player_overlay_seekbar"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp" />

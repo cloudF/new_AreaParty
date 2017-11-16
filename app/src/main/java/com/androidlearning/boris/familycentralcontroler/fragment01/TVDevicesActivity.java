@@ -32,6 +32,7 @@ import com.androidlearning.boris.familycentralcontroler.fragment03.utils.TVAppHe
 import com.androidlearning.boris.familycentralcontroler.model_comman.MyAdapter;
 import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.fragment01.ui.DiffuseView;
+import com.androidlearning.boris.familycentralcontroler.myapplication.inforUtils.FillingIPInforList;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.IPInforBean;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.netWork.NetBroadcastReceiver;
@@ -101,10 +102,17 @@ public class TVDevicesActivity extends Activity implements View.OnClickListener,
      */
     @Override
     public void onRefresh() {
-        tvList.clear();
-        tvList.addAll(MyApplication.getTVIPInforList());
-        Log.e(tag, "终端个数" + tvList.size());
-        tvAdapter.notifyDataSetChanged();
+
+        if (NetUtil.getNetWorkState(getApplicationContext()) == NetUtil.NETWORK_WIFI && ((FillingIPInforList.getThreadBroadCast()!= null && !FillingIPInforList.getThreadBroadCast().isAlive())||(FillingIPInforList.getThreadReceiveMessage()!= null && !FillingIPInforList.getThreadReceiveMessage().isAlive()))){
+            FillingIPInforList.setCloseSignal(false);
+            FillingIPInforList.startBroadCastAndListen(10000, 10000);
+        }
+        if (MyApplication.getTVIPInforList().size() > 0){
+            tvList.clear();
+            tvList.addAll(MyApplication.getTVIPInforList());
+            Log.e(tag, "终端个数" + tvList.size());
+            tvAdapter.notifyDataSetChanged();
+        }
         devicesRefreshSRL.setRefreshing(false);
     }
 
@@ -200,6 +208,7 @@ public class TVDevicesActivity extends Activity implements View.OnClickListener,
                         }
                     } else {
                         if(MyApplication.isTVMacContains(temp.mac)) {
+                            code = MyApplication.TVMacs.get(temp.mac);
                             IdentityVerify.identifyTV(myHandler, MyApplication.TVMacs.get(temp.mac), temp.ip, temp.port);
                         } else verifyDialog(temp);
                     }
@@ -322,6 +331,7 @@ public class TVDevicesActivity extends Activity implements View.OnClickListener,
                 case 404: {
                     dialog.dismiss();
                     MyApplication.selectedTVVerified = false;
+                    MyApplication.removeTVMac(temp.mac);
                     Toasty.info(TVDevicesActivity.this, "未知错误", Toast.LENGTH_SHORT).show();
                 }
                 break;

@@ -9,11 +9,14 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.androidlearning.boris.familycentralcontroler.FileTypeConst;
 import com.androidlearning.boris.familycentralcontroler.fragment01.downloadedPicBrowseActivity;
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.DownloadFileModel;
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.downloadedFileBean;
+import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileItem;
+import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 import com.lzy.okgo.model.Progress;
 
 import java.io.File;
@@ -22,6 +25,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 /**
  * Created by borispaul on 17-5-10.
@@ -95,6 +100,31 @@ public class DownloadFileManagerHelper {
             }
         }.start();
     }
+
+    public static void dlnaCast(final FileItem file, final String type) {
+        if (MyApplication.isSelectedTVOnline()){
+            new Thread() {
+                @Override
+                public void run() {
+                    boolean state = prepareDataForFragment.getDlnaCastState(file,type);
+                    try{
+                        if(state) {
+                            Toasty.info(MyApplication.getContext(), "投屏成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toasty.error(MyApplication.getContext(), "投屏失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }else {
+            Toasty.warning(MyApplication.getContext(), "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+        }
+
+    }
+
+
 
     /**
      * <summary>

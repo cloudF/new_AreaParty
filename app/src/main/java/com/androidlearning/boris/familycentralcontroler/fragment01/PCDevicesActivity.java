@@ -34,6 +34,7 @@ import com.androidlearning.boris.familycentralcontroler.fragment01.utils.Identit
 import com.androidlearning.boris.familycentralcontroler.fragment03.utils.TVAppHelper;
 import com.androidlearning.boris.familycentralcontroler.model_comman.MyAdapter;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
+import com.androidlearning.boris.familycentralcontroler.myapplication.inforUtils.FillingIPInforList;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.IPInforBean;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.netWork.NetBroadcastReceiver;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.netWork.NetUtil;
@@ -101,10 +102,18 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
      */
     @Override
     public void onRefresh() {
-        pcList.clear();
-        pcList.addAll(MyApplication.getPC_YInforList());
-        Log.e(tag, "终端个数" + pcList.size());
-        pcAdapter.notifyDataSetChanged();
+        if (NetUtil.getNetWorkState(getApplicationContext()) == NetUtil.NETWORK_WIFI&& ((FillingIPInforList.getThreadBroadCast()!= null && !FillingIPInforList.getThreadBroadCast().isAlive())||(FillingIPInforList.getThreadReceiveMessage()!= null && !FillingIPInforList.getThreadReceiveMessage().isAlive()))){
+            FillingIPInforList.setCloseSignal(false);
+            FillingIPInforList.startBroadCastAndListen(10000, 10000);
+        }
+
+        if (MyApplication.getPC_YInforList().size() > 0){
+            pcList.clear();
+            pcList.addAll(MyApplication.getPC_YInforList());
+            Log.e(tag, "终端个数" + pcList.size());
+            pcAdapter.notifyDataSetChanged();
+
+        }
         devicesRefreshSRL.setRefreshing(false);
     }
 
@@ -200,6 +209,7 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
                         }
                     } else {
                         if(MyApplication.isPCMacContains(pcList.get(i).mac)) {
+                            code = MyApplication.PCMacs.get(temp.mac);
                             IdentityVerify.identifyPC(myHandler, MyApplication.PCMacs.get(temp.mac), temp.ip, temp.port);
                         } else verifyDialog(temp);
                     }
@@ -328,6 +338,7 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
                 case 404: {
                     dialog.hide();
                     MyApplication.selectedPCVerified = false;
+                    MyApplication.removePCMac(temp.mac);
                     Toasty.info(PCDevicesActivity.this, "未知错误", Toast.LENGTH_SHORT).show();
                 }
                 break;

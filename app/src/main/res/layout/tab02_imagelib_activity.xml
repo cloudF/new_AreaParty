@@ -93,8 +93,51 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/shiftBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/barback03">
+
+        <TextView
+            android:id="@+id/pc_file"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="电脑图库"
+            android:textSize="12sp"
+            android:textColor="#FF5050"
+            android:clickable="true"
+            style="@style/Widget.AppCompat.Button"
+            android:background="@drawable/barback03_left_pressed"/>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="#e65757"/>
+        <TextView
+            android:id="@+id/app_file"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="本地图库"
+            android:textSize="12sp"
+            android:textColor="#707070"
+            android:clickable="true"
+            style="@style/Widget.AppCompat.Button"
+            android:background="@drawable/barback03_right_normal"/>
+    </LinearLayout>
+
     <!-- 播放列表栏目 -->
     <LinearLayout
+        android:id="@+id/play_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -103,7 +146,8 @@
         android:layout_marginEnd="10dp"
         android:orientation="vertical"
         android:elevation="2dp"
-        android:background="@drawable/circlecornersmallllbgnormal">
+        android:background="@drawable/circlecornersmallllbgnormal"
+        android:visibility="visible">
 
         <!-- 我的图片播放列表 -->
         <LinearLayout
@@ -151,34 +195,33 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ListView
+            android:id="@+id/folderSLV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@drawable/circlecornersmallllbgnormal"
+            android:dividerHeight="0.1sp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="1dp"
+            android:divider="#88e6e6e6"
+            android:elevation="3dp"/>
 
-            <ListView
-                android:id="@+id/folderSLV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/circlecornersmallllbgnormal"
-                android:dividerHeight="0.1sp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="6dp"
-                android:divider="#88e6e6e6"
-                android:elevation="3dp"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/fileSGV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="20dp"
-                android:focusable="true"
-                android:background="#0000"
-                android:layout_margin="6dp"/>
-        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fileSGV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp"
+            android:focusable="true"
+            android:background="#0000"
+            android:layout_margin="6dp"/>
+    </LinearLayout>
 
 </LinearLayout>

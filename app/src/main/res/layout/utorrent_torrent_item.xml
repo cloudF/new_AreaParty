@@ -93,27 +93,33 @@
             android:id="@+id/stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
+            android:layout_marginEnd="4dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
+            android:paddingBottom="5dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
             android:text="停止"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/remove"
-            app:layout_constraintRight_toLeftOf="@+id/startOrPause"
-            android:layout_marginRight="0dp" />
+            app:layout_constraintEnd_toStartOf="@+id/startOrPause" />
 
         <Button
             android:id="@+id/startOrPause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="-1dp"
-            android:layout_marginRight="0dp"
+            android:layout_marginEnd="4dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
+            android:paddingBottom="5dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
             android:text="下载"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/remove" />
+            app:layout_constraintBottom_toBottomOf="@+id/remove"
+            app:layout_constraintEnd_toStartOf="@+id/remove" />
 
         <Button
             android:id="@+id/remove"
@@ -125,6 +131,10 @@
             android:minWidth="0dp"
             android:text="移除"
             android:textSize="12sp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 

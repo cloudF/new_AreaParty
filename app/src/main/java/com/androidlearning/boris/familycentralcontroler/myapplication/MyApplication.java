@@ -202,7 +202,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
     }
 
     public static void verifyLastPCMac() {
-        if(selectedPCIP != null && !selectedPCIP.ip.equals("")) {
+        if(selectedPCIP != null && !selectedPCIP.ip.equals("") && PCMacs != null) {
             final String IP = selectedPCIP.ip;
             final int port = selectedPCIP.port;
             final String code = PCMacs.get(selectedPCIP.mac);
@@ -241,7 +241,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
 
     //  还要按蒙蒙返回格式修改
     public static void verifyLastTVMac() {
-        if(selectedTVIP != null && !selectedTVIP.ip.equals("")) {
+        if(selectedTVIP != null && !selectedTVIP.ip.equals("") && TVMacs!=null) {
             final String IP = selectedTVIP.ip;
             final int port = selectedTVIP.port;
             final String code = TVMacs.get(selectedTVIP.mac);
@@ -422,7 +422,8 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
             PCMacs = parse(PCMacsStr);
             TVMacs = parse(TVMacsStr);
         }catch (Exception e){
-            e.printStackTrace();
+            TVMacs = new HashMap<>();
+            PCMacs = new HashMap<>();
         }
 
         if (TVString != null && !TVString.equals("")) {
@@ -486,11 +487,17 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
     }
 
     public static boolean isTVMacContains(String mac) {
-        return TVMacs.containsKey(mac);
+        if (TVMacs!=null){
+            return TVMacs.containsKey(mac);
+        }
+        return false;
     }
 
     public static boolean isPCMacContains(String mac) {
-        return PCMacs.containsKey(mac);
+        if (PCMacs != null){
+            return PCMacs.containsKey(mac);
+        }
+        return false;
     }
 
     public static List<SharedfileBean> getMySharedFiles() {
@@ -552,8 +559,9 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         }
         try {
             verifyLastPCMac();
+            verifyLastTVMac();
         }catch (Exception e){e.printStackTrace();}
-        verifyLastTVMac();
+
         startStateRefreshTimer();
         startCheckIsNewVersionExist();
     }

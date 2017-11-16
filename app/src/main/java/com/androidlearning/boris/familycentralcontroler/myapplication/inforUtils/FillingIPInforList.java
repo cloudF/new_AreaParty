@@ -62,6 +62,14 @@ public class FillingIPInforList {
     private static boolean isNewPC_YList = false;
     private static boolean isNewTVList = false;
 
+    public static Thread getThreadBroadCast() {
+        return threadBroadCast;
+    }
+
+    public static Thread getThreadReceiveMessage() {
+        return threadReceiveMessage;
+    }
+
     public static String getWifiName() {
         return wifiName;
     }

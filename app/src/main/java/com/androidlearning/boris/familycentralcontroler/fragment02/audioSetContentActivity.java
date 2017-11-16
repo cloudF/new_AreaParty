@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -41,7 +42,7 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
     private final String tag = this.getClass().getSimpleName();
 
     private ImageButton returnLogoIB;
-    private TextView setNameTV, numTV;
+    private TextView setNameTV, numTV, playAsBGM;
     private LinearLayout playAllLL;
     private RecyclerView fileSGV;
 
@@ -70,10 +71,22 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
                 break;
             case R.id.playAllLL:
                 // 列表投屏
+                Log.w("audioSetContentActivity","playAllLL");
                 if(MyApplication.isSelectedPCOnline()) {
                     if(MyApplication.isSelectedTVOnline()) {
                         if(files.size() > 0)
                             MediafileHelper.playMediaSet(OrderConst.audioAction_name,
+                                    setName, MyApplication.getSelectedTVIP().name, myHandler);
+                        else  Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
+                    } else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+                } else Toasty.warning(audioSetContentActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                break;
+            case R.id.play_as_bgm:
+                Log.w("audioSetContentActivity","play_as_bgm");
+                if(MyApplication.isSelectedPCOnline()) {
+                    if(MyApplication.isSelectedTVOnline()) {
+                        if(files.size() > 0)
+                            MediafileHelper.playMediaSetAsBGM(OrderConst.audioAction_name,
                                     setName, MyApplication.getSelectedTVIP().name, myHandler);
                         else  Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
                     } else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
@@ -113,6 +126,7 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
         numTV = (TextView) findViewById(R.id.numTV);
         playAllLL = (LinearLayout) findViewById(R.id.playAllLL);
         fileSGV = (RecyclerView) findViewById(R.id.fileSGV);
+        playAsBGM = (TextView) findViewById(R.id.play_as_bgm);
 
         setNameTV.setText(setName);
         numTV.setText("(共" + files.size() + "首)");
@@ -130,6 +144,7 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
     private void initEvent() {
         returnLogoIB.setOnClickListener(this);
         playAllLL.setOnClickListener(this);
+        playAsBGM.setOnClickListener(this);
 
     }
 

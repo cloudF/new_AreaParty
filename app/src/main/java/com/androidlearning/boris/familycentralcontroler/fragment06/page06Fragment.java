@@ -524,37 +524,39 @@ public class page06Fragment extends Fragment {
 //        }
         String logOutId = ((userObj) msg.obj).getUserId();
         System.out.println(userNetData);
+        if (userFriendData!=null && userNetData!=null && userShareData != null){
+            Iterator<HashMap<String,Object>> friendIt = userFriendData.iterator();
+            Iterator<HashMap<String,Object>> netIt = userNetData.iterator();
+            Iterator<HashMap<String,Object>> shareIt = userShareData.iterator();
+            while(friendIt.hasNext()){
+                HashMap<String,Object> hm = friendIt.next();
+                if(hm.get("userId").equals(logOutId)){
+                    HashMap<String, Object> userFriendItem = hm;
+                    userFriendItem.put("userOnline",false);
+                    friendIt.remove();
+                    userFriendData.add(userFriendItem);
+                    if(id_tab06_userFriend!=null) userFriendAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+            while(netIt.hasNext()){
+                HashMap<String,Object> hm = netIt.next();
+                if(hm.get("userId").equals(logOutId)){
+                    netIt.remove();
+                    if(id_tab06_userNet!=null) userNetAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+            while(shareIt.hasNext()){
+                HashMap<String,Object> hm = shareIt.next();
+                if(hm.get("userId").equals(logOutId)){
+                    shareIt.remove();
+                    if(id_tab06_userShare!=null) userShareAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
 
-        Iterator<HashMap<String,Object>> friendIt = userFriendData.iterator();
-        Iterator<HashMap<String,Object>> netIt = userNetData.iterator();
-        Iterator<HashMap<String,Object>> shareIt = userShareData.iterator();
-        while(friendIt.hasNext()){
-            HashMap<String,Object> hm = friendIt.next();
-            if(hm.get("userId").equals(logOutId)){
-                HashMap<String, Object> userFriendItem = hm;
-                userFriendItem.put("userOnline",false);
-                friendIt.remove();
-                userFriendData.add(userFriendItem);
-                if(id_tab06_userFriend!=null) userFriendAdapter.notifyDataSetChanged();
-                break;
-            }
-        }
-        while(netIt.hasNext()){
-            HashMap<String,Object> hm = netIt.next();
-            if(hm.get("userId").equals(logOutId)){
-                netIt.remove();
-                if(id_tab06_userNet!=null) userNetAdapter.notifyDataSetChanged();
-                break;
-            }
-        }
-        while(shareIt.hasNext()){
-            HashMap<String,Object> hm = shareIt.next();
-            if(hm.get("userId").equals(logOutId)){
-                shareIt.remove();
-                if(id_tab06_userShare!=null) userShareAdapter.notifyDataSetChanged();
-                break;
-            }
-        }
     }
 
     private void showListDialog(HashMap<String, Object> h){

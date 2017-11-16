@@ -54,6 +54,7 @@ dependencies {
     compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
     compile 'com.androidkun:xversionupdate:1.0.4'
     compile 'com.alibaba:fastjson:1.2.14'
+    compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     testCompile 'junit:junit:4.12'

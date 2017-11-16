@@ -55,4 +55,8 @@ public class MediaItem {
         return item.name.equals(this.name) && item.pathName.equals(this.pathName);
     }
 
+    public MediaItem(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
 }

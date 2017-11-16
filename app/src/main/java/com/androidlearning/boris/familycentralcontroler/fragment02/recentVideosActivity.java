@@ -70,7 +70,6 @@ public class recentVideosActivity extends Activity implements View.OnClickListen
      * </summary>
      */
     private void initData() {
-        if(MediafileHelper.getRecentVideos().size() <= 0)
             MediafileHelper.loadRecentMediaFiles(myHandler);
 
         /*fileAdapter = new VideoAdapter(this, MediafileHelper.getRecentVideos());

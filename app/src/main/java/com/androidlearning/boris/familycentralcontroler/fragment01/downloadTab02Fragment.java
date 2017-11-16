@@ -80,11 +80,16 @@ public class downloadTab02Fragment extends BaseFragment implements SwipeRefreshL
     }
 
     public void dlnaNotify(boolean state) {
-        if(state) {
-            Toasty.info(context, "投屏成功", Toast.LENGTH_SHORT, true).show();
-        } else {
-            Toasty.error(context, "投屏失败", Toast.LENGTH_SHORT, true).show();
+        try{
+            if(state) {
+                Toasty.info(context, "投屏成功", Toast.LENGTH_SHORT).show();
+            } else {
+                Toasty.error(context, "投屏失败", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
     /**

@@ -403,7 +403,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            android:visibility="invisible">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -529,9 +529,29 @@
                                 android:layout_weight="4"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
-                                android:text="(当前打开模式为RDP模式)"
+                                android:text=""
                                 android:textSize="12sp"
                                 android:visibility="visible"/>
+                            <ImageView
+                                android:id="@+id/closeRDP"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:padding="8dp"
+                                android:clickable="true"
+                                android:src="@drawable/close_rdp"
+                                android:scaleType="fitEnd"
+                                android:background="@drawable/linearlayout_selector02"/>
+                            <ImageView
+                                android:id="@+id/openPcDesk"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:padding="8dp"
+                                android:clickable="true"
+                                android:src="@drawable/tab03_pc_window"
+                                android:scaleType="fitEnd"
+                                android:background="@drawable/linearlayout_selector02"/>
                             <ImageView
                                 android:id="@+id/PCAppOpenModelNoticeIV"
                                 android:layout_width="0dp"
@@ -541,7 +561,8 @@
                                 android:clickable="true"
                                 android:src="@drawable/icon_notice"
                                 android:scaleType="fitEnd"
-                                android:background="@drawable/linearlayout_selector02"/>
+                                android:background="@drawable/linearlayout_selector02"
+                                android:visibility="gone"/>
                         </LinearLayout>
                         <View
                             android:layout_width="match_parent"
