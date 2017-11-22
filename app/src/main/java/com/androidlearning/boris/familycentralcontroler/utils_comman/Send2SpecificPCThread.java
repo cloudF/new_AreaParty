@@ -20,8 +20,12 @@ import com.google.gson.stream.JsonReader;
 
 import org.apache.commons.io.IOUtils;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -75,6 +79,7 @@ public class Send2SpecificPCThread extends Thread {
                 IOUtils.write(cmdStr, client.getOutputStream(), "UTF-8");
                 IOUtils.copy(client.getInputStream(), outBytes, 8192);
                 dataReceived = new String(outBytes.toByteArray(), "UTF-8");
+
                 Log.i("Send2PCThread", "指令: " + cmdStr);
                 Log.i("Send2PCThread", "回复: " + dataReceived);
                 if(dataReceived.length() > 0) {

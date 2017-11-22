@@ -31,7 +31,7 @@
             <ImageView
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:src="@drawable/logo_win10"/>
+                android:src="@drawable/ic_music"/>
             <TextView
                 android:layout_marginStart="5dp"
                 android:layout_width="wrap_content"

@@ -13,7 +13,6 @@ public class TVCommandItem {
     private String fourthCommand;
     private String fifthCommand;
     private List<String> sixthcommand;
-
     private String sevencommand;
 
     public List<String> getSixthcommand() {

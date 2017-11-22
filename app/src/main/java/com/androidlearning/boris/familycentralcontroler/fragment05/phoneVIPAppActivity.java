@@ -38,8 +38,8 @@ public class phoneVIPAppActivity extends AppCompatActivity implements View.OnCli
     private IntentFilter intentFilter;
     private NetworkChangeReceiver networkChangeReceiver;
 
-    int iqiyiVersionCode;
-    int youkuVersionCode;
+    public static int iqiyiVersionCode;
+    public static int youkuVersionCode;
 
 
     private Button btn_autoLoginService;
@@ -305,7 +305,7 @@ public class phoneVIPAppActivity extends AppCompatActivity implements View.OnCli
         return 0;
     }
 
-    class NetworkChangeReceiver extends BroadcastReceiver{//动态监听网络变化
+    public class NetworkChangeReceiver extends BroadcastReceiver{//动态监听网络变化
 
         @Override
         public void onReceive(Context context, Intent intent) {

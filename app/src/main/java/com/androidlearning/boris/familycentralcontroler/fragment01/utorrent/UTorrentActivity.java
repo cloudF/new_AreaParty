@@ -3,6 +3,7 @@ package com.androidlearning.boris.familycentralcontroler.fragment01.utorrent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,9 +15,10 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
-import com.androidlearning.boris.familycentralcontroler.R;
+import com.androidlearning.boris.familycentralcontroler.*;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.adapter.UTorrentAdapter;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.adapter.WrapContentLinearLayoutManager;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.customView.MyItemDecoration;
@@ -70,9 +72,27 @@ public class UTorrentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.utorrent_activity_utorrent);
         ButterKnife.bind(this);
-        toolbar.setLogo(R.drawable.ic_utorrent_logo);
+//        toolbar.setLogo(R.drawable.ic_utorrent_logo);
         toolbar.setTitle("任务列表");
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.webmanager_ic_goback);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.go_home:
+                        startActivity(new Intent(UTorrentActivity.this, com.androidlearning.boris.familycentralcontroler.MainActivity.class));
+                        break;
+                }
+                return true;
+            }
+        });
 
 
 //        Intent intent = getIntent();
@@ -472,4 +492,9 @@ public class UTorrentActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_gohome, menu);
+        return true;
+    }
 }

@@ -26,6 +26,7 @@ import java.net.UnknownHostException;
 public class ReceiveCommandFromTVPlayer extends Thread {
     public static boolean playerIsRun = false;
     private static final String tag = "CommandFromTVPlayer";
+    public static String playerType = "VIDEO";
     @Override
     public void run() {
         //runReceiveMessage();
@@ -53,38 +54,39 @@ public class ReceiveCommandFromTVPlayer extends Thread {
                     try {
                         tvCommandItem=JSON.parseObject(data, TVCommandItem.class);
 
-                        switch (tvCommandItem.getFirstcommand()){
-                            case ("CONTROL_MEDIA"):
-                                String ctrlCmd=tvCommandItem.getSecondcommand();
-                                switch (ctrlCmd){
-                                    case "PLAY_PAUSE":
-                                        String cmd=tvCommandItem.getFourthCommand();
-                                        switch (cmd){
-                                            case "PLAY":
-                                            vedioPlayControl.play();
-                                            break;
-                                            case "PAUSE":
-                                                vedioPlayControl.pause();
-                                                break;
-                                        }
+
+                        String ctrlCmd=tvCommandItem.getSecondcommand();
+                        switch (ctrlCmd){
+                            case "PLAY_PAUSE":
+                                String cmd=tvCommandItem.getFourthCommand();
+                                switch (cmd){
+                                    case "PLAY":
+                                        vedioPlayControl.play();
                                         break;
-                                    case "CHECK_PLAY_INFO":
-                                        Log.e(tag, tvCommandItem.getSevencommand());
-                                        Log.e(tag, tvCommandItem.getFourthCommand());
-                                        Log.e(tag, tvCommandItem.getFifthCommand());
-                                        vedioPlayControl.checkPlayInfo(tvCommandItem.getFifthCommand(),tvCommandItem.getFourthCommand(),tvCommandItem.getSevencommand());
-                                        break;
-                                    case "PLAY_APPOINT_POSITION":
-                                        vedioPlayControl.playAppointPosition(tvCommandItem.getFifthCommand());
-                                        break;
-                                    case "EXIT_PLAYER":
-                                    playerIsRun = false;
-                                    EventBus.getDefault().post(new TvPlayerChangeEvent(false), "tvPlayerStateChanged");
-                                        vedioPlayControl.exit();
+                                    case "PAUSE":
+                                        vedioPlayControl.pause();
                                         break;
                                 }
                                 break;
+                            case "CHECK_PLAY_INFO":
+                                Log.e(tag, tvCommandItem.getSevencommand());
+                                Log.e(tag, tvCommandItem.getFourthCommand());
+                                Log.e(tag, tvCommandItem.getFifthCommand());
+                                playerType=tvCommandItem.getFirstcommand();
+                                vedioPlayControl.checkPlayInfo(tvCommandItem.getFifthCommand(),tvCommandItem.getFourthCommand(),tvCommandItem.getSevencommand());
+                                break;
+                            case "PLAY_APPOINT_POSITION":
+                                vedioPlayControl.playAppointPosition(tvCommandItem.getFifthCommand());
+                                break;
+                            case "EXIT_PLAYER":
+                                playerIsRun = false;
+                                //修改为让遥控器一直可以开启
+                                //   EventBus.getDefault().post(new TvPlayerChangeEvent(false), "tvPlayerStateChanged");
+                                vedioPlayControl.exit();
+                                break;
                         }
+                        break;
+
                     }
                     catch (Exception e){
                         e.printStackTrace();

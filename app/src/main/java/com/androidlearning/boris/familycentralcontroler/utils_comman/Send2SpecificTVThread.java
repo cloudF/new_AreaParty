@@ -11,8 +11,12 @@ import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.
 
 import org.apache.commons.io.IOUtils;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.HashMap;
@@ -60,9 +64,16 @@ public class Send2SpecificTVThread extends Thread {
             ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
             try {
                 client.connect(new InetSocketAddress(IP, port), SOCKET_TIMEOUT);
-                IOUtils.write(cmdStr, client.getOutputStream(), "UTF-8");
-                IOUtils.copy(client.getInputStream(), outBytes, 8192);
-                dataReceived = new String(outBytes.toByteArray(), "UTF-8");
+//                IOUtils.write(cmdStr, client.getOutputStream(), "UTF-8");
+//                IOUtils.copy(client.getInputStream(), outBytes, 8192);
+//                dataReceived = new String(outBytes.toByteArray(), "UTF-8");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+                writer.write(cmdStr);
+                writer.newLine();
+                writer.flush();
+
+                dataReceived = reader.readLine();
                 Log.i("Send2TVThread", "指令: " + cmdStr);
                 Log.i("Send2TVThread", "回复: " + dataReceived);
                 if(dataReceived.equals("true")) {

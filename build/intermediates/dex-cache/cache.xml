@@ -33,6 +33,16 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\zhuyulin\.gradle\caches\transforms-1\files-1.1\SwipeDelMenuLayout-V1.3.0.aar\e7c2d5d21e4bdafbaed3e36204d268d8\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4296deb67004c0f48fac0e3a1627b7fa411e7ccd">
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\55.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="F:\new_AreaParty\app\libs\commons-httpclient-3.0-rc4.jar"
         jumboMode="false"
         min-sdk-version="21"

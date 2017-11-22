@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.fragment01.websitemanager.web1080.callback.OnTorrentFileItemListener;
 import com.androidlearning.boris.familycentralcontroler.fragment02.ui.BreakTextView;
+import com.mcxtzhang.swipemenulib.SwipeMenuLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +35,15 @@ public class TorrentFileAdapter extends RecyclerView.Adapter<TorrentFileAdapter.
         BreakTextView torrentFileName;
         Button downloadBtn, deleteBtn;
         CheckBox checkBox;
+        SwipeMenuLayout rootView;
 
         public ViewHolder(View view){
             super(view);
-            cardView = (CardView) view;
+            rootView = (SwipeMenuLayout) view;
+            cardView = (CardView) view.findViewById(R.id.cardView);
             torrentFileName = (BreakTextView) view.findViewById(R.id.torrent_file_name);
-            downloadBtn = (Button) view.findViewById(R.id.download);
-            deleteBtn = (Button) view.findViewById(R.id.delete);
+            downloadBtn = (Button) view.findViewById(R.id.btnDownload);
+            deleteBtn = (Button) view.findViewById(R.id.btnDelete);
             checkBox = (CheckBox) view.findViewById(R.id.checkBox);
         }
     }
@@ -66,21 +69,25 @@ public class TorrentFileAdapter extends RecyclerView.Adapter<TorrentFileAdapter.
         if (torrent.isShow()){
             holder.checkBox.setVisibility(View.VISIBLE);
             holder.checkBox.setClickable(false);
+            holder.rootView.setSwipeEnable(false);
             holder.checkBox.setChecked(torrent.isChecked());
         }else {
             holder.checkBox.setVisibility(View.GONE);
+            holder.rootView.setSwipeEnable(true);
         }
         holder.torrentFileName.setText(torrent.getTorrentFileName());
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.delete(position);
+                holder.rootView.quickClose();
             }
         });
         holder.downloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.download(position);
+                holder.rootView.quickClose();
             }
         });
         if (!torrent.isShow() && holder.checkBox.getVisibility() == View.GONE){//长按进入选择模式

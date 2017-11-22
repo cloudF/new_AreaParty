@@ -211,6 +211,7 @@ public class diskContentActivity extends Activity implements View.OnClickListene
     }
 
     public void actionSuccess(Message msg) {
+        isCheckBoxIn = false;
         String actionType = msg.getData().getString("actionType");
         if (actionType == null) actionType = "";
         if(actionType.equals(OrderConst.fileOrFolderAction_copy_command)) {
@@ -235,6 +236,7 @@ public class diskContentActivity extends Activity implements View.OnClickListene
     }
 
     public void actionFail(Message msg) {
+        isCheckBoxIn = false;
         adapter.notifyDataSetChanged();
         String actionType = msg.getData().getString("actionType");
         if(actionType.equals(OrderConst.fileOrFolderAction_copy_command)) {
@@ -256,11 +258,13 @@ public class diskContentActivity extends Activity implements View.OnClickListene
     }
 
     public void addSharedFilePathSuccess(Message msg) {
+        isCheckBoxIn = false;
         dialog.hide();
         Toasty.success(this, "分享文件成功", Toast.LENGTH_SHORT, true).show();
     }
 
     public void addSharedFilePathFail(Message msg) {
+        isCheckBoxIn = false;
         dialog.hide();
         Toasty.error(this, "分享文件失败", Toast.LENGTH_SHORT, true).show();
     }
@@ -755,6 +759,7 @@ public class diskContentActivity extends Activity implements View.OnClickListene
                         isCheckBoxIn = true;
                         adapter.notifyDataSetChanged();
                     }
+                    return true;
                 }
                 return false;
             }

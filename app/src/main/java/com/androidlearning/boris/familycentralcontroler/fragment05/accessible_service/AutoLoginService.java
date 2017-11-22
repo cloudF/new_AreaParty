@@ -39,8 +39,7 @@ public class AutoLoginService extends AccessibilityService {
     public static int IQIYI_STATUS = IQIYI_NO_ACTION;
 
     public static boolean loginSucceed = false;
-    private boolean jumpToMainActivity = false;
-
+//    private boolean jumpToMainActivity = false;
     //优酷用到的变量
     public static final int YOUKU_NO_ACTION = 0;
     public static final int YOUKU_LOGIN = 1;
@@ -240,7 +239,8 @@ public class AutoLoginService extends AccessibilityService {
 
                             String responseText = response.body().string();
                             response.close();
-//                            Log.w("1####",responseText);
+                            Log.w("1####",(responseText == null)+"");
+                            Log.w("1####",responseText);
                             try{
                                 JSONObject jsonObject = new JSONObject(responseText);
                                 String account_id = jsonObject.getString("account_id");
@@ -248,7 +248,7 @@ public class AutoLoginService extends AccessibilityService {
                                 String account_password = jsonObject.getString("account_password");
                                 if (account_id != null){
                                     //填充手机号
-                                    ClipData clipData_phone =ClipData.newPlainText("phone", account_name);//进行网络请求获取用户名
+                                    ClipData clipData_phone =ClipData.newPlainText("phone", "18030637727");//进行网络请求获取用户名
                                     ClipData clipData_null =ClipData.newPlainText("null", "");
                                     node_et_phone.performAction(AccessibilityNodeInfo.ACTION_FOCUS);
                                     node_et_phone.performAction(AccessibilityNodeInfo.ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY, arguments);
@@ -256,7 +256,7 @@ public class AutoLoginService extends AccessibilityService {
                                     node_et_phone.performAction(AccessibilityNodeInfo.ACTION_PASTE);//粘贴
                                     clipboardManager.setPrimaryClip(clipData_null);//清除粘贴板数据
                                     //填充密码
-                                    ClipData clipData_password =ClipData.newPlainText("password", account_password);//进行网络请求获取密码
+                                    ClipData clipData_password =ClipData.newPlainText("password", "ZHUmaomao123301");//进行网络请求获取密码
                                     node_et_pwd.performAction(AccessibilityNodeInfo.ACTION_FOCUS);
                                     node_et_pwd.performAction(AccessibilityNodeInfo.ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY, arguments);
                                     clipboardManager.setPrimaryClip(clipData_password);
@@ -273,7 +273,7 @@ public class AutoLoginService extends AccessibilityService {
                                 isRequestServer = false;
                             }catch (Exception e){
                                 //解析失败
-//                                Log.w("####","解析失败");
+                                Log.w("####","解析失败");
                                 e.printStackTrace();
                             }
                         }
@@ -601,11 +601,11 @@ public class AutoLoginService extends AccessibilityService {
                                 if (account_id != null){
                                     node_userName.performAction(AccessibilityNodeInfo.ACTION_FOCUS);
                                     node_userName.performAction(AccessibilityNodeInfo.ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY, arguments);
-                                    ClipData clipData_username =ClipData.newPlainText("username", account_name);
+                                    ClipData clipData_username =ClipData.newPlainText("username", "18030637727");
                                     clipboardManager.setPrimaryClip(clipData_username);
                                     node_userName.performAction(AccessibilityNodeInfo.ACTION_PASTE);
                                     //填充密码框
-                                    ClipData clipData_password =ClipData.newPlainText("password", account_password);
+                                    ClipData clipData_password =ClipData.newPlainText("password", "ZHUmaomao123301");
                                     node_pwd.performAction(AccessibilityNodeInfo.ACTION_FOCUS);
                                     node_pwd.performAction(AccessibilityNodeInfo.ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY, arguments);
                                     clipboardManager.setPrimaryClip(clipData_password);

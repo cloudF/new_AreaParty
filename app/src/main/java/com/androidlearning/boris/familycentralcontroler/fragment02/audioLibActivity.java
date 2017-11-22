@@ -98,13 +98,15 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
                         this.finish();
                     }
                     else {
-                        String tempPath = MediafileHelper.getCurrentPath().substring(0, MediafileHelper.getCurrentPath().lastIndexOf("\\"));
-                        MediafileHelper.setCurrentPath(tempPath);
-                        MediafileHelper.loadMediaLibFiles(myHandler);
-                        fileSLV.setVisibility(View.GONE);
-                        folderSLV.setVisibility(View.VISIBLE);
-                        folderAdapter.notifyDataSetChanged();
-                        fileAdapter.notifyDataSetChanged();
+                        if (MediafileHelper.getCurrentPath().lastIndexOf("\\")!=-1){
+                            String tempPath = MediafileHelper.getCurrentPath().substring(0, MediafileHelper.getCurrentPath().lastIndexOf("\\"));
+                            MediafileHelper.setCurrentPath(tempPath);
+                            MediafileHelper.loadMediaLibFiles(myHandler);
+                            fileSLV.setVisibility(View.GONE);
+                            folderSLV.setVisibility(View.VISIBLE);
+                            folderAdapter.notifyDataSetChanged();
+                            fileAdapter.notifyDataSetChanged();
+                        }
                     }
                 }else{
                     if (folderSLV.getVisibility() == View.GONE){
@@ -138,6 +140,14 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
         initData();
         initView();
         initEvent();
+
+        if (!(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())){
+            isAppContent = true;
+            app_file.setTextColor(Color.parseColor("#FF5050"));
+            app_file.setBackgroundResource(R.drawable.barback03_right_pressed);
+            pc_file.setTextColor(Color.parseColor("#707070"));
+            pc_file.setBackgroundResource(R.drawable.barback03_left_normal);
+        }
 
         if (mContentDataLoadTask == null){
             if (ContentDataControl.mMusicFolder!=null)
@@ -227,12 +237,17 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
                 folderSLV.setAdapter(folderAdapter_app);
                 break;
             case R.id.pc_file:
-                isAppContent = false;
-                pc_file.setTextColor(Color.parseColor("#FF5050"));
-                pc_file.setBackgroundResource(R.drawable.barback03_left_pressed);
-                app_file.setTextColor(Color.parseColor("#707070"));
-                app_file.setBackgroundResource(R.drawable.barback03_right_normal);
-                folderSLV.setAdapter(folderAdapter);
+                if (!(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())){
+                    Toasty.warning(getApplicationContext(), "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                }else {
+                    isAppContent = false;
+                    pc_file.setTextColor(Color.parseColor("#FF5050"));
+                    pc_file.setBackgroundResource(R.drawable.barback03_left_pressed);
+                    app_file.setTextColor(Color.parseColor("#707070"));
+                    app_file.setBackgroundResource(R.drawable.barback03_right_normal);
+                    folderSLV.setAdapter(folderAdapter);
+                    if (MediafileHelper.mediaFolders.size() == 0) MediafileHelper.loadMediaLibFiles(myHandler);
+                }
                 break;
             case R.id.addToList:
                 if (selectedList.size()>0){
@@ -523,6 +538,9 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
                     playOrPauseIV.setClickable(false);
                     playOrPauseIV.setImageResource(R.drawable.music_pause);
                     break;
+                case OrderConst.mediaAction_DELETE_OK:
+                    MediafileHelper.loadMediaLibFiles(myHandler);
+                    break;
             }
         }
     };
@@ -588,7 +606,9 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
                 });
             }
         };
-        folderAdapter_app.notifyDataSetChanged();
+        if (!(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())){
+            folderSLV.setAdapter(folderAdapter_app);
+        }
     }
 
     private void cancelSelectModel(){

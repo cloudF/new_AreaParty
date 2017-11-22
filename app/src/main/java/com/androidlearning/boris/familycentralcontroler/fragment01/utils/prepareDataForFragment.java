@@ -7,7 +7,9 @@ import com.androidlearning.boris.familycentralcontroler.IPAddressConst;
 import com.androidlearning.boris.familycentralcontroler.MyConnector;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.downloadedFileBean;
+import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.ContentDataControl;
 import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileItem;
+import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileSystemType;
 import com.androidlearning.boris.familycentralcontroler.model_comman.TVCommandItem;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.CommandUtil;
@@ -76,6 +78,32 @@ public class prepareDataForFragment {
             String fourthcommand = file.getmFileName();
             String fifthcommand  = fileType;
             TVCommandItem tvCommandItem = CommandUtil.createPlayUrlFileOnTVCommand(secondcommand, fourthcommand, fifthcommand);
+            String requestStr = JsonUitl.objectToString(tvCommandItem);
+            state = MyConnector.getInstance().sendMsgToIP(TVIp, IPAddressConst.TVRECEIVEPORT_MM, requestStr);
+        }
+
+        return state;
+    }
+    public static boolean getDlnaCastState(String folderName, String fileType) {
+        boolean state = false;
+        String ip = MyApplication.getIPStr();
+        String TVIp = MyApplication.getSelectedTVIP().ip;
+        List<String> urls = new ArrayList<>();
+        if(!(ip.equals("")) && !(TVIp.equals(""))) {
+            ArrayList<FileItem> fileList = new ArrayList<>();
+            if (fileType.equals("image")){
+                fileList.addAll(ContentDataControl.getFileItemListByFolder(FileSystemType.photo,folderName));
+            }else if (fileType.equals("audio")){
+                fileList.addAll(ContentDataControl.getFileItemListByFolder(FileSystemType.music,folderName));
+            }
+            for (FileItem file : fileList){
+                String secondcommand = "http://" + ip + ":" +
+                        IPAddressConst.DLNAPHONEHTTPPORT_B + "/" + URLEncoder.encode(file.getmFilePath());
+                Log.e("test", secondcommand+"***"+file.getmFilePath());
+                urls.add(secondcommand);
+            }
+            String fifthcommand  = fileType;
+            TVCommandItem tvCommandItem = CommandUtil.createPlayUrlFileOnTVCommand(urls, "", fifthcommand);
             String requestStr = JsonUitl.objectToString(tvCommandItem);
             state = MyConnector.getInstance().sendMsgToIP(TVIp, IPAddressConst.TVRECEIVEPORT_MM, requestStr);
         }

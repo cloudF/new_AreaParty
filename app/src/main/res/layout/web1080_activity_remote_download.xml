@@ -101,7 +101,9 @@
         android:id="@+id/download_remote_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="电脑下载远程控制" />
+        android:background="@color/colorPrimary"
+        android:textColor="#fff"
+        android:text="远程下载管理" />
     <LinearLayout
         android:id="@+id/menu_list"
         android:layout_width="wrap_content"

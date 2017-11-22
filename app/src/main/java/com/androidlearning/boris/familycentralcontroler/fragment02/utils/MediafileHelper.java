@@ -211,7 +211,7 @@ public class MediafileHelper {
         new Send2PCThread(filetype, OrderConst.mediaAction_play_command, param, myhandler).start();
         if (!ReceiveCommandFromTVPlayer.getPlayerIsRun()){
             new ReceiveCommandFromTVPlayer(true).start();
-            EventBus.getDefault().post(new TvPlayerChangeEvent(true), "tvPlayerStateChanged");
+//            EventBus.getDefault().post(new TvPlayerChangeEvent(true), "tvPlayerStateChanged");
         }
     }
 

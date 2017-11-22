@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 /**
@@ -23,6 +24,8 @@ public class exitApplicationDialog extends Dialog {
     private Button positiveButton;
     private Button negativeButton;
     private Context context;
+    private RadioButton radioButton;
+    private boolean isRadioButtonChecked = true;
 
     public exitApplicationDialog(Context context) {
         super(context, R.style.CustomDialog);
@@ -40,6 +43,19 @@ public class exitApplicationDialog extends Dialog {
         title = (TextView) mView.findViewById(R.id.exittitle);
         positiveButton = (Button) mView.findViewById(R.id.exitpositiveButton);
         negativeButton = (Button) mView.findViewById(R.id.exitnegativeButton);
+        radioButton = (RadioButton) mView.findViewById(R.id.radioButton);
+        radioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isRadioButtonChecked){
+                    radioButton.setChecked(false);
+                    isRadioButtonChecked = false;
+                }else {
+                    radioButton.setChecked(true);
+                    isRadioButtonChecked = true;
+                }
+            }
+        });
         super.setContentView(mView);
 
         WindowManager m = getWindow().getWindowManager();
@@ -57,6 +73,10 @@ public class exitApplicationDialog extends Dialog {
     }
     public void setOnNegativeListener(View.OnClickListener listener) {
         negativeButton.setOnClickListener(listener);
+    }
+
+    public boolean isRadioButtonChecked(){
+        return isRadioButtonChecked;
     }
 
     public void setTitleText(String text) {

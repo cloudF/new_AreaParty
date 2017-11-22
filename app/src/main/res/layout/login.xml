@@ -51,7 +51,8 @@
             android:layout_height="60dp"
             android:inputType="textPersonName"
             android:id="@+id/login_edit_account"
-            android:drawableLeft="@android:drawable/ic_menu_myplaces"
+            android:drawableStart="@drawable/ic_account"
+            android:theme="@style/MyEditText"
             android:hint="请输入您的用户名"/>
         <EditText
             android:layout_width="match_parent"
@@ -59,7 +60,8 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/login_edit_pwd"
-            android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+            android:drawableStart="@drawable/ic_password"
+            android:theme="@style/MyEditText"
             android:hint="请输入您的密码"/>
     </LinearLayout>
 
@@ -76,8 +78,7 @@
             android:text="登  录"
             android:id="@+id/login_btn_login"
             android:background="@drawable/buttonradius"
-            android:layout_centerHorizontal="true"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="#ffffff"
             android:paddingBottom="10dp"
             android:paddingTop="10dp" />
@@ -85,26 +86,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="离线登录"
                 android:id="@+id/login_btn_outline"
                 android:textColor="#34adfd"
-                android:textSize="15dp"
-                android:layout_alignParentLeft="true"
+                android:textSize="15sp"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginStart="10dp"/>
             <TextView
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="新用户注册"
                 android:id="@+id/login_btn_register"
                 android:textColor="#34adfd"
-                android:textSize="15dp"
-                android:layout_alignParentRight="true"
+                android:textSize="15sp"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginEnd="10dp"/>
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

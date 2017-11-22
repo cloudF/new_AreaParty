@@ -7,10 +7,12 @@ package com.androidlearning.boris.familycentralcontroler.fragment02.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -75,12 +77,13 @@ public class RemoteControlView extends View {
 
 
 
+
         coreX = getWidth() / 2;
-        coreY = getHeight() / 2-200;  //-200;使圆形上移200
+        coreY = getHeight() / 2;
         roundRadius = (int) (getWidth()/2 * radiusDistance);//计算中心圆圈半径
 
-        float x = (getWidth() - getHeight() / 2) / 2;
-        float y = getHeight() / 4;
+        float x = (getWidth() - getHeight() / 2) /3;
+        float y = getHeight() / 2/3;
 
       /*  coreX=getWidth()/2;
         coreY=getHeight()/2;
@@ -92,7 +95,7 @@ public class RemoteControlView extends View {
         //RectF rect = new RectF(0, 0, getWidth(), getHeight());
 
 
-        RectF rect = new RectF( x, y-200,getWidth() - x, getHeight() - y-200);//-200;使圆形上移200
+        RectF rect = new RectF( x, y,getWidth() - x, getHeight() - y);
 
         if (roundMenus != null && roundMenus.size() > 0) {
             float sweepAngle = 360 / roundMenus.size();//每个弧形的角度
@@ -100,7 +103,6 @@ public class RemoteControlView extends View {
             for (int i = 0; i < roundMenus.size(); i++) {
                 RoundMenu roundMenu = roundMenus.get(i);
                 //填充
-
                 Paint paint = new Paint();
                 paint.setAntiAlias(true);
                 if (onClickState == i) {
@@ -108,9 +110,13 @@ public class RemoteControlView extends View {
                     paint.setColor(roundMenu.selectSolidColor);
                 } else {
                     //未选中
-                    paint.setColor(roundMenu.solidColor);
+                    paint.setColor(Color.WHITE);
                 }
-                canvas.drawArc(rect, deviationDegree + (i * sweepAngle), sweepAngle, true, paint);
+                canvas.drawArc(rect, deviationDegree + (i * sweepAngle), sweepAngle, true , paint);
+
+
+
+
 
                 //画描边
                 paint = new Paint();
@@ -123,6 +129,7 @@ public class RemoteControlView extends View {
 
                 //画图案
                 Matrix matrix = new Matrix();
+                Log.i("ervicm",String.valueOf(i));
                 switch (i){
                     case 0:
                         matrix.postTranslate((float)(coreX-roundMenu.icon.getWidth()/2),(float)(coreY+getWidth()/2*roundMenu.iconDistance)-(roundMenu.icon.getHeight()/2));
@@ -138,6 +145,15 @@ public class RemoteControlView extends View {
                         matrix.postTranslate((float) ((coreX + getWidth() / 2 * roundMenu.iconDistance) - (roundMenu.icon.getWidth() / 2)), coreY - (roundMenu.icon.getHeight() / 2));
                         break;
                 }
+
+//                if(i%2==1){
+//                    matrix.postTranslate((float) ((coreX + getWidth() / 2 * roundMenu.iconDistance) - (roundMenu.icon.getWidth() / 2)), coreY - (roundMenu.icon.getHeight() / 2));
+//                    matrix.postRotate(((i-1 ) * sweepAngle), coreX, coreY);
+//                }else {
+//                    matrix.postTranslate((float)(coreX-roundMenu.icon.getWidth()/2),(float)(coreY+getWidth()/2*roundMenu.iconDistance)-(roundMenu.icon.getHeight()/2));
+//                    matrix.postRotate(((i ) * sweepAngle), coreX, coreY);
+//                }
+
                 canvas.drawBitmap(roundMenu.icon, matrix, null);
             }
         }
@@ -243,7 +259,7 @@ public class RemoteControlView extends View {
                 if (distanceLine <= roundRadius) {
                     //点击的是中心圆；按下点到中心点的距离小于中心园半径，那就是点击中心园了
                     onClickState = -1;
-                } else if (distanceLine <= getWidth() / 2) {
+                } else if (distanceLine <= getWidth() / 2-(getWidth() - getHeight() / 2) /3) { //(getWidth() - getHeight() / 2) /3为x的值
                     //点击的是某个扇形；按下点到中心点的距离大于中心圆半径小于大圆半径，那就是点击某个扇形了
                     float sweepAngle = 360 / roundMenus.size();//每个弧形的角度
                     int angle = getRotationBetweenLines(coreX, coreY, textX, textY);
@@ -493,7 +509,7 @@ public class RemoteControlView extends View {
         public Bitmap icon;//菜单的图片
         public OnClickListener onClickListener;//点击监听
         public  OnTouchListener onTouchListener;
-        public double iconDistance = 0.63;//图标距离中心点的距离
+        public double iconDistance = 0.54;//图标距离中心点的距离
     }
 
     /**

@@ -195,33 +195,93 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/folderSLV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <ListView
-            android:id="@+id/folderSLV"
+        android:layout_height="match_parent"
+        android:background="@drawable/circlecornersmallllbgnormal"
+        android:dividerHeight="0.1sp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="1dp"
+        android:divider="#88e6e6e6"
+        android:elevation="3dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/circlecornersmallllbgnormal"
-            android:dividerHeight="0.1sp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fileSGV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="0dp"
+                    android:focusable="true"
+                    android:background="#0000"
+                    android:layout_margin="6dp"
+                    android:visibility="visible"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="#88e6e6e6"/>
+            </LinearLayout>
+        </ScrollView>
+
+
+        <LinearLayout
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/menu_list"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:elevation="5dp"
+            android:background="@drawable/barback04"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="1dp"
-            android:divider="#88e6e6e6"
-            android:elevation="3dp"/>
+            android:visibility="gone">
+            <!-- 添加到播放列表 -->
+            <LinearLayout
+                android:id="@+id/play_folder_list"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/fileSGV"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="20dp"
-            android:focusable="true"
-            android:background="#0000"
-            android:layout_margin="6dp"/>
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/bar01IconAddIV"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:clickable="false"
+                    android:src="@drawable/logo_cast_red"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:id="@+id/bar01TxAddTV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:clickable="false"
+                    android:layout_marginTop="1dp"
+                    android:text="幻灯片播放"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
 
 </LinearLayout>

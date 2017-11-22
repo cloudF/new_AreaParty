@@ -2,6 +2,7 @@ package com.androidlearning.boris.familycentralcontroler.fragment01.utorrent;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.adapter.TFileAdapter;
@@ -51,9 +53,25 @@ public class UTFileActivity extends AppCompatActivity {
         setContentView(R.layout.utorrent_activity_utfile);
         ButterKnife.bind(this);
 
-        toolbar.setLogo(R.drawable.ic_utorrent_logo);
+//        toolbar.setLogo(R.drawable.ic_utorrent_logo);
         toolbar.setTitle("文件列表");
+        Log.w("toolbar",""+toolbar.getTitleMarginStart());
+        toolbar.setTitleMarginStart(0);
+        Log.w("toolbar",""+toolbar.getTitleMarginStart());
         setSupportActionBar(toolbar);
+
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null){
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//            actionBar.setHomeAsUpIndicator(R.drawable.webmanager_ic_goback);
+//        }
+        toolbar.setNavigationIcon(R.drawable.webmanager_ic_goback);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
         hash = intent.getStringExtra("hash");

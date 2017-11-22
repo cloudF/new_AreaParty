@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -77,6 +78,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView, recyclerView_pcFile;
     private SwipeRefreshLayout swipeRefresh;
+    private Toolbar toolbar;
 
     private SimpleAdapter ptAdapter;
     private ArrayList<Map<String, String>> ptListData;
@@ -129,24 +131,21 @@ public class RemoteDownloadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web1080_activity_remote_download);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        if (TextUtils.isEmpty(UrlUtils.token)){
-            initUTorrent();
-        }
-
-        initData();
-
-        initView();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.login_toolbar);
         setSupportActionBar(toolbar);
-
+        toolbar.setTitle("种子管理");
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.webmanager_ic_goback);
         }
 
+        if (TextUtils.isEmpty(UrlUtils.token)){
+            initUTorrent();
+        }
+        initData();
+
+        initView();
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -516,6 +515,11 @@ public class RemoteDownloadActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_gohome, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -525,6 +529,9 @@ public class RemoteDownloadActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home :
                 finish();
+                break;
+            case R.id.go_home:
+                startActivity(new Intent(RemoteDownloadActivity.this, com.androidlearning.boris.familycentralcontroler.MainActivity.class));
                 break;
             default: break;
         }

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -42,6 +43,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.dmoral.toasty.Toasty;
 
 import static com.androidlearning.boris.familycentralcontroler.fragment01.utils.DownloadFileManagerHelper.dlnaCast;
@@ -65,7 +69,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
     private TextView pcStateNameTV, tvStateNameTV, picsPlayListNumTV;
     private ListView folderSLV;
     private RecyclerView fileSGV;
-    private LinearLayout picsPlayListLL, playList;
+    private LinearLayout picsPlayListLL, playList , menuList, playFolderList;
 
     MyAdapter<MediaItem> folderAdapter;
     ImageAdapter fileAdapter;
@@ -77,6 +81,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
     private TextView app_file,pc_file;
 
     private boolean isAppContent = false;
+    private String stringFolder = "";
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
@@ -89,6 +94,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                 }
                 else {
                     fileSGV.setVisibility(View.GONE);
+                    menuList.setVisibility(View.GONE);
                     folderSLV.setVisibility(View.VISIBLE);
                     String tempPath = MediafileHelper.getCurrentPath().substring(0, MediafileHelper.getCurrentPath().lastIndexOf("\\"));
                     MediafileHelper.setCurrentPath(tempPath);
@@ -99,6 +105,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
             }else {
                 if (folderSLV.getVisibility() == View.GONE){
                     fileSGV.setVisibility(View.GONE);
+                    menuList.setVisibility(View.GONE);
                     folderSLV.setVisibility(View.VISIBLE);
                 }else {
                     this.finish();
@@ -121,10 +128,17 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab02_imagelib_activity);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         initData();
         initView();
         initEvent();
+
+        if (!(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())){
+            isAppContent = true;
+            app_file.setTextColor(Color.parseColor("#FF5050"));
+            app_file.setBackgroundResource(R.drawable.barback03_right_pressed);
+            pc_file.setTextColor(Color.parseColor("#707070"));
+            pc_file.setBackgroundResource(R.drawable.barback03_left_normal);
+        }
 
         if (mContentDataLoadTask == null){
             mContentDataLoadTask = new ContentDataLoadTask(this, FileSystemType.photo);
@@ -154,6 +168,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                     }
                     else {
                         fileSGV.setVisibility(View.GONE);
+                        menuList.setVisibility(View.GONE);
                         folderSLV.setVisibility(View.VISIBLE);
                         String tempPath = MediafileHelper.getCurrentPath().substring(0, MediafileHelper.getCurrentPath().lastIndexOf("\\"));
                         MediafileHelper.setCurrentPath(tempPath);
@@ -164,6 +179,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                 }else {
                     if (folderSLV.getVisibility() == View.GONE){
                         fileSGV.setVisibility(View.GONE);
+                        menuList.setVisibility(View.GONE);
                         folderSLV.setVisibility(View.VISIBLE);
                     }else {
                         this.finish();
@@ -185,12 +201,26 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                 folderSLV.setAdapter(folderAdapter_app);
                 break;
             case R.id.pc_file:
-                isAppContent = false;
-                pc_file.setTextColor(Color.parseColor("#FF5050"));
-                pc_file.setBackgroundResource(R.drawable.barback03_left_pressed);
-                app_file.setTextColor(Color.parseColor("#707070"));
-                app_file.setBackgroundResource(R.drawable.barback03_right_normal);
-                folderSLV.setAdapter(folderAdapter);
+                if (!(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())){
+                    Toasty.warning(getApplicationContext(), "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                }else {
+                    isAppContent = false;
+                    pc_file.setTextColor(Color.parseColor("#FF5050"));
+                    pc_file.setBackgroundResource(R.drawable.barback03_left_pressed);
+                    app_file.setTextColor(Color.parseColor("#707070"));
+                    app_file.setBackgroundResource(R.drawable.barback03_right_normal);
+                    folderSLV.setAdapter(folderAdapter);
+                    if (MediafileHelper.mediaFolders.size() == 0) MediafileHelper.loadMediaLibFiles(myHandler);
+                }
+                break;
+            case R.id.play_folder_list:
+                if (isAppContent){
+                    Toasty.info(getApplicationContext(),"列表播放").show();
+                    dlnaCast(stringFolder,"image");
+                }else{
+
+                }
+
                 break;
         }
     }
@@ -236,6 +266,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                         folderSLV.setVisibility(View.GONE);
                         playList.setVisibility(View.GONE);
                         fileSGV.setVisibility(View.VISIBLE);
+                        menuList.setVisibility(View.VISIBLE);
 
                         String tempPath = obj.getPathName();
                         MediafileHelper.setCurrentPath(tempPath);
@@ -303,6 +334,8 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
         picsPlayListLL = (LinearLayout) findViewById(R.id.picsPlayListLL);
         playList = (LinearLayout) findViewById(R.id.play_list);
         picsPlayListNumTV = (TextView) findViewById(R.id.picsPlayListNumTV);
+        menuList = (LinearLayout) findViewById(R.id.menu_list);
+        playFolderList = (LinearLayout) findViewById(R.id.play_folder_list);
 
         updateDeviceNetState(new TVPCNetStateChangeEvent(MyApplication.isSelectedTVOnline(),
                 MyApplication.isSelectedPCOnline()));
@@ -330,6 +363,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
 
         app_file.setOnClickListener(this);
         pc_file.setOnClickListener(this);
+        playFolderList.setOnClickListener(this);
 
         folderSLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -338,6 +372,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                 folderSLV.setVisibility(View.GONE);
                 playList.setVisibility(View.GONE);
                 fileSGV.setVisibility(View.VISIBLE);
+                menuList.setVisibility(View.VISIBLE);
 
                 if (!isAppContent){
                     // ... 还要判断是否加 “\”
@@ -391,6 +426,9 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                 case OrderConst.playPCMedia_Fail:
                     Toasty.info(imageLibActivity.this, "打开媒体文件失败", Toast.LENGTH_SHORT, true).show();
                     break;
+                case OrderConst.mediaAction_DELETE_OK:
+                    MediafileHelper.loadMediaLibFiles(myHandler);
+                    break;
             }
         }
     };
@@ -420,7 +458,9 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                         folderSLV.setVisibility(View.GONE);
                         playList.setVisibility(View.GONE);
                         fileSGV.setVisibility(View.VISIBLE);
+                        menuList.setVisibility(View.VISIBLE);
 
+                        stringFolder = obj;
                         fileAdapter_app = new ImageAdapter_APP(imageLibActivity.this,ContentDataControl.getFileItemListByFolder(FileSystemType.photo,obj));
                         fileAdapter_app.isFirstOnly(false);
                         fileSGV.swapAdapter(fileAdapter_app,false);
@@ -442,7 +482,9 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                 });
             }
         };
-        folderAdapter_app.notifyDataSetChanged();
+        if (!(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())){
+            folderSLV.setAdapter(folderAdapter_app);
+        }
     }
 
     private void deleteDialog(final String path) {

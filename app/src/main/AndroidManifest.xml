@@ -49,6 +49,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboard|navigation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".fragment01.computerMonitorActivity"
@@ -100,7 +101,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".fragment01.websitemanager.web1080.RemoteDownloadActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="种子管理"/>
         <activity
             android:name=".fragment01.websitemanager.web1080.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />

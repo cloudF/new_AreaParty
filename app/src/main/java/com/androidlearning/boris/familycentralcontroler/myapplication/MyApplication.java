@@ -293,6 +293,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                         PCOnline = true;
                         FillingIPInforList.addPCInfor(selectedPCIP);
                         if (TextUtils.isEmpty(RemoteDownloadActivity.btFilesPath)){getPcAreaPartyPath();}
+                        if (!selectedPCVerified){verifyLastPCMac();}
                     } catch (IOException e) {
                         Log.e("stateChange", "连接PC失败" + selectedPCIP.ip);
                         PCOnline = false;
@@ -337,7 +338,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                         if(selectedPCIP!=null){
                             TVAppHelper.currentPcInfo2TV();
                         }
-
+                        if (!selectedTVVerified){verifyLastTVMac();}
                     } catch (IOException e) {
                         TVOnline = false;
                         Log.e("stateChange", "连接TV失败");

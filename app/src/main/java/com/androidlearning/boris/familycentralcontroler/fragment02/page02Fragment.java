@@ -116,19 +116,19 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.videoLibLL:
-                if(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline()) {
+                if((MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())||(MyApplication.selectedTVVerified && MyApplication.isSelectedTVOnline())) {
                     MediafileHelper.setMediaType(OrderConst.videoAction_name);
                     startActivity(new Intent(mContext, videoLibActivity.class));
                 } else  Toasty.warning(mContext, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
                 break;
             case R.id.audioLibLL:
-                if(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline()) {
+                if((MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())||(MyApplication.selectedTVVerified && MyApplication.isSelectedTVOnline())) {
                     MediafileHelper.setMediaType(OrderConst.audioAction_name);
                     startActivity(new Intent(mContext, audioLibActivity.class));
                 } else  Toasty.warning(mContext, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
                 break;
             case R.id.picLibLL:
-                if(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline()) {
+                if((MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())||(MyApplication.selectedTVVerified && MyApplication.isSelectedTVOnline())) {
                     MediafileHelper.setMediaType(OrderConst.imageAction_name);
                     startActivity(new Intent(mContext, imageLibActivity.class));
                 } else  Toasty.warning(mContext, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();

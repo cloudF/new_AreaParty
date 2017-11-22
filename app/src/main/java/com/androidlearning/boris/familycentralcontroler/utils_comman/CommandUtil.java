@@ -383,6 +383,13 @@ public class CommandUtil {
         cmd.setSixthcommand(list);
         return cmd;
     }
+    public static TVCommandItem createPlayUrlFileOnTVCommand(List<String> urls, String fileName, String fileType) {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.dlnaCastToTV_Command);
+        cmd.setFifthCommand(fileType);
+        cmd.setSixthcommand(urls);
+        return cmd;
+    }
 
     /**
      * <summary>

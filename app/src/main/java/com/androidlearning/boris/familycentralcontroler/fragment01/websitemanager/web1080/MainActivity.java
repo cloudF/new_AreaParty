@@ -23,13 +23,19 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -39,6 +45,8 @@ import android.widget.Toast;
 
 
 import com.androidlearning.boris.familycentralcontroler.R;
+import com.androidlearning.boris.familycentralcontroler.fragment01.websitemanager.start.ADFilterTool;
+import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 
 import java.io.File;
 
@@ -47,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private WebView mWebview;
     private WebSettings mWebSettings;
     private ProgressBar mProgressBar;
+    private Toolbar toolbar;
 
     private String StringUrl;
     private DownloadManager downloadManager;
@@ -84,17 +93,10 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle=intent.getExtras();
         StringUrl=bundle.getString("URL");
 
-        if(StringUrl.contains("www.1080.net")){
-            MainActivity.this.setTitle("1080.net");
-        }
-        else if(StringUrl.contains("www.hdchd.org")){
-            MainActivity.this.setTitle("Hdchd");
-        }
-        else {
-            MainActivity.this.setTitle("Blufans");
-        }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
+
+        toolbar = (Toolbar) findViewById(R.id.login_toolbar);
+
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -109,7 +111,55 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
         mWebview = (WebView) findViewById(R.id.webView1);
+
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
+        cookieManager.setAcceptThirdPartyCookies(mWebview, true);
+        cookieManager.removeAllCookie();
+        //581
+        if (StringUrl.contains("www.1080.net") && (TextUtils.isEmpty(cookieManager.getCookie("www.1080.net")) || cookieManager.getCookie("www.1080.net").length()<500)){
+            cookieManager.setCookie("www.1080.net", "__jsluid=d56c839813a4c2cfd6b0ac1cb2c1e1d9;");
+            cookieManager.setCookie("www.1080.net","rzkV_2132_saltkey=YijN27F6;");
+            cookieManager.setCookie("www.1080.net","rzkV_2132_lastvisit=1510814999;");
+            cookieManager.setCookie("www.1080.net","rzkV_2132_ulastactivity=fb922NnM1UzZYh6LE0ckifMe0x%2BaLTR2ya5ds0q7z7AoXPP%2FJFO%2B;");
+            cookieManager.setCookie("www.1080.net","rzkV_2132_auth=9e02RFsZLCsZSHCFhzhavBIQZVFmvVRAuyfuCTnpx0OmKM5%2FY2cKRVZKfl0cuCCHpBIQRdBEareOk1MnuoPMaxQLSsA;");
+            cookieManager.setCookie("www.1080.net","rzkV_2132_lastcheckfeed=705931%7C1510819636;");
+            cookieManager.setCookie("www.1080.net","rzkV_2132_lip=223.85.200.129%2C1510819051;");
+            cookieManager.setCookie("www.1080.net","rzkV_2132_security_cookiereport=71d6UvHQZGfEua4MBYDW1bJVAk4WxNXasfUMd7Gl9PwFmkrnnD6w;");
+            cookieManager.setCookie("www.1080.net","rzkV_2132_nofavfid=1;rzkV_2132_home_diymode=1;");
+            cookieManager.setCookie("www.1080.net","rzkV_2132_lastact=1510819992%09forum.php%09;");
+            cookieManager.setCookie("www.1080.net","rzkV_2132_connect_is_bind=0;");
+            cookieManager.setCookie("www.1080.net","rzkV_2132_sid=MS2UqP;");
+        }else if (StringUrl.contains("www.longbaidu.com") && (TextUtils.isEmpty(cookieManager.getCookie("www.longbaidu.com")) || cookieManager.getCookie("www.longbaidu.com").length()<500)){
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_saltkey=k3SSg6Ao;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_lastvisit=1510902845;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_onlineusernum=586;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_pc_size_c=0;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_ulastactivity=08dfLqKUAx856SEIbCha68R4Q2HPCvJNk8E%2Fsqc%2FPLJs4SboK2rL;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_auth=68774qhxMXbvZ7Liif%2FyFqXLRFHc5dVzyMOAeIDhPfFYiP4ec6lTuU3HMJaKUWOLUQLZJq04hPcepzLowkf3w2JlISs;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_lastcheckfeed=128006%7C1510906849;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_checkfollow=1;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_lip=223.85.200.129%2C1510906206;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_security_cookiereport=8c29Iw7JuFXhe1xooNHTyYVqbts11X%2Bi4Cz%2FP44BTh4BlT1Od%2BYJ;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_lastact=1510906855%09forum.php%09;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_connect_is_bind=0;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_nofavfid=1;");
+            cookieManager.setCookie("www.longbaidu.com","yncM_2132_sid=v560Wo;");
+        }else if (StringUrl.contains("www.vkugq.com") && (TextUtils.isEmpty(cookieManager.getCookie("www.vkugq.com")) || cookieManager.getCookie("www.vkugq.com").length()<500)){
+            cookieManager.setCookie("www.vkugq.com","5mQg_2132_saltkey=y0Vc9rLY;");
+            cookieManager.setCookie("www.vkugq.com","5mQg_2132_lastvisit=1510905040;");
+            cookieManager.setCookie("www.vkugq.com","5mQg_2132_onlineusernum=697;");
+            cookieManager.setCookie("www.vkugq.com","5mQg_2132_ulastactivity=bbd4ZW0G0ptvj1qPAotLpc%2BmBEv80c%2FBSfYzwRB6aCpJor9bshbh;");
+            cookieManager.setCookie("www.vkugq.com","5mQg_2132_auth=fc27BbWzx%2BMqCgXy9BlddfgRTU%2BBHvcqCRmsY7gpuYd9LuGIDt%2BWEC5mlgvnMiMXa03CA1sYA0KmlM0ZFqTs2bcYnBw;");
+            cookieManager.setCookie("www.vkugq.com","5mQg_2132_lastcheckfeed=170793%7C1510908729;");
+            cookieManager.setCookie("www.vkugq.com","5mQg_2132_lip=223.85.200.129%2C1510907868;");
+            cookieManager.setCookie("www.vkugq.com","5mQg_2132_lastact=1510908734%09index.php%09;");
+            cookieManager.setCookie("www.vkugq.com","5mQg_2132_connect_is_bind=0;");
+            cookieManager.setCookie("www.vkugq.com","5mQg_2132_nofavfid=1;");
+            cookieManager.setCookie("www.vkugq.com","5mQg_2132_sid=uB65To");
+        }
         mProgressBar = (ProgressBar) findViewById(R.id.myProgressBar);
         mWebSettings = mWebview.getSettings();
         mWebview.loadUrl(StringUrl);
@@ -129,6 +179,16 @@ public class MainActivity extends AppCompatActivity {
                 view.loadUrl(url);
                 return true;
             }
+
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                String url = request.getUrl().toString().toLowerCase();
+                if (!ADFilterTool.hasAd(MyApplication.getContext(), url)) {
+                    return super.shouldInterceptRequest(view, request);//正常加载
+                }else{
+                    return new WebResourceResponse(null,null,null);//含有广告资源屏蔽请求
+                }
+            }
         });
 
 
@@ -140,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
             //获取网站标题
             @Override
             public void onReceivedTitle(WebView view, String title) {
-
+                toolbar.setTitle(title);
             }
 
 
@@ -174,14 +234,14 @@ public class MainActivity extends AppCompatActivity {
                     mWebSettings.setSupportZoom(true);
                     mWebSettings.setBuiltInZoomControls(true);
                 }
-
             }
 
             //设置结束加载函数
             @Override
             public void onPageFinished(WebView view, String url) {
-
-
+                CookieManager cookieManager = CookieManager.getInstance();
+//                String CookieStr1 = cookieManager.getCookie(url);
+//                Log.w("WebView", "2Cookies = "+CookieStr1.length()+"***"+ CookieStr1);
             }
         });
 
@@ -227,6 +287,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
 //    //点击返回上一页面而不是退出浏览器

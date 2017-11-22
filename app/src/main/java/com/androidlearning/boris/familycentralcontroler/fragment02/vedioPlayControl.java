@@ -8,16 +8,19 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidlearning.boris.familycentralcontroler.R;
+import com.androidlearning.boris.familycentralcontroler.androideventbusutils.events.TvPlayerChangeEvent;
 import com.androidlearning.boris.familycentralcontroler.fragment02.view.RemoteControlView;
 import com.androidlearning.boris.familycentralcontroler.fragment03.utils.TVAppHelper;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.ReceiveCommandFromTVPlayer;
+
+import org.simple.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,7 +56,12 @@ public class vedioPlayControl extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vedio_play_control);
 
-        RelativeLayout view=(RelativeLayout) findViewById(R.id.control_circle);
+        if (!ReceiveCommandFromTVPlayer.getPlayerIsRun()){
+            new ReceiveCommandFromTVPlayer(true).start();
+            EventBus.getDefault().post(new TvPlayerChangeEvent(true), "tvPlayerStateChanged");
+        }
+
+        FrameLayout view=(FrameLayout) findViewById(R.id.control_circle);
 
         initView();
 
@@ -108,12 +116,21 @@ public class vedioPlayControl extends AppCompatActivity {
         Subtitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Subtitle.getText().equals("加载字幕")){
+                if(Subtitle.getText().equals("加载字幕")||Subtitle.getText().equals("加载歌词")){
                     TVAppHelper.vedioPlayControlLoadSubtitle();
-                    Subtitle.setText("隐藏字幕");
+                    if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("VIDEO")){
+                        Subtitle.setText("隐藏字幕");
+                    }else {
+                        Subtitle.setText("隐藏歌词");
+                    }
+
                 }else {
                     TVAppHelper.vedioPlayControlHideSubtitle();
-                    Subtitle.setText("加载字幕");
+                    if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("VIDEO")){
+                        Subtitle.setText("加载字幕");
+                    }else {
+                        Subtitle.setText("加载歌词");
+                    }
                 }
 
             }
@@ -141,8 +158,8 @@ public class vedioPlayControl extends AppCompatActivity {
 
         //下面的按钮，VolumeDown
         RemoteControlView.RoundMenu roundMenu = new RemoteControlView.RoundMenu();
-        roundMenu.selectSolidColor = Color.CYAN;
-        roundMenu.strokeColor =Color.RED;
+        roundMenu.selectSolidColor = Color.rgb(205,205,205);
+        roundMenu.strokeColor = Color.rgb(219,219,219);
 
         roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_down);
 
@@ -160,9 +177,13 @@ public class vedioPlayControl extends AppCompatActivity {
 
         //左面的按钮，快退
         roundMenu = new RemoteControlView.RoundMenu();
-        roundMenu.selectSolidColor = Color.CYAN;
-        roundMenu.strokeColor =Color.RED;
-        roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_left);
+        roundMenu.selectSolidColor = Color.rgb(205,205,205);
+        roundMenu.strokeColor = Color.rgb(219,219,219);
+        if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("VIDEO")){
+            roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_left);
+        }else {
+            roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_lastsong);
+        }
         //TODO:by ervincm.点击事件改为touch事件
 //        roundMenu.onClickListener=new View.OnClickListener() {
 //            @Override
@@ -220,22 +241,30 @@ public class vedioPlayControl extends AppCompatActivity {
         //上面的按钮，VloumeUp
 
         roundMenu = new RemoteControlView.RoundMenu();
-        roundMenu.selectSolidColor = Color.CYAN;
-        roundMenu.strokeColor =Color.RED;
+        roundMenu.selectSolidColor = Color.rgb(205,205,205);
+        roundMenu.strokeColor = Color.rgb(219,219,219);
         roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_up);
         roundMenu.onClickListener=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                     TVAppHelper.vedioPlayControlVolumeUp();
+
+
             }
         };
         roundMenuView.addRoundMenu(roundMenu);
 
         //右面的按钮，快进
         roundMenu = new RemoteControlView.RoundMenu();
-        roundMenu.selectSolidColor = Color.CYAN;
-        roundMenu.strokeColor =Color.RED;
-        roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_right);
+        roundMenu.selectSolidColor = Color.rgb(205,205,205);
+        roundMenu.strokeColor = Color.rgb(219,219,219);
+        if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("VIDEO")){
+            roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_right);
+        }else {
+            roundMenu.icon=BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_nextsong);
+        }
+
 
         //TODO:by ervincm.点击事件改为touch事件
 //        roundMenu.onClickListener=new View.OnClickListener() {
@@ -328,9 +357,9 @@ public class vedioPlayControl extends AppCompatActivity {
 
                     }
                 });
-        roundMenuView.setStopMenu(Color.GREEN,
-                Color.CYAN, Color.RED
-                , 2, 0.43, BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_stop), new View.OnClickListener() {
+        roundMenuView.setStopMenu(Color.rgb(219,219,219),
+                Color.rgb(205,205,205), Color.rgb(219,219,219)
+                , 2, 0.4, BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_stop), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         TVAppHelper.vedioPlayControlExit();

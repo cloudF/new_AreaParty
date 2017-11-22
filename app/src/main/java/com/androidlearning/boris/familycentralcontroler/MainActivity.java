@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.androidlearning.boris.familycentralcontroler.fragment01.page01Fragment;
 import com.androidlearning.boris.familycentralcontroler.fragment02.page02Fragment;
 import com.androidlearning.boris.familycentralcontroler.fragment03.page03Fragment;
+import com.androidlearning.boris.familycentralcontroler.fragment03.utils.TVAppHelper;
 import com.androidlearning.boris.familycentralcontroler.fragment05.page05Fragment;
 import com.androidlearning.boris.familycentralcontroler.fragment06.BtFolderFragment;
 import com.androidlearning.boris.familycentralcontroler.fragment06.ChatDBManager;
@@ -152,6 +153,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             @Override
             public void onClick(View view) {
                 exitDialog.dismiss();
+                if (MyApplication.isSelectedTVOnline() && exitDialog.isRadioButtonChecked()){
+                    TVAppHelper.vedioPlayControlExit();
+                }
                 MyApplication.getInstance().exit();
             }
         });

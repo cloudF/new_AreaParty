@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -107,6 +108,29 @@ public class DownloadFileManagerHelper {
                 @Override
                 public void run() {
                     boolean state = prepareDataForFragment.getDlnaCastState(file,type);
+                    try{
+                        if(state) {
+                            Toasty.info(MyApplication.getContext(), "投屏成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toasty.error(MyApplication.getContext(), "投屏失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }else {
+            Toasty.warning(MyApplication.getContext(), "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+        }
+
+    }
+    public static void dlnaCast(final String folderName, final String type) {
+        if (TextUtils.isEmpty(folderName)){Toasty.error(MyApplication.getContext(), "投屏失败", Toast.LENGTH_SHORT).show();}
+        if (MyApplication.isSelectedTVOnline()){
+            new Thread() {
+                @Override
+                public void run() {
+                    boolean state = prepareDataForFragment.getDlnaCastState(folderName,type);
                     try{
                         if(state) {
                             Toasty.info(MyApplication.getContext(), "投屏成功", Toast.LENGTH_SHORT).show();

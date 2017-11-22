@@ -118,6 +118,14 @@ public class videoLibActivity extends Activity implements View.OnClickListener,C
         initData();
         initView();
         initEvent();
+        if (!(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())){
+            isAppContent = true;
+            app_file.setTextColor(Color.parseColor("#FF5050"));
+            app_file.setBackgroundResource(R.drawable.barback03_right_pressed);
+            pc_file.setTextColor(Color.parseColor("#707070"));
+            pc_file.setBackgroundResource(R.drawable.barback03_left_normal);
+        }
+
 
         if (mContentDataLoadTask == null){
             if (ContentDataControl.mVideoFolder!=null)
@@ -156,7 +164,7 @@ public class videoLibActivity extends Activity implements View.OnClickListener,C
                     MediafileHelper.setCurrentPath(tempPath);
                     MediafileHelper.loadMediaLibFiles(myHandler);
                     shiftBar.setVisibility(View.VISIBLE);
-                    folderSLV.setVisibility(View.GONE);
+                    folderSLV.setVisibility(View.VISIBLE);
                     fileSLV.setVisibility(View.GONE);
                     folderAdapter.notifyDataSetChanged();
                     fileAdapter.notifyDataSetChanged();
@@ -178,12 +186,17 @@ public class videoLibActivity extends Activity implements View.OnClickListener,C
                 folderSLV.setAdapter(folderAdapter_app);
                 break;
             case R.id.pc_file:
-                isAppContent = false;
-                pc_file.setTextColor(Color.parseColor("#FF5050"));
-                pc_file.setBackgroundResource(R.drawable.barback03_left_pressed);
-                app_file.setTextColor(Color.parseColor("#707070"));
-                app_file.setBackgroundResource(R.drawable.barback03_right_normal);
-                folderSLV.setAdapter(folderAdapter);
+                if (!(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())){
+                    Toasty.warning(getApplicationContext(), "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                }else {
+                    isAppContent = false;
+                    pc_file.setTextColor(Color.parseColor("#FF5050"));
+                    pc_file.setBackgroundResource(R.drawable.barback03_left_pressed);
+                    app_file.setTextColor(Color.parseColor("#707070"));
+                    app_file.setBackgroundResource(R.drawable.barback03_right_normal);
+                    folderSLV.setAdapter(folderAdapter);
+                    if (MediafileHelper.mediaFolders.size() == 0) MediafileHelper.loadMediaLibFiles(myHandler);
+                }
                 break;
         }
     }
@@ -271,9 +284,6 @@ public class videoLibActivity extends Activity implements View.OnClickListener,C
                 });
             }
         };
-
-
-
     }
 
     /**
@@ -427,7 +437,9 @@ public class videoLibActivity extends Activity implements View.OnClickListener,C
                 });
             }
         };
-        folderAdapter_app.notifyDataSetChanged();
+        if (!(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())){
+            folderSLV.setAdapter(folderAdapter_app);
+        }
     }
 
     private void deleteDialog(final String path) {
