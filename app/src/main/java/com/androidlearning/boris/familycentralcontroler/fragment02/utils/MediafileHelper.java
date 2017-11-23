@@ -214,6 +214,16 @@ public class MediafileHelper {
 //            EventBus.getDefault().post(new TvPlayerChangeEvent(true), "tvPlayerStateChanged");
         }
     }
+    public static void playAllMediaFile(String filetype, String folderPath, String tvname, Handler myhandler) {
+        Map<String, String> param = new HashMap<>();
+        param.put("folder", folderPath);
+        param.put("tvname", tvname);
+        new Send2PCThread(filetype, OrderConst.mediaAction_playALL_command, param, myhandler).start();
+        if (!ReceiveCommandFromTVPlayer.getPlayerIsRun()){
+            new ReceiveCommandFromTVPlayer(true).start();
+//            EventBus.getDefault().post(new TvPlayerChangeEvent(true), "tvPlayerStateChanged");
+        }
+    }
 
 
 

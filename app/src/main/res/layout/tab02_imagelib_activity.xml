@@ -253,7 +253,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:visibility="gone">
-            <!-- 添加到播放列表 -->
+            <!-- 幻灯片播放 -->
             <LinearLayout
                 android:id="@+id/play_folder_list"
                 android:orientation="vertical"
@@ -279,7 +279,32 @@
                     android:text="幻灯片播放"
                     android:textSize="12sp" />
             </LinearLayout>
+            <!-- 背景音乐 -->
+            <LinearLayout
+                android:id="@+id/to_select_bgm"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/bar02IconAddIV"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:clickable="false"
+                    android:src="@drawable/musicseries"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:id="@+id/bar02TxAddTV"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:clickable="false"
+                    android:layout_marginTop="1dp"
+                    android:text="背景音乐"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 

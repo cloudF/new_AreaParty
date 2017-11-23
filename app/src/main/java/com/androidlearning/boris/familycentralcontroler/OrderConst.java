@@ -165,6 +165,7 @@ public class OrderConst {
     public static final String appAction_miracstOpen_command = "OPEN_MIRACAST";
     public static final String appAction_rdpOpen_command = "OPEN_RDP";
     public static final String mediaAction_play_command = "PLAY";
+    public static final String mediaAction_playALL_command = "PLAYALL";
     public static final String mediaAction_playSet_command = "PLAYSET";
     public static final String mediaAction_playSet_command_BGM = "PLAYSETASBGM";
     public static final String mediaAction_DELETE_command = "DELETE";
@@ -203,6 +204,7 @@ public class OrderConst {
     public static final String VLCAction_Exit_SecondCommand = "EXIT_PLAYER";
     public static final String VLCAction_Volume_Up_secondCommand = "VOLUME_UP";
     public static final String VLCAction_Volume_Down_secondCommand = "VOLUME_DOWN";
+    public static final String VLCAction_BGM_secondCommand = "IMAGE_BACKGROUND_MUSIC";
 
     public static final String VLCAction_Appoint_Play_Position_secondCommand = "PLAY_APPOINT_POSITION";
     public static final String CHECK_ACCESSIBILITY_ISOPEN_firCommand= "CHECK_ACCESSIBILITY" ;

@@ -224,6 +224,9 @@ public class Send2PCThread extends Thread {
                     case OrderConst.mediaAction_DELETE_command:
                         cmdStr = JsonUitl.objectToString(CommandUtil.createDeleteCommand(path,typeName));
                         break;
+                    case OrderConst.mediaAction_playALL_command:
+                        cmdStr = JsonUitl.objectToString(CommandUtil.createPlayAllCommand(param.get("folder"),param.get("tvname"),typeName));
+                        break;
                 }
             }   break;
         }

@@ -3,6 +3,7 @@ package com.androidlearning.boris.familycentralcontroler.fragment02;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,10 +25,15 @@ import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.fragment02.Model.MediaItem;
 import com.androidlearning.boris.familycentralcontroler.fragment02.Model.MediaSetBean;
 import com.androidlearning.boris.familycentralcontroler.fragment02.base.SetAdapter;
+import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileItem;
+import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.LocalSetListContainer;
 import com.androidlearning.boris.familycentralcontroler.fragment02.utils.MediafileHelper;
 import com.androidlearning.boris.familycentralcontroler.fragment01.ui.ActionDialog_addFolder;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.PreferenceUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,9 +61,13 @@ public class audioSetActivity extends Activity implements View.OnClickListener{
 
     SetAdapter fileAdapter;
     List<MediaSetBean> setList;
+    List<MediaSetBean> setList_app;
     List<Integer> thumbnailIds;
     private String newSetName = "";
     private int setToDeleteId = -1;
+
+    private TextView app_file,pc_file;
+    private boolean isAppContent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +78,15 @@ public class audioSetActivity extends Activity implements View.OnClickListener{
         initData();
         initView();
         initEvent();
+
+        if (getIntent().getBooleanExtra("isAppContent",false) || !(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())){
+            isAppContent = true;
+            app_file.setTextColor(Color.parseColor("#FF5050"));
+            app_file.setBackgroundResource(R.drawable.barback03_right_pressed);
+            pc_file.setTextColor(Color.parseColor("#707070"));
+            pc_file.setBackgroundResource(R.drawable.barback03_left_normal);
+            fileAdapter.setNewData(setList_app);
+        }
     }
 
     @Override
@@ -77,9 +96,34 @@ public class audioSetActivity extends Activity implements View.OnClickListener{
                 this.finish();
                 break;
             case R.id.addNewSetIV:
-                if(MyApplication.isSelectedPCOnline()) {
+                if (!isAppContent){
+                    if(MyApplication.isSelectedPCOnline()) {
+                        showAddSetDialog();
+                    } else Toasty.info(audioSetActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                }else {
                     showAddSetDialog();
-                } else Toasty.info(audioSetActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                }
+
+                break;
+            case R.id.app_file:
+                isAppContent = true;
+                app_file.setTextColor(Color.parseColor("#FF5050"));
+                app_file.setBackgroundResource(R.drawable.barback03_right_pressed);
+                pc_file.setTextColor(Color.parseColor("#707070"));
+                pc_file.setBackgroundResource(R.drawable.barback03_left_normal);
+                fileAdapter.setNewData(setList_app);
+                break;
+            case R.id.pc_file:
+                if (!(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())){
+                    Toasty.warning(getApplicationContext(), "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                }else {
+                    isAppContent = false;
+                    pc_file.setTextColor(Color.parseColor("#FF5050"));
+                    pc_file.setBackgroundResource(R.drawable.barback03_left_pressed);
+                    app_file.setTextColor(Color.parseColor("#707070"));
+                    app_file.setBackgroundResource(R.drawable.barback03_right_normal);
+                    fileAdapter.setNewData(setList);
+                }
                 break;
         }
     }
@@ -103,17 +147,32 @@ public class audioSetActivity extends Activity implements View.OnClickListener{
                         tempName.contains("|")){
                     Toasty.error(audioSetActivity.this, "设备名不能为空，不能包含\\ / : * ? \" < > |字符", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(isSetContained(tempName)) {
-                        Toasty.error(audioSetActivity.this, "当前列表名称已存在", Toast.LENGTH_SHORT).show();
-                    } else {
-                        InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                        manager.hideSoftInputFromWindow(dialog.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                        newSetName = tempName;
-                        ((TextView)(loadingView.findViewById(R.id.note))).setText("执行中...");
-                        loadingDialog.show();
-                        MediafileHelper.addAudioPlaySet(tempName, myHandler);
-                        dialog.dismiss();
+                    if (!isAppContent){
+                        if(isSetContained(tempName)) {
+                            Toasty.error(audioSetActivity.this, "当前列表名称已存在", Toast.LENGTH_SHORT).show();
+                        } else {
+                            InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                            manager.hideSoftInputFromWindow(dialog.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                            newSetName = tempName;
+                            ((TextView)(loadingView.findViewById(R.id.note))).setText("执行中...");
+                            loadingDialog.show();
+                            MediafileHelper.addAudioPlaySet(tempName, myHandler);
+                            dialog.dismiss();
+                        }
+                    }else {
+                        if(isSetContained_app(tempName)) {
+                            Toasty.error(audioSetActivity.this, "当前列表名称已存在", Toast.LENGTH_SHORT).show();
+                        } else {
+                            LocalSetListContainer.addLocalSetList("audio",tempName);
+                            setList_app.clear();
+                            setList_app.addAll(LocalSetListContainer.getLocalSetList("audio"));
+                            fileAdapter.notifyDataSetChanged();
+                            dialog.dismiss();
+                            Toasty.success(audioSetActivity.this, "添加新的音频列表成功", Toast.LENGTH_SHORT, true).show();
+
+                        }
                     }
+
 
                 }
             }
@@ -129,6 +188,12 @@ public class audioSetActivity extends Activity implements View.OnClickListener{
     private boolean isSetContained(String name) {
         for(int i = 0; i < setList.size(); ++i)
             if(setList.get(i).name.equals(name))
+                return true;
+        return false;
+    }
+    private boolean isSetContained_app(String name) {
+        for(int i = 0; i < setList_app.size(); ++i)
+            if(setList_app.get(i).name.equals(name))
                 return true;
         return false;
     }
@@ -164,22 +229,42 @@ public class audioSetActivity extends Activity implements View.OnClickListener{
             @Override
             public void onItemClick(View view, int i) {
                 //跳转到列表文件activity
-                Intent intent = new Intent(audioSetActivity.this, audioSetContentActivity.class);
-                intent.putExtra("setName", setList.get(i).name);
-                startActivity(intent);
+                if (!isAppContent){
+                    Intent intent = new Intent(audioSetActivity.this, audioSetContentActivity.class);
+                    intent.putExtra("isAppContent",false);
+                    intent.putExtra("setName", setList.get(i).name);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(audioSetActivity.this, audioSetContentActivity.class);
+                    intent.putExtra("isAppContent",true);
+                    intent.putExtra("setName", setList_app.get(i).name);
+                    startActivity(intent);
+                }
+
             }
         });
         fileAdapter.setOnRecyclerViewItemChildClickListener(new BaseQuickAdapter.OnRecyclerViewItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 if(view.getId() == R.id.deleteIV) {
-                    ((TextView)(loadingView.findViewById(R.id.note))).setText("执行中...");
-                    loadingDialog.show();
-                    MediafileHelper.deleteAudioPlaySet(setList.get(i).name, myHandler);
-                    setToDeleteId = i;
+                    if (!isAppContent){
+                        ((TextView)(loadingView.findViewById(R.id.note))).setText("执行中...");
+                        loadingDialog.show();
+                        MediafileHelper.deleteAudioPlaySet(setList.get(i).name, myHandler);
+                        setToDeleteId = i;
+                    }else {
+                        LocalSetListContainer.deleteLocalSetList("audio",setList_app.get(i).name);
+                        setList_app.clear();
+                        setList_app.addAll(LocalSetListContainer.getLocalSetList("audio"));
+                        fileAdapter.notifyDataSetChanged();
+                        Toasty.success(audioSetActivity.this, "删除指定列表成功", Toast.LENGTH_SHORT, true).show();
+                    }
+
                 }
             }
         });
+
+        setList_app = LocalSetListContainer.getLocalSetList("audio");
     }
 
 
@@ -190,12 +275,18 @@ public class audioSetActivity extends Activity implements View.OnClickListener{
      * </summary>
      */
     private void initView() {
+
+        app_file = (TextView) findViewById(R.id.app_file);
+        pc_file = (TextView) findViewById(R.id.pc_file);
+
         returnLogoIB = (ImageButton) findViewById(R.id.returnLogoIB);
         addNewSetIV = (ImageView) findViewById(R.id.addNewSetIV);
         fileSGV = (RecyclerView) findViewById(R.id.fileSGV);
         fileSGV.setItemAnimator(new DefaultItemAnimator());
         fileSGV.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         fileSGV.setAdapter(fileAdapter);
+
+
 
         loadingView = LayoutInflater.from(this).inflate(R.layout.tab04_loadingcontent, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -211,6 +302,8 @@ public class audioSetActivity extends Activity implements View.OnClickListener{
     private void initEvent() {
         returnLogoIB.setOnClickListener(this);
         addNewSetIV.setOnClickListener(this);
+        app_file.setOnClickListener(this);
+        pc_file.setOnClickListener(this);
     }
 
 
@@ -264,6 +357,7 @@ public class audioSetActivity extends Activity implements View.OnClickListener{
             }
         }
     };
+
 
 
 }

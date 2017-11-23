@@ -110,9 +110,9 @@ public class DownloadFileManagerHelper {
                     boolean state = prepareDataForFragment.getDlnaCastState(file,type);
                     try{
                         if(state) {
-                            Toasty.info(MyApplication.getContext(), "投屏成功", Toast.LENGTH_SHORT).show();
+                            handler.sendEmptyMessage(1);
                         } else {
-                            Toasty.error(MyApplication.getContext(), "投屏失败", Toast.LENGTH_SHORT).show();
+                            handler.sendEmptyMessage(2);
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -133,9 +133,9 @@ public class DownloadFileManagerHelper {
                     boolean state = prepareDataForFragment.getDlnaCastState(folderName,type);
                     try{
                         if(state) {
-                            Toasty.info(MyApplication.getContext(), "投屏成功", Toast.LENGTH_SHORT).show();
+                            handler.sendEmptyMessage(1);
                         } else {
-                            Toasty.error(MyApplication.getContext(), "投屏失败", Toast.LENGTH_SHORT).show();
+                            handler.sendEmptyMessage(2);
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -145,7 +145,49 @@ public class DownloadFileManagerHelper {
         }else {
             Toasty.warning(MyApplication.getContext(), "当前电视不在线", Toast.LENGTH_SHORT, true).show();
         }
-
+    }
+    public static void dlnaCast(final List<FileItem> setList, final String type) {
+        if (MyApplication.isSelectedTVOnline()){
+            new Thread() {
+                @Override
+                public void run() {
+                    boolean state = prepareDataForFragment.getDlnaCastState(setList,type);
+                    try{
+                        if(state) {
+                            handler.sendEmptyMessage(1);
+                        } else {
+                            handler.sendEmptyMessage(2);
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }else {
+            Toasty.warning(MyApplication.getContext(), "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+        }
+    }
+    public static void dlnaCast(final List<FileItem> setList, final String type, boolean asbgm) {
+        if (!asbgm) return;
+        if (MyApplication.isSelectedTVOnline()){
+            new Thread() {
+                @Override
+                public void run() {
+                    boolean state = prepareDataForFragment.getDlnaCastState_bgm(setList,type);
+                    try{
+                        if(state) {
+                            handler.sendEmptyMessage(1);
+                        } else {
+                            handler.sendEmptyMessage(2);
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }else {
+            Toasty.warning(MyApplication.getContext(), "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+        }
     }
 
 
@@ -325,4 +367,17 @@ public class DownloadFileManagerHelper {
         }
         return fileSizeString;
     }
+
+    public static Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:Toasty.info(MyApplication.getContext(), "投屏成功", Toast.LENGTH_SHORT).show();
+                    break;
+                case 2:Toasty.error(MyApplication.getContext(), "投屏失败", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
 }

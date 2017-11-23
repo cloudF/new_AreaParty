@@ -390,6 +390,14 @@ public class CommandUtil {
         cmd.setSixthcommand(urls);
         return cmd;
     }
+    public static TVCommandItem createPlayBGMOnTVCommand(List<String> urls, String fileName, String fileType) {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.VLCAction_firCommand);
+        cmd.setSecondcommand(OrderConst.VLCAction_BGM_secondCommand);
+        cmd.setFifthCommand(fileType);
+        cmd.setSixthcommand(urls);
+        return cmd;
+    }
 
     /**
      * <summary>
@@ -524,9 +532,17 @@ public class CommandUtil {
         cmd.setName(type);
         cmd.setCommand(OrderConst.mediaAction_DELETE_command);
         Map<String, String> params = new HashMap<>();
-
         params.put("folder", path);
-
+        cmd.param = params;
+        return cmd;
+    }
+    public static PCCommandItem createPlayAllCommand(String path,String tvname ,String type) {
+        PCCommandItem cmd = new PCCommandItem();
+        cmd.setName(type);
+        cmd.setCommand(OrderConst.mediaAction_playALL_command);
+        Map<String, String> params = new HashMap<>();
+        params.put("folder", path);
+        params.put("tvname", tvname);
         cmd.param = params;
         return cmd;
     }

@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.utils.OkHttpUtils;
-import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.utils.PreferenceUtil;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.utils.UrlUtils;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.PreferenceUtil;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -62,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        ip = new PreferenceUtil(getApplicationContext()).read("ip");
-        port = new PreferenceUtil(getApplicationContext()).read("port");
-        username = new PreferenceUtil(getApplicationContext()).read("username");
-        password = new PreferenceUtil(getApplicationContext()).read("password");
+        ip = new PreferenceUtil("utorrentPrefs",getApplicationContext()).read("ip");
+        port = new PreferenceUtil("utorrentPrefs",getApplicationContext()).read("port");
+        username = new PreferenceUtil("utorrentPrefs",getApplicationContext()).read("username");
+        password = new PreferenceUtil("utorrentPrefs",getApplicationContext()).read("password");
 
         ip_editText.setText(ip);
         port_editText.setText(port);
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                                     map.put("port",port);
                                     map.put("username",username);
                                     map.put("password",password);
-                                    new PreferenceUtil(getApplicationContext()).writeAll(map);
+                                    new PreferenceUtil("utorrentPrefs",getApplicationContext()).writeAll(map);
                                     token = responseData.substring(44,108);
 
                                     Intent intent = new Intent(MainActivity.this, UTorrentActivity.class);

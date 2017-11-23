@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
 import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.fragment02.Model.MediaItem;
+import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileItem;
+import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.LocalSetListContainer;
 import com.androidlearning.boris.familycentralcontroler.fragment02.utils.MediafileHelper;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+
+import static com.androidlearning.boris.familycentralcontroler.fragment01.utils.DownloadFileManagerHelper.dlnaCast;
 
 /**
  * Project Name： FamilyCentralControler
@@ -48,7 +52,10 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
 
     Adapter fileAdapter;
     List<MediaItem> files;
-    String setName = "";
+    Adapter_app fileAdapter_app;
+    List<FileItem> files_app;
+    String setName;
+    private boolean isAppContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +64,9 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Intent getIntent = getIntent();
+        isAppContent = getIntent.getBooleanExtra("isAppContent",false);
         setName = getIntent.getStringExtra("setName");
+        Log.w("audioSetContentActivity",""+isAppContent+setName);
         initData();
         initView();
         initEvent();
@@ -71,26 +80,44 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
                 break;
             case R.id.playAllLL:
                 // 列表投屏
-                Log.w("audioSetContentActivity","playAllLL");
-                if(MyApplication.isSelectedPCOnline()) {
-                    if(MyApplication.isSelectedTVOnline()) {
-                        if(files.size() > 0)
-                            MediafileHelper.playMediaSet(OrderConst.audioAction_name,
-                                    setName, MyApplication.getSelectedTVIP().name, myHandler);
-                        else  Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
-                    } else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
-                } else Toasty.warning(audioSetContentActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                // Log.w("audioSetContentActivity","playAllLL");
+                if (!isAppContent){
+                    if(MyApplication.isSelectedPCOnline()) {
+                        if(MyApplication.isSelectedTVOnline()) {
+                            if(files.size() > 0)
+                                MediafileHelper.playMediaSet(OrderConst.audioAction_name,
+                                        setName, MyApplication.getSelectedTVIP().name, myHandler);
+                            else  Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
+                        } else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+                    } else Toasty.warning(audioSetContentActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                }else {
+                    if (MyApplication.isSelectedTVOnline()){
+                        if (files_app.size() > 0){
+                            dlnaCast(files_app,"audio");
+                        }else Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
+                    }else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+
+                }
                 break;
             case R.id.play_as_bgm:
                 Log.w("audioSetContentActivity","play_as_bgm");
-                if(MyApplication.isSelectedPCOnline()) {
-                    if(MyApplication.isSelectedTVOnline()) {
-                        if(files.size() > 0)
-                            MediafileHelper.playMediaSetAsBGM(OrderConst.audioAction_name,
-                                    setName, MyApplication.getSelectedTVIP().name, myHandler);
-                        else  Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
-                    } else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
-                } else Toasty.warning(audioSetContentActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                if (!isAppContent){
+                    if(MyApplication.isSelectedPCOnline()) {
+                        if(MyApplication.isSelectedTVOnline()) {
+                            if(files.size() > 0)
+                                MediafileHelper.playMediaSetAsBGM(OrderConst.audioAction_name,
+                                        setName, MyApplication.getSelectedTVIP().name, myHandler);
+                            else  Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
+                        } else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+                    } else Toasty.warning(audioSetContentActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                }else {
+                    if (MyApplication.isSelectedTVOnline()){
+                        if (files_app.size() > 0){
+                            dlnaCast(files_app,"audio",true);//作为背景音乐播放
+                        }else Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
+                    }else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+
+                }
                 break;
         }
     }
@@ -101,18 +128,31 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
      * </summary>
      */
     private void initData() {
-        if(MediafileHelper.audioSets.containsKey(setName)) {
-            files = MediafileHelper.audioSets.get(setName);
-        } else files = new ArrayList<>();
+        if (!isAppContent){
+            if(MediafileHelper.audioSets.containsKey(setName)) {
+                files = MediafileHelper.audioSets.get(setName);
+            } else files = new ArrayList<>();
 
-        fileAdapter = new Adapter(files, this);
-        fileAdapter.isFirstOnly(false);
-        fileAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, int i) {
-                // ...item点击事件
-            }
-        });
+            fileAdapter = new Adapter(files, this);
+            fileAdapter.isFirstOnly(false);
+            fileAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+                @Override
+                public void onItemClick(View view, int i) {
+                    // ...item点击事件
+                }
+            });
+        }else {
+            files_app = LocalSetListContainer.localMapList_audio.get(setName);
+            fileAdapter_app = new Adapter_app(files_app, this);
+            fileAdapter_app.isFirstOnly(false);
+            fileAdapter_app.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+                @Override
+                public void onItemClick(View view, int i) {
+                    // ...item点击事件
+                }
+            });
+        }
+
     }
 
     /**
@@ -129,11 +169,18 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
         playAsBGM = (TextView) findViewById(R.id.play_as_bgm);
 
         setNameTV.setText(setName);
-        numTV.setText("(共" + files.size() + "首)");
+
+
         fileSGV.setItemAnimator(new DefaultItemAnimator());
         fileSGV.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+        if (!isAppContent){
+            numTV.setText("(共" + files.size() + "首)");
+            fileSGV.setAdapter(fileAdapter);
+        }else{
+            numTV.setText("(共" + files_app.size() + "首)");
+            fileSGV.setAdapter(fileAdapter_app);
+        }
 
-        fileSGV.setAdapter(fileAdapter);
     }
 
     /**
@@ -173,6 +220,19 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
         @Override
         protected void convert(BaseViewHolder baseViewHolder, MediaItem mediaItem) {
             baseViewHolder.setText(R.id.nameTV, mediaItem.getName());
+        }
+    }
+    private class Adapter_app extends BaseQuickAdapter<FileItem> {
+        private Context context;
+
+        public Adapter_app(List<FileItem> data, Context context) {
+            super(R.layout.tab02_audioset_content_item, data);
+            this.context = context;
+        }
+
+        @Override
+        protected void convert(BaseViewHolder baseViewHolder, FileItem mediaItem) {
+            baseViewHolder.setText(R.id.nameTV, mediaItem.getmFileName());
         }
     }
 }

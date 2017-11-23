@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
 import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.fragment02.Model.MediaItem;
+import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileItem;
+import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.LocalSetListContainer;
 import com.androidlearning.boris.familycentralcontroler.fragment02.utils.MediafileHelper;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 import com.bumptech.glide.Glide;
@@ -31,6 +33,8 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
+import static com.androidlearning.boris.familycentralcontroler.fragment01.utils.DownloadFileManagerHelper.dlnaCast;
+
 /**
  * Project Name： FamilyCentralControler
  * Description:   显示已扫描到的PC设备
@@ -40,7 +44,7 @@ import es.dmoral.toasty.Toasty;
 
 public class imageSetContentActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private final String tag = this.getClass().getSimpleName();
+//    private final String tag = this.getClass().getSimpleName();
 
     private ImageButton returnLogoIB;
     private TextView setNameTV;
@@ -49,7 +53,11 @@ public class imageSetContentActivity extends AppCompatActivity implements View.O
 
     Adapter fileAdapter;
     List<MediaItem> files;
+    Adapter_app fileAdapter_app;
+    List<FileItem> files_app;
     String setName = "";
+
+    private boolean isAppContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,7 @@ public class imageSetContentActivity extends AppCompatActivity implements View.O
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Intent getIntent = getIntent();
+        isAppContent = getIntent.getBooleanExtra("isAppContent",false);
         setName = getIntent.getStringExtra("setName");
         initData();
         initView();
@@ -72,14 +81,23 @@ public class imageSetContentActivity extends AppCompatActivity implements View.O
                 break;
             case R.id.castSetIV:
                 // 列表投屏
-                if(MyApplication.isSelectedPCOnline()) {
-                    if(MyApplication.isSelectedTVOnline()) {
-                        if(files.size() > 0)
-                            MediafileHelper.playMediaSet(OrderConst.imageAction_name,
-                                    setName, MyApplication.getSelectedTVIP().name, myHandler);
-                        else  Toasty.warning(imageSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
-                    } else Toasty.warning(imageSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
-                } else Toasty.warning(imageSetContentActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                if (!isAppContent){
+                    if(MyApplication.isSelectedPCOnline()) {
+                        if(MyApplication.isSelectedTVOnline()) {
+                            if(files.size() > 0)
+                                MediafileHelper.playMediaSet(OrderConst.imageAction_name,
+                                        setName, MyApplication.getSelectedTVIP().name, myHandler);
+                            else  Toasty.warning(imageSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
+                        } else Toasty.warning(imageSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+                    } else Toasty.warning(imageSetContentActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                }else {
+                    if (MyApplication.isSelectedTVOnline()){
+                        if (files_app.size() > 0){
+                            dlnaCast(files_app,"image");
+                        }else Toasty.warning(imageSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
+                    }else Toasty.warning(imageSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+
+                }
                 break;
         }
     }
@@ -90,18 +108,31 @@ public class imageSetContentActivity extends AppCompatActivity implements View.O
      * </summary>
      */
     private void initData() {
-        if(MediafileHelper.imageSets.containsKey(setName)) {
-            files = MediafileHelper.imageSets.get(setName);
-        } else files = new ArrayList<>();
+        if (!isAppContent){
+            if(MediafileHelper.imageSets.containsKey(setName)) {
+                files = MediafileHelper.imageSets.get(setName);
+            } else files = new ArrayList<>();
 
-        fileAdapter = new Adapter(files, this);
-        fileAdapter.isFirstOnly(false);
-        fileAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, int i) {
-                // ...item点击事件
-            }
-        });
+            fileAdapter = new Adapter(files, this);
+            fileAdapter.isFirstOnly(false);
+            fileAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+                @Override
+                public void onItemClick(View view, int i) {
+                    // ...item点击事件
+                }
+            });
+        }else {
+            files_app = LocalSetListContainer.localMapList_image.get(setName);
+            fileAdapter_app = new Adapter_app(files_app, this);
+            fileAdapter_app.isFirstOnly(false);
+            fileAdapter_app.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+                @Override
+                public void onItemClick(View view, int i) {
+                    // ...item点击事件
+                }
+            });
+        }
+
     }
 
     /**
@@ -118,8 +149,12 @@ public class imageSetContentActivity extends AppCompatActivity implements View.O
         setNameTV.setText(setName);
         fileSGV.setItemAnimator(new DefaultItemAnimator());
         fileSGV.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+        if(!isAppContent){
+            fileSGV.setAdapter(fileAdapter);
+        }else {
+            fileSGV.setAdapter(fileAdapter_app);
+        }
 
-        fileSGV.setAdapter(fileAdapter);
     }
 
     /**
@@ -160,6 +195,25 @@ public class imageSetContentActivity extends AppCompatActivity implements View.O
             ImageView thumbnailIV = baseViewHolder.getView(R.id.thumbnailIV);
             Glide.with(context).asBitmap()
                     .load(mediaItem.getUrl()).apply(new RequestOptions().placeholder(R.drawable.default_pic_large).centerCrop())
+//                    .asBitmap()
+//                    .placeholder(R.drawable.default_pic_large)
+//                    .centerCrop()
+                    .into(thumbnailIV);
+        }
+    }
+    private class Adapter_app extends BaseQuickAdapter<FileItem> {
+        private Context context;
+
+        public Adapter_app(List<FileItem> data, Context context) {
+            super(R.layout.tab02_imageset_content_item, data);
+            this.context = context;
+        }
+
+        @Override
+        protected void convert(BaseViewHolder baseViewHolder, FileItem mediaItem) {
+            ImageView thumbnailIV = baseViewHolder.getView(R.id.thumbnailIV);
+            Glide.with(context).asBitmap()
+                    .load(mediaItem.getmFilePath()).apply(new RequestOptions().placeholder(R.drawable.default_pic_large).centerCrop())
 //                    .asBitmap()
 //                    .placeholder(R.drawable.default_pic_large)
 //                    .centerCrop()

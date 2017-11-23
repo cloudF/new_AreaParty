@@ -107,7 +107,48 @@ public class prepareDataForFragment {
             String requestStr = JsonUitl.objectToString(tvCommandItem);
             state = MyConnector.getInstance().sendMsgToIP(TVIp, IPAddressConst.TVRECEIVEPORT_MM, requestStr);
         }
-
+        return state;
+    }
+    public static boolean getDlnaCastState(List<FileItem> setList, String fileType) {
+        boolean state = false;
+        if (setList!=null&&setList.size()>0){
+            String ip = MyApplication.getIPStr();
+            String TVIp = MyApplication.getSelectedTVIP().ip;
+            List<String> urls = new ArrayList<>();
+            if(!(ip.equals("")) && !(TVIp.equals(""))) {
+                for (FileItem file : setList){
+                    String secondcommand = "http://" + ip + ":" +
+                            IPAddressConst.DLNAPHONEHTTPPORT_B + "/" + URLEncoder.encode(file.getmFilePath());
+                    Log.e("test", secondcommand+"***"+file.getmFilePath());
+                    urls.add(secondcommand);
+                }
+                String fifthcommand  = fileType;
+                TVCommandItem tvCommandItem = CommandUtil.createPlayUrlFileOnTVCommand(urls, "", fifthcommand);
+                String requestStr = JsonUitl.objectToString(tvCommandItem);
+                state = MyConnector.getInstance().sendMsgToIP(TVIp, IPAddressConst.TVRECEIVEPORT_MM, requestStr);
+            }
+        }
+        return state;
+    }
+    public static boolean getDlnaCastState_bgm(List<FileItem> setList, String fileType) {
+        boolean state = false;
+        if (setList!=null&&setList.size()>0){
+            String ip = MyApplication.getIPStr();
+            String TVIp = MyApplication.getSelectedTVIP().ip;
+            List<String> urls = new ArrayList<>();
+            if(!(ip.equals("")) && !(TVIp.equals(""))) {
+                for (FileItem file : setList){
+                    String secondcommand = "http://" + ip + ":" +
+                            IPAddressConst.DLNAPHONEHTTPPORT_B + "/" + URLEncoder.encode(file.getmFilePath());
+                    Log.e("test", secondcommand+"***"+file.getmFilePath());
+                    urls.add(secondcommand);
+                }
+                String fifthcommand  = fileType;
+                TVCommandItem tvCommandItem = CommandUtil.createPlayBGMOnTVCommand(urls, "", fifthcommand);
+                String requestStr = JsonUitl.objectToString(tvCommandItem);
+                state = MyConnector.getInstance().sendMsgToIP(TVIp, IPAddressConst.TVRECEIVEPORT_MM, requestStr);
+            }
+        }
         return state;
     }
 

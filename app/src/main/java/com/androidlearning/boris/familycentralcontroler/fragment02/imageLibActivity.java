@@ -28,6 +28,7 @@ import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolv
 import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.ContentDataLoadTask;
 import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileItem;
 import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileSystemType;
+import com.androidlearning.boris.familycentralcontroler.fragment02.ui.listBottomDialog_app;
 import com.androidlearning.boris.familycentralcontroler.model_comman.MyAdapter;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
 import com.androidlearning.boris.familycentralcontroler.R;
@@ -69,7 +70,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
     private TextView pcStateNameTV, tvStateNameTV, picsPlayListNumTV;
     private ListView folderSLV;
     private RecyclerView fileSGV;
-    private LinearLayout picsPlayListLL, playList , menuList, playFolderList;
+    private LinearLayout picsPlayListLL, playList , menuList, playFolderList, toSelectBGM;
 
     MyAdapter<MediaItem> folderAdapter;
     ImageAdapter fileAdapter;
@@ -171,7 +172,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                         menuList.setVisibility(View.GONE);
                         folderSLV.setVisibility(View.VISIBLE);
                         String tempPath = MediafileHelper.getCurrentPath().substring(0, MediafileHelper.getCurrentPath().lastIndexOf("\\"));
-                        MediafileHelper.setCurrentPath(tempPath);
+                        MediafileHelper.setCurrentPath("");
                         MediafileHelper.loadMediaLibFiles(myHandler);
                         folderAdapter.notifyDataSetChanged();
                         fileAdapter.notifyDataSetChanged();
@@ -187,8 +188,10 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
             case R.id.picsPlayListLL:
-                if(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline()) {
-                    startActivity(new Intent(getApplicationContext(), imageSetActivity.class));
+                if((MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())||(MyApplication.selectedTVVerified && MyApplication.isSelectedTVOnline())) {
+                    Intent intent = new Intent(imageLibActivity.this, imageSetActivity.class);
+                    intent.putExtra("isAppContent",isAppContent);
+                    startActivity(intent);
                 } else  Toasty.warning(getApplicationContext(), "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
                 break;
 
@@ -215,12 +218,23 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.play_folder_list:
                 if (isAppContent){
-                    Toasty.info(getApplicationContext(),"列表播放").show();
-                    dlnaCast(stringFolder,"image");
+                    if (MyApplication.isSelectedTVOnline()){
+                        dlnaCast(stringFolder,"image");
+                    } else  Toasty.warning(imageLibActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
                 }else{
+                    if(MyApplication.isSelectedPCOnline()) {
+                        if(MyApplication.isSelectedTVOnline()) {
+                            MediafileHelper.playAllMediaFile(OrderConst.imageAction_name,
+                                    MediafileHelper.getCurrentPath(),
+                                    MyApplication.getSelectedTVIP().name,
+                                    myHandler);
+                        } else  Toasty.warning(imageLibActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+                    } else  Toasty.warning(imageLibActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
 
                 }
-
+                break;
+            case R.id.to_select_bgm:
+                startActivity(new Intent(imageLibActivity.this, audioSetActivity.class));
                 break;
         }
     }
@@ -317,6 +331,11 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
         dialog.setFile(file);
         dialog.show(getSupportFragmentManager());
     }
+    private void listDialog_app(FileItem file) {
+        listBottomDialog_app dialog = new listBottomDialog_app();
+        dialog.setFile(file,"image");
+        dialog.show(getSupportFragmentManager());
+    }
 
     /**
      * <summary>
@@ -336,6 +355,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
         picsPlayListNumTV = (TextView) findViewById(R.id.picsPlayListNumTV);
         menuList = (LinearLayout) findViewById(R.id.menu_list);
         playFolderList = (LinearLayout) findViewById(R.id.play_folder_list);
+        toSelectBGM = (LinearLayout) findViewById(R.id.to_select_bgm);
 
         updateDeviceNetState(new TVPCNetStateChangeEvent(MyApplication.isSelectedTVOnline(),
                 MyApplication.isSelectedPCOnline()));
@@ -364,6 +384,7 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
         app_file.setOnClickListener(this);
         pc_file.setOnClickListener(this);
         playFolderList.setOnClickListener(this);
+        toSelectBGM.setOnClickListener(this);
 
         folderSLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -394,9 +415,12 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                             FileItem fileItem = (FileItem) baseQuickAdapter.getItem(i);
                             switch (view.getId()){
                                 case R.id.castIV:
-                                    dlnaCast(fileItem,"image");
+                                    if (MyApplication.isSelectedTVOnline()){
+                                        dlnaCast(fileItem,"image");
+                                    } else  Toasty.warning(imageLibActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
                                     break;
                                 case R.id.addToSetIV:
+                                    listDialog_app(fileItem);
                                     break;
                             }
                         }
@@ -471,9 +495,13 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                                 FileItem fileItem = (FileItem) baseQuickAdapter.getItem(i);
                                 switch (view.getId()){
                                     case R.id.castIV:
-                                        dlnaCast(fileItem,"image");
+                                        if (MyApplication.isSelectedTVOnline()){
+                                            dlnaCast(fileItem,"image");
+                                        } else  Toasty.warning(imageLibActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+
                                         break;
                                     case R.id.addToSetIV:
+                                        listDialog_app(fileItem);
                                         break;
                                 }
                             }

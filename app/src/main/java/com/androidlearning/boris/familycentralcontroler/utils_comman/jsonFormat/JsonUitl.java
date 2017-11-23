@@ -1,6 +1,10 @@
 package com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -30,6 +34,7 @@ public class JsonUitl {
         return t;
     }
 
+
     /**
      * 将对象准换为json字符串 或者 把list 转化成json
      * @param object 对象
@@ -37,6 +42,10 @@ public class JsonUitl {
      * @return 序列化后的Json字符串
      */
     public static <T> String objectToString(T object) {
+        return mGson.toJson(object);
+    }
+
+    public static <T> String objectListToString(List<T> object) {
         return mGson.toJson(object);
     }
 }

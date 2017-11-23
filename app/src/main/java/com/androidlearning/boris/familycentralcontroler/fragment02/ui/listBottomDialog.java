@@ -149,7 +149,9 @@ public class listBottomDialog extends BaseBottomDialog implements View.OnClickLi
 //                files.add(currentFile);
                 if(MyApplication.isSelectedPCOnline()) {
                     for (MediaItem item: currentFileList){
-                        MediafileHelper.addFilesToSet(setList.get(i).name, Arrays.asList(item), myHandler);
+                        List<MediaItem> files = new ArrayList<>();
+                        files.add(item);
+                        MediafileHelper.addFilesToSet(setList.get(i).name, files, myHandler);
                     }
                     MediafileHelper.addFileToLocalSet(setList.get(i).name, currentFileList);
                     listBottomDialog.this.dismiss();

@@ -23,6 +23,7 @@ import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolv
 import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.ContentDataLoadTask;
 import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileItem;
 import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileSystemType;
+import com.androidlearning.boris.familycentralcontroler.fragment02.ui.listBottomDialog_app;
 import com.androidlearning.boris.familycentralcontroler.model_comman.MyAdapter;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
 import com.androidlearning.boris.familycentralcontroler.R;
@@ -83,6 +84,8 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
     private boolean isSelectModel = false;
     private List<Integer> selectedList = new ArrayList<>();
 
+    private String stringFolder = "";
+
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
@@ -100,7 +103,7 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
                     else {
                         if (MediafileHelper.getCurrentPath().lastIndexOf("\\")!=-1){
                             String tempPath = MediafileHelper.getCurrentPath().substring(0, MediafileHelper.getCurrentPath().lastIndexOf("\\"));
-                            MediafileHelper.setCurrentPath(tempPath);
+                            MediafileHelper.setCurrentPath("");
                             MediafileHelper.loadMediaLibFiles(myHandler);
                             fileSLV.setVisibility(View.GONE);
                             folderSLV.setVisibility(View.VISIBLE);
@@ -223,8 +226,10 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
 
                 break;
             case R.id.audiosPlayListLL:
-                if(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline()) {
-                    startActivity(new Intent(getApplicationContext(), audioSetActivity.class));
+                if((MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())||(MyApplication.selectedTVVerified && MyApplication.isSelectedTVOnline())) {
+                    Intent intent = new Intent(audioLibActivity.this, audioSetActivity.class);
+                    intent.putExtra("isAppContent",isAppContent);
+                    startActivity(intent);
                 } else  Toasty.warning(getApplicationContext(), "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
                 break;
 
@@ -265,6 +270,14 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
                 }
 
                 break;
+            case R.id.music_count:
+                if (isAppContent){
+                    if (MyApplication.isSelectedTVOnline()){
+                        dlnaCast(stringFolder,"audio");
+                    } else  Toasty.warning(audioLibActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+                }else {
+
+                }
         }
     }
 
@@ -402,6 +415,11 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
         dialog.show(getSupportFragmentManager());
         cancelSelectModel();
     }
+    private void listDialog_app(FileItem file) {
+        listBottomDialog_app dialog = new listBottomDialog_app();
+        dialog.setFile(file,"audio");
+        dialog.show(getSupportFragmentManager());
+    }
 
     /**
      * <summary>
@@ -451,6 +469,7 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
         app_file.setOnClickListener(this);
         pc_file.setOnClickListener(this);
         addToList.setOnClickListener(this);
+        musicCount.setOnClickListener(this);
 
         folderSLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -500,7 +519,10 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
                             } else Toasty.warning(audioLibActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
                         } else Toasty.warning(audioLibActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
                     }else {
-                        dlnaCast((FileItem) adapterView.getAdapter().getItem(i),"audio");
+                        if (MyApplication.isSelectedTVOnline()){
+                            dlnaCast((FileItem) adapterView.getAdapter().getItem(i),"audio");
+                        } else  Toasty.warning(audioLibActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+
                     }
                 }else {
 
@@ -588,6 +610,7 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
                         musicCount.setVisibility(View.VISIBLE);
                         fileSLV.setVisibility(View.VISIBLE);
 
+                        stringFolder = obj;
                         fileAdapter_app = new MyAdapter<FileItem>(ContentDataControl.getFileItemListByFolder(FileSystemType.music, obj),R.layout.tab02_audio_item) {
                             @Override
                             public void bindView(ViewHolder holder, final FileItem obj) {
@@ -595,7 +618,7 @@ public class audioLibActivity extends AppCompatActivity implements View.OnClickL
                                 holder.setOnClickListener(R.id.addToSetIV, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        //dlnaCast(obj,"video");
+                                        listDialog_app(obj);
                                     }
                                 });
                             }

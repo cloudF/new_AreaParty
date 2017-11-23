@@ -17,6 +17,10 @@ public class PreferenceUtil {
         this.sp=mContext.getSharedPreferences("MobilePrefs", Context.MODE_PRIVATE);
     }
 
+    public PreferenceUtil(String fileName, Context mContext) {
+        this.sp=mContext.getSharedPreferences(fileName, Context.MODE_PRIVATE);
+    }
+
     public void write(String key, String value) {
         SharedPreferences.Editor editor = sp.edit();
         if (value != null) {
@@ -41,10 +45,13 @@ public class PreferenceUtil {
         return sp.getString(key,"");
     }
 
+    public Map<String,?> getAll(){
+        return sp.getAll();
+    }
 
-
-
-
-
-
+    public void remove(String key){
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove(key);
+        editor.apply();
+    }
 }

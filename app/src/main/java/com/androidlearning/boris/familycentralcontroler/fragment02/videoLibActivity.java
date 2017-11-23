@@ -92,7 +92,7 @@ public class videoLibActivity extends Activity implements View.OnClickListener,C
             }
             else {
                 String tempPath = MediafileHelper.getCurrentPath().substring(0, MediafileHelper.getCurrentPath().lastIndexOf("\\"));
-                MediafileHelper.setCurrentPath(tempPath);
+                MediafileHelper.setCurrentPath("");
                 MediafileHelper.loadMediaLibFiles(myHandler);
                 shiftBar.setVisibility(View.VISIBLE);
                 folderSLV.setVisibility(View.VISIBLE);
@@ -345,7 +345,9 @@ public class videoLibActivity extends Activity implements View.OnClickListener,C
                             holder.setOnClickListener(R.id.castLL, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    dlnaCast(obj,"video");
+                                    if (MyApplication.isSelectedTVOnline()){
+                                        dlnaCast(obj,"video");
+                                    } else  Toasty.warning(videoLibActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
                                 }
                             });
                         }
@@ -427,7 +429,9 @@ public class videoLibActivity extends Activity implements View.OnClickListener,C
                                 holder.setOnClickListener(R.id.castLL, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        dlnaCast(obj,"video");
+                                        if (MyApplication.isSelectedTVOnline()){
+                                            dlnaCast(obj,"video");
+                                        } else  Toasty.warning(videoLibActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
                                     }
                                 });
                             }

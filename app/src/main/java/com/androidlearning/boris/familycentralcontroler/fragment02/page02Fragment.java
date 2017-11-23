@@ -134,12 +134,12 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
                 } else  Toasty.warning(mContext, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
                 break;
             case R.id.picsPlayListLL:
-                if(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline()) {
+                if((MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())||(MyApplication.selectedTVVerified && MyApplication.isSelectedTVOnline())) {
                     startActivity(new Intent(mContext, imageSetActivity.class));
                 } else  Toasty.warning(mContext, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
                 break;
             case R.id.audiosPlayListLL:
-                if(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline()) {
+                if((MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())||(MyApplication.selectedTVVerified && MyApplication.isSelectedTVOnline())) {
                     startActivity(new Intent(mContext, audioSetActivity.class));
                 } else  Toasty.warning(mContext, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
                 break;

@@ -141,9 +141,9 @@ public class Base {
                 while (socket.isConnected()) {
                     byte[] byteArray = readFromServer(inputStream);
                     int size = DataTypeTranslater.bytesToInt(byteArray, 0);
-                    System.out.println("size: " + size);
+                    System.out.println("BaseServer size: " + size);
                     ProtoHead.ENetworkMessage type = ProtoHead.ENetworkMessage.valueOf(DataTypeTranslater.bytesToInt(byteArray,HEAD_INT_SIZE));
-                    System.out.println("Type : " + type.toString());
+                    System.out.println("BaseServer Type : " + type.toString());
                     switch (type){
                         case KEEP_ALIVE_SYNC:
                             keepAlive(byteArray, size);
