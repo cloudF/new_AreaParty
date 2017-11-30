@@ -60,8 +60,6 @@ public class UTorrentActivity extends AppCompatActivity {
     private List<Torrent> torrentList = new ArrayList<>();
     private UTorrentAdapter adapter;
 
-    @BindView(R.id.textView)
-    TextView textView;
     @BindView(R.id.recyclerView_torrent)
     RecyclerView recyclerView;
     @BindView(R.id.toolbar)

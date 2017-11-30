@@ -24,310 +24,399 @@
             android:layout_weight="1"
             android:gravity="center"
 
-            android:text="网络媒体库"
+            android:text="网络视频库"
             android:textColor="#ffffff"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
 
     </LinearLayout>
 
-   <RelativeLayout
-       android:layout_below="@id/linerlayout1"
-       android:id="@+id/relativelayout2"
-       android:layout_width="fill_parent"
-       android:layout_marginTop="8dp"
-       android:background="@drawable/webmanager_edittext_color4"
-       android:layout_height="wrap_content">
-       <TextView
-
-           android:id="@+id/tv_select"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginStart="20dp"
-           android:textSize="20sp"
-           android:textColor="@color/colorPrimary"
-           android:text="网络媒体平台:" />
-
-   </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/linerlayout2"
-        android:layout_width="fill_parent"
-        android:background="@drawable/webmanager_edittext_color4"
-        android:layout_below="@id/relativelayout2"
+    <ScrollView
+        android:layout_below="@id/linerlayout1"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <RelativeLayout
-            android:id="@+id/layoutWeb1080"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/webmanager_edittext_color3"
-            android:clickable="true"
-            android:gravity="center_vertical" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/relativelayout2"
+                android:layout_width="fill_parent"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/webmanager_edittext_color4"
+                android:layout_height="wrap_content">
 
-          <android.support.design.widget.CheckableImageButton
-              android:id="@+id/web1080"
-              android:layout_width="120dp"
-              android:layout_centerVertical="true"
-              android:layout_height="40dp"
-              android:layout_marginLeft="2dp"
-              android:background="@drawable/webmanager_web1080_logo"/>
+                <TextView
+
+                    android:id="@+id/tv_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="网络视频平台:"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/linerlayout2"
+                android:layout_width="fill_parent"
+                android:background="@drawable/webmanager_edittext_color4"
+                android:layout_below="@id/relativelayout2"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/layoutWeb1080"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/webmanager_edittext_color3"
+                    android:clickable="true"
+                    android:gravity="center_vertical" >
+
+                    <android.support.design.widget.CheckableImageButton
+                        android:id="@+id/web1080"
+                        android:layout_width="120dp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="2dp"
+                        android:background="@drawable/webmanager_web1080_logo"/>
+                    <Button
+                        android:id="@+id/ButtonWeb1080"
+                        android:textAllCaps="false"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="2dp"
+                        android:layout_width="180dp"
+                        android:layout_height="50dp"
+                        android:text="www.1080.net"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layoutBlufans"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layoutWeb1080"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/webmanager_edittext_color3"
+                    android:clickable="true"
+                    android:gravity="center_vertical" >
+
+                    <android.support.design.widget.CheckableImageButton
+                        android:id="@+id/blufans"
+                        android:layout_width="120dp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="2dp"
+                        android:background="@drawable/webmanager_webchcdchd_logo"/>
+                    <Button
+                        android:id="@+id/ButtonBlufans"
+                        android:textAllCaps="false"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="2dp"
+                        android:layout_width="180dp"
+                        android:layout_height="50dp"
+                        android:text="www.chdchd.com"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layoutHdchd"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layoutBlufans"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/webmanager_edittext_color3"
+                    android:clickable="true"
+                    android:gravity="center_vertical" >
+
+                    <android.support.design.widget.CheckableImageButton
+                        android:id="@+id/hdchd"
+                        android:layout_width="120dp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/webmanager_vku_logo"/>
+                    <Button
+                        android:id="@+id/ButtonHdchd"
+                        android:textAllCaps="false"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="2dp"
+                        android:layout_width="180dp"
+                        android:layout_height="50dp"
+                        android:text="www.vkugq.com"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/layoutHdchd1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layoutHdchd"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/webmanager_edittext_color3"
+                    android:clickable="true"
+                    android:gravity="center_vertical" >
+
+                    <android.support.design.widget.CheckableImageButton
+                        android:id="@+id/hdchd1"
+                        android:layout_width="120dp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/webmanager_hdchd_logo"/>
+
+                    <Button
+                        android:id="@+id/ButtonHdchd1"
+                        android:layout_width="180dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="2dp"
+                        android:text="www.hdchd.cc"
+                        android:textAllCaps="false" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layoutHdchd1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/webmanager_edittext_color3"
+                    android:clickable="true"
+                    android:gravity="center_vertical" >
+
+                    <android.support.design.widget.CheckableImageButton
+                        android:id="@+id/hdhome"
+                        android:layout_width="120dp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="2dp"
+                        android:background="@drawable/webmanager_hdhome_logo"/>
+                    <Button
+                        android:id="@+id/ButtonHdhome"
+                        android:textAllCaps="false"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="2dp"
+                        android:layout_width="180dp"
+                        android:layout_height="50dp"
+                        android:text="www.hdhome.org"/>
+
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativelayout4"
+                android:layout_marginTop="12dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/linerlayout2"
+                android:background="@drawable/webmanager_edittext_color4">
+
+                <TextView
+
+                    android:id="@+id/tv_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="视频应用平台:"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/btn_auto_login_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="0dp"
+                    android:text="自助登录服务"
+                    android:shadowColor="@color/colorPrimary"
+                    android:checked="false"
+                    android:theme="@style/MySwitch"
+                    android:textSize="12sp"/>
+                <!--<Button-->
+                <!--android:id="@+id/btn_auto_login_service"-->
+                <!--android:text="已开启"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/linerlayout4"
+                android:layout_width="fill_parent"
+                android:background="@drawable/webmanager_edittext_color4"
+                android:layout_below="@id/relativelayout4"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:orientation="vertical"
+                    android:id="@+id/activity_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="visible">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp">
+                        <LinearLayout
+                            android:padding="4dp"
+                            android:background="@drawable/webmanager_edittext_color3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_marginStart="5dp"
+                                android:src="@drawable/iqiyi_logo"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="45dp"
+                                android:layout_marginEnd="20dp"
+                                android:layout_height="45dp" />
+
+                            <info.hoang8f.widget.FButton
+                                android:id="@+id/btn_login_iqiyi"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginEnd="20dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_weight="1"
+                                android:shadowColor="#bdc3c7"
+                                android:text="自动登录"
+                                android:textColor="#000000"
+                                app:buttonColor="#ecf0f1"
+                                app:shadowEnabled="true" />
+                            <info.hoang8f.widget.FButton
+                                android:id="@+id/btn_logout_iqiyi"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="10dp"
+                                app:shadowEnabled="true"
+                                app:buttonColor="#ecf0f1"
+                                android:shadowColor="#bdc3c7"
+                                android:layout_gravity="center"
+                                android:text="退出登录"
+                                android:textColor="#000000"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:background="@drawable/webmanager_edittext_color3"
+                            android:layout_marginTop="8dp"
+                            android:padding="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_marginStart="4dp"
+                                android:src="@drawable/youku_logo"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginEnd="20dp"/>
+                            <info.hoang8f.widget.FButton
+                                android:id="@+id/btn_login_youku"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:shadowEnabled="true"
+                                app:buttonColor="#ecf0f1"
+                                android:shadowColor="#bdc3c7"
+                                android:layout_gravity="center"
+                                android:text="自动登录"
+                                android:textColor="#000000"/>
+                            <info.hoang8f.widget.FButton
+                                android:id="@+id/btn_logout_youku"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="10dp"
+                                app:shadowEnabled="true"
+                                app:buttonColor="#ecf0f1"
+                                android:shadowColor="#bdc3c7"
+                                android:layout_gravity="center"
+                                android:text="退出登录"
+                                android:textColor="#000000"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:background="@drawable/webmanager_edittext_color3"
+                            android:layout_marginTop="8dp"
+                            android:padding="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_marginStart="4dp"
+                                android:src="@drawable/tencent_logo"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginEnd="20dp"/>
+                            <info.hoang8f.widget.FButton
+                                android:id="@+id/btn_login_tencent"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:shadowEnabled="true"
+                                app:buttonColor="#ecf0f1"
+                                android:shadowColor="#bdc3c7"
+                                android:layout_gravity="center"
+                                android:text="自动登录"
+                                android:textColor="#000000"/>
+                            <info.hoang8f.widget.FButton
+                                android:id="@+id/btn_logout_tencent"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="10dp"
+                                app:shadowEnabled="true"
+                                app:buttonColor="#ecf0f1"
+                                android:shadowColor="#bdc3c7"
+                                android:layout_gravity="center"
+                                android:text="退出登录"
+                                android:textColor="#000000"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
             <Button
-                android:id="@+id/ButtonWeb1080"
-                android:textAllCaps="false"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="2dp"
-                android:layout_width="180dp"
-                android:layout_height="50dp"
-                android:text="www.1080.net"/>
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layoutBlufans"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layoutWeb1080"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/webmanager_edittext_color3"
-            android:clickable="true"
-            android:gravity="center_vertical" >
-
-            <android.support.design.widget.CheckableImageButton
-                android:id="@+id/blufans"
-                android:layout_width="120dp"
-                android:layout_centerVertical="true"
-                android:layout_height="40dp"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/webmanager_webchcdchd_logo"/>
-            <Button
-                android:id="@+id/ButtonBlufans"
-                android:textAllCaps="false"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="2dp"
-                android:layout_width="180dp"
-                android:layout_height="50dp"
-                android:text="www.chdchd.com"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layoutHdchd"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layoutBlufans"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/webmanager_edittext_color3"
-            android:clickable="true"
-            android:gravity="center_vertical" >
-
-            <android.support.design.widget.CheckableImageButton
-                android:id="@+id/hdchd"
-                android:layout_width="120dp"
-                android:layout_centerVertical="true"
-                android:layout_height="40dp"
-                android:layout_marginStart="2dp"
-                android:background="@drawable/webmanager_vku_logo"/>
-            <Button
-                android:id="@+id/ButtonHdchd"
-                android:textAllCaps="false"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="2dp"
-                android:layout_width="180dp"
-                android:layout_height="50dp"
-                android:text="www.vkugq.com"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layoutHdchd"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/webmanager_edittext_color3"
-            android:clickable="true"
-            android:gravity="center_vertical" >
-
-            <android.support.design.widget.CheckableImageButton
-                android:id="@+id/hdhome"
-                android:layout_width="120dp"
-                android:layout_centerVertical="true"
-                android:layout_height="40dp"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/webmanager_hdhome_logo"/>
-            <Button
-                android:id="@+id/ButtonHdhome"
-                android:textAllCaps="false"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="2dp"
-                android:layout_width="180dp"
-                android:layout_height="50dp"
-                android:text="www.hdhome.org"/>
-
-        </RelativeLayout>
-
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relativelayout4"
-        android:layout_marginTop="8dp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/linerlayout2"
-        android:background="@drawable/webmanager_edittext_color4">
-
-        <TextView
-
-            android:id="@+id/tv_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="视频应用平台:"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/btn_auto_login_service"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="0dp"
-            android:text="自助登录服务"
-            android:shadowColor="@color/colorPrimary"
-            android:checked="false"
-            android:theme="@style/MySwitch"
-            android:textSize="12sp"/>
-        <!--<Button-->
-            <!--android:id="@+id/btn_auto_login_service"-->
-            <!--android:text="已开启"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content" />-->
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/linerlayout4"
-        android:layout_width="fill_parent"
-        android:background="@drawable/webmanager_edittext_color4"
-        android:layout_below="@id/relativelayout4"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:orientation="vertical"
-            android:id="@+id/activity_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:visibility="visible">
-            <LinearLayout
-                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/linerlayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-                <LinearLayout
-                    android:padding="4dp"
-                    android:background="@drawable/webmanager_edittext_color3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_marginStart="5dp"
-                        android:src="@drawable/iqiyi_logo"
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="45dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_height="45dp" />
+                android:background="#fff"
+                android:textColor="#fff"
+                android:text="." />
+        </RelativeLayout>
+    </ScrollView>
 
-                    <info.hoang8f.widget.FButton
-                        android:id="@+id/btn_login_iqiyi"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="1"
-                        android:shadowColor="#bdc3c7"
-                        android:text="自动登录"
-                        android:textColor="#000000"
-                        app:buttonColor="#ecf0f1"
-                        app:shadowEnabled="true" />
-                    <info.hoang8f.widget.FButton
-                        android:id="@+id/btn_logout_iqiyi"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="10dp"
-                        app:shadowEnabled="true"
-                        app:buttonColor="#ecf0f1"
-                        android:shadowColor="#bdc3c7"
-                        android:layout_gravity="center"
-                        android:text="退出登录"
-                        android:textColor="#000000"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:background="@drawable/webmanager_edittext_color3"
-                    android:layout_marginTop="8dp"
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_marginStart="4dp"
-                        android:src="@drawable/youku_logo"
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_marginEnd="20dp"/>
-                    <info.hoang8f.widget.FButton
-                        android:id="@+id/btn_login_youku"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:shadowEnabled="true"
-                        app:buttonColor="#ecf0f1"
-                        android:shadowColor="#bdc3c7"
-                        android:layout_gravity="center"
-                        android:text="自动登录"
-                        android:textColor="#000000"/>
-                    <info.hoang8f.widget.FButton
-                        android:id="@+id/btn_logout_youku"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="10dp"
-                        app:shadowEnabled="true"
-                        app:buttonColor="#ecf0f1"
-                        android:shadowColor="#bdc3c7"
-                        android:layout_gravity="center"
-                        android:text="退出登录"
-                        android:textColor="#000000"/>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
+
 
 
 

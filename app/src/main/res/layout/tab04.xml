@@ -46,6 +46,70 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginEnd="15dp"
                 android:background="#33000000"/>
+            <!--NAS文件管理栏目-->
+            <LinearLayout
+                android:id="@+id/page04NASRootLL"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <LinearLayout
+                    android:id="@+id/page04NASLL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/linearlayout_selector02"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:clickable="false"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/nas_logo"
+                        android:scaleType="fitXY" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="55dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical"
+                        style="@style/Transparent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="NAS文件管理"
+                            android:textSize="18sp"
+                            android:textColor="#000000" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="NAS共享文件"
+                            android:textColor="#90000000" />
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="55dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="15dp"
+                        android:gravity="end|center_vertical"
+                        android:layout_gravity="center"
+                        android:text=">"
+                        android:textStyle="bold"
+                        android:textSize="25sp"
+                        android:textColor="#40000000" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="#33000000"/>
+            </LinearLayout>
             <!--本地文件夹-->
             <LinearLayout
                 android:id="@+id/page04LocalFolderRootLL"

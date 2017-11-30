@@ -332,7 +332,7 @@ public class TVDevicesActivity extends Activity implements View.OnClickListener,
                     dialog.dismiss();
                     MyApplication.selectedTVVerified = false;
                     MyApplication.removeTVMac(temp.mac);
-                    Toasty.info(TVDevicesActivity.this, "未知错误", Toast.LENGTH_SHORT).show();
+                    Toasty.info(TVDevicesActivity.this, "连接失败", Toast.LENGTH_SHORT).show();
                 }
                 break;
             }

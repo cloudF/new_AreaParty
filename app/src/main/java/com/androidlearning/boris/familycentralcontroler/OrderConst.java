@@ -127,6 +127,7 @@ public class OrderConst {
     public static final String fileOrFolderAction_copy_command = "COPY";
     public static final String fileOrFolderAction_cut_command = "CUT";
     public static final String fileAction_share_command = "SHAREFILE";
+    public static final String FOLDER_NASDELETE_command = "NASDELETE";
 
     public static final String ip_phone_source = "PHONE";
     public static final String ip_TV_source = "TV";
@@ -147,6 +148,8 @@ public class OrderConst {
 
     public static final String addPathToHttp_Name = "PC";
     public static final String addPathToHttp_command = "AddDirsHTTP";
+
+    public static final String Media_Search_By_Key = "SEARCH";
 
     public static final String dlnaCastToTV_Command = "OPEN_HTTP_MEDIA";
 

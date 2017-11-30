@@ -384,7 +384,9 @@ public class vedioPlayControl extends AppCompatActivity {
         subtitle_before=(Button)findViewById(R.id.subtitle_before);
         subtitle_delay=(Button)findViewById(R.id.subtitle_delay);
 
-
+        if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("audio")){
+            Subtitle.setText("加载歌词");
+        }
     }
 
     class MySeekbar implements OnSeekBarChangeListener {
@@ -401,15 +403,17 @@ public class vedioPlayControl extends AppCompatActivity {
                 updateTime();
                 TVAppHelper.playAppointPosition2TV();
             }else {
-                player_overlay_time.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        player_overlay_time.setText("00:00:00");
-                        player_overlay_length.setText("00:00:00");
-                        player_title.setText("当前无播放视频");
+                if (player_overlay_time!=null){
+                    player_overlay_time.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            player_overlay_time.setText("00:00:00");
+                            player_overlay_length.setText("00:00:00");
+                            player_title.setText("当前无播放视频");
 
-                    }
-                });
+                        }
+                    });
+                }
                 Toast.makeText(getApplicationContext(),"当前无播放视频",Toast.LENGTH_SHORT).show();
             }
 
@@ -436,12 +440,15 @@ public class vedioPlayControl extends AppCompatActivity {
         SimpleDateFormat sd = new SimpleDateFormat("HH:mm:ss");
         sd.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
         final String updateTime=sd.format(new Date(seekBar.getProgress()));
-        player_overlay_time.post(new Runnable() {
-            @Override
-            public void run() {
-                player_overlay_time.setText(updateTime);
-            }
-        });
+        if (player_overlay_time!=null){
+            player_overlay_time.post(new Runnable() {
+                @Override
+                public void run() {
+                    player_overlay_time.setText(updateTime);
+                }
+            });
+        }
+
 
     }
 
@@ -458,46 +465,52 @@ public class vedioPlayControl extends AppCompatActivity {
     }
 
     public static  void exit(){
-        player_overlay_time.post(new Runnable() {
-            @Override
-            public void run() {
-                player_overlay_time.setText("00:00:00");
-                seekBar.setProgress(0);
-                player_overlay_length.setText("00:00:00");
-                player_title.setText("当前无播放视频");
-            }
-        });
+        if (player_overlay_time!=null){
+            player_overlay_time.post(new Runnable() {
+                @Override
+                public void run() {
+                    player_overlay_time.setText("00:00:00");
+                    seekBar.setProgress(0);
+                    player_overlay_length.setText("00:00:00");
+                    player_title.setText("当前无播放视频");
+                }
+            });
+        }
+
 
   //      RemoteControlView.coreBitmap=BitmapFactory.decodeResource(Resources.getSystem(), vedio_play_control_play);
 
     }
 
     public static  void checkPlayInfo(final String currentTime, final String length, final String title){
-        player_overlay_time.post(new Runnable() {
-            @Override
-            public void run() {
-                if(currentTime.contains("23:59:59")){
-                    player_overlay_time.setText("00:00:00");
-                }else {
-                    player_overlay_time.setText(currentTime);
+        if (player_overlay_time!=null){
+            player_overlay_time.post(new Runnable() {
+                @Override
+                public void run() {
+                    if(currentTime.contains("23:59:59")){
+                        player_overlay_time.setText("00:00:00");
+                    }else {
+                        player_overlay_time.setText(currentTime);
+                    }
+
+                    player_overlay_length.setText(length);
+                    player_title.setText(title);
                 }
-
-                player_overlay_length.setText(length);
-                player_title.setText(title);
-            }
-        });
-
-
+            });
+        }
 
         SimpleDateFormat sd = new SimpleDateFormat("HH:mm:ss");
         sd.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
         try {
             Date date1 = sd.parse(length);
-            if(length.contains("23:59:59"))
-            {
-                seekBar.setMax(5000000);//随机设置的值，避免异常退出
-            }else {
-                seekBar.setMax((int)date1.getTime());
+            if (seekBar!=null){
+                if(length.contains("23:59:59"))
+                {
+                    seekBar.setMax(5000000);//随机设置的值，避免异常退出
+                }else {
+                    seekBar.setMax((int)date1.getTime());
+                }
+
             }
 
 
@@ -511,8 +524,9 @@ public class vedioPlayControl extends AppCompatActivity {
 
         try {
             Date date = sd.parse(currentTime);
-
-            seekBar.setProgress((int)date.getTime());
+            if (seekBar!=null){
+                seekBar.setProgress((int)date.getTime());
+            }
         }
         catch (Exception e){
             e.printStackTrace();

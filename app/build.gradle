@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.2.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -55,6 +56,10 @@ dependencies {
     compile 'com.androidkun:xversionupdate:1.0.4'
     compile 'com.alibaba:fastjson:1.2.14'
     compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
+    compile 'xyz.zpayh:sherlockadapter:1.1.0'
+    compile 'com.facebook.fresco:fresco:1.4.0'
+    compile 'com.facebook.fresco:webpsupport:1.4.0'
+    compile 'com.android.support:multidex:1.0.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     testCompile 'junit:junit:4.12'

@@ -52,13 +52,13 @@
                 android:gravity="center">
 
                 <TextView
-                    android:gravity="center"
-                    android:layout_width="60dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:background="@drawable/textview_redborder"
-                    android:text="主机信息"
-                    android:textSize="14sp"
-                    android:textColor="#E65757" />
+                    android:gravity="center"
+                    android:text="电脑信息"
+                    android:textColor="#E65757"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/isLastUsedPCExistTV"
@@ -120,13 +120,13 @@
                 android:gravity="center">
 
                 <TextView
-                    android:gravity="center"
-                    android:layout_width="60dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:background="@drawable/textview_blueborder"
-                    android:text="屏幕信息"
-                    android:textSize="14sp"
-                    android:textColor="#5D8DE3" />
+                    android:gravity="center"
+                    android:text="电视信息"
+                    android:textColor="#5D8DE3"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/isLastUsedTVExistTV"

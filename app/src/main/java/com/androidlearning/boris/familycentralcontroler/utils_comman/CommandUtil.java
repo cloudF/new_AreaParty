@@ -536,6 +536,17 @@ public class CommandUtil {
         cmd.param = params;
         return cmd;
     }
+
+    public static PCCommandItem createSearchMediaCommand(String key) {
+        PCCommandItem cmd = new PCCommandItem();
+        cmd.setName(OrderConst.addPathToHttp_Name);
+        cmd.setCommand(OrderConst.Media_Search_By_Key);
+        Map<String, String> params = new HashMap<>();
+        params.put("key", key);
+        cmd.param = params;
+        return cmd;
+    }
+
     public static PCCommandItem createPlayAllCommand(String path,String tvname ,String type) {
         PCCommandItem cmd = new PCCommandItem();
         cmd.setName(type);

@@ -53,7 +53,7 @@ public class RemoteControlView extends View {
 
     private float deviationDegree;//偏移角度
     private int onClickState = -2;//-2是无点击，-1是点击中心圆，其他是点击菜单
-    private int roundRadius;//中心圆的半径
+    private float roundRadius;//中心圆的半径
     private double radiusDistance;//半径的长度比（中心圆半径=大圆半径*radiusDistance）
     private long touchTime;//按下时间，抬起的时候判定一下，超过300毫秒算点击
 
@@ -80,10 +80,11 @@ public class RemoteControlView extends View {
 
         coreX = getWidth() / 2;
         coreY = getHeight() / 2;
-        roundRadius = (int) (getWidth()/2 * radiusDistance);//计算中心圆圈半径
 
-        float x = (getWidth() - getHeight() / 2) /3;
+
+        float x = (getWidth() /2) /3;
         float y = getHeight() / 2/3;
+        roundRadius =x ;//计算中心圆圈半径
 
       /*  coreX=getWidth()/2;
         coreY=getHeight()/2;
@@ -95,7 +96,7 @@ public class RemoteControlView extends View {
         //RectF rect = new RectF(0, 0, getWidth(), getHeight());
 
 
-        RectF rect = new RectF( x, y,getWidth() - x, getHeight() - y);
+        RectF rect = new RectF( coreX-2*x, coreY-2*x,coreX + 2*x, coreY+2*x);
 
         if (roundMenus != null && roundMenus.size() > 0) {
             float sweepAngle = 360 / roundMenus.size();//每个弧形的角度
@@ -107,7 +108,7 @@ public class RemoteControlView extends View {
                 paint.setAntiAlias(true);
                 if (onClickState == i) {
                     //选中
-                    paint.setColor(roundMenu.selectSolidColor);
+                    paint.setColor(Color.rgb(247,203,213));
                 } else {
                     //未选中
                     paint.setColor(Color.WHITE);
@@ -132,17 +133,17 @@ public class RemoteControlView extends View {
                 Log.i("ervicm",String.valueOf(i));
                 switch (i){
                     case 0:
-                        matrix.postTranslate((float)(coreX-roundMenu.icon.getWidth()/2),(float)(coreY+getWidth()/2*roundMenu.iconDistance)-(roundMenu.icon.getHeight()/2));
+                        matrix.postTranslate((float)(coreX-roundMenu.icon.getWidth()/2),(float)(coreY+2*x*roundMenu.iconDistance)-(roundMenu.icon.getHeight()/2));
                         break;
                     case 1:
-                        matrix.postTranslate((float) ((coreX - getWidth() / 2 * roundMenu.iconDistance) - (roundMenu.icon.getWidth() / 2)), coreY - (roundMenu.icon.getHeight() / 2));
+                        matrix.postTranslate((float) ((coreX -2*x*roundMenu.iconDistance) - (roundMenu.icon.getWidth() / 2)), coreY - (roundMenu.icon.getHeight() / 2));
                         break;
 
                     case 2:
-                        matrix.postTranslate((float)(coreX-roundMenu.icon.getWidth()/2),(float)(coreY-getWidth()/2*roundMenu.iconDistance)-(roundMenu.icon.getHeight()/2));
+                        matrix.postTranslate((float)(coreX-roundMenu.icon.getWidth()/2),(float)(coreY-2*x*roundMenu.iconDistance)-(roundMenu.icon.getHeight()/2));
                         break;
                     case 3:
-                        matrix.postTranslate((float) ((coreX + getWidth() / 2 * roundMenu.iconDistance) - (roundMenu.icon.getWidth() / 2)), coreY - (roundMenu.icon.getHeight() / 2));
+                        matrix.postTranslate((float) ((coreX + 2*x*roundMenu.iconDistance) - (roundMenu.icon.getWidth() / 2)), coreY - (roundMenu.icon.getHeight() / 2));
                         break;
                 }
 
@@ -166,7 +167,7 @@ public class RemoteControlView extends View {
             paint.setAntiAlias(true);
             paint.setStrokeWidth(coreMenuStrokeSize);
             if (onClickState == -1) {
-                paint.setColor(coreMenuSelectColor);
+                paint.setColor(Color.rgb(247,203,213));
             } else {
                 paint.setColor(coreMenuColor);
             }
@@ -193,7 +194,7 @@ public class RemoteControlView extends View {
             paint.setAntiAlias(true);
             paint.setStrokeWidth(coreMenuStrokeSize);
             if (onClickState == -3) {
-                paint.setColor(coreMenuSelectColor);
+                paint.setColor(Color.rgb(247,203,213));
             } else {
                 paint.setColor(coreMenuColor);
             }
@@ -224,7 +225,7 @@ public class RemoteControlView extends View {
             paint.setAntiAlias(true);
             paint.setStrokeWidth(coreMenuStrokeSize);
             if (onClickState == -4) {
-                paint.setColor(coreMenuSelectColor);
+                paint.setColor(Color.rgb(247,203,213));
             } else {
                 paint.setColor(coreMenuColor);
             }
@@ -259,7 +260,7 @@ public class RemoteControlView extends View {
                 if (distanceLine <= roundRadius) {
                     //点击的是中心圆；按下点到中心点的距离小于中心园半径，那就是点击中心园了
                     onClickState = -1;
-                } else if (distanceLine <= getWidth() / 2-(getWidth() - getHeight() / 2) /3) { //(getWidth() - getHeight() / 2) /3为x的值
+                } else if (distanceLine <= (getWidth()) /3) { //(getWidth()  / 2) /3为x的值
                     //点击的是某个扇形；按下点到中心点的距离大于中心圆半径小于大圆半径，那就是点击某个扇形了
                     float sweepAngle = 360 / roundMenus.size();//每个弧形的角度
                     int angle = getRotationBetweenLines(coreX, coreY, textX, textY);
@@ -509,7 +510,7 @@ public class RemoteControlView extends View {
         public Bitmap icon;//菜单的图片
         public OnClickListener onClickListener;//点击监听
         public  OnTouchListener onTouchListener;
-        public double iconDistance = 0.54;//图标距离中心点的距离
+        public double iconDistance = 0.75;//图标距离中心点的距离
     }
 
     /**

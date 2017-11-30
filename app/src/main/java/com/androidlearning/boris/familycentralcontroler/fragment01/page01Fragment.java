@@ -157,7 +157,7 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
     }
 
     private void initData() {
-        imageList.add(R.drawable.videoworld);
+        imageList.add(R.drawable.videoworldgif2);
 
         tvRecentAppAdapter = new MyAdapter<AppItem>(tvpcAppHelper.tvApps, R.layout.tab03_app_item) {
             @Override
@@ -322,7 +322,7 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         layoutParams.height = height;
         bannerB.setLayoutParams(layoutParams);
-        bannerB.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        bannerB.setBannerStyle(BannerConfig.NOT_INDICATOR);
         bannerB.setImageLoader(new GlideImageLoader());
         bannerB.setImages(imageList);
         bannerB.setBannerAnimation(Transformer.DepthPage);

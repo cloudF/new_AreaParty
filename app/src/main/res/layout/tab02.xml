@@ -8,19 +8,40 @@
     <!-- 顶部状态栏 -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="25dp"
         android:paddingBottom="10dp"
         android:paddingStart="25dp"
         android:background="#E65757">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="媒体库"
+                android:textSize="15sp"
+                android:textColor="#ffffff"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="媒体库"
-            android:textSize="15sp"
-            android:textColor="#ffffff"/>
+            <EditText
+                android:id="@+id/search_editText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/textback_search"
+                android:drawableStart="@drawable/ic_search1"
+                android:gravity="start|center"
+                android:hint=" 搜索媒体文件"
+                android:maxLines="1"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:focusable="false"
+                android:textSize="14sp" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

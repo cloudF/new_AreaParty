@@ -29,6 +29,7 @@ import com.androidlearning.boris.familycentralcontroler.fragment01.base.DiskCont
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.SharedfileBean;
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.fileBean;
 import com.androidlearning.boris.familycentralcontroler.fragment01.ui.ActionDialog_addFolder;
+import com.androidlearning.boris.familycentralcontroler.fragment01.ui.ActionDialog_reName;
 import com.androidlearning.boris.familycentralcontroler.fragment01.ui.AddToMediaListDialog;
 import com.androidlearning.boris.familycentralcontroler.fragment01.ui.DeleteDialog;
 import com.androidlearning.boris.familycentralcontroler.fragment01.ui.SharedFileDialog;
@@ -46,6 +47,7 @@ import es.dmoral.toasty.Toasty;
  */
 
 public class diskContentActivity extends Activity implements View.OnClickListener, NetBroadcastReceiver.netEventHandler {
+    private final String TAG = getClass().getSimpleName();
 
     private TextView page04DiskContentTitleTV;              // 盘符
     private TextView page04DiskContentCurrentPathTV;        // 当前路径
@@ -229,7 +231,12 @@ public class diskContentActivity extends Activity implements View.OnClickListene
             page04DiskContentActionBar01LL.setVisibility(View.VISIBLE);
             dialog.hide();
             Toasty.success(this, "所有选中添加到本地下载队列成功", Toast.LENGTH_SHORT, true).show();
-        } else {
+        } else if (actionType.equals(OrderConst.fileOrFolderAction_renameInComputer_command)){
+            page04DiskContentBar02MoreRootLL.setVisibility(View.GONE);
+            page04DiskContentActionBar02LL.setVisibility(View.GONE);
+            page04DiskContentActionBar01LL.setVisibility(View.VISIBLE);
+            PCFileHelper.loadFiles();
+        }else {
             PCFileHelper.loadFiles();
         }
 
@@ -643,8 +650,18 @@ public class diskContentActivity extends Activity implements View.OnClickListene
             case R.id.page04DiskContentBar02MoreRootLL:
                 page04DiskContentBar02MoreRootLL.setVisibility(View.GONE);
                 break;
-            case R.id.bar02MoreRenameLL:
+            case R.id.bar02MoreRenameLL:{
                 // ...
+//                List<fileBean> selectedFolderList = PCFileHelper.getSelectedFolders();
+//                List<fileBean> selectedFileList = PCFileHelper.getSelectedFiles();
+//                if (selectedFileList.size()>0){
+//                    Log.w(TAG,selectedFileList.get(0).name);
+//                }else if (selectedFolderList.size()>0){
+//                    Log.w(TAG,selectedFolderList.get(0).name);
+//                }
+                reNameDialog();
+            }
+
                 break;
             case R.id.bar02MoreShareLL: {
                 page04DiskContentBar02MoreRootLL.setVisibility(View.GONE);
@@ -970,6 +987,77 @@ public class diskContentActivity extends Activity implements View.OnClickListene
     }
     /**
      * <summary>
+     *  显示重命名对话框
+     * </summary>
+     */
+    private void reNameDialog() {
+        final ActionDialog_reName reNameDialog = new ActionDialog_reName(this);
+        fileBean fileBean;
+        if (PCFileHelper.getSelectedFiles().size()>0){
+            fileBean = PCFileHelper.getSelectedFiles().get(0);
+        }else if (PCFileHelper.getSelectedFolders().size()>0){
+            fileBean = PCFileHelper.getSelectedFolders().get(0);
+        }else {
+            return;
+        }
+        final int type = fileBean.type;
+        final String name = fileBean.name;
+
+        reNameDialog.setCanceledOnTouchOutside(false);
+        reNameDialog.show();
+
+        reNameDialog.setOldName(name);
+
+        final EditText editText = reNameDialog.getValueEditTextView();
+        reNameDialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                page04DiskContentBar02MoreRootLL.setVisibility(View.GONE);
+                String des = editText.getText().toString();
+                if(des.equals("") || des.endsWith(".") ||
+                        des.contains("\\") || des.contains("/") ||
+                        des.contains(":")  || des.contains("*") ||
+                        des.contains("?")  || des.contains("\"") ||
+                        des.contains("<")  || des.contains(">") ||
+                        des.contains("|")){
+                    Toasty.error(diskContentActivity.this, "文件夹名不能为空，不能包含\\ / : * ? \" < > |字符", Toast.LENGTH_SHORT).show();
+                    editText.setText("");
+                } else {
+                    InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    manager.hideSoftInputFromWindow(reNameDialog.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    if (type == FileTypeConst.folder){
+                        PCFileHelper.reNameFolder(name,des);
+                    }else {
+                        if (!des.contains(".")) des = des+name.substring(name.lastIndexOf("."));
+                        PCFileHelper.reNameFile(name,des);
+                    }
+                    reNameDialog.dismiss();
+//                    InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                    manager.hideSoftInputFromWindow(sharedFileDialog.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+//                    ((TextView)(loadingView.findViewById(R.id.note))).setText("执行中...");
+//                    sharedFileDialog.dismiss();
+//                    dialog.show();
+//                    String name = PCFileHelper.getSelectedFiles().get(0).name;
+//                    int size = PCFileHelper.getSelectedFiles().get(0).size;
+//                    long time = System.currentTimeMillis();
+//                    PCFileHelper.setSelectedShareFile(new SharedfileBean(name, PCFileHelper.getNowFilePath() + name, size, des, time,
+//                            sharedFileDialog.getUrlEditText(), sharedFileDialog.getPwdEditText()));
+//                    Log.e("page04", "路径：" + PCFileHelper.getSelectedShareFile().path);
+//                    dialog.show();
+//                    PCFileHelper.shareFile(des, PCFileHelper.getSelectedShareFile());
+                }
+
+            }
+        });
+        reNameDialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reNameDialog.dismiss();
+            }
+        });
+    }
+    /**
+     * <summary>
      *  显示添加到视频库对话框并执行相应监听操作
      * </summary>
      */
@@ -1002,5 +1090,11 @@ public class diskContentActivity extends Activity implements View.OnClickListene
             }
         });
     }
+    public static boolean isValidFileName(String fileName)
+    {
+        if (fileName == null || fileName.length() > 255)
+            return false;
+        else
+            return fileName.matches("[^\\s\\\\/:\\*\\?\\\"<>\\|](\\x20|[^\\s\\\\/:\\*\\?\\\"<>\\|])*[^\\s\\\\/:\\*\\?\\\"<>\\|\\.]$"); }
 
 }

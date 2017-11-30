@@ -339,7 +339,7 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
                     dialog.hide();
                     MyApplication.selectedPCVerified = false;
                     MyApplication.removePCMac(temp.mac);
-                    Toasty.info(PCDevicesActivity.this, "未知错误", Toast.LENGTH_SHORT).show();
+                    Toasty.info(PCDevicesActivity.this, "连接失败", Toast.LENGTH_SHORT).show();
                 }
                 break;
             }

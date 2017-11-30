@@ -16,6 +16,11 @@ public class ContentDataControl {
   public static final ArrayMap<String, ArrayList<FileItem>> mVideoFolder = new ArrayMap<>();
   public static final ArrayMap<String, ArrayList<FileItem>> mMusicFolder = new ArrayMap<>();
   public static final ArrayMap<String, ArrayList<FileItem>> mPhotoFolder = new ArrayMap<>();
+  public static void clear(){
+      mVideoFolder.clear();
+      mMusicFolder.clear();
+      mPhotoFolder.clear();
+  }
 
   public static void addFileByType(FileSystemType type, FileItem fileItem) {
 

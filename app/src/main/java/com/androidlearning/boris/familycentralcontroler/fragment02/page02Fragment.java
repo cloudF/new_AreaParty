@@ -8,9 +8,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +29,8 @@ import com.androidlearning.boris.familycentralcontroler.androideventbusutils.eve
 import com.androidlearning.boris.familycentralcontroler.androideventbusutils.events.TvPlayerChangeEvent;
 import com.androidlearning.boris.familycentralcontroler.androideventbusutils.events.changeSelectedDeviceNameEvent;
 import com.androidlearning.boris.familycentralcontroler.fragment02.Model.MediaItem;
+import com.androidlearning.boris.familycentralcontroler.fragment02.searchContent.SearchMediaActivity;
+import com.androidlearning.boris.familycentralcontroler.fragment02.searchContent.SearchThread;
 import com.androidlearning.boris.familycentralcontroler.fragment02.ui.BreakTextView;
 import com.androidlearning.boris.familycentralcontroler.fragment02.utils.MediafileHelper;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
@@ -56,6 +63,7 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
     private TextView lastAudioNameTV, moreAudioRecordsTV;
     private ImageButton  lastAudioCastIB, lastVideoCastIB;
     private LinearLayout remoteControlLayout;
+    private EditText searchET;
 
     @Override
     public void onAttach(Context context) {
@@ -184,6 +192,10 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
                 }else {
                     Toasty.warning(mContext, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
                 }
+                break;
+            case R.id.search_editText:
+                startActivity(new Intent(MyApplication.getContext(), SearchMediaActivity.class));
+                break;
         }
     }
 
@@ -290,6 +302,7 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
         audioPicIV = (ImageView) rootView.findViewById(R.id.audioPicIV);
         remoteControlLayout = (LinearLayout) rootView.findViewById(R.id.RemoteControlLayout);
         remoteControlImg = (ImageView) rootView.findViewById(R.id.RemoteControlImg);
+        searchET = (EditText) rootView.findViewById(R.id.search_editText);
 
 
 
@@ -311,6 +324,19 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
         moreVideoRecordsTV.setOnClickListener(this);
         lastVideoCastIB.setOnClickListener(this);
         lastAudioCastIB.setOnClickListener(this);
+        searchET.setOnClickListener(this);
+
+//        searchET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+//                if ((keyEvent!=null && keyEvent.getKeyCode()==KeyEvent.KEYCODE_ENTER)){
+//                    Log.w("page02Fragment", searchET.getText().toString());
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+
     }
 
     private void setLastChosenMedia(String typeName, boolean isOK) {

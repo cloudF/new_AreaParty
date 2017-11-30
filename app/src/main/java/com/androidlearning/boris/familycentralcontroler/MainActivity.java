@@ -129,9 +129,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             }
             return true;
         }
-
-        exitAppDialog();
-        return true;
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            exitAppDialog();
+            return true;
+        }
+        return false;
     }
 
     /**

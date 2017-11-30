@@ -101,8 +101,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".fragment01.websitemanager.web1080.RemoteDownloadActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="种子管理"/>
+            android:label="种子管理"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".fragment01.websitemanager.web1080.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -240,14 +240,30 @@
                 android:resource="@xml/auto_login_service" />
         </service>
 
-        <activity android:name=".AlertActivity"
-            android:theme="@style/AlertActivityStyle"/>
-        <activity android:name=".fragment02.vedioPlayControl" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".fragment01.utorrent.MainActivity" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".fragment01.utorrent.UTorrentActivity" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".fragment01.utorrent.UTFileActivity" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".fragment01.utorrent.TorrentFileActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".AlertActivity"
+            android:theme="@style/AlertActivityStyle" />
+        <activity
+            android:name=".fragment02.vedioPlayControl"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".fragment01.utorrent.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".fragment01.utorrent.UTorrentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".fragment01.utorrent.UTFileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".fragment01.utorrent.TorrentFileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".fragment01.PCNASFileSysActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".fragment02.searchContent.SearchMediaActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
-
 
 </manifest>

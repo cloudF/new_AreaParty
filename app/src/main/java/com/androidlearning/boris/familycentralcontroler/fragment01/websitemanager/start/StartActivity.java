@@ -46,11 +46,14 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private ImageButton blufans;
     private ImageButton hdhome;
     private ImageButton hdchd;
+    private ImageButton hdchd1;
+
     //链接按钮
     private Button buttonWeb1080;
     private Button buttonBlufans;
     private Button buttonHdhome;
     private Button buttonHdchd;
+    private Button buttonHdchd1;
     //下载管理
     private Button downloadManagement;
 
@@ -61,6 +64,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private String urlBlufans="http://www.longbaidu.com/forum.php?forumlist=1&mobile=2";
 
     private String urlHdchd="http://www.vkugq.com";
+    private String urlHdchd1 = "http://www.hdchd.cc";
     private String urlXunleicun="http://www.webmanager_xunleicun.com/misc.php?mod=mobile";
 
     ///phoneVIPAppActivity的变量
@@ -98,11 +102,13 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         blufans.setOnClickListener(this);
         hdhome.setOnClickListener(this);
         hdchd.setOnClickListener(this);
+        hdchd1.setOnClickListener(this);
 
         buttonHdhome.setOnClickListener(this);
         buttonBlufans.setOnClickListener(this);
         buttonWeb1080.setOnClickListener(this);
         buttonHdchd.setOnClickListener(this);
+        buttonHdchd1.setOnClickListener(this);
 
         downloadManagement.setOnClickListener(this);
         share_tv.setOnClickListener(this);
@@ -144,6 +150,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                Intent intent2=new Intent(StartActivity.this, MainActivity.class);
                intent2.putExtra("URL",urlHdchd);
                startActivity(intent2);
+               break;
+           case R.id.hdchd1:
+           case R.id.ButtonHdchd1:
+               Intent intent5=new Intent(StartActivity.this, MainActivity.class);
+               intent5.putExtra("URL",urlHdchd1);
+               startActivity(intent5);
                break;
            case R.id.hdhome:
            case R.id.ButtonHdhome:
@@ -205,11 +217,13 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         blufans=(ImageButton)findViewById(R.id.blufans);
         hdhome=(ImageButton)findViewById(R.id.hdhome);
         hdchd=(ImageButton)findViewById(R.id.hdchd);
+        hdchd1=(ImageButton)findViewById(R.id.hdchd1);
 
         buttonWeb1080=(Button)findViewById(R.id.ButtonWeb1080);
         buttonBlufans=(Button)findViewById(R.id.ButtonBlufans);
         buttonHdhome=(Button)findViewById(R.id.ButtonHdhome);
         buttonHdchd=(Button)findViewById(R.id.ButtonHdchd) ;
+        buttonHdchd1=(Button)findViewById(R.id.ButtonHdchd1) ;
 
         downloadManagement=(Button)findViewById(R.id.downloadManagement);
         share_tv = (TextView) findViewById(R.id.tv_share);

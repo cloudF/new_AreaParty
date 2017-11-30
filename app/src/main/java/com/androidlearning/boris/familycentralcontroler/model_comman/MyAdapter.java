@@ -196,7 +196,7 @@ public abstract class MyAdapter<T> extends BaseAdapter {
         public ViewHolder setImage(int id, String url, int default_thumbnail, Context mContext) {
             View view = getView(id);
             RequestBuilder<Bitmap> requestBuilder = Glide.with(mContext).asBitmap();
-            requestBuilder.load(url).apply(new RequestOptions().centerCrop().dontAnimate().placeholder(default_thumbnail)).into((ImageView)view);
+            requestBuilder.load(url).apply(new RequestOptions().centerCrop().dontAnimate().error(default_thumbnail)).into((ImageView)view);
 //            Glide
 //                    .with(mContext)
 //                    .load(url)

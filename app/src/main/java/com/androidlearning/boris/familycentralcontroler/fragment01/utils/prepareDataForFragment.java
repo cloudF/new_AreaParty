@@ -221,6 +221,7 @@ public class prepareDataForFragment {
             case OrderConst.fileOrFolderAction_deleteInComputer_command:
             case OrderConst.fileOrFolderAction_renameInComputer_command:
             case OrderConst.fileOrFolderAction_copy_command:
+            case OrderConst.FOLDER_NASDELETE_command:
             case OrderConst.fileOrFolderAction_cut_command: {
                 String msgReceived;
                 msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);

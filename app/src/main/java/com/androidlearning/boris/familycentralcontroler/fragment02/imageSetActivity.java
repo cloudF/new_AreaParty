@@ -254,7 +254,6 @@ public class imageSetActivity extends Activity implements View.OnClickListener{
         });
 
         setList_app = LocalSetListContainer.getLocalSetList("image");
-        Log.w("imageSetActivity",""+setList_app.get(0).thumbnailURL);
     }
 
 

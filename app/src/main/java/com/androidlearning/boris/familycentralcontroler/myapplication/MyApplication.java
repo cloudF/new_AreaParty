@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.StrictMode;
+import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -38,6 +39,8 @@ import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.RequestFormat;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.netWork.NetBroadcastReceiver;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.netWork.NetUtil;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -480,7 +483,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
     }
 
     public static void removeTVMac(String mac) {
-        if(PCMacs != null) {
+        if(TVMacs != null) {
             TVMacs.remove(mac);
         }
         String str = JsonUitl.objectToString(TVMacs);
@@ -532,9 +535,20 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this) ;
+    }
+
+    @Override
     public void onCreate() {
         Log.e("MyApplication", "applicationCreate");
         super.onCreate();
+
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
+                .setDownsampleEnabled(true)
+                .build();
+        Fresco.initialize(this,config);
         context = getApplicationContext();
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();

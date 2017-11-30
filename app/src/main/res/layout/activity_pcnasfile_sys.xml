@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:elevation="3dp"
+        android:id="@+id/fileTop"
+        android:background="@drawable/top_bar">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="NAS文件"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/fileTop"
+        android:scrollbars="none">
+        <!--磁盘列表页-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <com.androidlearning.boris.familycentralcontroler.fragment01.ui.SwipeListView
+                android:id="@+id/page04DiskListLV"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:divider="@drawable/list_divider04"
+                android:dividerHeight="2px"
+                android:visibility="visible"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="15dp"
+                android:background="#33000000"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#FFFFFF"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <!--磁盘列表操作栏-->
+    <LinearLayout
+        android:id="@+id/page04DiskListActionBarLL"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/barback04"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible">
+        <!-- 刷新 -->
+        <LinearLayout
+            android:id="@+id/page04DiskListRefreshLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/refresh_normal"
+                android:scaleType="fitCenter" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="刷新"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 更多 -->
+        <LinearLayout
+            android:id="@+id/page04DiskListMoreLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/more_normal"
+                android:scaleType="fitCenter" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="更多"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <!-- 点击复制+退出到磁盘目录时弹出的菜单栏 -->
+    <LinearLayout
+        android:id="@+id/page04CopyBarLL"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/barback04"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+        <!-- 新建文件夹(只显示,不可点击) -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/addfolder_normal"
+                android:scaleType="fitCenter" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="新建文件夹"
+                android:textSize="12sp"
+                android:textColor="#D3D3D3"/>
+        </LinearLayout>
+        <!-- 取消 -->
+        <LinearLayout
+            android:id="@+id/page04CopyCancelLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/cancel_normal"
+                android:scaleType="fitCenter" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="取消"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 粘贴(只显示,不可点击) -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/copy_pressed"
+                android:scaleType="fitCenter" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="粘贴"
+                android:textSize="12sp"
+                android:textColor="#D3D3D3"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <!-- 点击移动+退出到磁盘目录时弹出的菜单栏 -->
+    <LinearLayout
+        android:id="@+id/page04CutBarLL"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/barback04"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+        <!-- 新建文件夹(只显示,不可操作) -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/addfolder_normal"
+                android:scaleType="fitCenter" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="新建文件夹"
+                android:textSize="12sp"
+                android:textColor="#D3D3D3"/>
+        </LinearLayout>
+        <!-- 取消 -->
+        <LinearLayout
+            android:id="@+id/page04CutCancelLL"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/cancel_normal"
+                android:scaleType="fitCenter" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="取消"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <!-- 粘贴(只显示,不可操作) -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:src="@drawable/cut_pressed"
+                android:scaleType="fitCenter" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:clickable="false"
+                android:layout_marginTop="1dp"
+                android:text="粘贴"
+                android:textSize="12sp"
+                android:textColor="#D3D3D3"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

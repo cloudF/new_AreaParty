@@ -1,0 +1,24 @@
+package com.androidlearning.boris.familycentralcontroler.fragment02.searchContent.adapter;
+
+import android.support.annotation.LayoutRes;
+
+import com.androidlearning.boris.familycentralcontroler.R;
+
+import xyz.zpayh.adapter.BaseViewHolder;
+import xyz.zpayh.adapter.ExpandableAdapter;
+
+/**
+ * Created by zhuyulin on 2017/11/30.
+ */
+
+public class MyExpandableAdapter extends ExpandableAdapter {
+    @Override
+    public void bind(BaseViewHolder holder, int layoutRes) {
+
+    }
+
+    @Override
+    public void convertHead(BaseViewHolder holder, @LayoutRes int headLayout, int index) {
+        holder.setText(R.id.tv_head,"搜索结果");
+    }
+}

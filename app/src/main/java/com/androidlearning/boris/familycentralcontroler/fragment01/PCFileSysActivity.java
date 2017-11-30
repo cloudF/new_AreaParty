@@ -41,6 +41,9 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.dmoral.toasty.Toasty;
 /**
  * Project Name： FamilyCentralControler
@@ -64,14 +67,17 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
     private LinearLayout page04CopyCancelLL;             // 磁盘列表界面显示的复制栏中的取消按钮
     private LinearLayout page04CutBarLL;                 // 磁盘列表界面显示的移动操作栏
     private LinearLayout page04CutCancelLL;              // 磁盘列表界面显示的移动栏中的取消按钮
+    private LinearLayout page04NASRootLL;
 
     private Context context;
 
-    final String disk_SYS = "Fixed_SYS";
-    final String disk_Fixed = "Fixed";
-    final String disk_Removable = "Removable";
-    final  String disk_Network = "Network";
-    DiskInformat[] diskDatas;
+    public static final String disk_SYS = "Fixed_SYS";
+    public static final String disk_Fixed = "Fixed";
+    public static final String disk_Removable = "Removable";
+    public static final  String disk_Network = "Network";
+    public static DiskInformat[] diskDatas;
+    public static List<DiskInformat> diskDatasList = new ArrayList<>();
+    public static List<DiskInformat> diskNetworkDatasList = new ArrayList<>();
     private MyDiskAdapater diskAdapater;
 
 
@@ -88,12 +94,12 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
 
         @Override
         public int getCount() {
-            return diskDatas.length;
+            return diskDatasList.size();
         }
 
         @Override
         public Object getItem(int i) {
-            return diskDatas[i];
+            return diskDatasList.get(i);
         }
 
         @Override
@@ -115,7 +121,7 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
                 holder = (ViewHolderDisk) view.getTag();
             }
 
-            DiskInformat fileBeanTemp = diskDatas[i];
+            DiskInformat fileBeanTemp = diskDatasList.get(i);
 
             String infor =  fileBeanTemp.volumeLabel + " " + fileBeanTemp.totalFreeSpace + "G/" + fileBeanTemp.totalSize + "G";
             String tabel = fileBeanTemp.name + "盘";
@@ -178,7 +184,7 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
      * 开启线程加载磁盘列表
      * </summary>
      */
-    private void loadDisks() {
+    public void loadDisks() {
         if(diskDatas.length <= 0 && MyApplication.isSelectedPCOnline() && MyApplication.selectedPCVerified) {
             if(!page04LoadingAVLIV.isShown())
                 page04LoadingAVLIV.show();
@@ -212,6 +218,7 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
         }
     }
 
+
     @Subscriber(tag = "selectedPCChanged")
     private void updatePCState(SelectedDeviceChangedEvent event) {
         PCFileHelper.setIsCut(false);
@@ -236,6 +243,8 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.page04DiskListRefreshLL:
+                diskNetworkDatasList.clear();
+                diskDatasList.clear();
                 diskDatas = new DiskInformat[0];
                 diskAdapater.notifyDataSetChanged();
                 loadDisks();
@@ -265,6 +274,12 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
             case R.id.page04LocalFolderLL:
                 startActivity(new Intent(this, downloadActivity.class));
                 break;
+            case R.id.page04NASRootLL:
+                if (diskNetworkDatasList.size()>0){
+                    startActivity(new Intent(this,PCNASFileSysActivity.class));
+                }else {
+                    Toasty.info(this,"当前无NAS设备，请在电脑上配置NAS连接").show();
+                }
 
         }
     }
@@ -340,6 +355,7 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
         page04CutBarLL            = (LinearLayout) this.findViewById(R.id.page04CutBarLL);
         page04CutCancelLL         = (LinearLayout) this.findViewById(R.id.page04CutCancelLL);
         page04LoadingAVLIV        = (AVLoadingIndicatorView) this.findViewById(R.id.page04LoadingAVLIV);
+        page04NASRootLL           = (LinearLayout) findViewById(R.id.page04NASRootLL);
 
         diskAdapater = new MyDiskAdapater(this);
         page04DiskListLV.setAdapter(diskAdapater);
@@ -352,12 +368,13 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
         page04CutCancelLL.setOnClickListener(this);
         page04SharedFilesLL.setOnClickListener(this);
         page04LocalFolderLL.setOnClickListener(this);
+        page04NASRootLL.setOnClickListener(this);
         NetBroadcastReceiver.mListeners.add(this);
 
         page04DiskListLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String initDisk = diskDatas[i].name;
+                String initDisk = diskDatasList.get(i).name;
                 // ...
                 Bundle data = new Bundle();
                 data.putString("diskName", initDisk);
@@ -379,9 +396,13 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
                         page04SharedFilesRootLL.setVisibility(View.VISIBLE);
                     }
                     page04LoadingAVLIV.hide();
+                    page04NASRootLL.setVisibility(View.VISIBLE);
+                    handleDatas();
                     diskAdapater.notifyDataSetChanged();
                     break;
                 case OrderConst.getDiskList_order_fail:
+                    diskNetworkDatasList.clear();
+                    diskDatasList.clear();
                     diskDatas = new DiskInformat[0];
                     diskAdapater.notifyDataSetChanged();
                     // 如果用户未登录
@@ -396,4 +417,17 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
             }
         }
     };
+
+    public static void handleDatas() {
+        diskNetworkDatasList.clear();
+        diskDatasList.clear();
+        for (int i = 0; i<diskDatas.length; i++){
+            DiskInformat fileBeanTemp = diskDatas[i];
+            if (fileBeanTemp.driveType.equals(disk_Network)){
+                diskNetworkDatasList.add(fileBeanTemp);
+            }else {
+                diskDatasList.add(fileBeanTemp);
+            }
+        }
+    }
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
 import com.androidlearning.boris.familycentralcontroler.fragment02.Model.MediaItem;
+import com.androidlearning.boris.familycentralcontroler.fragment02.searchContent.SearchContainer;
 import com.androidlearning.boris.familycentralcontroler.fragment02.utils.MediafileHelper;
 import com.androidlearning.boris.familycentralcontroler.fragment03.Model.AppItem;
 import com.androidlearning.boris.familycentralcontroler.fragment03.Model.PCInforBean;
@@ -228,7 +229,13 @@ public class Send2PCThread extends Thread {
                         cmdStr = JsonUitl.objectToString(CommandUtil.createPlayAllCommand(param.get("folder"),param.get("tvname"),typeName));
                         break;
                 }
-            }   break;
+            }
+            break;
+            case OrderConst.addPathToHttp_Name:
+                switch(commandType){
+                    case OrderConst.Media_Search_By_Key:
+                        cmdStr = JsonUitl.objectToString(CommandUtil.createSearchMediaCommand(path));
+                }
         }
         return cmdStr;
     }
@@ -309,7 +316,26 @@ public class Send2PCThread extends Thread {
                         break;
 
                 }
-            }   break;
+            }
+            break;
+            case OrderConst.addPathToHttp_Name:
+                switch(commandType){
+                    case OrderConst.Media_Search_By_Key:
+                        List<MediaItem> mediaList = gson.fromJson(reader, new TypeToken<List<MediaItem>>(){}.getType());
+                        for(MediaItem item : mediaList) {
+                            switch (item.getType()){
+                                case OrderConst.videoAction_name: SearchContainer.videoList_pc.add(item);break;
+                                case OrderConst.audioAction_name: SearchContainer.audioList_pc.add(item);break;
+                                case OrderConst.imageAction_name: SearchContainer.imageList_pc.add(item);break;
+                                default:break;
+                            }
+                        }
+                        Log.w("Media_Search_By_Key",SearchContainer.videoList_pc.size()+"search");
+                        Log.w("Media_Search_By_Key",SearchContainer.audioList_pc.size()+"search");
+                        Log.w("Media_Search_By_Key",SearchContainer.imageList_pc.size()+"search");
+                        break;
+                }
+            break;
         }
     }
 
@@ -427,7 +453,15 @@ public class Send2PCThread extends Thread {
                             break;
                     }
                     break;
+                case OrderConst.addPathToHttp_Name:
+                    switch(commandType){
+                        case OrderConst.Media_Search_By_Key:
+                            myhandler.sendEmptyMessage(OrderConst.success);
+                            break;
+                    }
+                    break;
             }
+
         } else {
             switch (typeName) {
                 case OrderConst.sysAction_name:
@@ -533,6 +567,13 @@ public class Send2PCThread extends Thread {
                             break;
                         case OrderConst.mediaAction_DELETE_command:
                             myhandler.sendEmptyMessage(OrderConst.mediaAction_DELETE_Fail);
+                            break;
+                    }
+                    break;
+                case OrderConst.addPathToHttp_Name:
+                    switch(commandType){
+                        case OrderConst.Media_Search_By_Key:
+                            myhandler.sendEmptyMessage(OrderConst.failure);
                             break;
                     }
                     break;

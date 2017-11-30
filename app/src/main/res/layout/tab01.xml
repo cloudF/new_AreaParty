@@ -47,7 +47,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="最近使用(TV)"
+                    android:text="最近使用(电视)"
                     android:textStyle="bold"
                     android:textColor="#000000" />
                 <TextView
@@ -87,7 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="最近使用(PC)"
+                    android:text="最近使用(电脑)"
                     android:textStyle="bold"
                     android:textColor="#000000" />
                 <TextView

@@ -50,12 +50,11 @@ public class ReceiveCommandFromTVPlayer extends Thread {
 
                 if(data!=null&&packet.getAddress().toString().contains(MyApplication.getSelectedTVIP().getIp().toString())){//过滤非当前连接TV的广播
                     Log.e(tag, "Execute cmd from tv");
-                    TVCommandItem tvCommandItem=null;
+//                    TVCommandItem tvCommandItem=null;
                     try {
-                        tvCommandItem=JSON.parseObject(data, TVCommandItem.class);
-
-
+                        TVCommandItem tvCommandItem=JSON.parseObject(data, TVCommandItem.class);
                         String ctrlCmd=tvCommandItem.getSecondcommand();
+                        Log.w(tag,ctrlCmd);
                         switch (ctrlCmd){
                             case "PLAY_PAUSE":
                                 String cmd=tvCommandItem.getFourthCommand();
@@ -73,23 +72,25 @@ public class ReceiveCommandFromTVPlayer extends Thread {
                                 Log.e(tag, tvCommandItem.getFourthCommand());
                                 Log.e(tag, tvCommandItem.getFifthCommand());
                                 playerType=tvCommandItem.getFirstcommand();
+//
                                 vedioPlayControl.checkPlayInfo(tvCommandItem.getFifthCommand(),tvCommandItem.getFourthCommand(),tvCommandItem.getSevencommand());
+//
                                 break;
                             case "PLAY_APPOINT_POSITION":
                                 vedioPlayControl.playAppointPosition(tvCommandItem.getFifthCommand());
                                 break;
                             case "EXIT_PLAYER":
-                                playerIsRun = false;
+                                //playerIsRun = false;
                                 //修改为让遥控器一直可以开启
                                 //   EventBus.getDefault().post(new TvPlayerChangeEvent(false), "tvPlayerStateChanged");
-                                vedioPlayControl.exit();
+                                //vedioPlayControl.exit();
                                 break;
                         }
-                        break;
 
                     }
                     catch (Exception e){
                         e.printStackTrace();
+                        Log.w(tag,"Exception");
                     }
 
                 }

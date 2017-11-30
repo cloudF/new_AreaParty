@@ -58,11 +58,18 @@ public class ContentDataLoadTask extends AsyncTask<Void, Void, Void> {
 //    ContentDataControl.addFileListByType(FileSystemType.photo, getAllPhoto());
 
 //    ContentDataControl.addFileListByType(FileSystemType.music, getAllMusic());
-    switch (type){
-      case video:ContentDataControl.addFileListByType(type, getAllVideo());break;
-      case music:ContentDataControl.addFileListByType(type, getAllMusic());break;
-      case photo:ContentDataControl.addFileListByType(type, getAllPhoto());break;
+    if (type == null){//未指定type,搜索所由类型
+        ContentDataControl.addFileListByType(FileSystemType.video, getAllVideo());
+        ContentDataControl.addFileListByType(FileSystemType.music, getAllMusic());
+        ContentDataControl.addFileListByType(FileSystemType.photo, getAllPhoto());
+    }else {
+      switch (type){
+        case video:ContentDataControl.addFileListByType(type, getAllVideo());break;
+        case music:ContentDataControl.addFileListByType(type, getAllMusic());break;
+        case photo:ContentDataControl.addFileListByType(type, getAllPhoto());break;
+      }
     }
+
 
 
 
