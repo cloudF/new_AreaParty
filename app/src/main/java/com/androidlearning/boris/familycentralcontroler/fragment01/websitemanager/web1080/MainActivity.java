@@ -117,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
         cookieManager.setAcceptThirdPartyCookies(mWebview, true);
-        cookieManager.removeAllCookie();
+        //cookieManager.removeAllCookie();
         //581
-        if (StringUrl.contains("www.1080.net") && (TextUtils.isEmpty(cookieManager.getCookie("www.1080.net")) || cookieManager.getCookie("www.1080.net").length()<500)){
+        /*if (StringUrl.contains("www.1080.net") && (TextUtils.isEmpty(cookieManager.getCookie("www.1080.net")) || cookieManager.getCookie("www.1080.net").length()<500)){
             cookieManager.setCookie("www.1080.net", "__jsluid=d56c839813a4c2cfd6b0ac1cb2c1e1d9;");
             cookieManager.setCookie("www.1080.net","rzkV_2132_saltkey=YijN27F6;");
             cookieManager.setCookie("www.1080.net","rzkV_2132_lastvisit=1510814999;");
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             cookieManager.setCookie("www.vkugq.com","5mQg_2132_connect_is_bind=0;");
             cookieManager.setCookie("www.vkugq.com","5mQg_2132_nofavfid=1;");
             cookieManager.setCookie("www.vkugq.com","5mQg_2132_sid=uB65To");
-        }
+        }*/
         mProgressBar = (ProgressBar) findViewById(R.id.myProgressBar);
         mWebSettings = mWebview.getSettings();
         mWebview.loadUrl(StringUrl);

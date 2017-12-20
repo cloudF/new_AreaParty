@@ -64,10 +64,6 @@ public class phoneVIPAppActivity extends AppCompatActivity implements View.OnCli
 
         iqiyiVersionCode = getVersionCode("com.qiyi.video");//获取爱奇艺的版本号
         youkuVersionCode = getVersionCode("com.youku.phone");//获取优酷的版本号
-
-
-
-
     }
 
     @Override
@@ -75,8 +71,6 @@ public class phoneVIPAppActivity extends AppCompatActivity implements View.OnCli
         super.onResume();
         updateServiceStatus();
         checkOnlineState();
-        AutoLoginService.IQIYI_STATUS = AutoLoginService.IQIYI_NO_ACTION;
-        AutoLoginService.YOUKU_STATUS = AutoLoginService.YOUKU_NO_ACTION;
 
     }
 
@@ -129,7 +123,7 @@ public class phoneVIPAppActivity extends AppCompatActivity implements View.OnCli
             Toast.makeText(this, "您的爱奇艺版本过低，请更新至最新版本", Toast.LENGTH_SHORT).show();
             return;
         }
-        AutoLoginService.IQIYI_STATUS = AutoLoginService.IQIYI_LOGOUT;
+
         try {
             //跳转到爱奇艺的主界面
             String packageName = "com.qiyi.video";
@@ -155,8 +149,6 @@ public class phoneVIPAppActivity extends AppCompatActivity implements View.OnCli
             Toast.makeText(this, "您有"+Util.getRecordWebsit(getApplicationContext())+"的登录记录，请点击右侧的退出登录按钮检验是否已退出登录", Toast.LENGTH_SHORT).show();
             return;
         }
-        AutoLoginService.IQIYI_STATUS = AutoLoginService.IQIYI_LOGIN;
-        AutoLoginService.loginSucceed = false;
         try {
             //跳转到爱奇艺的登录
             String packageName = "com.qiyi.video";
@@ -182,8 +174,6 @@ public class phoneVIPAppActivity extends AppCompatActivity implements View.OnCli
             Toast.makeText(this, "您有"+Util.getRecordWebsit(getApplicationContext())+"的登录记录，请点击右侧的退出登录按钮检验是否已退出登录", Toast.LENGTH_SHORT).show();
             return;
         }
-        AutoLoginService.YOUKU_STATUS = AutoLoginService.YOUKU_LOGIN;
-        AutoLoginService.loginSucceed = false;
         try {
             //跳转到优酷的登录界面
             String packageName = "com.youku.phone";
@@ -203,7 +193,7 @@ public class phoneVIPAppActivity extends AppCompatActivity implements View.OnCli
             Toast.makeText(this, "您的优酷版本过低，请更新至最新版本", Toast.LENGTH_SHORT).show();
             return;
         }
-        AutoLoginService.YOUKU_STATUS = AutoLoginService.YOUKU_LOGOUT;
+
         try {
             //跳转到优酷的主界面
             String packageName = "com.youku.phone";

@@ -401,17 +401,17 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
         switch (page) {
             case TVPAGE:
                 TVBarTV.setTextColor(Color.parseColor("#FF5050"));
-                TVBarTV.setBackgroundResource(R.drawable.barback03_left_pressed);
+                TVBarTV.setBackgroundResource(R.drawable.barback03_right_pressed);
                 PCBarTV.setTextColor(Color.parseColor("#707070"));
-                PCBarTV.setBackgroundResource(R.drawable.barback03_right_normal);
+                PCBarTV.setBackgroundResource(R.drawable.barback03_left_normal);
                 TVPageSV.setVisibility(View.VISIBLE);
                 PCPageSV.setVisibility(View.INVISIBLE);
                 break;
             case PCPAGE:
                 PCBarTV.setTextColor(Color.parseColor("#FF5050"));
-                PCBarTV.setBackgroundResource(R.drawable.barback03_right_pressed);
+                PCBarTV.setBackgroundResource(R.drawable.barback03_left_pressed);
                 TVBarTV.setTextColor(Color.parseColor("#707070"));
-                TVBarTV.setBackgroundResource(R.drawable.barback03_left_normal);
+                TVBarTV.setBackgroundResource(R.drawable.barback03_right_normal);
                 PCPageSV.setVisibility(View.VISIBLE);
                 TVPageSV.setVisibility(View.INVISIBLE);
                 break;

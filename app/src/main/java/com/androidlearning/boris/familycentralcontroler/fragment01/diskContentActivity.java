@@ -34,6 +34,8 @@ import com.androidlearning.boris.familycentralcontroler.fragment01.ui.AddToMedia
 import com.androidlearning.boris.familycentralcontroler.fragment01.ui.DeleteDialog;
 import com.androidlearning.boris.familycentralcontroler.fragment01.ui.SharedFileDialog;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utils.PCFileHelper;
+import com.androidlearning.boris.familycentralcontroler.fragment02.videoLibActivity;
+import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.netWork.NetBroadcastReceiver;
 
 import java.lang.ref.WeakReference;
@@ -142,6 +144,10 @@ public class diskContentActivity extends Activity implements View.OnClickListene
                         break;
                     case OrderConst.addSharedFilePath_fail:
                         activity.addSharedFilePathFail(msg);
+                        break;
+                    case OrderConst.playPCMedia_OK:
+                    case OrderConst.playPCMedia_Fail:
+                        activity.playMediaResult(msg);
                         break;
                 }
             }
@@ -274,6 +280,13 @@ public class diskContentActivity extends Activity implements View.OnClickListene
         isCheckBoxIn = false;
         dialog.hide();
         Toasty.error(this, "分享文件失败", Toast.LENGTH_SHORT, true).show();
+    }
+    public void playMediaResult(Message msg) {
+        if (msg.what == OrderConst.playPCMedia_OK){
+            Toasty.success(diskContentActivity.this, "即将在当前电视上打开媒体文件, 请观看电视", Toast.LENGTH_SHORT, true).show();
+        }else {
+            Toasty.success(diskContentActivity.this, "打开媒体文件失败", Toast.LENGTH_SHORT, true).show();
+        }
     }
 
 
@@ -755,8 +768,9 @@ public class diskContentActivity extends Activity implements View.OnClickListene
                     }
                     page04DiskContentCurrentPathTV.setText(pathShow);
                 } else {
-                    Toasty.info(diskContentActivity.this, fileBeanClick.name, Toast.LENGTH_SHORT, true).show();
-                    // 其他操作
+                        Toasty.info(diskContentActivity.this, fileBeanClick.name, Toast.LENGTH_SHORT, true).show();
+                        // 其他操作
+
                 }
             }
         });
@@ -838,7 +852,7 @@ public class diskContentActivity extends Activity implements View.OnClickListene
 
         loadingView = LayoutInflater.from(this).inflate(R.layout.tab04_loadingcontent, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(loadingView).setCancelable(false);
+        builder.setView(loadingView).setCancelable(true);
         dialog = builder.create();
 
         String title = diskName + "盘";

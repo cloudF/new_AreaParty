@@ -93,7 +93,6 @@ public class Login extends AppCompatActivity {
     private String host;
     private int port;
     //private int port = 3333;
-    private boolean outline = false;
     private SharedPreferences sp;
     private SharedPreferences sp2;
     private long timer = 0;
@@ -106,6 +105,7 @@ public class Login extends AppCompatActivity {
     public static List<UserData.UserItem> userNet = new ArrayList<>();
     public static List<UserData.UserItem> userShare = new ArrayList<>();
     public static List<FileData.FileItem> files;
+    public static boolean outline = false;
     public static String userId = "";
     public static String userName = "";
     public static String userMac;
@@ -189,6 +189,7 @@ public class Login extends AppCompatActivity {
                         Intent intentMain = new Intent();
                         intentMain.setClass(Login.this, MainActivity.class);
                         Bundle bundle =new Bundle();
+                        outline = false;
                         bundle.putBoolean("outline", false);
                         bundle.putString("userId", userId);
                         bundle.putString("userName", userName);

@@ -122,6 +122,9 @@
             android:name=".fragment01.diskContentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".fragment01.diskTVContentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".fragment02.videoLibActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -261,9 +264,15 @@
         <activity
             android:name=".fragment01.PCNASFileSysActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".fragment02.searchContent.SearchMediaActivity"
+        <activity
+            android:name=".fragment01.PCTVFileSysActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".fragment02.searchContent.SearchMediaActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".fragment01.websitemanager.start.AutoLoginHelperActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

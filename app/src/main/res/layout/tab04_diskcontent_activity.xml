@@ -144,6 +144,7 @@
         </LinearLayout>
         <!-- 排序 -->
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/bar01SortLL"
             android:orientation="vertical"
             android:gravity="center"
@@ -170,6 +171,7 @@
         </LinearLayout>
         <!-- 搜索 -->
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/bar01SearchLL"
             android:orientation="vertical"
             android:gravity="center"
@@ -196,6 +198,7 @@
         </LinearLayout>
         <!-- 更多 -->
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/bar01MoreLL"
             android:orientation="vertical"
             android:gravity="center"
@@ -676,6 +679,7 @@
             </LinearLayout>
             <!--详情-->
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/bar02MoreDetailLL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

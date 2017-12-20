@@ -90,12 +90,12 @@
         android:background="@drawable/barback03">
 
         <TextView
-            android:id="@+id/TVBarTV"
+            android:id="@+id/PCBarTV"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="电视应用"
+            android:text="电脑应用"
             android:textSize="12sp"
             android:textColor="#FF5050"
             android:clickable="true"
@@ -106,12 +106,12 @@
             android:layout_height="match_parent"
             android:background="#e65757"/>
         <TextView
-            android:id="@+id/PCBarTV"
+            android:id="@+id/TVBarTV"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="电脑应用"
+            android:text="电视应用"
             android:textSize="12sp"
             android:textColor="#707070"
             android:clickable="true"
@@ -129,7 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -403,7 +403,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -468,7 +468,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
-                            android:text="使用帮助"
+                            android:text="游戏串流"
                             android:textSize="12sp"/>
                     </LinearLayout>
                     <!-- 关启PC -->
@@ -591,7 +591,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -85,6 +85,12 @@ public class OkHttpUtils {
                 .build();
         return getInstance();
     }
+    public OkHttpUtils buildNormal(){
+        this.request = new Request.Builder()
+                .url(url)
+                .build();
+        return getInstance();
+    }
 
     public OkHttpUtils postBuild(List<String> paths){
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);

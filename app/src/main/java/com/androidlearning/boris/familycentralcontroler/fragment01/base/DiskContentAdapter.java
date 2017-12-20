@@ -2,6 +2,7 @@ package com.androidlearning.boris.familycentralcontroler.fragment01.base;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,19 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidlearning.boris.familycentralcontroler.FileTypeConst;
 import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.fragment01.diskContentActivity;
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.fileBean;
+import com.androidlearning.boris.familycentralcontroler.fragment01.utils.PCFileHelper;
+import com.androidlearning.boris.familycentralcontroler.fragment01.utils.prepareDataForFragment;
+import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 /**
  * Created by borispaul on 17-5-6.
@@ -31,6 +38,7 @@ public class DiskContentAdapter extends BaseAdapter {
         this.context = context;
         this.datas = datas;
         this.inflater = LayoutInflater.from(context);
+        Log.w("DiskContentAdapter",context.toString());
     }
 
     @Override
@@ -58,6 +66,7 @@ public class DiskContentAdapter extends BaseAdapter {
             holder.nameView  = (TextView) view.findViewById(R.id.text_name);
             holder.inforView = (TextView) view.findViewById(R.id.fileInformation);
             holder.checkBox  = (CheckBox) view.findViewById(R.id.checkbox);
+            holder.imageView = (ImageView) view.findViewById(R.id.playMediaIV) ;
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -117,6 +126,7 @@ public class DiskContentAdapter extends BaseAdapter {
 
             if(fileBeanTemp.isShow) {
                 holder.checkBox.setVisibility(View.VISIBLE);
+                holder.imageView.setVisibility(View.GONE);
                 holder.checkBox.setClickable(true);
                 if(fileBeanTemp.isChecked) {
                     holder.checkBox.setChecked(true);
@@ -125,6 +135,7 @@ public class DiskContentAdapter extends BaseAdapter {
                 }
             } else {
                 holder.checkBox.setVisibility(View.GONE);
+                holder.imageView.setVisibility(View.GONE);
                 holder.checkBox.setClickable(false);
             }
             setHolder(holder, fileBeanTemp);
@@ -135,7 +146,7 @@ public class DiskContentAdapter extends BaseAdapter {
         return view;
     }
 
-    private void setHolder(ViewHolder holder, fileBean file) {
+    private void setHolder(ViewHolder holder, final fileBean file) {
         String infor;
         switch (file.type) {
             case FileTypeConst.folder:
@@ -185,6 +196,33 @@ public class DiskContentAdapter extends BaseAdapter {
                 holder.typeView.setImageResource(R.drawable.video);
                 holder.nameView.setText(file.name);
                 holder.inforView.setText(infor);
+                if (file.isShow){
+                    holder.imageView.setVisibility(View.GONE);
+                }else{
+                    holder.imageView.setVisibility(View.VISIBLE);
+                    holder.imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (MyApplication.isSelectedTVOnline()){//是视频则可以播放
+                                if (context.toString().contains("diskContentActivity")){
+                                    PCFileHelper.playMedia(file);
+                                }else if (context.toString().contains("diskTVContentActivity")){
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            prepareDataForFragment.getDlnaCastState(file,"video");
+                                        }
+                                    }).start();
+
+                                }
+
+                            }else {
+                                Toasty.warning(context, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+
+                        }
+                        }
+                    });
+                }
                 // 其他操作。。。
                 break;
             case FileTypeConst.zip:
@@ -213,6 +251,7 @@ public class DiskContentAdapter extends BaseAdapter {
                 holder.typeView.setImageResource(R.drawable.none);
                 holder.nameView.setText(file.name);
                 holder.inforView.setText(infor);
+
                 // 其他操作。。。
                 break;
         }
@@ -223,6 +262,7 @@ public class DiskContentAdapter extends BaseAdapter {
         TextView nameView;
         TextView inforView;
         CheckBox checkBox;
+        ImageView imageView;
     }
 }
 

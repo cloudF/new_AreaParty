@@ -55,6 +55,11 @@ public class Util {
         editor.putString("account_id", account_id);
         editor.apply();
     }
+    public static void setRecord(Context context , String websit){
+        SharedPreferences.Editor editor = context.getSharedPreferences("login_record",MODE_PRIVATE).edit();
+        editor.putString("websit",websit);
+        editor.apply();
+    }
 
     public static String getRecordWebsit(Context context){
         SharedPreferences pref = context.getSharedPreferences("login_record",MODE_PRIVATE);

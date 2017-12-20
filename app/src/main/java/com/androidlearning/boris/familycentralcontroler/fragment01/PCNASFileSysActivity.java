@@ -247,7 +247,12 @@ public class PCNASFileSysActivity extends AppCompatActivity implements View.OnCl
                             PCFileSysActivity.diskDatas = new DiskInformat[disks.getData().size()];
                             disks.getData().toArray(PCFileSysActivity.diskDatas);
                             PCFileSysActivity.handleDatas();
-                            diskAdapater.notifyDataSetChanged();
+                            page04DiskListLV.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    diskAdapater.notifyDataSetChanged();
+                                }
+                            });
                         } else {
 
                         }

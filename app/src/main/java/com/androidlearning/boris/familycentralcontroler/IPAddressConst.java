@@ -10,6 +10,7 @@ public class IPAddressConst {
     public static final int PHONEBROADCASTRECEIVEPORT_B = 9322;
     public static final int PCMONITORPORT_B = 7777;
     public static final int PCACTIONPORT_B  = 8888;
+    public static final int PCACTIONPORT_B_TV  = 9834;
     public static final int PCACTIONPORT_ADDPATHTOHTTP_Y = 9816;
     public static final int LOCALHTTPPORT_Y = 8634;
     public static final int TVRECEIVEPORT_MM = 12548;

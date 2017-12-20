@@ -5,8 +5,10 @@ import android.util.Log;
 import com.androidlearning.boris.familycentralcontroler.FileTypeConst;
 import com.androidlearning.boris.familycentralcontroler.IPAddressConst;
 import com.androidlearning.boris.familycentralcontroler.MyConnector;
+import com.androidlearning.boris.familycentralcontroler.MyConnector_TV;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.downloadedFileBean;
+import com.androidlearning.boris.familycentralcontroler.fragment01.model.fileBean;
 import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.ContentDataControl;
 import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileItem;
 import com.androidlearning.boris.familycentralcontroler.fragment02.contentResolver.FileSystemType;
@@ -84,6 +86,26 @@ public class prepareDataForFragment {
 
         return state;
     }
+    public static boolean getDlnaCastState(fileBean file, String fileType) {
+        boolean state = false;
+        String ip = MyApplication.getIPStr();
+        String TVIp = MyApplication.getSelectedTVIP().ip;
+        if(!(ip.equals("")) && !(TVIp.equals(""))) {
+            String secondcommand;
+            if (fileType.equals("video")){
+                secondcommand = "file://"+TVFileHelper.getNowFilePath()+file.name;
+            }else if (fileType.equals("image")){
+                secondcommand = TVFileHelper.getNowFilePath()+file.name;
+            }else secondcommand = "";
+            String fourthcommand = file.name;
+            String fifthcommand  = fileType;
+            TVCommandItem tvCommandItem = CommandUtil.createPlayUrlFileOnTVCommand(secondcommand, fourthcommand, fifthcommand);
+            String requestStr = JsonUitl.objectToString(tvCommandItem);
+            state = MyConnector.getInstance().sendMsgToIP(TVIp, IPAddressConst.TVRECEIVEPORT_MM, requestStr);
+        }
+
+        return state;
+    }
     public static boolean getDlnaCastState(String folderName, String fileType) {
         boolean state = false;
         String ip = MyApplication.getIPStr();
@@ -107,6 +129,25 @@ public class prepareDataForFragment {
             String requestStr = JsonUitl.objectToString(tvCommandItem);
             state = MyConnector.getInstance().sendMsgToIP(TVIp, IPAddressConst.TVRECEIVEPORT_MM, requestStr);
         }
+        return state;
+    }
+    public static boolean getDlnaCastState(String fileType) {
+        boolean state = false;
+        String ip = MyApplication.getIPStr();
+        String TVIp = MyApplication.getSelectedTVIP().ip;
+        List<String> urls = new ArrayList<>();
+        if(!(ip.equals("")) && !(TVIp.equals(""))) {
+            for (fileBean file : TVFileHelper.getDatas()){
+                if (file.type == FileTypeConst.pic){
+                    urls.add(TVFileHelper.getNowFilePath()+file.name);
+                }
+            }
+            String fifthcommand  = fileType;
+            TVCommandItem tvCommandItem = CommandUtil.createPlayUrlFileOnTVCommand(urls, "", fifthcommand);
+            String requestStr = JsonUitl.objectToString(tvCommandItem);
+            state = MyConnector.getInstance().sendMsgToIP(TVIp, IPAddressConst.TVRECEIVEPORT_MM, requestStr);
+        }
+
         return state;
     }
     public static boolean getDlnaCastState(List<FileItem> setList, String fileType) {
@@ -195,6 +236,29 @@ public class prepareDataForFragment {
         Log.e("page04Fragment", "disk返回");
         return message;
     }
+    public static Object getDiskActionStateData_tv(String name, String command, String param) {
+        Object message = new Object();
+        RequestFormat request = new RequestFormat();
+        request.setName(name);
+        request.setCommand(command);
+        request.setParam(param);
+        String requestString = JsonUitl.objectToString(request);
+        Log.e("IPGET", "loadDisksPre");
+        switch (command) {
+            case OrderConst.diskAction_get_command:
+                String msgReceived;
+                msgReceived = MyConnector_TV.getInstance().getActionStateMsg(requestString);
+                Log.e("IPGET", msgReceived);
+                if(!msgReceived.equals("")) {
+                    message = JsonUitl.stringToBean(msgReceived, ReceivedDiskListFormat.class);
+                }else {
+                    Log.e("IPGET", "msgReceived is null");
+                }
+                break;
+        }
+        Log.e("page04Fragment", "disk返回");
+        return message;
+    }
 
 
     /**
@@ -245,6 +309,46 @@ public class prepareDataForFragment {
         }
         return message;
     }
+    public static Object getFileActionStateData_tv(String name, String command, String param) {
+        Object message = new Object();
+
+        RequestFormat request = new RequestFormat();
+        request.setName(name);
+        request.setCommand(command);
+        request.setParam(param);
+        String requestString = JsonUitl.objectToString(request);
+        switch (command) {
+            case OrderConst.fileAction_share_command:
+            case OrderConst.folderAction_addInComputer_command:
+            case OrderConst.fileAction_openInComputer_command:
+            case OrderConst.fileOrFolderAction_deleteInComputer_command:
+            case OrderConst.fileOrFolderAction_renameInComputer_command:
+            case OrderConst.fileOrFolderAction_copy_command:
+            case OrderConst.FOLDER_NASDELETE_command:
+            case OrderConst.fileOrFolderAction_cut_command: {
+                String msgReceived;
+                msgReceived = MyConnector_TV.getInstance().getActionStateMsg(requestString);
+                Log.e("PCAction", command + ": " + msgReceived);
+                if(!msgReceived.equals("")) {
+                    message = JsonUitl.stringToBean(msgReceived, ReceivedActionMessageFormat.class);
+                }
+            }
+            break;
+            case OrderConst.folderAction_openInComputer_command: {
+                message = getFolerInforArray_tv(request);
+            }
+            break;
+            case OrderConst.diskAction_get_command:
+                String msgReceived;
+                msgReceived = MyConnector_TV.getInstance().getActionStateMsg(requestString);
+                if(!msgReceived.equals("")) {
+                    message = JsonUitl.stringToBean(msgReceived, ReceivedDiskListFormat.class);
+                }
+                break;
+        }
+        return message;
+    }
+
 
     /**
      * <summary>
@@ -314,6 +418,54 @@ public class prepareDataForFragment {
             request.setParam(OrderConst.folderAction_openInComputer_more_param);
             requestMsg = JsonUitl.objectToString(request);
             msgReceived = MyConnector.getInstance().getActionStateMsg(requestMsg);
+            try {
+                messageTemp = JsonUitl.stringToBean(msgReceived, ReceivedFileManagerMessageFormat.class);
+            } catch (Exception e) {}
+            receivedFileInforArray.add(messageTemp);
+            signal = (messageTemp.getStatus() == OrderConst.success &&
+                    messageTemp.getMessage().equals(OrderConst.folderAction_openInComputer_more_message));
+        }
+
+        ReceivedFileManagerMessageFormat allFileInfor = new ReceivedFileManagerMessageFormat();
+        List<FileInforFormat> allFiles = new ArrayList<>();
+        List<FolderInforFormat> allFolders = new ArrayList<>();
+        for (ReceivedFileManagerMessageFormat temp : receivedFileInforArray) {
+            allFolders.addAll(temp.getData().getFolders());
+            allFiles.addAll(temp.getData().getFiles());
+        }
+        NodeFormat nodeTemp = new NodeFormat();
+        nodeTemp.setPath(messageTemp.getData().getPath());
+        nodeTemp.setFolders(allFolders);
+        nodeTemp.setFiles(allFiles);
+        int status = OrderConst.success;
+        String message = null;
+        if(allFiles.size() == 0 && allFolders.size() == 0) {
+            status = messageTemp.getStatus();
+            message = messageTemp.getMessage();
+        }
+        allFileInfor.setStatus(status);
+        allFileInfor.setData(nodeTemp);
+        allFileInfor.setMessage(message);
+
+        return allFileInfor;
+    }
+    private static ReceivedFileManagerMessageFormat getFolerInforArray_tv(RequestFormat request) {
+        List<ReceivedFileManagerMessageFormat> receivedFileInforArray = new ArrayList<>();
+        String requestMsg = JsonUitl.objectToString(request);
+
+        ReceivedFileManagerMessageFormat messageTemp = new ReceivedFileManagerMessageFormat();
+        String msgReceived = MyConnector_TV.getInstance().getActionStateMsg(requestMsg);
+        try {
+            messageTemp = JsonUitl.stringToBean(msgReceived, ReceivedFileManagerMessageFormat.class);
+        } catch (Exception e) {}
+        receivedFileInforArray.add(messageTemp);
+
+        boolean signal = (messageTemp.getStatus() == OrderConst.success
+                && messageTemp.getMessage().equals(OrderConst.folderAction_openInComputer_more_message));
+        while(signal) {
+            request.setParam(OrderConst.folderAction_openInComputer_more_param);
+            requestMsg = JsonUitl.objectToString(request);
+            msgReceived = MyConnector_TV.getInstance().getActionStateMsg(requestMsg);
             try {
                 messageTemp = JsonUitl.stringToBean(msgReceived, ReceivedFileManagerMessageFormat.class);
             } catch (Exception e) {}

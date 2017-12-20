@@ -67,7 +67,8 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
     private LinearLayout page04CopyCancelLL;             // 磁盘列表界面显示的复制栏中的取消按钮
     private LinearLayout page04CutBarLL;                 // 磁盘列表界面显示的移动操作栏
     private LinearLayout page04CutCancelLL;              // 磁盘列表界面显示的移动栏中的取消按钮
-    private LinearLayout page04NASRootLL;
+    private LinearLayout page04NASRootLL;                //NAS文件管理
+    private LinearLayout page04TVFileRootLL;             //电视可移动磁盘管理
 
     private Context context;
 
@@ -78,6 +79,8 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
     public static DiskInformat[] diskDatas;
     public static List<DiskInformat> diskDatasList = new ArrayList<>();
     public static List<DiskInformat> diskNetworkDatasList = new ArrayList<>();
+    public static List<DiskInformat> tvDatasList = new ArrayList<>();
+    public static List<DiskInformat> tvDatasList_available = new ArrayList<>();
     private MyDiskAdapater diskAdapater;
 
 
@@ -217,6 +220,32 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
             }.start();
         }
     }
+    public void loadDisks_tv() {
+        if(tvDatasList.size() <=0 && MyApplication.isSelectedTVOnline() && MyApplication.selectedTVVerified) {
+            new Thread(){
+                @Override
+                public void run() {
+                    try {
+                        ReceivedDiskListFormat disks = (ReceivedDiskListFormat)
+                                prepareDataForFragment.getDiskActionStateData_tv(
+                                        OrderConst.diskAction_name,
+                                        OrderConst.diskAction_get_command, "");
+                        if(disks.getStatus() == OrderConst.success) {
+                            tvDatasList.addAll(disks.getData());
+                            for (DiskInformat disk : tvDatasList){
+                                if (disk.totalSize > 0){
+                                    tvDatasList_available.add(disk);
+                                }
+                            }
+                            Log.w("PCFileSysActivity",tvDatasList_available.size()+"");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }
+    }
 
 
     @Subscriber(tag = "selectedPCChanged")
@@ -231,6 +260,16 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
     private void updateDeviceNetState(TVPCNetStateChangeEvent event) {
         if(event.isPCOnline())
             loadDisks();
+        if (event.isTVOnline()){
+            loadDisks_tv();
+            if (!page04TVFileRootLL.isShown()){
+                page04TVFileRootLL.setVisibility(View.VISIBLE);
+            }
+        }else {
+            if (page04TVFileRootLL.isShown()){
+                page04TVFileRootLL.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
@@ -246,8 +285,11 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
                 diskNetworkDatasList.clear();
                 diskDatasList.clear();
                 diskDatas = new DiskInformat[0];
+                tvDatasList.clear();
+                tvDatasList_available.clear();
                 diskAdapater.notifyDataSetChanged();
                 loadDisks();
+                loadDisks_tv();
                 Log.e("page04Fragment", "刷新磁盘列表");
                 break;
             case R.id.page04DiskListMoreLL:
@@ -280,6 +322,14 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
                 }else {
                     Toasty.info(this,"当前无NAS设备，请在电脑上配置NAS连接").show();
                 }
+                break;
+            case R.id.page04TVFileRootLL:
+                if (tvDatasList_available.size()>0){
+                    startActivity(new Intent(this,PCTVFileSysActivity.class));
+                }else {
+                    Toasty.info(this,"当前电视上未插入u盘").show();
+                }
+                break;
 
         }
     }
@@ -328,6 +378,11 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
         }
         diskAdapater.notifyDataSetChanged();
         Log.e("page04Fragment", "resumeLoadDisks");
+
+        if (MyApplication.isSelectedTVOnline() && MyApplication.selectedTVVerified){
+            page04TVFileRootLL.setVisibility(View.VISIBLE);
+        }else page04TVFileRootLL.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -356,6 +411,7 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
         page04CutCancelLL         = (LinearLayout) this.findViewById(R.id.page04CutCancelLL);
         page04LoadingAVLIV        = (AVLoadingIndicatorView) this.findViewById(R.id.page04LoadingAVLIV);
         page04NASRootLL           = (LinearLayout) findViewById(R.id.page04NASRootLL);
+        page04TVFileRootLL        = (LinearLayout) findViewById(R.id.page04TVFileRootLL);
 
         diskAdapater = new MyDiskAdapater(this);
         page04DiskListLV.setAdapter(diskAdapater);
@@ -369,6 +425,7 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
         page04SharedFilesLL.setOnClickListener(this);
         page04LocalFolderLL.setOnClickListener(this);
         page04NASRootLL.setOnClickListener(this);
+        page04TVFileRootLL.setOnClickListener(this);
         NetBroadcastReceiver.mListeners.add(this);
 
         page04DiskListLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {

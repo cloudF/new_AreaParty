@@ -369,7 +369,7 @@ public class videoLibActivity extends Activity implements View.OnClickListener,C
 
 
 
-    private Handler myHandler = new Handler() {
+    public Handler myHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {

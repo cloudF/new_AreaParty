@@ -304,6 +304,7 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
         Intent loginIntent = getActivity().getIntent();
         Bundle bundle = loginIntent.getExtras();
         outline = bundle.getBoolean("outline");
+
         if(outline){
             id_top01_userName.setText("登录");
             userLogo_imgButton.setImageResource(R.drawable.user);

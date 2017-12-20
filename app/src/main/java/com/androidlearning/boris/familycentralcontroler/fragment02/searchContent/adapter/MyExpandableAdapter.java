@@ -3,6 +3,7 @@ package com.androidlearning.boris.familycentralcontroler.fragment02.searchConten
 import android.support.annotation.LayoutRes;
 
 import com.androidlearning.boris.familycentralcontroler.R;
+import com.androidlearning.boris.familycentralcontroler.fragment02.searchContent.SearchMediaActivity;
 
 import xyz.zpayh.adapter.BaseViewHolder;
 import xyz.zpayh.adapter.ExpandableAdapter;
@@ -19,6 +20,7 @@ public class MyExpandableAdapter extends ExpandableAdapter {
 
     @Override
     public void convertHead(BaseViewHolder holder, @LayoutRes int headLayout, int index) {
-        holder.setText(R.id.tv_head,"搜索结果");
+        holder.setText(R.id.tv_head, SearchMediaActivity.headText);
     }
+
 }

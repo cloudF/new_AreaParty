@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.androidlearning.boris.familycentralcontroler.IPAddressConst;
 import com.androidlearning.boris.familycentralcontroler.MyConnector;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
+import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.androideventbusutils.events.SelectedDeviceChangedEvent;
 import com.androidlearning.boris.familycentralcontroler.androideventbusutils.events.TVPCNetStateChangeEvent;
 import com.androidlearning.boris.familycentralcontroler.androideventbusutils.events.changeSelectedDeviceNameEvent;
@@ -26,6 +27,8 @@ import com.androidlearning.boris.familycentralcontroler.fragment01.utils.HttpSer
 import com.androidlearning.boris.familycentralcontroler.fragment01.websitemanager.web1080.RemoteDownloadActivity;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utils.prepareDataForFragment;
 import com.androidlearning.boris.familycentralcontroler.fragment03.utils.TVAppHelper;
+import com.androidlearning.boris.familycentralcontroler.myapplication.floatview.FloatView;
+import com.androidlearning.boris.familycentralcontroler.myapplication.floatview.FloatView2;
 import com.androidlearning.boris.familycentralcontroler.myapplication.inforUtils.FillingIPInforList;
 import com.androidlearning.boris.familycentralcontroler.myapplication.inforUtils.Update_ReceiveMsgBean;
 import com.androidlearning.boris.familycentralcontroler.myapplication.inforUtils.Update_SendMsgBean;
@@ -88,6 +91,9 @@ import static android.R.attr.tag;
  */
 
 public class MyApplication extends Application implements NetBroadcastReceiver.netEventHandler {
+    public static FloatView mFloatView;
+    public static FloatView2 mFloatView2;
+
     private static int mNetWorkState;      // 当前网络类型
     private static Context context;
     private static MyApplication instance;
@@ -544,6 +550,12 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
     public void onCreate() {
         Log.e("MyApplication", "applicationCreate");
         super.onCreate();
+        if (mFloatView == null){
+            mFloatView = new FloatView(getApplicationContext());
+        }
+        if (mFloatView2 == null){
+            mFloatView2 = new FloatView2(getApplicationContext());
+        }
 
         ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
                 .setDownsampleEnabled(true)

@@ -70,7 +70,7 @@ public class AudioItem implements IMultiItem,IFullSpan {
                 }
             });
         }else if (mediaItem!=null){
-            holder.setText(R.id.nameTV, mediaItem.getType());
+            holder.setText(R.id.nameTV, mediaItem.getName());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

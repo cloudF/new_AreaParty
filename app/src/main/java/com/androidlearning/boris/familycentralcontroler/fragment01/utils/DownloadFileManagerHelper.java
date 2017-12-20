@@ -101,6 +101,24 @@ public class DownloadFileManagerHelper {
             }
         }.start();
     }
+    public static void dlnaCast(final String type) {//tv可移动磁盘投屏
+        if (MyApplication.isSelectedTVOnline()){
+            new Thread() {
+                @Override
+                public void run() {
+                    boolean state = prepareDataForFragment.getDlnaCastState(type);
+                    Message message = new Message();
+                    if(state) {
+                        handler.sendEmptyMessage(1);
+                    } else {
+                        handler.sendEmptyMessage(2);
+                    }
+                }
+            }.start();
+        }else {
+            Toasty.warning(MyApplication.getContext(), "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+        }
+    }
 
     public static void dlnaCast(final FileItem file, final String type) {
         if (MyApplication.isSelectedTVOnline()){

@@ -14,6 +14,7 @@ import com.androidlearning.boris.familycentralcontroler.fragment01.base.LogDownl
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.DownloadFileModel;
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.SharedfileBean;
 import com.androidlearning.boris.familycentralcontroler.fragment01.model.fileBean;
+import com.androidlearning.boris.familycentralcontroler.fragment02.utils.MediafileHelper;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.FileInforFormat;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.FolderInforFormat;
@@ -57,7 +58,7 @@ public class PCFileHelper {
     private static SharedfileBean selectedShareFile;
     private static List<String> reCeivedActionErrorMessageList = new ArrayList<>();
 
-    private Handler myHandler;
+    public static Handler myHandler;
 
     public PCFileHelper(Handler myHandler) {
         this.myHandler = myHandler;
@@ -228,6 +229,29 @@ public class PCFileHelper {
                 for(fileBean file : datas) {
                     file.isChecked = false;
                     file.isShow = false;
+                }
+            }
+        }.start();
+    }
+    public static void playMedia(final fileBean file ) {
+        Log.e("PCFileHelper", "添加选定的文件路径到HTTP服务器" + selectedFiles.size());
+        final List<String> filePaths = new ArrayList<>();
+        filePaths.add(nowFilePath + file.name);
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    ReceivedAddPathToHttpMessageFormat messageFormat = (ReceivedAddPathToHttpMessageFormat)
+                            prepareDataForFragment.getAddPathToHttpState(filePaths);
+
+                    //DownloadManager downloadManager = DownloadService.getDownloadManager();
+                    if(messageFormat.getStatus() == OrderConst.failure) {
+                        Log.e("PCFileHelper", "添加路径到PC服务器出错");
+                    } else {
+                        MediafileHelper.playMediaFile(OrderConst.videoAction_name,nowFilePath + file.name,file.name,MyApplication.getSelectedTVIP().name,myHandler);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }.start();

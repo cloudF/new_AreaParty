@@ -67,6 +67,7 @@ public class page06Fragment extends Fragment {
     private ImageButton id_tab06_net = null;
     private ImageButton id_tab06_share = null;
     private ImageView id_tab06_addFriend = null;
+    private LinearLayout id_tab06_addFriendLL = null;
     private ImageView userHead = null;
     private static List<UserData.UserItem> userFirend_list = null;
     private static List<UserData.UserItem> userNet_list = null;
@@ -299,6 +300,21 @@ public class page06Fragment extends Fragment {
                 }
             }
         });
+        id_tab06_addFriendLL.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public  void onClick(View view){
+                if(mainMobile) {
+                    Intent intentSearch = new Intent();
+                    intentSearch.setClass(getActivity(), searchFriend.class);
+                    intentSearch.putExtra("userId", myUserId);
+                    intentSearch.putExtra("userName", myUserName);
+                    startActivity(intentSearch);
+                }else{
+                    Toast.makeText(getActivity(), "当前设备不是主设备，无法使用此功能",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
         //好友请求 点击后进入处理界面
         newFriend_wrap.setOnClickListener(new View.OnClickListener(){
@@ -370,6 +386,7 @@ public class page06Fragment extends Fragment {
         id_tab06_net = (ImageButton) getActivity().findViewById(R.id.id_tab06_netButton);
         id_tab06_share = (ImageButton) getActivity().findViewById(R.id.id_tab06_shareButton);
         id_tab06_addFriend = (ImageView) getActivity().findViewById(R.id.id_tab06_addFriend);
+        id_tab06_addFriendLL = (LinearLayout) getActivity().findViewById(R.id.id_tab06_addFriendLL);
         userHead = (ImageView) getActivity().findViewById(R.id.userHead);
         //userFriendAdapter = new SimpleAdapter(getActivity(), userFriendData, R.layout.tab06_useritem, new String[]{"userId", "userName", "userHead"}, new int[]{R.id.userId, R.id.userName, R.id.userHead});
         userFriendAdapter = new MyFriendAdapater(getActivity());

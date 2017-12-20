@@ -42,6 +42,7 @@ import xyz.zpayh.adapter.OnItemClickListener;
 public class SearchMediaActivity extends AppCompatActivity {
     private final String TAG  = getClass().getSimpleName();
     private String mLabels[] = {"本地视频","电脑视频","本地音频","电脑音频","本地图片","电脑图片"};
+    public static String headText = "";
 
 
     @BindView(R.id.search_editText)
@@ -152,7 +153,9 @@ public class SearchMediaActivity extends AppCompatActivity {
         ((SimpleItemAnimator)mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         mAdapter = new MyExpandableAdapter();
         mAdapter.setAlwaysShowHead(true);
-        mAdapter.addHeadLayout(R.layout.searchitem_head);
+        headText = "上次搜索结果";
+        mAdapter.addHeadLayout(R.layout.searchitem_head,true,1);
+
 
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -223,6 +226,8 @@ public class SearchMediaActivity extends AppCompatActivity {
             switch(msg.what){
                 case OrderConst.success:
                     mRecyclerView.setVisibility(View.VISIBLE);
+                    headText = "搜索结果";
+                    mAdapter.notifyItemChanged(0);
                     initData();
                     break;
                 case OrderConst.failure:
