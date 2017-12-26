@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.androidlearning.boris.familycentralcontroler">
+    package="com.dkzy.areaparty.phone">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -28,7 +28,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".myapplication.MyApplication"
+        android:name="com.dkzy.areaparty.phone.myapplication.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="AreaParty"
@@ -38,7 +38,7 @@
         android:vmSafeMode="true"
         tools:replace="android:label">
         <activity
-            android:name=".Login"
+            android:name="com.dkzy.areaparty.phone.Login"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,192 +47,192 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.dkzy.areaparty.phone.MainActivity"
             android:configChanges="keyboard|navigation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.computerMonitorActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.computerMonitorActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.computerSettingActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.computerSettingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.exeContentActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.exeContentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.PCDevicesActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.PCDevicesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.TVDevicesActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.TVDevicesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.PCFileSysActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.PCFileSysActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.setting.SettingMainActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.setting.SettingMainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.setting.SettingNameActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.setting.SettingNameActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.setting.SettingPwdActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.setting.SettingPwdActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.setting.SettingAddressActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.setting.SettingAddressActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.websitemanager.start.StartActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.websitemanager.start.StartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.websitemanager.hdhome.WelcomeActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.websitemanager.hdhome.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.websitemanager.hdhome.LoginActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.websitemanager.hdhome.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.websitemanager.hdhome.IndexMainActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.websitemanager.hdhome.IndexMainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.websitemanager.hdhome.DetailsActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.websitemanager.hdhome.DetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.websitemanager.hdhome.SearchActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.websitemanager.hdhome.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.websitemanager.web1080.RemoteDownloadActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.RemoteDownloadActivity"
             android:label="种子管理"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.websitemanager.web1080.MainActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.websitemanager.web1080.PtTorrentManagement"
+            android:name="com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.PtTorrentManagement"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.sharedFileIntentActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.sharedFileIntentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.downloadActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.downloadActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.downloadedPicBrowseActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.downloadedPicBrowseActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".fragment01.diskContentActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.diskContentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.diskTVContentActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.diskTVContentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment02.videoLibActivity"
+            android:name="com.dkzy.areaparty.phone.fragment02.videoLibActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment02.audioLibActivity"
+            android:name="com.dkzy.areaparty.phone.fragment02.audioLibActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment02.imageLibActivity"
+            android:name="com.dkzy.areaparty.phone.fragment02.imageLibActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment02.recentVideosActivity"
+            android:name="com.dkzy.areaparty.phone.fragment02.recentVideosActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment02.recentAudiosActivity"
+            android:name="com.dkzy.areaparty.phone.fragment02.recentAudiosActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment02.audioSetActivity"
+            android:name="com.dkzy.areaparty.phone.fragment02.audioSetActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment02.imageSetActivity"
+            android:name="com.dkzy.areaparty.phone.fragment02.imageSetActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment02.imageSetContentActivity"
+            android:name="com.dkzy.areaparty.phone.fragment02.imageSetContentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment02.audioSetContentActivity"
+            android:name="com.dkzy.areaparty.phone.fragment02.audioSetContentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment03.pcAppHelpActivity"
+            android:name="com.dkzy.areaparty.phone.fragment03.pcAppHelpActivity"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".fragment03.pcGameHelpActivity"
+            android:name="com.dkzy.areaparty.phone.fragment03.pcGameHelpActivity"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".fragment03.pcUsingHelpActivity"
+            android:name="com.dkzy.areaparty.phone.fragment03.pcUsingHelpActivity"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".fragment03.tvInforActivity"
+            android:name="com.dkzy.areaparty.phone.fragment03.tvInforActivity"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".fragment03.pcInforActivity"
+            android:name="com.dkzy.areaparty.phone.fragment03.pcInforActivity"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".fragment03.uninstallTVAppActivity"
+            android:name="com.dkzy.areaparty.phone.fragment03.uninstallTVAppActivity"
             android:theme="@style/MyAppTheme" />
         <activity
-            android:name=".fragment03.pcAppMiracastActivity"
+            android:name="com.dkzy.areaparty.phone.fragment03.pcAppMiracastActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LoginSetting"
+            android:name="com.dkzy.areaparty.phone.LoginSetting"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment05.phoneVIPAppActivity"
+            android:name="com.dkzy.areaparty.phone.fragment05.phoneVIPAppActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment06.chat"
+            android:name="com.dkzy.areaparty.phone.fragment06.chat"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment06.fileList"
+            android:name="com.dkzy.areaparty.phone.fragment06.fileList"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment06.searchFriend"
+            android:name="com.dkzy.areaparty.phone.fragment06.searchFriend"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment06.dealFriendRequest"
+            android:name="com.dkzy.areaparty.phone.fragment06.dealFriendRequest"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment06.sortFIleList"
+            android:name="com.dkzy.areaparty.phone.fragment06.sortFIleList"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment06.HistoryMsg"
+            android:name="com.dkzy.areaparty.phone.fragment06.HistoryMsg"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment06.downloadManager"
+            android:name="com.dkzy.areaparty.phone.fragment06.downloadManager"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment06.dealFileRequest"
+            android:name="com.dkzy.areaparty.phone.fragment06.dealFileRequest"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".register.RegisterFinish"
+            android:name="com.dkzy.areaparty.phone.register.RegisterFinish"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".register.RegisterUserInfo"
+            android:name="com.dkzy.areaparty.phone.register.RegisterUserInfo"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".register.RegisterPersonalInfo"
+            android:name="com.dkzy.areaparty.phone.register.RegisterPersonalInfo"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".bluetoothxie.KeyboardActivity"
+            android:name="com.dkzy.areaparty.phone.bluetoothxie.KeyboardActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".bluetoothxie.BluetoothKeyboard"
+            android:name="com.dkzy.areaparty.phone.bluetoothxie.BluetoothKeyboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".bluetoothxie.ComputerBluetooth"
+            android:name="com.dkzy.areaparty.phone.bluetoothxie.ComputerBluetooth"
             android:configChanges="keyboard|navigation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".bluetoothxie.PCBluetoothSet"
+            android:name="com.dkzy.areaparty.phone.bluetoothxie.PCBluetoothSet"
             android:configChanges="keyboard|navigation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".bluetoothxie.TVBluetoothSet"
+            android:name="com.dkzy.areaparty.phone.bluetoothxie.TVBluetoothSet"
             android:configChanges="keyboard|navigation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <service android:name=".MyService" />
+        <service android:name="com.dkzy.areaparty.phone.MyService" />
         <service
-            android:name=".fragment05.accessible_service.AutoLoginService"
+            android:name="com.dkzy.areaparty.phone.fragment05.accessible_service.AutoLoginService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
@@ -244,34 +244,34 @@
         </service>
 
         <activity
-            android:name=".AlertActivity"
+            android:name="com.dkzy.areaparty.phone.AlertActivity"
             android:theme="@style/AlertActivityStyle" />
         <activity
-            android:name=".fragment02.vedioPlayControl"
+            android:name="com.dkzy.areaparty.phone.fragment02.vedioPlayControl"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.utorrent.MainActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.utorrent.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.utorrent.UTorrentActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.utorrent.UTorrentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.utorrent.UTFileActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.utorrent.UTFileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.utorrent.TorrentFileActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.utorrent.TorrentFileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.PCNASFileSysActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.PCNASFileSysActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment01.PCTVFileSysActivity"
+            android:name="com.dkzy.areaparty.phone.fragment01.PCTVFileSysActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".fragment02.searchContent.SearchMediaActivity"
+            android:name="com.dkzy.areaparty.phone.fragment02.searchContent.SearchMediaActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".fragment01.websitemanager.start.AutoLoginHelperActivity"
+        <activity android:name="com.dkzy.areaparty.phone.fragment01.websitemanager.start.AutoLoginHelperActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

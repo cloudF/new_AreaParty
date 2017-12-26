@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical"
-    tools:context="com.androidlearning.boris.familycentralcontroler.Activities.PlayStatusActivity">
+    tools:context="com.dkzy.areaparty.phone.Activities.PlayStatusActivity">
 
 
     <include layout="@layout/top_playstatus"></include>

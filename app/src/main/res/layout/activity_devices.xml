@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:orientation="vertical"
-    tools:context="com.androidlearning.boris.familycentralcontroler.Activities.DevicesActivity">
+    tools:context="com.dkzy.areaparty.phone.Activities.DevicesActivity">
 
     <include layout="@layout/top_devices"></include>
 

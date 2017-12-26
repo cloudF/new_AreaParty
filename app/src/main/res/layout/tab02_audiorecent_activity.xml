@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <com.androidlearning.boris.familycentralcontroler.fragment01.ui.SwipeListView
+                    <com.dkzy.areaparty.phone.fragment01.ui.SwipeListView
                         android:id="@+id/fileSLV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

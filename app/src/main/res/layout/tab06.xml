@@ -178,7 +178,7 @@
                         android:id="@+id/friendView" />
 
                 </LinearLayout>
-                <com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView
+                <com.dkzy.areaparty.phone.fragment06.CustomListView
                     android:id="@+id/id_tab06_userFriend"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -186,7 +186,7 @@
                     android:numColumns="2"
                     android:background="@drawable/border"
                     android:visibility="gone">
-                </com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView>
+                </com.dkzy.areaparty.phone.fragment06.CustomListView>
             </LinearLayout>
 
             <LinearLayout
@@ -220,7 +220,7 @@
                         android:id="@+id/netTextView" />
 
                 </LinearLayout>
-                <com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView
+                <com.dkzy.areaparty.phone.fragment06.CustomListView
                     android:id="@+id/id_tab06_userNet"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -228,7 +228,7 @@
                     android:numColumns="2"
                     android:background="@drawable/border"
                     android:visibility="gone">
-                </com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView>
+                </com.dkzy.areaparty.phone.fragment06.CustomListView>
             </LinearLayout>
 
             <LinearLayout
@@ -262,7 +262,7 @@
 
 
                 </LinearLayout>
-                <com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView
+                <com.dkzy.areaparty.phone.fragment06.CustomListView
                     android:id="@+id/id_tab06_userShare"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -270,7 +270,7 @@
                     android:numColumns="2"
                     android:background="@drawable/border"
                     android:visibility="gone">
-                </com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView>
+                </com.dkzy.areaparty.phone.fragment06.CustomListView>
             </LinearLayout>
 
             <LinearLayout
@@ -304,7 +304,7 @@
                         android:id="@+id/fileTextView" />
 
                 </LinearLayout>
-                <com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView
+                <com.dkzy.areaparty.phone.fragment06.CustomListView
                     android:id="@+id/id_tab06_fileComputer"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -312,7 +312,7 @@
                     android:numColumns="2"
                     android:background="@drawable/border"
                     android:visibility="gone">
-                </com.androidlearning.boris.familycentralcontroler.fragment06.CustomListView>
+                </com.dkzy.areaparty.phone.fragment06.CustomListView>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -31,7 +31,7 @@
                 android:visibility="gone"
                 app:indicatorName="BallSpinFadeLoaderIndicator"
                 app:indicatorColor="#e65757"/>
-            <com.androidlearning.boris.familycentralcontroler.fragment01.ui.SwipeListView
+            <com.dkzy.areaparty.phone.fragment01.ui.SwipeListView
                 android:id="@+id/page04DiskListLV"
                 android:layout_width="match_parent"
                 android:layout_marginTop="8dp"

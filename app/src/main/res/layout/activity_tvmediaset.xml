@@ -227,7 +227,7 @@
 
                 </LinearLayout>
 
-                <com.androidlearning.boris.familycentralcontroler.bluetoothxie.ListViewForScrollView
+                <com.dkzy.areaparty.phone.bluetoothxie.ListViewForScrollView
                     android:id="@+id/tvmediaset_list_tv_getDevices"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -235,7 +235,7 @@
                     android:divider="@drawable/list_divider04"
                     android:dividerHeight="1px" >
 
-                </com.androidlearning.boris.familycentralcontroler.bluetoothxie.ListViewForScrollView>
+                </com.dkzy.areaparty.phone.bluetoothxie.ListViewForScrollView>
 
                 <LinearLayout
                     android:id="@+id/tvmediaset_tv_conlayout"
@@ -255,7 +255,7 @@
 
                 </LinearLayout>
 
-                <com.androidlearning.boris.familycentralcontroler.bluetoothxie.ListViewForScrollView
+                <com.dkzy.areaparty.phone.bluetoothxie.ListViewForScrollView
                     android:id="@+id/tvmediaset_list_tv_conDevices"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -263,7 +263,7 @@
                     android:divider="@drawable/list_divider04"
                     android:dividerHeight="1px" >
 
-                </com.androidlearning.boris.familycentralcontroler.bluetoothxie.ListViewForScrollView>
+                </com.dkzy.areaparty.phone.bluetoothxie.ListViewForScrollView>
 
             </LinearLayout>
 

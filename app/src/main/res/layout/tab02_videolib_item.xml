@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="8">
-                <com.androidlearning.boris.familycentralcontroler.fragment02.ui.BreakTextView
+                <com.dkzy.areaparty.phone.fragment02.ui.BreakTextView
                     android:id="@+id/nameTV"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

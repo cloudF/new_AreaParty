@@ -43,7 +43,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content">
-                <com.androidlearning.boris.familycentralcontroler.fragment02.ui.BreakTextView
+                <com.dkzy.areaparty.phone.fragment02.ui.BreakTextView
                     android:id="@+id/torrent_file_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

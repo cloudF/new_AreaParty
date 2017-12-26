@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp">
 
-            <com.androidlearning.boris.familycentralcontroler.fragment01.ui.DiffuseView
+            <com.dkzy.areaparty.phone.fragment01.ui.DiffuseView
                 android:id="@+id/wifiExistDV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
                     android:padding="5dp">
-                    <com.androidlearning.boris.familycentralcontroler.fragment01.ui.SwipeListView
+                    <com.dkzy.areaparty.phone.fragment01.ui.SwipeListView
                         android:id="@+id/devicesLV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

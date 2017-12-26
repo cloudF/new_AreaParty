@@ -149,7 +149,7 @@
 
                 </LinearLayout>
 
-                <com.androidlearning.boris.familycentralcontroler.bluetoothxie.ListViewForScrollView
+                <com.dkzy.areaparty.phone.bluetoothxie.ListViewForScrollView
                     android:id="@+id/pcmediaset_list_getDevices"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
                     android:divider="@drawable/list_divider04"
                     android:dividerHeight="1px">
 
-                </com.androidlearning.boris.familycentralcontroler.bluetoothxie.ListViewForScrollView>
+                </com.dkzy.areaparty.phone.bluetoothxie.ListViewForScrollView>
                 <!--<Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -182,7 +182,7 @@
 
                 </LinearLayout>
 
-                <com.androidlearning.boris.familycentralcontroler.bluetoothxie.ListViewForScrollView
+                <com.dkzy.areaparty.phone.bluetoothxie.ListViewForScrollView
                     android:id="@+id/pcmediaset_list_conDevices"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
                     android:divider="@drawable/list_divider04"
                     android:dividerHeight="1px" >
 
-                </com.androidlearning.boris.familycentralcontroler.bluetoothxie.ListViewForScrollView>
+                </com.dkzy.areaparty.phone.bluetoothxie.ListViewForScrollView>
                 <!--<LinearLayout
                     android:id="@+id/pcmediaset_tv_layout"
                     android:visibility="gone"

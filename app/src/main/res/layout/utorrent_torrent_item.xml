@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.customView.CustomProgress
+        <com.dkzy.areaparty.phone.fragment01.utorrent.customView.CustomProgress
             android:id="@+id/progress"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -25,7 +25,7 @@
             app:textColor="#000"
             app:totalProgress="1000" />
 
-        <com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.customView.AutoSplitTextView
+        <com.dkzy.areaparty.phone.fragment01.utorrent.customView.AutoSplitTextView
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context="com.androidlearning.boris.familycentralcontroler.fragment02.searchContent.SearchMediaActivity">
+    tools:context="com.dkzy.areaparty.phone.fragment02.searchContent.SearchMediaActivity">
 
     <EditText
         android:id="@+id/search_editText"

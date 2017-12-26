@@ -20,7 +20,7 @@
             android:text="音频: "
             android:textSize="14sp"
             />
-        <com.androidlearning.boris.familycentralcontroler.fragment02.view.AlwaysMarqueeTextView
+        <com.dkzy.areaparty.phone.fragment02.view.AlwaysMarqueeTextView
             android:id="@+id/nameTV"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
