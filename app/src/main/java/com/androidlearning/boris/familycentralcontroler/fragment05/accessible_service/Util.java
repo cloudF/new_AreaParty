@@ -69,6 +69,11 @@ public class Util {
         SharedPreferences pref = context.getSharedPreferences("login_record",MODE_PRIVATE);
         return pref.getString("account_id","");
     }
+    public static void clearRecordId(Context context){
+        SharedPreferences.Editor editor = context.getSharedPreferences("login_record",MODE_PRIVATE).edit();
+        editor.putString("account_id","");
+        editor.apply();
+    }
     public static void clearRecord(Context context){
         SharedPreferences.Editor editor = context.getSharedPreferences("login_record",MODE_PRIVATE).edit();
         editor.clear();

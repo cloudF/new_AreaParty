@@ -5,6 +5,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
+import com.androidlearning.boris.familycentralcontroler.newAES;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.CommandUtil;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.JsonUitl;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.ReceivedActionMessageFormat;
@@ -17,8 +18,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +39,7 @@ public class Send2SpecificTVThread extends Thread {
     private String IP = "";
     private int port;
     private String code;
+    public static String password = null;
 
     private Handler myhandler;
 
@@ -52,9 +57,34 @@ public class Send2SpecificTVThread extends Thread {
         this.myhandler = myhandler;
         this.IP = IP;
         this.port = port;
-        this.code = code;
+        String pass=stringToMD5(code);
+        this.code = pass;
     }
+    public static String stringToMD5(String string) {
+        byte[] hash;
 
+        try {
+            hash = MessageDigest.getInstance("MD5").digest(string.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+        StringBuilder hex = new StringBuilder(hash.length * 2);
+        for (byte b : hash) {
+            if ((b & 0xFF) < 0x10)
+                hex.append("0");
+            hex.append(Integer.toHexString(b & 0xFF));
+        }
+
+        return hex.toString();
+    }
     @Override
     public void run() {
         if(!IP.equals("")) {
@@ -74,10 +104,12 @@ public class Send2SpecificTVThread extends Thread {
                 writer.flush();
 
                 dataReceived = reader.readLine();
+                String decryptdata = newAES.decrypt(dataReceived,code.getBytes());
+
                 Log.i("Send2TVThread", "指令: " + cmdStr);
-                Log.i("Send2TVThread", "回复: " + dataReceived);
-                if(dataReceived.equals("true")) {
-                   reportResult(true, "true");
+                Log.i("Send2TVThread", "回复: " + decryptdata);
+                if(decryptdata.equals("true")) {
+                    reportResult(true, "true");
                 } else reportResult(false, "false");
             }catch (IOException e) {
                 e.printStackTrace();

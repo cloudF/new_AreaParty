@@ -15,221 +15,20 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="StartActivity" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="Float" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1a645c2-23be-440c-9850-89cb759fbe56" name="Default" comment="优化了一些界面细节">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_help.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_null.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_help.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_null.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_help.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_null.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_help.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_null.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/iqiyi_login.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/seleceted1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/tencent_login1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/tencent_login2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/tv_removable_file.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/youku_login.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-09-17-47-496.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-09-18-07-788.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-09-22-11-243.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-09-43-03-437.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-09-44-51-020.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-10-05-57-308.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-10-08-08-710.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-10-09-42-266.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-10-16-50-943.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-04-09-14-47-377.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-04-09-15-18-811.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-04-15-15-11-483.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-04-15-15-22-556.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-09-25-13-328.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-09-25-24-038.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-12-24-27-449.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-12-25-20-745.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-15-13-57-966.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-15-14-25-211.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-15-23-20-145.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-06-09-13-07-570.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-06-09-13-34-540.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-09-28-31-035.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-09-28-45-476.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-11-22-15-763.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-11-24-54-640.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-15-20-52-851.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-15-21-24-603.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-06-13-034.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-06-48-202.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-08-10-918.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-08-15-450.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-11-15-406.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-11-22-754.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-21-00-175.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-22-30-655.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-41-25-979.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-43-09-301.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-43-57-603.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-45-20-963.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-52-54-523.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-57-40-518.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-17-24-05-987.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-17-27-36-393.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-17-31-08-160.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-17-31-47-852.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-20-19-22-029.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-20-24-31-149.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-09-31-40-826.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-09-32-06-170.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-10-25-37-071.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-11-12-28-929.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-11-30-49-641.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-11-31-16-258.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-11-31-57-358.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-11-38-26-107.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-15-01-15-244.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-15-37-37-431.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-15-44-56-060.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-16-10-04-865.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-16-18-40-934.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-16-19-32-595.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-16-51-31-572.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-16-52-05-201.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-17-09-59-250.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-17-26-43-092.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-17-26-58-207.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-17-37-33-457.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-19-55-33-843.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-20-00-41-460.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-09-12-36-49-620.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-09-12-37-13-988.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-09-14-28-41-908.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-09-14-28-58-316.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-16-05-696.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-16-25-002.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-43-31-270.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-49-15-691.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-49-29-532.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-54-09-027.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-56-55-021.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-58-31-001.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-04-33-349.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-08-37-092.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-08-55-935.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-25-03-852.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-28-50-435.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-30-33-126.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-56-54-066.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-11-17-54-203.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-17-14-29-515.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-17-18-54-185.rawproto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MyConnector_TV.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/PCTVFileSysActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/diskTVContentActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/TVFileHelper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/AutoLoginHelperActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView2.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_auto_login_helper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/float_static.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/float_static2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tab04_disktvcontent_activity.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-09-17-47-496.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-09-18-07-788.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-09-22-11-243.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-09-43-03-437.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-09-44-51-020.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-10-05-57-308.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-10-08-08-710.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-10-09-42-266.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-01-10-16-50-943.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-04-09-14-47-377.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-04-09-15-18-811.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-04-15-15-11-483.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-04-15-15-22-556.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-09-25-13-328.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-09-25-24-038.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-12-24-27-449.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-12-25-20-745.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-15-13-57-966.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-15-14-25-211.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-05-15-23-20-145.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-06-09-13-07-570.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-06-09-13-34-540.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-09-28-31-035.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-09-28-45-476.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-11-22-15-763.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-11-24-54-640.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-15-20-52-851.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-15-21-24-603.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-06-13-034.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-06-48-202.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-08-10-918.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-08-15-450.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-11-15-406.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-11-22-754.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-21-00-175.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-22-30-655.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-41-25-979.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-43-09-301.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-43-57-603.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-45-20-963.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-52-54-523.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-16-57-40-518.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-17-24-05-987.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-17-27-36-393.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-17-31-08-160.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-17-31-47-852.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-20-19-22-029.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-07-20-24-31-149.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-09-31-40-826.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-09-32-06-170.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-10-25-37-071.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-11-12-28-929.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-11-30-49-641.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-11-31-16-258.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-11-31-57-358.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-11-38-26-107.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-15-01-15-244.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-15-37-37-431.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-15-44-56-060.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-16-10-04-865.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-16-18-40-934.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-16-19-32-595.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-16-51-31-572.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-16-52-05-201.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-17-09-59-250.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-17-26-43-092.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-17-26-58-207.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-17-37-33-457.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-19-55-33-843.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-08-20-00-41-460.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-09-12-36-49-620.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-09-12-37-13-988.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-09-14-28-41-908.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-09-14-28-58-316.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-16-05-696.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-16-25-002.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-43-31-270.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-49-15-691.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-49-29-532.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-54-09-027.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-56-55-021.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-09-58-31-001.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-04-33-349.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-08-37-092.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-08-55-935.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-25-03-852.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-28-50-435.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-30-33-126.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-10-56-54-066.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-11-17-54-203.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-17-14-29-515.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build/android-profile/profile-2017-12-11-17-18-54-185.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/leshi_login.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/leshi_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/tencent_check.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/AESc.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/ui/ActionDialog_help.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/newAES.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tab04_helpinfo_dialog.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/iqiyi_login.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
@@ -240,40 +39,31 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/debug/app-debug.apk" afterPath="$PROJECT_DIR$/app/debug/app-debug.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/IPAddressConst.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/IPAddressConst.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/Login.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/Login.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/PCFileSysActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/PCFileSysActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/PCNASFileSysActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/PCNASFileSysActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/base/DiskContentAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/base/DiskContentAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/diskContentActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/diskContentActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/page01Fragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/page01Fragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/DownloadFileManagerHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/DownloadFileManagerHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/PCFileHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/PCFileHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/prepareDataForFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/prepareDataForFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utorrent/utils/OkHttpUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utorrent/utils/OkHttpUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/debug/output.json" afterPath="$PROJECT_DIR$/app/debug/output.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/Base.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/Base.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MyConnector.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MyConnector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/AutoLoginHelperActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/AutoLoginHelperActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/StartActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/StartActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/web1080/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/web1080/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/searchContent/SearchMediaActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/searchContent/SearchMediaActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/searchContent/adapter/AudioItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/searchContent/adapter/AudioItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/searchContent/adapter/MyExpandableAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/searchContent/adapter/MyExpandableAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/videoLibActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/videoLibActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment03/page03Fragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment03/page03Fragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/contentResolver/ContentDataLoadTask.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/contentResolver/ContentDataLoadTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/accessible_service/AutoLoginService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/accessible_service/AutoLoginService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/accessible_service/Util.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/accessible_service/Util.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/phoneVIPAppActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/phoneVIPAppActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment06/page06Fragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment06/page06Fragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/MyApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/MyApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/searchitem_head.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/searchitem_head.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/tab03.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tab03.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/tab04.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tab04.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/tab04_diskcontent_activity.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tab04_diskcontent_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/tab04_file_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tab04_file_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/top06.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/top06.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView2.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/register/RegisterPersonalInfo.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/register/RegisterPersonalInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/GetTvListThread.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/GetTvListThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/PreferenceUtil.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/PreferenceUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2PCThread.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2PCThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2SpecificPCThread.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2SpecificPCThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2SpecificTVThread.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2SpecificTVThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2TVThread.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2TVThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_auto_login_helper.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_auto_login_helper.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/exit_dialog_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/exit_dialog_main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/tab02.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tab02.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/websitemanager_activity.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/websitemanager_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/xml/auto_login_service.xml" afterPath="$PROJECT_DIR$/app/src/main/res/xml/auto_login_service.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
     </list>
     <ignored path="android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -309,171 +99,123 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MyApplication.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/MyApplication.java">
+      <file leaf-file-name="AutoLoginHelperActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/AutoLoginHelperActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="94" column="41" lean-forward="false" selection-start-line="94" selection-start-column="41" selection-end-line="94" selection-end-column="41" />
-              <folding>
-                <element signature="method#verifyLastPCMac#0;class#MyApplication#0" expanded="true" />
-                <element signature="method#verifyLastTVMac#0;class#MyApplication#0" expanded="true" />
-                <element signature="method#startStateRefreshTimer#0;class#MyApplication#0" expanded="true" />
-                <element signature="method#getVersion#0;class#MyApplication#0" expanded="true" />
-                <element signature="method#initTVPCIP#0;class#MyApplication#0" expanded="true" />
-                <element signature="method#onCreate#0;class#MyApplication#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="110">
+              <caret line="60" column="51" lean-forward="false" selection-start-line="60" selection-start-column="51" selection-end-line="60" selection-end-column="51" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Login.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/Login.java">
+      <file leaf-file-name="ADFilterTool.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/ADFilterTool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="197" column="53" lean-forward="false" selection-start-line="197" selection-start-column="53" selection-end-line="197" selection-end-column="53" />
-              <folding>
-                <element signature="method#getPhoneInfo#0;class#Login#0" expanded="true" />
-                <marker date="1513753712910" expanded="true" signature="18170:30300" ph="{...}" />
-              </folding>
+            <state relative-caret-position="132">
+              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StartActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="StartActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/StartActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="777" column="0" lean-forward="false" selection-start-line="777" selection-start-column="0" selection-end-line="777" selection-end-column="0" />
+            <state relative-caret-position="147">
+              <caret line="81" column="55" lean-forward="false" selection-start-line="81" selection-start-column="31" selection-end-line="81" selection-end-column="55" />
               <folding>
                 <element signature="method#onCreate#0;class#StartActivity#0" expanded="true" />
                 <element signature="method#onResume#0;class#StartActivity#0" expanded="true" />
                 <element signature="method#onClick#0;class#StartActivity#0" expanded="true" />
                 <element signature="method#phoneVIPAppActivity#0;class#StartActivity#0" expanded="true" />
-                <element signature="method#checkInfo#0;class#StartActivity#0" expanded="true" />
-                <element signature="method#onFailure#0;class#15654:17463" expanded="true" />
-                <element signature="method#onResponse#0;class#15654:17463" expanded="true" />
-                <element signature="e#17276#17436#0" expanded="true" />
-                <element signature="e#17435#17436#0" expanded="true" />
+                <element signature="method#onResponse#0;class#11255:13359" expanded="true" />
                 <element signature="method#getVipUserCount#0;class#StartActivity#0" expanded="true" />
-                <element signature="method#onFailure#0;class#17868:19870" expanded="true" />
-                <element signature="method#onResponse#0;class#17868:19870" expanded="true" />
-                <element signature="e#19511#19711#0" expanded="true" />
-                <element signature="e#19710#19711#0" expanded="true" />
+                <element signature="method#onFailure#0;class#14069:16094" expanded="true" />
+                <element signature="method#onResponse#0;class#14069:16094" expanded="true" />
                 <element signature="method#logoutVip#0;class#StartActivity#0" expanded="true" />
-                <element signature="method#onResponse#0;class#20301:20546" expanded="true" />
-                <element signature="method#registerVip#0;class#StartActivity#0" expanded="true" />
-                <element signature="method#onResponse#0;class#21066:21541" expanded="true" />
-                <element signature="method#initViews#0;class#StartActivity#0" expanded="true" />
+                <element signature="method#onFailure#0;class#16626:16871" expanded="true" />
+                <element signature="method#onResponse#0;class#16626:16871" expanded="true" />
+                <element signature="method#getVersionCode#0;class#StartActivity#0" expanded="true" />
                 <element signature="method#updateServiceStatus#0;class#StartActivity#0" expanded="true" />
-                <element signature="method#setTag#0;class#StartActivity#0" expanded="true" />
-                <marker date="1513739703456" expanded="false" signature="21585:22363" ph="{...}" />
-                <marker date="1513739703456" expanded="false" signature="22396:23483" ph="{...}" />
-                <marker date="1513739703456" expanded="false" signature="23516:24590" ph="{...}" />
+                <element signature="method#getMonthLaterDate#0;class#StartActivity#0" expanded="true" />
+                <element signature="method#toast#0;class#StartActivity#0" expanded="true" />
+                <element signature="method#onClickListener#0;class#StartActivity#0" expanded="true" />
+                <marker date="1514255528172" expanded="true" signature="27551:33384" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <file leaf-file-name="PtTorrentManagement.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/web1080/PtTorrentManagement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="880">
-              <caret line="40" column="33" lean-forward="false" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-manifest">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TVDevicesActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/TVDevicesActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="51" column="13" lean-forward="false" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
+            <state relative-caret-position="66">
+              <caret line="31" column="38" lean-forward="false" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="diskContentActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/diskContentActivity.java">
+      <file leaf-file-name="RemoteDownloadActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/web1080/RemoteDownloadActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="854" column="55" lean-forward="false" selection-start-line="854" selection-start-column="55" selection-end-line="854" selection-end-column="55" />
+            <state relative-caret-position="147">
+              <caret line="460" column="72" lean-forward="false" selection-start-line="460" selection-start-column="72" selection-end-line="460" selection-end-column="72" />
               <folding>
-                <element signature="method#initEvent#0;class#diskContentActivity#0" expanded="true" />
+                <element signature="method#setListener#0;class#RemoteDownloadActivity#0" expanded="true" />
+                <element signature="method#download#0;class#30488:32890" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="diskTVContentActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/diskTVContentActivity.java">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UTorrentActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utorrent/UTorrentActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="22">
-              <caret line="722" column="22" lean-forward="false" selection-start-line="722" selection-start-column="22" selection-end-line="722" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#handleMessage#0;class#MyHandler#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#onNetChange#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#onCreate#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#onStart#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#onResume#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#onPause#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#onStop#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#onDestroy#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#initEvent#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="docComment;method#initView#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#initView#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="docComment;method#addFolderDialog#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#addFolderDialog#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="docComment;method#deleteFileAndFolderDialog#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#deleteFileAndFolderDialog#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="docComment;method#shareFileDialog#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#shareFileDialog#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="docComment;method#reNameDialog#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#reNameDialog#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="docComment;method#addToMediaList#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#addToMediaList#0;class#diskTVContentActivity#0" expanded="true" />
-                <element signature="method#countOfChar#0;class#diskTVContentActivity#0" expanded="true" />
-                <marker date="1513596934875" expanded="true" signature="8661:9581" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="prepareDataForFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/prepareDataForFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+              <caret line="50" column="13" lean-forward="false" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PCTVFileSysActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/PCTVFileSysActivity.java">
+      <file leaf-file-name="MyConnector.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MyConnector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="491">
-              <caret line="76" column="80" lean-forward="false" selection-start-line="76" selection-start-column="80" selection-end-line="76" selection-end-column="80" />
+            <state relative-caret-position="428">
+              <caret line="298" column="20" lean-forward="false" selection-start-line="298" selection-start-column="20" selection-end-line="298" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="videoLibActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/videoLibActivity.java">
+      <file leaf-file-name="UTFileActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utorrent/UTFileActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="77" column="57" lean-forward="false" selection-start-line="77" selection-start-column="57" selection-end-line="77" selection-end-column="57" />
-              <folding>
-                <element signature="method#initEvent#0;class#videoLibActivity#0" expanded="true" />
-                <element signature="method#bindView#0;class#15363:16432" expanded="true" />
-              </folding>
+            <state relative-caret-position="88">
+              <caret line="38" column="13" lean-forward="false" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mth/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -491,20 +233,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>diskNetworkDatasList</find>
-      <find>cmd</find>
-      <find>openApp_Rdp</find>
-      <find>adapter</find>
-      <find>hand</find>
-      <find>MyConnector</find>
-      <find>diskContentActivity</find>
-      <find>PCFil</find>
-      <find>PCFILEHElper</find>
-      <find>PCFileHelper</find>
-      <find>:\\</find>
-      <find>&gt;</find>
-      <find>&gt; &quot;</find>
-      <find>lastChangeTime</find>
       <find>ada</find>
       <find>datas</find>
       <find>add</find>
@@ -521,6 +249,20 @@
       <find>Login</find>
       <find>singleTask</find>
       <find>startA</find>
+      <find>mRegisterButton</find>
+      <find>PreferenceUtil</find>
+      <find>爱</find>
+      <find>IQIYI</find>
+      <find>onKeyEvent</find>
+      <find>btn_register</find>
+      <find>et_userCommunity</find>
+      <find>&quot;tencent&quot;</find>
+      <find>&quot;youku&quot;</find>
+      <find>&quot;iqiyi&quot;</find>
+      <find>exit</find>
+      <find>toast</find>
+      <find>setRecord</find>
+      <find>node.size()</find>
     </findStrings>
     <replaceStrings>
       <replace>TVFileHelper</replace>
@@ -3059,57 +2801,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/searchContent/SearchThread.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/searchContent/adapter/AudioItem.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/searchContent/adapter/MyExpandableAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/searchitem_head.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/top06.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment06/page06Fragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/searchContent/SearchMediaActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/switch_button.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout/float_static2.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/float_static.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MyConnector.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/IPAddressConst.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2SpecificTVThread.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment03/page03Fragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/tab03.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView2.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/float_static2.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utorrent/utils/OkHttpUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MyConnector_TV.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/tab04.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/PCFileSysActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/PCNASFileSysActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/downloadActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/PCTVFileSysActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/TVFileHelper.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/xml/auto_login_service.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/AutoLoginHelperActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/PCFileHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/tab04_diskcontent_activity.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/tab04_file_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/accessible_service/AutoLoginService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/base/DiskContentAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/tab04_disktvcontent_activity.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/diskTVContentActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/prepareDataForFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/DownloadFileManagerHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/phoneVIPAppActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/accessible_service/Util.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_auto_login_helper.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/websitemanager_activity.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/page01Fragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/diskContentActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/StartActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/web1080/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/Login.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/MyApplication.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/videoLibActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2SpecificPCThread.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2PCThread.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MyConnector.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/AutoLoginHelperActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/ui/ActionDialog_helpInfo.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/exit_dialog_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/ui/ActionDialog_help.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/PreferenceUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2SpecificTVThread.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/MyApplication.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/xml/auto_login_service.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView2.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/float_static2.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/register/RegisterPersonalInfo.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/tab04_helpinfo_dialog.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/websitemanager_activity.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/tab02.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/contentResolver/ContentDataLoadTask.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/newAES.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_auto_login_helper.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2TVThread.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/GetTvListThread.java" />
+        <option value="$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Toasty-1.1.3.aar/e8f9cd3e90395ab1c9dc1378540205d4/jars/classes.jar!/es/dmoral/toasty/Toasty.class" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/Base.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/accessible_service/AutoLoginService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/accessible_service/Util.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/StartActivity.java" />
       </list>
     </option>
   </component>
@@ -3134,76 +2876,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="new_AreaParty" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="new_AreaParty" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="new_AreaParty" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="new_AreaParty" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="familycentralcontroler" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="new_AreaParty" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidManifestsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -3272,9 +2945,182 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Gradle Scripts" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidBuildScriptsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="familycentralcontroler" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="familycentralcontroler" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragment01" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="familycentralcontroler" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragment01" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="websitemanager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="familycentralcontroler" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragment01" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="websitemanager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="start" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="familycentralcontroler" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragment01" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utorrent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidManifestsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3283,7 +3129,7 @@
     <property name="android.project.structure.last.selected" value="mth" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="device.picker.selection" value="A5RNW17B11026819" />
-    <property name="last_opened_file_path" value="F:/Android/android-project2/moonlight-android-master" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/MyConnector.java" />
     <property name="SearchEverywhereHistoryKey" value="thread&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2SpecificTVThread.java&#10;sen&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.Send2PCThread&#10;send&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.Send2TVThread&#10;PCFil&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.PCFileHelper&#10;Ord&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/OrderConst.java&#10;Base&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.Base&#10;PC&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.PCFileHelper&#10;JSOn&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.JsonUitl&#10;Htt&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/HttpServer.java&#10;Pre&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.bluetoothxie.PreferebceManager&#10;http&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.HttpServer&#10;tvc&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.model_comman.TVCommandItem&#10;tvapp&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment03/utils/TVAppHelper.java&#10;tva&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.tvpcAppHelper&#10;getTv&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.GetTvListThread&#10;senPC&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.Send2SpecificPCThread&#10;Rece&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/ReceiveCommandFromTVPlayer.java&#10;tv&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment03.utils.TVAppHelper&#10;TVa&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment03/utils/TVAppHelper.java&#10;pc&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/PCFileHelper.java&#10;tvCommandItem&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/model_comman/TVCommandItem.java&#10;Comm&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.model_comman.TVCommandItem&#10;Fill&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/inforUtils/FillingIPInforList.java&#10;PCFile&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.PCFileHelper&#10;IP&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.IPAddressConst&#10;or&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.OrderConst&#10;Or&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/OrderConst.java&#10;Fi&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/inforUtils/FillingIPInforList.java&#10;tvpa&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.tvpcAppHelper&#10;Send&#9;FILE&#9;file://F:/AreaParty/android0829_0918/android0829/android/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2PCThread.java&#10;onStart&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.bluetoothxie.KeyboardActivity#onStart&#10;OnResume&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.MainActivity#onResume&#10;Tvhelp&#9;FILE&#9;file://F:/AreaParty/android0829_0918/android0829/android/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment03/utils/TVAppHelper.java&#10;stateCh&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.androideventbusutils.events.TVPCNetStateChangeEvent&#10;WindowM&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.bluetoothxie.FloatView#windowManager&#10;SwipeListView&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.ui.SwipeListView" />
     <property name="ExportApk.ApkPath" value="F:\new_AreaParty\app" />
     <property name="ExportApk.Flavors" value="" />
@@ -3292,18 +3138,15 @@
     <property name="ExportApk.SignV2" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="android.profiler.active" value="true" />
-    <property name="DEBUGGABLE_DEVICE" value="htc-htc_802d-HC35VMP01533" />
+    <property name="DEBUGGABLE_DEVICE" value="huawei-bnd_al10-A5RNW17B11026819" />
     <property name="DEBUGGABLE_PROCESS" value="com.androidlearning.boris.familycentralcontroler" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="DEBUGGER_ID" value="Auto" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\new_AreaParty\app\src\main\res\drawable" />
-      <recent name="F:\new_AreaParty\app\src\main\res\layout" />
-      <recent name="F:\new_AreaParty\app\src\main\java\com\androidlearning\boris\familycentralcontroler\fragment02\view" />
-      <recent name="F:\new_AreaParty\app\src\main\java\com\androidlearning\boris\familycentralcontroler\fragment02" />
-      <recent name="F:\new_AreaParty\app\src\main\res\drawable-xhdpi" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\new_AreaParty\app\src\main\res\drawable-xxhdpi" />
+      <recent name="F:\new_AreaParty\app\src\main\res\array" />
     </key>
     <key name="android.template.packageName">
       <recent name="com.androidlearning.boris.familycentralcontroler.fragment01.websitemanager.start" />
@@ -3316,15 +3159,18 @@
       <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.androidlearning.boris.familycentralcontroler.fragment01.ui" />
       <recent name="com.androidlearning.boris.familycentralcontroler.fragment01.utils" />
       <recent name="com.androidlearning.boris.familycentralcontroler.fragment01" />
       <recent name="com.androidlearning.boris.familycentralcontroler" />
       <recent name="com.androidlearning.boris.familycentralcontroler.myapplication.floatview" />
-      <recent name="com.androidlearning.boris.familycentralcontroler.fragment02.searchContent.adapter" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\new_AreaParty\app\src\main\res\drawable-xxhdpi" />
-      <recent name="F:\new_AreaParty\app\src\main\res\array" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\new_AreaParty\app\src\main\res\drawable" />
+      <recent name="F:\new_AreaParty\app\src\main\res\layout" />
+      <recent name="F:\new_AreaParty\app\src\main\java\com\androidlearning\boris\familycentralcontroler" />
+      <recent name="F:\new_AreaParty\app\src\main\java\com\androidlearning\boris\familycentralcontroler\fragment02\view" />
+      <recent name="F:\new_AreaParty\app\src\main\java\com\androidlearning\boris\familycentralcontroler\fragment02" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -3410,7 +3256,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1513757955671" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1514258161070" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -3458,7 +3304,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1513757955671" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1514258161071" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -3620,7 +3466,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1513757955671" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1514258161071" />
       </method>
     </configuration>
     <list size="1">
@@ -3749,6 +3595,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.49753696" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290993" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -3761,16 +3608,16 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35334873" sideWeight="0.8930318" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32678983" sideWeight="0.49511003" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23672055" sideWeight="0.4963054" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5993072" sideWeight="0.89119804" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42147806" sideWeight="0.89119804" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37413394" sideWeight="0.50733495" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23288509" sideWeight="0.48700175" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23288509" sideWeight="0.48700175" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294335" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.334873" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294335" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294335" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23583744" sideWeight="0.5129983" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -3785,39 +3632,39 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290993" sideWeight="0.49753696" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.49753696" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13546798" sideWeight="0.50592214" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23583744" sideWeight="0.5129983" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25981525" sideWeight="0.50246304" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46882218" sideWeight="0.10880195" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6420323" sideWeight="0.49142158" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37413394" sideWeight="0.49266502" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5715935" sideWeight="0.89119804" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15242495" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294335" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.334873" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290993" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31755197" sideWeight="0.48533008" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3152425" sideWeight="0.48533008" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35450345" sideWeight="0.8930318" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.49753696" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290993" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35334873" sideWeight="0.8930318" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32678983" sideWeight="0.49511003" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23672055" sideWeight="0.4963054" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37413394" sideWeight="0.50733495" order="14" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2365196" sideWeight="0.49407783" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290993" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23288509" sideWeight="0.48700175" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294335" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13546798" sideWeight="0.50592214" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23583744" sideWeight="0.5129983" order="5" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -3841,7 +3688,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView.java</url>
-          <line>493</line>
+          <line>632</line>
           <properties />
           <option name="timeStamp" value="114" />
         </line-breakpoint>
@@ -3865,18 +3712,24 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/StartActivity.java</url>
-          <line>376</line>
+          <line>316</line>
           <properties />
           <option name="timeStamp" value="153" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/StartActivity.java</url>
-          <line>353</line>
+          <line>260</line>
           <properties />
           <option name="timeStamp" value="154" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MainActivity.java</url>
+          <line>158</line>
+          <properties />
+          <option name="timeStamp" value="161" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="155" />
+      <option name="time" value="166" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Remote">
@@ -3885,606 +3738,512 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/jsonFormat/FolderInforFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MyConnector_TV.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1636">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding>
-            <element signature="method#getActionStateMsg#0;class#MyConnector_TV#0" expanded="true" />
-          </folding>
-        </state>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/iqiyi_logo.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/auto_login_service.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
-          <caret line="6" column="96" lean-forward="false" selection-start-line="6" selection-start-column="96" selection-end-line="6" selection-end-column="96" />
+          <caret line="6" column="105" lean-forward="false" selection-start-line="6" selection-start-column="82" selection-end-line="6" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-24/android.jar!/android/os/Looper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1364">
-          <caret line="141" column="12" lean-forward="false" selection-start-line="141" selection-start-column="12" selection-end-line="148" selection-end-column="20" />
+        <state relative-caret-position="858">
+          <caret line="55" column="35" lean-forward="false" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#FloatView2#0" expanded="false" />
+            <element signature="method#onClick#0;class#2026:2214" expanded="false" />
+            <element signature="method#checkToClose#0;class#FloatView2#0" expanded="false" />
+            <element signature="method#run#0;class#6157:6453" expanded="false" />
+            <element signature="method#isShouldClose#0;class#FloatView2#0" expanded="false" />
+            <element signature="method#close#0;class#FloatView2#0" expanded="false" />
+            <element signature="e#7383#7384#0" expanded="false" />
+            <element signature="e#7411#7412#0" expanded="false" />
+            <element signature="method#setPosition#0;class#FloatView2#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/openintv.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/float_static2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="40" lean-forward="false" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
+        </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab02_videolib_item.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/Login.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1848">
-          <caret line="84" column="20" lean-forward="false" selection-start-line="84" selection-start-column="20" selection-end-line="84" selection-end-column="47" />
+        <state relative-caret-position="1694">
+          <caret line="298" column="63" lean-forward="false" selection-start-line="298" selection-start-column="63" selection-end-line="298" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#Login#0" expanded="false" />
+            <element signature="method#run#0;class#4476:5096" expanded="false" />
+            <element signature="method#handleMessage#0;class#6868:10978" expanded="false" />
+            <element signature="method#getPhoneInfo#0;class#Login#0" expanded="false" />
+            <element signature="method#getAdressMacByInterface#0;class#Login#0" expanded="false" />
+            <element signature="method#getAddressMacByFile#0;class#Login#0" expanded="false" />
+            <element signature="method#crunchifyGetStringFromStream#0;class#Login#0" expanded="false" />
+            <element signature="method#onActivityResult#0;class#Login#0" expanded="false" />
+            <element signature="method#run#0;class#18095:30462" expanded="false" />
+            <element signature="method#verifyStoragePermissions#0;class#Login#0" expanded="false" />
+            <element signature="method#onRequestPermissionsResult#0;class#Login#0" expanded="false" />
+            <element signature="method#onClick#0;class#31773:32215" expanded="false" />
+            <element signature="method#onClick#0;class#32274:32588" expanded="false" />
+            <marker date="1513753712910" expanded="true" signature="18170:30300" ph="{...}" />
+          </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/register/RegisterUserInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="54" column="44" lean-forward="false" selection-start-line="54" selection-start-column="44" selection-end-line="54" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/register_userinfo.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/register_personalinfo.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/ui/ActionDialog_help.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="47" column="78" lean-forward="false" selection-start-line="47" selection-start-column="78" selection-end-line="47" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab04_helpinfo_dialog.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1078">
+          <caret line="49" column="47" lean-forward="false" selection-start-line="49" selection-start-column="47" selection-end-line="49" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/register/RegisterPersonalInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1716">
+          <caret line="388" column="69" lean-forward="false" selection-start-line="388" selection-start-column="53" selection-end-line="388" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MyService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="40" column="57" lean-forward="false" selection-start-line="40" selection-start-column="57" selection-end-line="40" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/AlertActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_vedio_play_control.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="-66">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/exitApplicationDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-264">
+          <caret line="21" column="24" lean-forward="false" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/vedioPlayControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="364" column="24" lean-forward="false" selection-start-line="364" selection-start-column="24" selection-end-line="364" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/websitemanager_activity.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="405" column="40" lean-forward="false" selection-start-line="405" selection-start-column="40" selection-end-line="405" selection-end-column="40" />
+          <folding>
+            <element signature="e#1341#21031#0" expanded="false" />
+            <element signature="e#4197#20999#0" expanded="false" />
+            <element signature="e#21829#29465#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab02.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2288">
+          <caret line="104" column="50" lean-forward="false" selection-start-line="104" selection-start-column="50" selection-end-line="104" selection-end-column="50" />
+        </state>
+      </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/view/RemoteControlView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8558">
-          <caret line="389" column="20" lean-forward="false" selection-start-line="389" selection-start-column="20" selection-end-line="389" selection-end-column="20" />
+        <state relative-caret-position="330">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-24/android.jar!/android/os/AsyncTask.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-24/android.jar!/android/database/Cursor.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="43" column="8" lean-forward="false" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/page02Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="770">
-          <caret line="87" column="47" lean-forward="false" selection-start-line="87" selection-start-column="47" selection-end-line="87" selection-end-column="47" />
+        <state relative-caret-position="374">
+          <caret line="87" column="48" lean-forward="false" selection-start-line="87" selection-start-column="48" selection-end-line="87" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab04_diskcontent_activity.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="-297">
-          <caret line="91" column="35" lean-forward="false" selection-start-line="91" selection-start-column="35" selection-end-line="91" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab04_file_item.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="38" column="39" lean-forward="false" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab04_disklist_item.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="36" column="24" lean-forward="false" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/PCFileSysActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-815">
-          <caret line="128" column="46" lean-forward="false" selection-start-line="128" selection-start-column="46" selection-end-line="128" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/inforUtils/FillingIPInforList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="316" column="0" lean-forward="false" selection-start-line="316" selection-start-column="0" selection-end-line="316" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/PCFileHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="235" column="51" lean-forward="false" selection-start-line="235" selection-start-column="51" selection-end-line="235" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/jsonFormat/DiskInformat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="33" column="24" lean-forward="false" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/accessible_service/AutoLoginService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="163" column="78" lean-forward="false" selection-start-line="163" selection-start-column="78" selection-end-line="163" selection-end-column="78" />
-          <folding>
-            <marker date="1513567003060" expanded="true" signature="2081:17129" ph="{...}" />
-            <marker date="1513567003060" expanded="false" signature="2431:3573" ph="{...}" />
-            <marker date="1513567003060" expanded="false" signature="3742:4839" ph="{...}" />
-            <marker date="1513567003060" expanded="false" signature="4985:5941" ph="{...}" />
-            <marker date="1513567003060" expanded="false" signature="6088:7146" ph="{...}" />
-            <marker date="1513567003060" expanded="false" signature="7296:7968" ph="{...}" />
-            <marker date="1513567003060" expanded="false" signature="8022:8949" ph="{...}" />
-            <marker date="1513567003060" expanded="false" signature="9100:10156" ph="{...}" />
-            <marker date="1513567003060" expanded="true" signature="10447:17052" ph="{...}" />
-            <marker date="1513567003060" expanded="true" signature="10563:12619" ph="{...}" />
-            <marker date="1513567003060" expanded="false" signature="12768:14349" ph="{...}" />
-            <marker date="1513567003060" expanded="false" signature="14500:15582" ph="{...}" />
-            <marker date="1513567003060" expanded="false" signature="15737:17000" ph="{...}" />
-            <marker date="1513567003060" expanded="false" signature="18461:18542" ph="handleMessage(msg) → {" />
-            <marker date="1513567003060" expanded="false" signature="18905:18916" ph="}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="503" column="60" lean-forward="false" selection-start-line="503" selection-start-column="60" selection-end-line="503" selection-end-column="60" />
-          <folding>
-            <element signature="method#setLayout#0;class#FloatView#0" expanded="true" />
-            <element signature="method#updateViewPosition1#0;class#FloatView#0" expanded="true" />
-            <element signature="method#login_tencent#0;class#FloatView#0" expanded="true" />
-            <element signature="method#check_youku#0;class#FloatView#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/model/fileBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/FileTypeConst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="18" column="28" lean-forward="false" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/CommandUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="376" column="51" lean-forward="false" selection-start-line="376" selection-start-column="51" selection-end-line="376" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/PCNASFileSysActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="254" column="31" lean-forward="false" selection-start-line="254" selection-start-column="31" selection-end-line="254" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/TVFileHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="72" column="20" lean-forward="false" selection-start-line="72" selection-start-column="20" selection-end-line="72" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab02_imagelib_activity.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="238" column="8" lean-forward="false" selection-start-line="238" selection-start-column="8" selection-end-line="308" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab04_disktvcontent_activity.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2068">
-          <caret line="94" column="24" lean-forward="false" selection-start-line="94" selection-start-column="24" selection-end-line="94" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/base/DiskContentAdapter.java">
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-24/android.jar!/android/provider/BaseColumns.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
-          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <caret line="9" column="11" lean-forward="false" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/imageLibActivity.java">
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-24/android.jar!/android/provider/MediaStore.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2332">
-          <caret line="221" column="24" lean-forward="false" selection-start-line="221" selection-start-column="24" selection-end-line="221" selection-end-column="55" />
+        <state relative-caret-position="157">
+          <caret line="487" column="15" lean-forward="false" selection-start-line="487" selection-start-column="15" selection-end-line="487" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/prepareDataForFragment.java">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="133" column="37" lean-forward="false" selection-start-line="133" selection-start-column="37" selection-end-line="133" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/DownloadFileManagerHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="103" column="23" lean-forward="false" selection-start-line="103" selection-start-column="23" selection-end-line="103" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/login.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="-439">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/page05Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_auto_login_helper.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="57" column="222" lean-forward="false" selection-start-line="57" selection-start-column="222" selection-end-line="57" selection-end-column="222" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/phoneVIPAppActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="924">
-          <caret line="146" column="28" lean-forward="false" selection-start-line="146" selection-start-column="28" selection-end-line="146" selection-end-column="28" />
-          <folding>
-            <element signature="method#onCreate#0;class#phoneVIPAppActivity#0" expanded="false" />
-            <element signature="method#onResume#0;class#phoneVIPAppActivity#0" expanded="false" />
-            <element signature="method#onDestroy#0;class#phoneVIPAppActivity#0" expanded="false" />
-            <element signature="method#onClick#0;class#phoneVIPAppActivity#0" expanded="false" />
-            <element signature="method#logout_iqiyi#0;class#phoneVIPAppActivity#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/accessible_service/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="63" column="25" lean-forward="false" selection-start-line="63" selection-start-column="25" selection-end-line="63" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;class#Util#0" expanded="false" />
-            <element signature="method#sendRequestLogin#0;class#Util#0" expanded="false" />
-            <element signature="method#sendRequestLogout#0;class#Util#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/websitemanager_activity.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6842">
-          <caret line="455" column="50" lean-forward="false" selection-start-line="455" selection-start-column="50" selection-end-line="455" selection-end-column="50" />
-          <folding>
-            <element signature="e#10014#12673#0" expanded="false" />
-            <element signature="e#17359#20294#0" expanded="false" />
-            <element signature="e#20361#23349#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2TVThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;class#Send2TVThread#0" expanded="false" />
-            <element signature="e#657#658#0" expanded="false" />
-            <element signature="e#694#695#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment06/page06Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2376">
-          <caret line="401" column="0" lean-forward="false" selection-start-line="401" selection-start-column="0" selection-end-line="401" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;class#page06Fragment#0" expanded="false" />
-            <element signature="method#onCreate#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#getData#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#onCreateView#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#onActivityCreated#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#initEvents#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#onItemClick#0;class#7787:8404" expanded="false" />
-            <element signature="method#onItemClick#0;class#8490:8730" expanded="false" />
-            <element signature="method#onItemClick#0;class#8787:9029" expanded="false" />
-            <element signature="method#onItemClick#0;class#9090:9325" expanded="false" />
-            <element signature="method#onClick#0;class#9406:9962" expanded="false" />
-            <element signature="method#onClick#0;class#10016:10567" expanded="false" />
-            <element signature="method#onClick#0;class#10619:11160" expanded="false" />
-            <element signature="method#onClick#0;class#11213:11771" expanded="false" />
-            <element signature="method#onClick#0;class#11861:12460" expanded="false" />
-            <element signature="method#onClick#0;class#12515:13114" expanded="false" />
-            <element signature="method#onClick#0;class#13190:13921" expanded="false" />
-            <element signature="method#onClick#0;class#13997:14728" expanded="false" />
-            <element signature="method#onClick#0;class#14806:15075" expanded="false" />
-            <element signature="method#initData#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#addFriend#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#netUserLogIn#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#shareUserLogIn#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#friendUserLogIn#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#getUserMsgFail#0;class#page06Fragment#0" expanded="false" />
-            <element signature="e#22639#22640#0" expanded="false" />
-            <element signature="e#22667#22668#0" expanded="false" />
-            <element signature="method#friendUserAdd#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#userLogOut#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#showListDialog#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#onClick#0;class#26764:26972" expanded="false" />
-            <element signature="method#showFileList#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#showFileInfo#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#showFriendFiles#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#shareFileSuccess#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#shareFileFail#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#addChatNum#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#delChatNum#0;class#page06Fragment#0" expanded="false" />
-            <element signature="method#addFileRequest#0;class#page06Fragment#0" expanded="false" />
-            <element signature="e#31376#31377#0" expanded="false" />
-            <element signature="e#31406#31407#0" expanded="false" />
-            <element signature="method#run#0;class#31444:32122" expanded="false" />
-            <element signature="method#run#0;class#32158:32834" expanded="false" />
-            <element signature="class#MyFriendAdapater#0;class#page06Fragment#0" expanded="false" />
-            <element signature="e#32977#32978#0" expanded="false" />
-            <element signature="e#33041#33042#0" expanded="false" />
-            <element signature="e#33091#33092#0" expanded="false" />
-            <element signature="e#33143#33144#0" expanded="false" />
-            <element signature="e#33201#33202#0" expanded="false" />
-            <element signature="e#33253#33254#0" expanded="false" />
-            <element signature="e#33311#33312#0" expanded="false" />
-            <element signature="e#33343#33344#0" expanded="false" />
-            <element signature="method#getView#0;class#MyFriendAdapater#0;class#page06Fragment#0" expanded="false" />
-            <element signature="class#ViewHolderFriend#0;class#page06Fragment#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/page01Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2354">
-          <caret line="413" column="53" lean-forward="false" selection-start-line="413" selection-start-column="53" selection-end-line="413" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;class#page01Fragment#0" expanded="false" />
-            <element signature="method#onClick#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#onStart#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#onAttach#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#onActivityCreated#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#initData#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#bindView#0;class#6612:7028" expanded="false" />
-            <element signature="method#bindView#0;class#7063:7479" expanded="false" />
-            <element signature="method#onStop#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#onDestroyView#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#onDestroy#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#initialedTVApps#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#initialedPCApps#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#updateTVApps#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#updatePCApps#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#updateDeviceNetState#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#upDateTVName#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#upDatePCName#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#initView#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#setDevice#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#setUserName#0;class#page01Fragment#0" expanded="false" />
-            <element signature="method#onItemClick#0;class#18924:19470" expanded="false" />
-            <element signature="method#onItemClick#0;class#19523:20748" expanded="false" />
-            <element signature="method#handleMessage#0;class#20835:20975" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="303" column="21" lean-forward="false" selection-start-line="303" selection-start-column="16" selection-end-line="303" selection-end-column="21" />
-          <folding>
-            <element signature="method#onCreate#0;class#MainActivity#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/web1080/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="162" column="70" lean-forward="false" selection-start-line="162" selection-start-column="70" selection-end-line="162" selection-end-column="70" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/AutoLoginHelperActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/newAES.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="60" column="48" lean-forward="false" selection-start-line="60" selection-start-column="48" selection-end-line="60" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/downloadActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-183">
-          <caret line="43" column="40" lean-forward="false" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/prepareDataForFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/PCTVFileSysActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="76" column="80" lean-forward="false" selection-start-line="76" selection-start-column="80" selection-end-line="76" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/diskContentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="854" column="55" lean-forward="false" selection-start-line="854" selection-start-column="55" selection-end-line="854" selection-end-column="55" />
+        <state relative-caret-position="15">
+          <caret line="84" column="28" lean-forward="false" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="28" />
           <folding>
-            <element signature="method#initEvent#0;class#diskContentActivity#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/diskTVContentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="722" column="22" lean-forward="false" selection-start-line="722" selection-start-column="22" selection-end-line="722" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#handleMessage#0;class#MyHandler#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#onNetChange#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#onCreate#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#onStart#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#onResume#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#onPause#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#onStop#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#onDestroy#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#initEvent#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="docComment;method#initView#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#initView#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="docComment;method#addFolderDialog#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#addFolderDialog#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="docComment;method#deleteFileAndFolderDialog#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#deleteFileAndFolderDialog#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="docComment;method#shareFileDialog#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#shareFileDialog#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="docComment;method#reNameDialog#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#reNameDialog#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="docComment;method#addToMediaList#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#addToMediaList#0;class#diskTVContentActivity#0" expanded="true" />
-            <element signature="method#countOfChar#0;class#diskTVContentActivity#0" expanded="true" />
-            <marker date="1513596934875" expanded="true" signature="8661:9581" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/Login.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="197" column="53" lean-forward="false" selection-start-line="197" selection-start-column="53" selection-end-line="197" selection-end-column="53" />
-          <folding>
-            <element signature="method#getPhoneInfo#0;class#Login#0" expanded="true" />
-            <marker date="1513753712910" expanded="true" signature="18170:30300" ph="{...}" />
+            <element signature="method#decrypt#0;class#newAES#0" expanded="true" />
+            <element signature="method#asBin#0;class#newAES#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/MyApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="94" column="41" lean-forward="false" selection-start-line="94" selection-start-column="41" selection-end-line="94" selection-end-column="41" />
+        <state relative-caret-position="2376">
+          <caret line="366" column="36" lean-forward="false" selection-start-line="366" selection-start-column="36" selection-end-line="366" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/AESc.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="924">
+          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2PCThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1276">
+          <caret line="142" column="0" lean-forward="false" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/GetTvListThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1144">
+          <caret line="89" column="35" lean-forward="false" selection-start-line="89" selection-start-column="35" selection-end-line="89" selection-end-column="35" />
           <folding>
-            <element signature="method#verifyLastPCMac#0;class#MyApplication#0" expanded="true" />
-            <element signature="method#verifyLastTVMac#0;class#MyApplication#0" expanded="true" />
-            <element signature="method#startStateRefreshTimer#0;class#MyApplication#0" expanded="true" />
-            <element signature="method#getVersion#0;class#MyApplication#0" expanded="true" />
-            <element signature="method#initTVPCIP#0;class#MyApplication#0" expanded="true" />
-            <element signature="method#onCreate#0;class#MyApplication#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#GetTvListThread#0" expanded="false" />
+            <element signature="method#GetTvListThread#0;class#GetTvListThread#0" expanded="false" />
+            <element signature="docComment;method#createCmdStr#0;class#GetTvListThread#0" expanded="false" />
+            <element signature="method#createCmdStr#0;class#GetTvListThread#0" expanded="false" />
+            <element signature="docComment;method#parseMesgReceived#0;class#GetTvListThread#0" expanded="false" />
+            <element signature="method#parseMesgReceived#0;class#GetTvListThread#0" expanded="false" />
+            <element signature="docComment;method#reportResult#0;class#GetTvListThread#0" expanded="false" />
+            <element signature="method#reportResult#0;class#GetTvListThread#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2TVThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2SpecificTVThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_auto_login_helper.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="6710">
+          <caret line="305" column="54" lean-forward="false" selection-start-line="305" selection-start-column="54" selection-end-line="305" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/contentResolver/ContentDataLoadTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="199" column="0" lean-forward="false" selection-start-line="199" selection-start-column="0" selection-end-line="199" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Toasty-1.1.3.aar/e8f9cd3e90395ab1c9dc1378540205d4/jars/classes.jar!/es/dmoral/toasty/Toasty.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/Base.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="259" column="29" lean-forward="false" selection-start-line="259" selection-start-column="29" selection-end-line="259" selection-end-column="29" />
+          <folding>
+            <element signature="method#receiveChat#0;class#Base#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="161" column="38" lean-forward="false" selection-start-line="161" selection-start-column="38" selection-end-line="161" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/floatview/FloatView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="693" column="34" lean-forward="false" selection-start-line="693" selection-start-column="34" selection-end-line="693" selection-end-column="34" />
+          <folding>
+            <element signature="method#setLayout#0;class#FloatView#0" expanded="true" />
+            <element signature="method#show#0;class#FloatView#0" expanded="true" />
+            <element signature="method#checkToClose#0;class#FloatView#0" expanded="true" />
+            <element signature="method#isShouldClose#0;class#FloatView#0" expanded="true" />
+            <element signature="method#showAWhile#0;class#FloatView#0" expanded="true" />
+            <element signature="method#close#0;class#FloatView#0" expanded="true" />
+            <element signature="method#login_iqiyi#0;class#FloatView#0" expanded="true" />
+            <element signature="method#check_iqiyi#0;class#FloatView#0" expanded="true" />
+            <element signature="method#check_leshi#0;class#FloatView#0" expanded="true" />
+            <element signature="method#check_youku#0;class#FloatView#0" expanded="true" />
+            <element signature="method#check_tencent1#0;class#FloatView#0" expanded="true" />
+            <element signature="method#login#0;class#FloatView#0" expanded="true" />
+            <element signature="method#getFirstImageViewNodeInfo#0;class#FloatView#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/accessible_service/AutoLoginService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="261" column="62" lean-forward="false" selection-start-line="261" selection-start-column="62" selection-end-line="261" selection-end-column="62" />
+          <folding>
+            <marker date="1514254992863" expanded="true" signature="2562:17256" ph="{...}" />
+            <marker date="1514254992863" expanded="false" signature="2601:3851" ph="{...}" />
+            <marker date="1514254992863" expanded="true" signature="2678:3820" ph="{...}" />
+            <marker date="1514254992863" expanded="false" signature="3967:5064" ph="{...}" />
+            <marker date="1514254992863" expanded="false" signature="5210:6891" ph="{...}" />
+            <marker date="1514254992863" expanded="true" signature="7038:8485" ph="{...}" />
+            <marker date="1514254992863" expanded="true" signature="8631:9587" ph="{...}" />
+            <marker date="1514254992863" expanded="true" signature="9734:11147" ph="{...}" />
+            <marker date="1514254992863" expanded="false" signature="11297:11969" ph="{...}" />
+            <marker date="1514254992863" expanded="true" signature="12048:12975" ph="{...}" />
+            <marker date="1514254992863" expanded="true" signature="13126:14897" ph="{...}" />
+            <marker date="1514254992863" expanded="true" signature="14976:17147" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment05/accessible_service/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="76" column="28" lean-forward="false" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+          <folding>
+            <element signature="method#setRecord#0;class#Util#0" expanded="true" />
+            <element signature="method#setRecord#1;class#Util#0" expanded="true" />
+            <element signature="method#getRecordWebsit#0;class#Util#0" expanded="true" />
+            <element signature="method#getRecordId#0;class#Util#0" expanded="true" />
+            <element signature="method#clearRecordId#0;class#Util#0" expanded="true" />
+            <element signature="method#clearRecord#0;class#Util#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/ADFilterTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/AutoLoginHelperActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="60" column="51" lean-forward="false" selection-start-line="60" selection-start-column="51" selection-end-line="60" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/web1080/PtTorrentManagement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="31" column="38" lean-forward="false" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/web1080/RemoteDownloadActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="460" column="72" lean-forward="false" selection-start-line="460" selection-start-column="72" selection-end-line="460" selection-end-column="72" />
+          <folding>
+            <element signature="method#setListener#0;class#RemoteDownloadActivity#0" expanded="true" />
+            <element signature="method#download#0;class#30488:32890" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mth/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utorrent/UTFileActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="38" column="13" lean-forward="false" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utorrent/UTorrentActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="50" column="13" lean-forward="false" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/MyConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="298" column="20" lean-forward="false" selection-start-line="298" selection-start-column="20" selection-end-line="298" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/websitemanager/start/StartActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="777" column="0" lean-forward="false" selection-start-line="777" selection-start-column="0" selection-end-line="777" selection-end-column="0" />
+        <state relative-caret-position="147">
+          <caret line="81" column="55" lean-forward="false" selection-start-line="81" selection-start-column="31" selection-end-line="81" selection-end-column="55" />
           <folding>
             <element signature="method#onCreate#0;class#StartActivity#0" expanded="true" />
             <element signature="method#onResume#0;class#StartActivity#0" expanded="true" />
             <element signature="method#onClick#0;class#StartActivity#0" expanded="true" />
             <element signature="method#phoneVIPAppActivity#0;class#StartActivity#0" expanded="true" />
-            <element signature="method#checkInfo#0;class#StartActivity#0" expanded="true" />
-            <element signature="method#onFailure#0;class#15654:17463" expanded="true" />
-            <element signature="method#onResponse#0;class#15654:17463" expanded="true" />
-            <element signature="e#17276#17436#0" expanded="true" />
-            <element signature="e#17435#17436#0" expanded="true" />
+            <element signature="method#onResponse#0;class#11255:13359" expanded="true" />
             <element signature="method#getVipUserCount#0;class#StartActivity#0" expanded="true" />
-            <element signature="method#onFailure#0;class#17868:19870" expanded="true" />
-            <element signature="method#onResponse#0;class#17868:19870" expanded="true" />
-            <element signature="e#19511#19711#0" expanded="true" />
-            <element signature="e#19710#19711#0" expanded="true" />
+            <element signature="method#onFailure#0;class#14069:16094" expanded="true" />
+            <element signature="method#onResponse#0;class#14069:16094" expanded="true" />
             <element signature="method#logoutVip#0;class#StartActivity#0" expanded="true" />
-            <element signature="method#onResponse#0;class#20301:20546" expanded="true" />
-            <element signature="method#registerVip#0;class#StartActivity#0" expanded="true" />
-            <element signature="method#onResponse#0;class#21066:21541" expanded="true" />
-            <element signature="method#initViews#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#onFailure#0;class#16626:16871" expanded="true" />
+            <element signature="method#onResponse#0;class#16626:16871" expanded="true" />
+            <element signature="method#getVersionCode#0;class#StartActivity#0" expanded="true" />
             <element signature="method#updateServiceStatus#0;class#StartActivity#0" expanded="true" />
-            <element signature="method#setTag#0;class#StartActivity#0" expanded="true" />
-            <marker date="1513739703456" expanded="false" signature="21585:22363" ph="{...}" />
-            <marker date="1513739703456" expanded="false" signature="22396:23483" ph="{...}" />
-            <marker date="1513739703456" expanded="false" signature="23516:24590" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="40" column="33" lean-forward="false" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/TVDevicesActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="51" column="13" lean-forward="false" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment02/videoLibActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="77" column="57" lean-forward="false" selection-start-line="77" selection-start-column="57" selection-end-line="77" selection-end-column="57" />
-          <folding>
-            <element signature="method#initEvent#0;class#videoLibActivity#0" expanded="true" />
-            <element signature="method#bindView#0;class#15363:16432" expanded="true" />
+            <element signature="method#getMonthLaterDate#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#toast#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#onClickListener#0;class#StartActivity#0" expanded="true" />
+            <marker date="1514255528172" expanded="true" signature="27551:33384" ph="{...}" />
           </folding>
         </state>
       </provider>

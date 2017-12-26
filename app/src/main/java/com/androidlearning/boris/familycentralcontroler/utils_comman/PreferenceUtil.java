@@ -31,6 +31,14 @@ public class PreferenceUtil {
         editor.apply();
         Log.e("write preference", "key=" + key + ",value=" + value);
     }
+    public void writeBoole(String key, boolean value) {
+        SharedPreferences.Editor editor = sp.edit();
+
+            editor.putBoolean(key, value);
+
+        editor.apply();
+        Log.e("write preference", "key=" + key + ",value=" + value);
+    }
 
     public void writeAll(Map<String, String> map) {
         SharedPreferences.Editor editor = sp.edit();
@@ -43,6 +51,9 @@ public class PreferenceUtil {
 
     public String read(String key) {
         return sp.getString(key,"");
+    }
+    public boolean readBoole(String key) {
+        return sp.getBoolean(key,false);
     }
 
     public Map<String,?> getAll(){

@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.androidlearning.boris.familycentralcontroler.AESc;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
 import com.androidlearning.boris.familycentralcontroler.fragment02.Model.MediaItem;
 import com.androidlearning.boris.familycentralcontroler.fragment02.searchContent.SearchContainer;
@@ -23,8 +24,12 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -33,6 +38,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication.context;
+import static com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication.selectedPCIP;
+import static com.androidlearning.boris.familycentralcontroler.utils_comman.Send2SpecificTVThread.stringToMD5;
 
 
 /**
@@ -47,7 +56,9 @@ public class Send2PCThread extends Thread {
     private Map<String, String> param = new HashMap<>();
     private String path;  // 当类型是媒体库时, 该字段才有效
     private boolean isRoot; // 当类型是媒体库时, 该字段才有效
-
+    public static String password = null;
+    public static String pass = null;
+    public static String pass1 = null;
     private Handler myhandler;
 
     /**
@@ -113,15 +124,29 @@ public class Send2PCThread extends Thread {
             Socket client = new Socket();
             ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
             try {
+                password = new PreferenceUtil(context).read("PCMACS");
+                HashMap<String, String>  PCMacs = MyApplication.parse(password);
+                pass=PCMacs.get(selectedPCIP.mac);
+                pass1=stringToMD5(pass);
+                String cmdStr1 = AESc.EncryptAsDoNet(cmdStr,pass1.substring(0,8));
                 client.connect(new InetSocketAddress(pcIpInfor.ip, pcIpInfor.port), SOCKET_TIMEOUT);
-                IOUtils.write(cmdStr, client.getOutputStream(), "UTF-8");
-                IOUtils.copy(client.getInputStream(), outBytes, 8192);
-                dataReceived = new String(outBytes.toByteArray(), "UTF-8");
-                Log.i("Send2PCThread", "指令: " + cmdStr);
-                Log.i("Send2PCThread", "回复: " + dataReceived);
-                if(dataReceived.length() > 0) {
+//                IOUtils.write(cmdStr, client.getOutputStream(), "UTF-8");
+//                IOUtils.copy(client.getInputStream(), outBytes, 8192);
+//                dataReceived = new String(outBytes.toByteArray(), "UTF-8");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+                writer.write(cmdStr1);
+                writer.newLine();
+                writer.flush();
+                dataReceived = reader.readLine();
+
+                String decryptdata =AESc.DecryptDoNet(dataReceived,pass1.substring(0,8));
+
+                Log.i("Send2PCThread", "指令: " + cmdStr1);
+                Log.i("Send2PCThread", "回复: " + decryptdata);
+                if(decryptdata.length() > 0) {
                     try {
-                        ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(dataReceived, ReceivedActionMessageFormat.class);
+                        ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(decryptdata, ReceivedActionMessageFormat.class);
                         if(receivedMsg.getStatus() == OrderConst.success) {
                             if(receivedMsg.getData() != null)
                                 parseMesgReceived(receivedMsg.getData());
@@ -137,6 +162,8 @@ public class Send2PCThread extends Thread {
             }catch (IOException e) {
                 e.printStackTrace();
                 reportResult(false);
+            } catch (Exception e) {
+                e.printStackTrace();
             } finally {
                 if (!client.isClosed()) {
                     IOUtils.closeQuietly(client);

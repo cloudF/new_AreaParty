@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.androidlearning.boris.familycentralcontroler.AESc;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
 import com.androidlearning.boris.familycentralcontroler.fragment02.Model.MediaItem;
 import com.androidlearning.boris.familycentralcontroler.fragment02.utils.MediafileHelper;
@@ -33,6 +34,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.androidlearning.boris.familycentralcontroler.utils_comman.Send2SpecificTVThread.stringToMD5;
 
 
 /**
@@ -64,7 +67,8 @@ public class Send2SpecificPCThread extends Thread {
         this.myhandler = myhandler;
         this.IP = IP;
         this.port = port;
-        this.code = code;
+        String pass=stringToMD5(code);
+        this.code = pass;
     }
 
     @Override
@@ -75,16 +79,25 @@ public class Send2SpecificPCThread extends Thread {
             Socket client = new Socket();
             ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
             try {
+                String cmdStr1 = AESc.EncryptAsDoNet(cmdStr,code.substring(0,8));
+                System.out.println("md5后的配对码" +cmdStr1);
                 client.connect(new InetSocketAddress(IP, port), SOCKET_TIMEOUT);
-                IOUtils.write(cmdStr, client.getOutputStream(), "UTF-8");
-                IOUtils.copy(client.getInputStream(), outBytes, 8192);
-                dataReceived = new String(outBytes.toByteArray(), "UTF-8");
+
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+                writer.write(cmdStr1);
+                writer.newLine();
+                writer.flush();
+
+                dataReceived = reader.readLine();
+                String  decryptdata = AESc.DecryptDoNet(dataReceived,code.substring(0,8));
 
                 Log.i("Send2PCThread", "指令: " + cmdStr);
-                Log.i("Send2PCThread", "回复: " + dataReceived);
-                if(dataReceived.length() > 0) {
+                Log.i("Send2PCThread", "回复: " + decryptdata);
+                if(decryptdata.length() > 0) {
                     try {
-                        ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(dataReceived, ReceivedActionMessageFormat.class);
+                        ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(decryptdata, ReceivedActionMessageFormat.class);
                         if(receivedMsg.getStatus() == OrderConst.success) {
                             if(receivedMsg.getData() != null)
                                 parseMesgReceived(receivedMsg.getData());
@@ -100,6 +113,8 @@ public class Send2SpecificPCThread extends Thread {
             }catch (IOException e) {
                 e.printStackTrace();
                 reportResult(false, null);
+            } catch (Exception e) {
+                e.printStackTrace();
             } finally {
                 if (!client.isClosed()) {
                     IOUtils.closeQuietly(client);

@@ -15,6 +15,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.androidlearning.boris.familycentralcontroler.AESc;
 import com.androidlearning.boris.familycentralcontroler.IPAddressConst;
 import com.androidlearning.boris.familycentralcontroler.MyConnector;
 import com.androidlearning.boris.familycentralcontroler.OrderConst;
@@ -32,6 +33,7 @@ import com.androidlearning.boris.familycentralcontroler.myapplication.floatview.
 import com.androidlearning.boris.familycentralcontroler.myapplication.inforUtils.FillingIPInforList;
 import com.androidlearning.boris.familycentralcontroler.myapplication.inforUtils.Update_ReceiveMsgBean;
 import com.androidlearning.boris.familycentralcontroler.myapplication.inforUtils.Update_SendMsgBean;
+import com.androidlearning.boris.familycentralcontroler.newAES;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.CommandUtil;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.PreferenceUtil;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.IPInforBean;
@@ -81,6 +83,7 @@ import java.util.logging.Level;
 import okhttp3.OkHttpClient;
 
 import static android.R.attr.tag;
+import static com.androidlearning.boris.familycentralcontroler.utils_comman.Send2SpecificTVThread.stringToMD5;
 
 
 /**
@@ -95,13 +98,14 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
     public static FloatView2 mFloatView2;
 
     private static int mNetWorkState;      // 当前网络类型
-    private static Context context;
+    public static Context context;
     private static MyApplication instance;
     private static HttpServer dlnaServer;
     private List<Activity> activities = new LinkedList<>();
     private static String launch_time_id;
     private static List<SharedfileBean> mySharedFiles = null;  // 用于存储解封的数据
-    private static IPInforBean selectedTVIP, selectedPCIP;     // 用于存储通信使用TV和PC
+    public static IPInforBean selectedTVIP;
+    public static IPInforBean selectedPCIP;     // 用于存储通信使用TV和PC
     public static HashMap<String, String> TVMacs, PCMacs;         // 用于存储之前连接成功过的TV、PC
     private static Timer stateRefreshTimer, versionCheckTimer;                    // 定时监测选中TV和PC状态的定时器
     private static boolean selectedPCOnline = false;
@@ -111,7 +115,9 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
     public static final String CHECK_ACCESSIBILITY_ISOPEN= "Check_Accessibility" ;
     public static  boolean AccessibilityIsOpen=false;
     private static Update_ReceiveMsgBean receiveMsgBean = new Update_ReceiveMsgBean();
-
+    public static String password = null;
+    public static String pass = null;
+    public static String pass1 = null;
     public static boolean isSelectedPCOnline() {
         return selectedPCOnline;
     }
@@ -214,7 +220,9 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         if(selectedPCIP != null && !selectedPCIP.ip.equals("") && PCMacs != null) {
             final String IP = selectedPCIP.ip;
             final int port = selectedPCIP.port;
-            final String code = PCMacs.get(selectedPCIP.mac);
+            final String code1 = PCMacs.get(selectedPCIP.mac);
+            Log.i("sssssssss", "盛大的发生大多萨 " + code1);
+            final String code=stringToMD5(code1);
             if(code != "") {
                 new Thread(){
                     @Override
@@ -224,12 +232,24 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                         Socket client = new Socket();
                         ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
                         try {
+                            String cmdStr1 = AESc.EncryptAsDoNet(cmdStr,code.substring(0,8));
                             client.connect(new InetSocketAddress(IP, port), 1000);
-                            IOUtils.write(cmdStr, client.getOutputStream(), "UTF-8");
+                            IOUtils.write(cmdStr1, client.getOutputStream(), "UTF-8");
+
+//                            BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+//                            dataRe = reader.readLine();
                             IOUtils.copy(client.getInputStream(), outBytes, 8192);
                             dataRe = new String(outBytes.toByteArray(), "UTF-8");
-                            if(dataRe.length() > 0) {
-                                ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(dataRe, ReceivedActionMessageFormat.class);
+
+                            password = new PreferenceUtil(context).read("PCMACS");
+                            HashMap<String, String>  PCMacs = MyApplication.parse(password);
+                            pass=PCMacs.get(selectedPCIP.mac);
+                            pass1=stringToMD5(pass);
+                            Log.e("22222222", "sdadasdasda" + pass1);
+                            String decryptdata = AESc.DecryptDoNet(dataRe,pass1.substring(0,8));
+                            Log.e("22222222", "bdafvbfcvcg" + decryptdata);
+                            if(decryptdata.length() > 0) {
+                                ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(decryptdata, ReceivedActionMessageFormat.class);
                                 if(receivedMsg.getStatus() == OrderConst.success) {
                                     if(receivedMsg.getData().equals("true"))
                                         selectedPCVerified = true;
@@ -240,6 +260,8 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                             }
                         }catch (IOException e) {
                             selectedPCVerified = false;
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 }.start();
@@ -253,12 +275,14 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         if(selectedTVIP != null && !selectedTVIP.ip.equals("") && TVMacs!=null) {
             final String IP = selectedTVIP.ip;
             final int port = selectedTVIP.port;
-            final String code = TVMacs.get(selectedTVIP.mac);
+            final String code1 = TVMacs.get(selectedTVIP.mac);
+            final String code=stringToMD5(code1);;
             if(code != "") {
                 new Thread(){
                     @Override
                     public void run() {
                         String cmdStr = JsonUitl.objectToString(CommandUtil.createVerifyTVCommand(code)) + "\n";
+                        Log.e("22222222", "wowowoowow " + code);
                         String dataRe = "";
                         Socket client = new Socket();
                         ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
@@ -267,10 +291,12 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                             IOUtils.write(cmdStr, client.getOutputStream(), "UTF-8");
                             IOUtils.copy(client.getInputStream(), outBytes, 8192);
                             dataRe = new String(outBytes.toByteArray(), "UTF-8");
-                            if(dataRe.equals("true")) {
-                                selectedTVVerified = true;
-                            } else {
+
+                            Log.e("22222222", "wowowoowow111 " + dataRe);
+                            if(dataRe.equals("false")) {
                                 selectedTVVerified = false;
+                            } else {
+                                selectedTVVerified = true;
                             }
                         }catch (IOException e) {
                             selectedTVVerified = false;
@@ -320,8 +346,17 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                         //TODO:10.18.2017 告知app当前无障碍服务情况
                         String cmd= JSON.toJSONString(CommandUtil.createCheckTvAccessibilityCommand());
 
-                        PrintStream out=new PrintStream(client.getOutputStream());
-                        out.println(cmd);
+                        password = new PreferenceUtil(context).read("TVMACS");
+                        HashMap<String, String> TVMacs = MyApplication.parse(password);
+                        pass = TVMacs.get(selectedTVIP.mac);
+                        pass1 = stringToMD5(pass);
+                        if (TextUtils.isEmpty(pass1)) return;
+                        Log.e("22222222", "两个rdp" + cmd);
+                        String cmdStr1 = newAES.encrypt(cmd, pass1.getBytes());
+                        Log.e("22222222", "两个rdpsss" + pass1);
+
+                        PrintStream out = new PrintStream(client.getOutputStream());
+                        out.println(cmdStr1);
 
 
                         out.flush();
@@ -329,12 +364,14 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
 
                         BufferedReader buffer = new BufferedReader(new InputStreamReader(client.getInputStream(), "UTF-8"));
                         String data = buffer.readLine();
-                        Log.e(tag+"ervincm","Get data from [" + client.getRemoteSocketAddress().toString() + "] : " + data);
-                        if(!TextUtils.isEmpty(data)){
-                            if(data.equals("true")){
-                                MyApplication.AccessibilityIsOpen=true;
-                            }else {
-                                MyApplication.AccessibilityIsOpen=false;
+                        String decryptdata=newAES.decrypt(data,pass1.getBytes());
+                        Log.e("22222222", "两个rdp111" + decryptdata);
+                        Log.e(tag + "ervincm", "Get data from [" + client.getRemoteSocketAddress().toString() + "] : " + data);
+                        if (!TextUtils.isEmpty(decryptdata)) {
+                            if (decryptdata.equals("true")) {
+                                MyApplication.AccessibilityIsOpen = true;
+                            } else {
+                                MyApplication.AccessibilityIsOpen = false;
                             }
                         }
 
@@ -454,7 +491,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
 
     }
 
-    private static HashMap<String, String> parse(String str) {
+    public static HashMap<String, String> parse(String str) {
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new StringReader(str));
         reader.setLenient(true);

@@ -195,7 +195,7 @@ public class RegisterPersonalInfo extends BaseActivity {
                     Toast.makeText(RegisterPersonalInfo.this, "请选择您当前所在地", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(userStreet.isEmpty()){
+                /*if(userStreet.isEmpty()){
                     //Toast.makeText(RegisterPersonalInfo.this, "请选择您居住地所在街道", Toast.LENGTH_LONG).show();
                     et_userStreet.requestFocus();
                     et_userStreet.setError("请选择您居住地所在街道");
@@ -206,7 +206,7 @@ public class RegisterPersonalInfo extends BaseActivity {
                     et_userCommunity.requestFocus();
                     et_userCommunity.setError("请选择您居住地所在小区");
                     return;
-                }
+                }*/
                 if(mobile.isEmpty()){
                     et_mobileNo.requestFocus();
                     et_mobileNo.setError("请填写手机号");

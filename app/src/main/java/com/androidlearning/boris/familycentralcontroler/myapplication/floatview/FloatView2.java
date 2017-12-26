@@ -2,14 +2,19 @@ package com.androidlearning.boris.familycentralcontroler.myapplication.floatview
 
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.androidlearning.boris.familycentralcontroler.R;
+import com.androidlearning.boris.familycentralcontroler.fragment05.accessible_service.AutoLoginService;
+
+import java.util.List;
 
 /**
  * Created by zhuyulin on 2017/6/23.
@@ -117,7 +122,11 @@ public class FloatView2 extends View {
 //            --TYPE_SYSTEM_DIALOG : 系统对话框。
 //            --TYPE_STATUS_BAR : 状态栏
 //            --TYPE_TOAST : 短暂通知Toast
-            wmParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+            if (Build.MANUFACTURER.equals("Xiaomi") && Build.VERSION.SDK_INT >= 23){
+                wmParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+            }else {
+                wmParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+            }
 
             wmParams.format = PixelFormat.RGBA_8888;//窗口的像素点格式
 //            flags : 窗口的行为准则，常用的标志位如下说明（对于悬浮窗来说，一般只需设置FLAG_NOT_FOCUSABLE）：
@@ -139,15 +148,37 @@ public class FloatView2 extends View {
             wm.addView(mContentView, wmParams);
             bShow = true;
             //5秒后自动关闭悬浮窗
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            checkToClose();
+        }
+    }
+    public void checkToClose(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isShouldClose()){
                     if (isShow()){
                         close();
                     }
+                }else {
+                    checkToClose();
                 }
-            },5000);
+            }
+        },5000);
+    }
+    public boolean isShouldClose(){
+        if (AutoLoginService.state != AutoLoginService.LESHI_LOGIN) return true;
+        AutoLoginService autoLoginService = AutoLoginService.getInstance();
+        if (autoLoginService == null) return true;
+        AccessibilityNodeInfo root = autoLoginService.getRootInActiveWindow();
+        if (root == null) return true;
+        if (!root.getPackageName().toString().equals(AutoLoginService.LESHI)) return true;
+        List<AccessibilityNodeInfo> nodeList_cb_show_passwd = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/plaintext_imageview");
+        if (nodeList_cb_show_passwd.size() > 0) {
+            return false;
+        }else {
+            return true;
         }
+
     }
 
     public void close() {

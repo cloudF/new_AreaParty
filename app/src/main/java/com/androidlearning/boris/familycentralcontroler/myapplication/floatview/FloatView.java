@@ -3,6 +3,7 @@ package com.androidlearning.boris.familycentralcontroler.myapplication.floatview
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -13,10 +14,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Toast;
 
 import com.androidlearning.boris.familycentralcontroler.R;
 import com.androidlearning.boris.familycentralcontroler.fragment01.websitemanager.start.StartActivity;
 import com.androidlearning.boris.familycentralcontroler.fragment05.accessible_service.AutoLoginService;
+import com.androidlearning.boris.familycentralcontroler.fragment05.accessible_service.Util;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.netWork.NetUtil;
 
@@ -124,7 +127,7 @@ public class FloatView extends View {
                         case MotionEvent.ACTION_UP://1
                             mScreenX = event.getRawX();
                             mScreenY = event.getRawY();
-                            Log.w(TAG,"UP:"+mScreenX+"__"+mScreenY);
+                            //Log.w(TAG,"UP:"+mScreenX+"__"+mScreenY);
                             if (Math.abs(mScreenX-mScreenX1) < 80 && (mScreenY1-mScreenY) > 100){
                                 close();
                             }else if (Math.abs(mScreenX-mScreenX1) < 80 && (mScreenY-mScreenY1) > 100){
@@ -163,8 +166,13 @@ public class FloatView extends View {
 //            --TYPE_SYSTEM_OVERLAY : 页面顶层提示。
 //            --TYPE_SYSTEM_DIALOG : 系统对话框。
 //            --TYPE_STATUS_BAR : 状态栏
-//            --TYPE_TOAST : 短暂通知Toast
-            wmParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+//            --TYPE_TOAST : 短暂通知ToastXiaomi23
+            if (Build.MANUFACTURER.equals("Xiaomi") && Build.VERSION.SDK_INT >= 23){
+                wmParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+            }else {
+                wmParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+            }
+
 
             wmParams.format = PixelFormat.RGBA_8888;//窗口的像素点格式
 //            flags : 窗口的行为准则，常用的标志位如下说明（对于悬浮窗来说，一般只需设置FLAG_NOT_FOCUSABLE）：
@@ -185,7 +193,37 @@ public class FloatView extends View {
             // 显示自定义悬浮窗口
             wm.addView(mContentView, wmParams);
             bShow = true;
+            checkToClose();
+
         }
+    }
+    public void checkToClose(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isShouldClose()){
+                    if (isShow()){
+                        close();
+                    }
+                }else {
+                    checkToClose();
+                }
+            }
+        },10000);
+    }
+    public boolean isShouldClose(){
+        AutoLoginService autoLoginService = AutoLoginService.getInstance();
+        if (autoLoginService == null) return true;
+        AccessibilityNodeInfo root = autoLoginService.getRootInActiveWindow();
+        if (root == null) return true;
+        switch (root.getPackageName().toString()){
+            case AutoLoginService.YOUKU:
+            case AutoLoginService.TENCENT:
+            case AutoLoginService.QQ:
+            case AutoLoginService.LESHI:
+                return false;
+        }
+        return true;
     }
     public void showAWhile() {
         if (mContentView != null) {
@@ -299,6 +337,8 @@ public class FloatView extends View {
 //            AutoLoginService.state = AutoLoginService.NO_ACTION;
             name = "";
             password = "";
+
+            if (isShow()) close();
         }else {
             Toasty.warning(getContext(),"请切换到账号密码登录界面").show();
             Log.w(TAG, "null");
@@ -310,7 +350,65 @@ public class FloatView extends View {
         }
 
     }
+    private void login_leshi() {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
+            Toasty.error(getContext(),"服务器故障，未获取到账号").show();
+            return;
+        }
+        if (AutoLoginService.state != AutoLoginService.LESHI_LOGIN) return;
+        AutoLoginService autoLoginService = AutoLoginService.getInstance();
+        if (autoLoginService == null) return;
+        AccessibilityNodeInfo root = autoLoginService.getRootInActiveWindow();
+        if (root == null) return;
 
+        List<AccessibilityNodeInfo> nodeList_et_pwd = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/password_edittext");
+        List<AccessibilityNodeInfo> nodeList_et_phone = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/account_edittext");
+        List<AccessibilityNodeInfo> nodeList_tv_login = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/login_button");
+        List<AccessibilityNodeInfo> nodeList_cb_show_passwd = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/plaintext_imageview");
+        if (nodeList_et_pwd.size() > 0 && nodeList_et_phone.size() > 0 && nodeList_tv_login.size() > 0 &&  nodeList_cb_show_passwd.size() >0){
+            AccessibilityNodeInfo node_cb_show_passwd = nodeList_cb_show_passwd.get(0);
+            AccessibilityNodeInfo node_et_phone = nodeList_et_phone.get(0);
+            AccessibilityNodeInfo node_et_pwd = nodeList_et_pwd.get(0);
+            AccessibilityNodeInfo node_tv_login = nodeList_tv_login.get(0);
+            /*//设置密码显示状态为***
+            boolean is = node_cb_show_passwd.isChecked();
+            if (is){
+                node_cb_show_passwd.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            }
+            Rect outBounds = new Rect();
+            node_cb_show_passwd.getBoundsInScreen(outBounds);
+            if (!mFloatView2.isShow()){
+                mFloatView2.setPosition(outBounds.left, outBounds.top);
+                mFloatView2.show();
+            }*/
+
+            Bundle arguments = new Bundle();
+            arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, name);
+            node_et_phone.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+            arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, password);
+            node_et_pwd.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+
+            node_tv_login.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+
+            AutoLoginService.state = AutoLoginService.NO_ACTION;
+
+            Util.setRecord(MyApplication.getContext(),AutoLoginService.LESHI);
+            StartActivity.logined = AutoLoginService.LESHI;
+            name = "";
+            password = "";
+
+            if (isShow()) close();
+        }else {
+            Toasty.warning(getContext(),"请切换到账号密码登录界面").show();
+            Log.w(TAG, "null");
+        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
     private void login_youku() {
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
             Toasty.error(getContext(),"服务器故障，未获取到账号").show();
@@ -340,8 +438,11 @@ public class FloatView extends View {
             node_login.performAction(AccessibilityNodeInfo.ACTION_CLICK);
 
             AutoLoginService.state = AutoLoginService.NO_ACTION;
+            Util.setRecord(MyApplication.getContext(),AutoLoginService.YOUKU);
+            StartActivity.logined = AutoLoginService.YOUKU;
             name = "";
             password = "";
+            if (isShow()) close();
         }else {
 
             Toasty.warning(getContext(), "请切换到账号密码登录界面").show();
@@ -385,9 +486,11 @@ public class FloatView extends View {
                 login.performAction(AccessibilityNodeInfo.ACTION_CLICK);
 
                 AutoLoginService.state = AutoLoginService.NO_ACTION;
-
+                Util.setRecord(MyApplication.getContext(),AutoLoginService.TENCENT,FloatView.name);
+                StartActivity.logined = AutoLoginService.TENCENT;
                 name = "";
                 password = "";
+                if (isShow()) close();
             }else {
                 Toasty.warning(getContext(), "请切换到账号密码登录界面").show();
             }
@@ -425,9 +528,11 @@ public class FloatView extends View {
 
             login.performAction(AccessibilityNodeInfo.ACTION_CLICK);
             AutoLoginService.state = AutoLoginService.NO_ACTION;
-
+            Util.setRecord(MyApplication.getContext(),AutoLoginService.TENCENT,FloatView.name);
+            StartActivity.logined = AutoLoginService.TENCENT;
             name = "";
             password = "";
+            if (isShow()) close();
         }else {
             Toasty.warning(getContext(), "请切换到账号密码登录界面").show();
         }
@@ -462,6 +567,40 @@ public class FloatView extends View {
             }
         }
     }
+    private void check_leshi(){
+        AutoLoginService autoLoginService = AutoLoginService.getInstance();
+        if (autoLoginService == null) return;
+        AccessibilityNodeInfo root = autoLoginService.getRootInActiveWindow();
+        if (root == null) return;
+        if (!root.getPackageName().toString().equals(AutoLoginService.LESHI)) return;
+        List<AccessibilityNodeInfo> nodeList_navi = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/main_my_radio");
+        if (!nodeList_navi.isEmpty()){
+            AccessibilityNodeInfo node = nodeList_navi.get(0).getParent();
+            List<AccessibilityNodeInfo> nodeInfoList = node.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/main_bottom_navigation_item_text");
+            if (nodeInfoList.size() > 0){
+                AccessibilityNodeInfo nodeText = nodeInfoList.get(0);
+                if (nodeText != null && nodeText.getText()!=null){
+                    if (nodeText.getText().toString().equals("未登录")){
+                        Toasty.success(getContext(),"AreaParty:乐视视频已退出登录").show();
+                        AutoLoginService.state = AutoLoginService.NO_ACTION;
+                        StartActivity.logoutVip("iqiyi");
+                        if (mFloatView.isShow()) mFloatView.close();
+                    }else if (nodeText.getText().toString().equals("我的")){
+                        Toasty.info(getContext(),"你未退出登录，请执行退出登录操作").show();
+                    }
+                }
+            }
+        }/*else if (!nodeList_navi.isEmpty() && !nodeList_head.isEmpty()){
+            if (!nodeList_main_login.isEmpty()){
+                Toasty.success(getContext(),"AreaParty:爱奇艺已退出登录").show();
+                AutoLoginService.state = AutoLoginService.NO_ACTION;
+                StartActivity.logoutVip("iqiyi");
+                if (mFloatView.isShow()) mFloatView.close();
+            }else {
+
+            }
+        }*/
+    }
 
     private void check_youku(){
         AutoLoginService autoLoginService = AutoLoginService.getInstance();
@@ -490,7 +629,7 @@ public class FloatView extends View {
         }
     }
 
-    private void check_tencent(){
+    private void check_tencent1(){
         AutoLoginService autoLoginService = AutoLoginService.getInstance();
         if (autoLoginService == null) return;
         AccessibilityNodeInfo root = autoLoginService.getRootInActiveWindow();
@@ -498,13 +637,65 @@ public class FloatView extends View {
         List<AccessibilityNodeInfo> nodeList_LoginTxt = root.findAccessibilityNodeInfosByViewId("com.tencent.qqlive:id/login_text");
         if (!nodeList_LoginTxt.isEmpty()){
             if (nodeList_LoginTxt.get(0).getText().toString().equals("点击登录")){
-                Toasty.success(getContext(),"AreaParty:腾讯视频已退出登录").show();
-                AutoLoginService.state = AutoLoginService.NO_ACTION;
-                StartActivity.logoutVip("tencent");
-                if (mFloatView.isShow()) mFloatView.close();
+                if (StartActivity.QQVersionCode == 0 || TextUtils.isEmpty(Util.getRecordId(getContext()))){
+                    Toasty.success(getContext(),"AreaParty:腾讯视频已退出登录").show();
+                    AutoLoginService.state = AutoLoginService.NO_ACTION;
+                    StartActivity.logoutVip("tencent");
+                    if (mFloatView.isShow()) mFloatView.close();
+                }else {
+                    Toasty.success(getContext(),"AreaParty:由于你安装了手机QQ,你还需要在登录界面进行检测来清除使用记录", Toast.LENGTH_LONG).show();
+                }
             }else {
                 Toasty.info(getContext(),"你未退出登录，请执行退出登录操作").show();
             }
+        }
+    }
+    private void check_tencent(){
+
+        AutoLoginService autoLoginService = AutoLoginService.getInstance();
+        if (autoLoginService == null) return;
+        AccessibilityNodeInfo root = autoLoginService.getRootInActiveWindow();
+        if (root == null) return;
+        List<AccessibilityNodeInfo> nodeList = root.findAccessibilityNodeInfosByViewId("com.tencent.mobileqq:id/ivTitleName");
+        if (!nodeList.isEmpty()){
+            String record = Util.getRecordId(getContext());
+            if (TextUtils.isEmpty(record)){
+                Toasty.success(getContext(),"AreaParty:腾讯视频退出登录").show();
+                AutoLoginService.state = AutoLoginService.NO_ACTION;
+                StartActivity.logoutVip("tencent");
+                if (mFloatView.isShow()) mFloatView.close();
+            }
+            node.clear();
+            bianli2(root);
+            Log.w(TAG,node.size()+"》》》"+record);
+            if (node.size() == 5 || node.size()==6){
+                AccessibilityNodeInfo nodeInfo = getFirstImageViewNodeInfo(node);
+                if (nodeInfo!= null && nodeInfo.isClickable()){
+                    nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            check_tencent();
+                        }
+                    },500);
+                }
+            }else if (node.size() > 6){
+                for (int i = 4; i< node.size(); i++){
+                    AccessibilityNodeInfo nodeInfo = node.get(i);
+                    if (nodeInfo.getClassName().toString().equals("android.widget.TextView")){
+                        if (nodeInfo.getText()!=null && nodeInfo.getText().toString().equals(record)){
+                            node.get(i+1).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                            return;
+                        }
+                    }
+                }
+                Toasty.success(getContext(),"AreaParty:腾讯视频退出登录").show();
+                AutoLoginService.state = AutoLoginService.NO_ACTION;
+                StartActivity.logoutVip("tencent");
+                if (mFloatView.isShow()) mFloatView.close();
+            }
+            //com.tencent.mobileqq:id/dialogText
+            //com.tencent.mobileqq:id/dialogRightBtn
         }
     }
 
@@ -526,6 +717,14 @@ public class FloatView extends View {
                 }
 
                 break;
+            case AutoLoginService.LESHI:
+                if (AutoLoginService.state == AutoLoginService.LESHI_LOGIN){
+                    login_leshi();
+                }else if (AutoLoginService.state == AutoLoginService.LESHI_LOGOUT){
+                    check_leshi();
+                }
+
+                break;
             case AutoLoginService.YOUKU:
                 if (AutoLoginService.state == AutoLoginService.YOUKU_LOGIN){
                     login_youku();
@@ -537,11 +736,15 @@ public class FloatView extends View {
                 if (AutoLoginService.state == AutoLoginService.TENCENT_LOGIN){
                     login_tencent1();
                 }else if (AutoLoginService.state == AutoLoginService.TENCENT_LOGOUT){
-                    check_tencent();
+                    check_tencent1();
                 }
                 break;
             case AutoLoginService.QQ:
-                login_tencent();
+                if (AutoLoginService.state == AutoLoginService.TENCENT_LOGIN){
+                    login_tencent();
+                }else if (AutoLoginService.state == AutoLoginService.TENCENT_LOGOUT){
+                    check_tencent();
+                }
                 break;
             default:
 //                Toasty.warning(getContext(), "请在视频网站登录界面尝试该功能").show();
@@ -558,7 +761,7 @@ public class FloatView extends View {
             }
         }
     }
-    public boolean bianli1(AccessibilityNodeInfo nodeInfo){//递归遍历根节点找所需节点
+    public boolean bianli1(AccessibilityNodeInfo nodeInfo){//递归遍历根节点找所需节点,优酷使用
         if (nodeInfo == null) return false;
         if (nodeInfo.getChildCount() == 0){
             if ((nodeInfo.getText()+"").equals("登录/注册")){//检测到为未登录状态
@@ -573,5 +776,27 @@ public class FloatView extends View {
             }
         }
         return false;
+    }
+    public void bianli2(AccessibilityNodeInfo nodeInfo){//递归遍历根节点找所需节点
+        if (nodeInfo == null) return;
+        if (nodeInfo.getChildCount() == 0){
+            if (nodeInfo.getViewIdResourceName().equals("com.tencent.mobileqq:id/name")){
+                node.add(nodeInfo);
+                Log.w(TAG,nodeInfo.toString());
+            }
+
+        }else {
+            for (int i = 0; i<nodeInfo.getChildCount(); i++){
+                bianli2(nodeInfo.getChild(i));
+            }
+        }
+    }
+    public AccessibilityNodeInfo getFirstImageViewNodeInfo(List<AccessibilityNodeInfo> nodeInfoList){
+        for (AccessibilityNodeInfo nodeInfo : nodeInfoList){
+            if (nodeInfo.getClassName().equals("android.widget.ImageView")){
+                return nodeInfo;
+            }
+        }
+        return null;
     }
 }

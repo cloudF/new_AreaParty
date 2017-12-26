@@ -7,6 +7,7 @@ import com.androidlearning.boris.familycentralcontroler.OrderConst;
 import com.androidlearning.boris.familycentralcontroler.fragment03.Model.AppItem;
 import com.androidlearning.boris.familycentralcontroler.fragment03.Model.TVInforBean;
 import com.androidlearning.boris.familycentralcontroler.fragment03.utils.TVAppHelper;
+import com.androidlearning.boris.familycentralcontroler.newAES;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.IPInforBean;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.JsonUitl;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
@@ -25,7 +26,12 @@ import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.List;
+
+import static com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication.context;
+import static com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication.selectedTVIP;
+import static com.androidlearning.boris.familycentralcontroler.utils_comman.Send2SpecificTVThread.stringToMD5;
 
 
 /**
@@ -39,7 +45,9 @@ public class GetTvListThread extends Thread {
 
     private String type;   // "GET_TV_INSTALLEDAPPS, GET_TV_SYSAPPS, GET_TV_MOUSES, GET_TV_INFOR"
     private Handler handler;
-
+    public static String password = null;
+    public static String pass = null;
+    public static String pass1 = null;
     public GetTvListThread(String type, Handler handler) {
         this.type = type;
         this.handler = handler;
@@ -54,28 +62,35 @@ public class GetTvListThread extends Thread {
             Socket client = new Socket();
             ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
             try {
+                password = new PreferenceUtil(context).read("TVMACS");
+                HashMap<String, String> TVMacs = MyApplication.parse(password);
+                pass=TVMacs.get(selectedTVIP.mac);
+                pass1=stringToMD5(pass);
+
+                String cmdStr1 = newAES.encrypt(cmdStr,pass1.getBytes());
+
                 client.connect(new InetSocketAddress(tvIpInfor.ip, tvIpInfor.port), SOCKET_TIMEOUT);
-//                IOUtils.write(cmdStr, client.getOutputStream(), "UTF-8");
-//                IOUtils.copy(client.getInputStream(), outBytes, 8192);
-//                dataReceived = new String(outBytes.toByteArray(), "UTF-8");
+
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
-                writer.write(cmdStr);
+                writer.write(cmdStr1);
                 writer.newLine();
                 writer.flush();
                 dataReceived = reader.readLine();
 
-                Log.i("GetTvListThread", "指令: " + cmdStr);
-                Log.i("GetTvListThread", "回复: " + dataReceived);
-                if(dataReceived.length() > 0) {
-                    parseMesgReceived(dataReceived);
+                String decryptdata = newAES.decrypt(dataReceived,pass1.getBytes());
+
+                Log.i("GetTvListThread", "指令: " + cmdStr1);
+                Log.i("GetTvListThread", "回复: " + decryptdata);
+                if(decryptdata.length() > 0) {
+                    parseMesgReceived(decryptdata);
                     reportResult(true);
                 } else reportResult(false);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 reportResult(false);
-            } finally {
+            }finally {
                 if (!client.isClosed()) {
                     IOUtils.closeQuietly(client);
                 }

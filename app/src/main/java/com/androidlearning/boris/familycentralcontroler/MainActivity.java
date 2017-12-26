@@ -11,6 +11,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -157,8 +158,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 exitDialog.dismiss();
                 if (MyApplication.isSelectedTVOnline() && exitDialog.isRadioButtonChecked()){
                     TVAppHelper.vedioPlayControlExit();
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    MyApplication.getInstance().exit();
+                }else {
+                    MyApplication.getInstance().exit();
                 }
-                MyApplication.getInstance().exit();
             }
         });
     }

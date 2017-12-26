@@ -67,7 +67,6 @@ public class AutoLoginHelperActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        floatViewTV.setText(MyApplication.mFloatView.isShow()?"已开启" : "已关闭");
         updateServiceStatus();
     }
     private void updateServiceStatus() {

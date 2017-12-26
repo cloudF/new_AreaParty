@@ -10,8 +10,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Paint;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +26,7 @@ import android.widget.Toast;
 
 import com.androidlearning.boris.familycentralcontroler.Login;
 import com.androidlearning.boris.familycentralcontroler.R;
+import com.androidlearning.boris.familycentralcontroler.fragment01.ui.ActionDialog_help;
 import com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.utils.OkHttpUtils;
 import com.androidlearning.boris.familycentralcontroler.fragment01.websitemanager.hdhome.WelcomeActivity;
 import com.androidlearning.boris.familycentralcontroler.fragment01.websitemanager.web1080.MainActivity;
@@ -94,11 +93,15 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     public static int iqiyiVersionCode;
     public static int youkuVersionCode;
     public static int tencentVersionCode;
+    public static int leshiVersionCode;
+    public static int QQVersionCode;
 
 
-    private FButton btn_login_iqiyi, btn_logout_iqiyi, btn_login_youku, btn_logout_youku, btn_login_tencent, btn_logout_tencent;
-    private ImageView tagIqiyi,tagYouku,tagTencent;
+    private FButton btn_login_iqiyi, btn_logout_iqiyi, btn_login_youku, btn_logout_youku, btn_login_tencent, btn_logout_tencent, btn_login_leshi, btn_logout_leshi;
+    private ImageView tagIqiyi,tagYouku,tagTencent,tagLeshi;
     private RelativeLayout vipContent;
+
+    private boolean isHelpDialogShow;
 
     public static String logined;
     @Override
@@ -209,114 +212,18 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
            case R.id.btn_logout_youku:
            case R.id.btn_login_tencent:
            case R.id.btn_logout_tencent:
+           case R.id.btn_login_leshi:
+           case R.id.btn_logout_leshi:
                if (TextUtils.isEmpty(logined)){
                    checkInfo();
                    return;
                }
-               /*if (TextUtils.isEmpty(Login.userName)){
-                   Toasty.error(this,"你处于离线登录状态，无法执行此功能").show();
-                   return;
-               }*/
-               if (serviceEnabled){
-                   if (NetUtil.getNetWorkState(this) != NetUtil.NETWORK_NONE){
-                       switch (v.getId()){
-                           case R.id.btn_login_iqiyi://爱奇艺登录
-                               if (!(logined.equals(AutoLoginService.IQIYI) || (!logined.equals(AutoLoginService.IQIYI) && !TextUtils.isEmpty(new PreferenceUtil(getApplicationContext()).read("lastChosenPC"))))){
-                                   Toasty.error(StartActivity.this, "安装AreaParty电视端并与手机连接后获得爱奇艺的使用权限").show();
-                                    break;
-                               }
-                               if (logined.equals(AutoLoginService.IQIYI) || logined.equals("null")){
-                                   if (iqiyiVersionCode != 0){
-                                       openPackage(this,AutoLoginService.IQIYI);
-                                       AutoLoginService.state = AutoLoginService.IQIYI_LOGIN;
-                                       getVipUserCount("iqiyi");
-                                   }else {
-                                       Toasty.error(StartActivity.this, "你未安装爱奇艺").show();
-                                   }
-                               }else {
-                                    toast();
-                               }
-
-                               break;
-                           case R.id.btn_logout_iqiyi://爱奇艺登出
-                               if (iqiyiVersionCode != 0){
-                                   openPackage(this,AutoLoginService.IQIYI);
-                                   AutoLoginService.state = AutoLoginService.IQIYI_LOGOUT;
-                                   if (!MyApplication.mFloatView.isShow()){
-                                       MyApplication.mFloatView.show();
-
-                                   }
-                               }else {
-                                   Toasty.error(StartActivity.this, "你未安装爱奇艺").show();
-
-                               }
-                               break;
-                           case R.id.btn_login_youku://优酷登录
-                               if (!(logined.equals(AutoLoginService.YOUKU) || (!logined.equals(AutoLoginService.YOUKU) && !TextUtils.isEmpty(new PreferenceUtil(getApplicationContext()).read("lastChosenTV"))))){
-                                   Toasty.error(StartActivity.this, "安装AreaParty电脑端并与手机连接后获得优酷的使用权限").show();
-                                   break;
-                               }
-                               if (logined.equals(AutoLoginService.YOUKU) || logined.equals("null")){
-                                   if (youkuVersionCode != 0){
-                                       openPackage(this,AutoLoginService.YOUKU);
-                                       AutoLoginService.state = AutoLoginService.YOUKU_LOGIN;
-                                       getVipUserCount("youku");
-                                   }else {
-                                       Toasty.error(StartActivity.this, "你未安装优酷视频").show();
-                                   }
-                               }else {
-                                   toast();
-                               }
-
-                               break;
-                           case R.id.btn_logout_youku://优酷登出
-                               if (youkuVersionCode != 0){
-                                   openPackage(this,AutoLoginService.YOUKU);
-                                   AutoLoginService.state = AutoLoginService.YOUKU_LOGOUT;
-                                   if (!MyApplication.mFloatView.isShow()){
-                                       MyApplication.mFloatView.show();
-
-                                   }
-                               }else {
-                                   Toasty.error(StartActivity.this, "你未安装优酷视频").show();
-                               }
-                               break;
-                           case R.id.btn_login_tencent://腾讯登录
-                               if (logined.equals(AutoLoginService.TENCENT) || logined.equals("null")){
-                                   if (tencentVersionCode != 0){
-                                       openPackage(this,AutoLoginService.TENCENT);
-                                       AutoLoginService.state = AutoLoginService.TENCENT_LOGIN;
-                                       getVipUserCount("tencent");
-                                   }else {
-                                       Toasty.error(StartActivity.this, "你未安装腾讯视频").show();
-                                   }
-                               }else {
-                                   toast();
-                               }
-
-                               break;
-                           case R.id.btn_logout_tencent://腾讯登出
-                               if (tencentVersionCode != 0){
-                                   openPackage(this,AutoLoginService.TENCENT);
-                                   AutoLoginService.state = AutoLoginService.TENCENT_LOGOUT;
-                                   if (!MyApplication.mFloatView.isShow()){
-                                       MyApplication.mFloatView.show();
-
-                                   }
-                               }else {
-                                   Toasty.error(StartActivity.this, "你未安装腾讯视频").show();
-                               }
-                               break;
-                           default:
-                               break;
-                       }
-                   }else {
-                       Toast.makeText(this, "网络不可用", Toast.LENGTH_SHORT).show();
-                   }
-
+               if (!isHelpDialogShow){
+                   showDialog(v);
                }else {
-                   Toast.makeText(this, "请先开启自助登录服务", Toast.LENGTH_SHORT).show();
+                   onClickListener(v);
                }
+
                break;
            default:
                break;
@@ -357,24 +264,58 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             setTag();
         }
 
+        isHelpDialogShow = new PreferenceUtil("isHelpDialogShow",getApplicationContext()).readBoole("isHelpDialogShow");
+
         //updateServiceStatus();//检测自助登录服务是否开启
         iqiyiVersionCode = getVersionCode(AutoLoginService.IQIYI);//获取爱奇艺的版本号
         youkuVersionCode = getVersionCode(AutoLoginService.YOUKU);//获取优酷的版本号
         tencentVersionCode = getVersionCode(AutoLoginService.TENCENT);//获取腾讯视频版本号
+        leshiVersionCode = getVersionCode(AutoLoginService.LESHI);
+        QQVersionCode = getVersionCode(AutoLoginService.QQ);
+
+    }
+
+    public void showDialog(final View v){
+        final ActionDialog_help dialog = new ActionDialog_help(this);
+        dialog.setCancelable(false);
+        dialog.show();
+        dialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickListener(v);
+                if (dialog.isRadioButtonChecked()){
+                    new PreferenceUtil("isHelpDialogShow",getApplicationContext()).writeBoole("isHelpDialogShow",true);
+                    isHelpDialogShow = true;
+                }
+                dialog.dismiss();
+            }
+        });
     }
 
     public  void checkInfo(){
-        String url = "http://192.168.1.107:8080/AreaParty/GetUserInfo?userName="+ Login.userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext());
+        String url = "http://119.23.12.116/AreaParty/GetUserInfo?userName="+ Login.userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext());
         Log.w("StartActivity",url);
         OkHttpUtils.getInstance().setUrl(url).buildNormal().execute(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Toast.makeText(MyApplication.getContext(), "网络不可用", Toast.LENGTH_SHORT).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MyApplication.getContext(), "连接账号服务器失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String responseData = response.body().string();
+                String account = "";
                 Log.w("StartActivity",responseData);
                 if (!TextUtils.isEmpty(responseData)){
                     try {
@@ -383,9 +324,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                         String  tencentVipInfo = jsonObject.getJSONObject("tencentVipInfo").getString("useState");
                         String  youkuVipInfo = jsonObject.getJSONObject("youkuVipInfo").getString("useState");
                         if (iqiyiVipInfo.equals("在线")){
-                            logined = AutoLoginService.IQIYI;
+                            logined = AutoLoginService.LESHI;
                         }else if (tencentVipInfo.equals("在线")){
                             logined = AutoLoginService.YOUKU;
+                            account = jsonObject.getString("tencentVipName");
                         }else if (youkuVipInfo.equals("在线")){
                             logined = AutoLoginService.TENCENT;
                         }
@@ -394,7 +336,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
                 if (TextUtils.isEmpty(logined)) logined = "null";
-                Util.setRecord(MyApplication.getContext(),logined);
+                Util.setRecord(MyApplication.getContext(),logined, account);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -406,7 +348,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         });
     }
     public  void getVipUserCount(final String type) {
-        String url = "http://192.168.1.107:8080/AreaParty/LoginVip?userName="+ Login.userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
+        String userName = "";
+        if (!TextUtils.isEmpty(Login.userName)){userName = Login.userName;}else if(!TextUtils.isEmpty(this.getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){userName = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", "");}
+        String url = "http://119.23.12.116/AreaParty/LoginVip?userName="+userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
         Log.w("StartActivity",url);
         FloatView.password = "";
         FloatView.name = "";
@@ -428,26 +372,26 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                         FloatView.name = jsonObject.getString("name");
                         FloatView.password = jsonObject.getString("password");
                         Log.w("StartActivity",FloatView.name+"**"+FloatView.password);
-                        switch (type){
+                        /*switch (type){
                             case "iqiyi":
-                                Util.setRecord(MyApplication.getContext(),AutoLoginService.IQIYI);
-                                logined = AutoLoginService.IQIYI;
+                                Util.setRecord(MyApplication.getContext(),AutoLoginService.LESHI);
+                                logined = AutoLoginService.LESHI;
                                 break;
                             case "youku":
                                 Util.setRecord(MyApplication.getContext(),AutoLoginService.YOUKU);
                                 logined = AutoLoginService.YOUKU;
                                 break;
-                            case "tencemt":
-                                Util.setRecord(MyApplication.getContext(),AutoLoginService.TENCENT);
+                            case "tencent":
+                                Util.setRecord(MyApplication.getContext(),AutoLoginService.TENCENT,FloatView.name);
                                 logined = AutoLoginService.TENCENT;
                                 break;
-                        }
-                        runOnUiThread(new Runnable() {
+                        }*/
+                        /*runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 setTag();
                             }
-                        });
+                        });*/
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -456,12 +400,14 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         });
     }
     public static void logoutVip(final String type){
-        String url = "http://192.168.1.107:8080/AreaParty/LogoutVip?userName="+ Login.userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
+        String url = "http://119.23.12.116/AreaParty/LogoutVip?userName="+ Login.userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
         Log.w("StartActivity",url);
 
         Util.setRecord(MyApplication.getContext(),"null");
         logined = "null";
-
+        if (type.equals("tencent")){
+            Util.clearRecordId(MyApplication.getContext());
+        }
 
         OkHttpUtils.getInstance().setUrl(url).buildNormal().execute(new Callback() {
             @Override
@@ -477,7 +423,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void registerVip(final String type){
-        String url = "http://192.168.1.107:8080/AreaParty/RegisterVip?userName=" + Login.userName
+        String url = "http://119.23.12.116/AreaParty/RegisterVip?userName=" + Login.userName
                 +"&userMac=" +Login.getAdresseMAC(MyApplication.getContext())
                 +"&ip="+"223.85.200.129"
                 +"&vipType="+type
@@ -500,97 +446,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
-
-    /*private void logout_iqiyi() {
-        if (iqiyiVersionCode == 0){
-            Toast.makeText(this, "您未安装爱奇艺", Toast.LENGTH_SHORT).show();
-            return;
-        }else if (iqiyiVersionCode < 80890 ){//8.6.0版本
-            Toast.makeText(this, "您的爱奇艺版本过低，请更新至最新版本", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        try {
-            //跳转到爱奇艺的主界面
-            String packageName = "com.qiyi.video";
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            ComponentName comp = new ComponentName(packageName, "org.qiyi.android.video.MainActivity");
-            intent.setComponent(comp);
-            startActivity(intent);
-//            Log.w("###","进入爱奇艺");
-        }catch (Exception e){e.printStackTrace();}
-    }
-
-    private void login_iqiyi() {
-        if (iqiyiVersionCode == 0){
-            Toast.makeText(this, "您未安装爱奇艺", Toast.LENGTH_SHORT).show();
-            return;
-        }else if (iqiyiVersionCode < 80890 ){//8.6.0版本
-            Toast.makeText(this, "您的爱奇艺版本过低，请更新至最新版本", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!Util.getRecordWebsit(getApplicationContext()).equals("")){
-            Log.w("@@@@@", Util.getRecordWebsit(getApplicationContext())+"123");
-            Toast.makeText(this, "您有"+Util.getRecordWebsit(getApplicationContext())+"的登录记录，请点击右侧的退出登录按钮检验是否已退出登录", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        try {
-            //跳转到爱奇艺的登录
-            String packageName = "com.qiyi.video";
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            ComponentName comp = new ComponentName(packageName, "org.qiyi.android.video.ui.account.PhoneAccountActivity");
-            intent.setComponent(comp);
-            startActivity(intent);
-
-        }catch (Exception e){e.printStackTrace();}
-    }
-
-    private void login_youku() {
-        if (iqiyiVersionCode == 0){
-            Toast.makeText(this, "您未安装优酷", Toast.LENGTH_SHORT).show();
-            return;
-        }else if (iqiyiVersionCode < 128 ){//6.8.1版本
-            Toast.makeText(this, "您的优酷版本过低，请更新至最新版本", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!Util.getRecordWebsit(getApplicationContext()).equals("")){
-            Log.w("@@@@@", Util.getRecordWebsit(getApplicationContext())+"123");
-            Toast.makeText(this, "您有"+Util.getRecordWebsit(getApplicationContext())+"的登录记录，请点击右侧的退出登录按钮检验是否已退出登录", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        try {
-            //跳转到优酷的登录界面
-            String packageName = "com.youku.phone";
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            ComponentName comp = new ComponentName(packageName,"com.youku.fan.share.activity.FanShareActivity");
-            intent.setComponent(comp);
-            startActivity(intent);
-        }catch (Exception e){e.printStackTrace();}
-    }
-
-    private void logout_youku() {
-        if (iqiyiVersionCode == 0){
-            Toast.makeText(this, "您未安装优酷", Toast.LENGTH_SHORT).show();
-            return;
-        }else if (iqiyiVersionCode < 128 ){//6.8.1版本
-            Toast.makeText(this, "您的优酷版本过低，请更新至最新版本", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        try {
-            //跳转到优酷的主界面
-            String packageName = "com.youku.phone";
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            ComponentName comp = new ComponentName(packageName, "com.youku.phone.ActivityWelcome");
-            intent.setComponent(comp);
-            startActivity(intent);
-        }catch (Exception e){e.printStackTrace();}
-
-    }
-    */
-
 
     private int getVersionCode(String packageName){
         PackageManager packageManager = this.getPackageManager();
@@ -616,9 +471,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         btn_logout_youku = (FButton) findViewById(R.id.btn_logout_youku);    btn_logout_youku.setOnClickListener(this);
         btn_login_tencent = (FButton) findViewById(R.id.btn_login_tencent);  btn_login_tencent.setOnClickListener(this);
         btn_logout_tencent = (FButton) findViewById(R.id.btn_logout_tencent);    btn_logout_tencent.setOnClickListener(this);
+        btn_login_leshi = (FButton) findViewById(R.id.btn_login_leshi);  btn_login_leshi.setOnClickListener(this);
+        btn_logout_leshi = (FButton) findViewById(R.id.btn_logout_leshi);    btn_logout_leshi.setOnClickListener(this);
         tagIqiyi = (ImageView) findViewById(R.id.tag_iqiyi);
         tagTencent = (ImageView) findViewById(R.id.tag_tencent);
         tagYouku = (ImageView) findViewById(R.id.tag_youku);
+        tagLeshi = (ImageView) findViewById(R.id.tag_leshi);
 
         //floatViewTV.setText(MyApplication.mFloatView.isShow()?"已开启" : "已关闭");
 
@@ -778,19 +636,22 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             case AutoLoginService.TENCENT:
                 s = "腾讯视频";
                 break;
+            case AutoLoginService.LESHI:
+                s = "乐视视频";
+                break;
         }
         if (!TextUtils.isEmpty(s)){
-            Toasty.info(this,"您有"+s+"登录记录，你需要退出该账号才能使用此平台账号").show();
+            Toasty.info(this,"您有"+s+"登录记录，你需要执行该应用的退出操作才能使用此应用平台的账号",Toast.LENGTH_LONG).show();
         }
     }
     public void setTag(){
-
+        tagLeshi.setVisibility(View.INVISIBLE);
         tagIqiyi.setVisibility(View.INVISIBLE);
         tagYouku.setVisibility(View.INVISIBLE);
         tagTencent.setVisibility(View.INVISIBLE);
         switch (logined){
             case AutoLoginService.IQIYI:
-                tagIqiyi.setVisibility(View.VISIBLE);
+                tagLeshi.setVisibility(View.VISIBLE);
                 break;
 
             case AutoLoginService.YOUKU:
@@ -800,6 +661,127 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             case AutoLoginService.TENCENT:
                 tagTencent.setVisibility(View.VISIBLE);
                 break;
+            case AutoLoginService.LESHI:
+                tagLeshi.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+    public void onClickListener(View v){
+        if (serviceEnabled){
+            if (AutoLoginService.getInstance() == null){
+                Toast.makeText(this, "自助登录服务发生故障，你需要重启本应用", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (NetUtil.getNetWorkState(this) != NetUtil.NETWORK_NONE){
+                switch (v.getId()){
+                    case R.id.btn_login_leshi://乐视视频登录
+                        if (!(logined.equals(AutoLoginService.LESHI) || (!logined.equals(AutoLoginService.LESHI) && !TextUtils.isEmpty(new PreferenceUtil(getApplicationContext()).read("lastChosenPC"))))){
+                            Toasty.error(StartActivity.this, "安装AreaParty电脑端并与手机连接后获得乐视视频的使用权限").show();
+                            return;
+                        }
+                        if (logined.equals(AutoLoginService.LESHI) || logined.equals("null")){
+                            if (leshiVersionCode != 0){
+                                openPackage(this,AutoLoginService.LESHI);
+                                AutoLoginService.state = AutoLoginService.LESHI_LOGIN;
+                                getVipUserCount("iqiyi");
+                            }else {
+                                Toasty.error(StartActivity.this, "你未安装乐视视频").show();
+                            }
+                        }else {
+                            toast();
+                        }
+
+                        break;
+                    case R.id.btn_logout_leshi://乐视视频登出
+                        if (logined.equals(AutoLoginService.LESHI) || logined.equals("null")){
+                            if (leshiVersionCode != 0){
+                                openPackage(this,AutoLoginService.LESHI);
+                                AutoLoginService.state = AutoLoginService.LESHI_LOGOUT;
+                                if (!MyApplication.mFloatView.isShow()){
+                                    MyApplication.mFloatView.show();
+
+                                }
+                            }else {
+                                Toasty.error(StartActivity.this, "你未安装乐视视频").show();
+
+                            }
+                        }else {
+                            toast();
+                        }
+                        break;
+                    case R.id.btn_login_youku://优酷登录
+                        if (!(logined.equals(AutoLoginService.YOUKU) || (!logined.equals(AutoLoginService.YOUKU) && !TextUtils.isEmpty(new PreferenceUtil(getApplicationContext()).read("lastChosenTV"))))){
+                            Toasty.error(StartActivity.this, "安装AreaParty电视端并与手机连接后获得优酷的使用权限").show();
+                            return;
+                        }
+                        if (logined.equals(AutoLoginService.YOUKU) || logined.equals("null")){
+                            if (youkuVersionCode != 0){
+                                openPackage(this,AutoLoginService.YOUKU);
+                                AutoLoginService.state = AutoLoginService.YOUKU_LOGIN;
+                                getVipUserCount("youku");
+                            }else {
+                                Toasty.error(StartActivity.this, "你未安装优酷视频").show();
+                            }
+                        }else {
+                            toast();
+                        }
+
+                        break;
+                    case R.id.btn_logout_youku://优酷登出
+                        if (logined.equals(AutoLoginService.YOUKU) || logined.equals("null")) {
+                            if (youkuVersionCode != 0) {
+                                openPackage(this, AutoLoginService.YOUKU);
+                                AutoLoginService.state = AutoLoginService.YOUKU_LOGOUT;
+                                if (!MyApplication.mFloatView.isShow()) {
+                                    MyApplication.mFloatView.show();
+
+                                }
+                            } else {
+                                Toasty.error(StartActivity.this, "你未安装优酷视频").show();
+                            }
+                        }else {
+                            toast();
+                        }
+                        break;
+                    case R.id.btn_login_tencent://腾讯登录
+                        if (logined.equals(AutoLoginService.TENCENT) || logined.equals("null")){
+                            if (tencentVersionCode != 0){
+                                openPackage(this,AutoLoginService.TENCENT);
+                                AutoLoginService.state = AutoLoginService.TENCENT_LOGIN;
+                                getVipUserCount("tencent");
+                            }else {
+                                Toasty.error(StartActivity.this, "你未安装腾讯视频").show();
+                            }
+                        }else {
+                            toast();
+                        }
+
+                        break;
+                    case R.id.btn_logout_tencent://腾讯登出
+                        if (logined.equals(AutoLoginService.TENCENT) || logined.equals("null")) {
+                            if (tencentVersionCode != 0) {
+                                openPackage(this, AutoLoginService.TENCENT);
+                                AutoLoginService.state = AutoLoginService.TENCENT_LOGOUT;
+                                if (!MyApplication.mFloatView.isShow()) {
+                                    MyApplication.mFloatView.show();
+
+                                }
+                            } else {
+                                Toasty.error(StartActivity.this, "你未安装腾讯视频").show();
+                            }
+                        }else {
+                            toast();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }else {
+                Toast.makeText(this, "网络不可用", Toast.LENGTH_SHORT).show();
+            }
+
+        }else {
+            Toasty.warning(StartActivity.this, "请先开启自助登录服务").show();
         }
     }
 

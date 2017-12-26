@@ -3,14 +3,22 @@ package com.androidlearning.boris.familycentralcontroler.utils_comman;
 
 import android.util.Log;
 
+import com.androidlearning.boris.familycentralcontroler.newAES;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.IPInforBean;
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 
 import org.apache.commons.io.IOUtils;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.HashMap;
+
+import static com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication.context;
+import static com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication.selectedTVIP;
+import static com.androidlearning.boris.familycentralcontroler.utils_comman.Send2SpecificTVThread.stringToMD5;
 
 /**
  * Created by borispaul on 2016/12/23.
@@ -20,7 +28,9 @@ public class Send2TVThread extends Thread{
     private static final int SOCKET_TIMEOUT = 5000;
     private String cmd;
     private final String tag = "Send2TVThread";
-
+    public static String password = null;
+    public static String pass = null;
+    public static String pass1 = null;
     public Send2TVThread(String cmd){
         this.cmd = cmd + "\n";
     }
@@ -31,10 +41,19 @@ public class Send2TVThread extends Thread{
         if(tvInfor != null && !tvInfor.ip.equals("")) {
             Socket client = new Socket();
             try {
+                password = new PreferenceUtil(context).read("TVMACS");
+                HashMap<String, String> TVMacs = MyApplication.parse(password);
+                pass=TVMacs.get(selectedTVIP.mac);
+                pass1=stringToMD5(pass);
+                String cmd1 = newAES.encrypt(cmd,pass1.getBytes());
                 client.connect(new InetSocketAddress(tvInfor.ip, tvInfor.port), SOCKET_TIMEOUT);
-                IOUtils.write(cmd, client.getOutputStream(), "UTF-8");
-                Log.i(tag, cmd);
-            } catch (IOException e) {
+
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+                writer.write(cmd1);
+                writer.newLine();
+                writer.flush();
+                Log.i("dfafafdsfdfasfd", cmd1);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             finally {

@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,7 +176,7 @@ public class ContentDataLoadTask extends AsyncTask<Void, Void, Void> {
     List<FileItem> videos = new ArrayList<>();
 
 
-    String[] projection = new String[]{MediaStore.Video.VideoColumns._ID, MediaStore.Video.VideoColumns.DATA, MediaStore.Video.VideoColumns.DISPLAY_NAME};
+    String[] projection = new String[]{MediaStore.Video.VideoColumns._ID, MediaStore.Video.VideoColumns.DATA, MediaStore.Video.VideoColumns.DISPLAY_NAME, MediaStore.Video.VideoColumns.SIZE};
 
 
     Cursor cursor = mContentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, projection, null, null, MediaStore.Video.VideoColumns.DATE_MODIFIED + " desc");
@@ -194,9 +195,11 @@ public class ContentDataLoadTask extends AsyncTask<Void, Void, Void> {
       fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DISPLAY_NAME));
 
       filePath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATA));
+      long fileSize  = cursor.getLong(cursor.getColumnIndex("_size"));
+      if (fileSize < 30000000) continue;
 
 
-      Log.e("ryze_video", fileId + " -- " + fileName + " -- " + filePath);
+      Log.e("ryze_video", fileSize + " -- " + fileName + " -- " + filePath);
 
       FileItem fileItem = new FileItem(fileId, filePath, fileName);
 

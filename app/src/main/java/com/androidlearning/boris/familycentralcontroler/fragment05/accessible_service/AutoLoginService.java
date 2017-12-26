@@ -2,9 +2,12 @@ package com.androidlearning.boris.familycentralcontroler.fragment05.accessible_s
 
 import android.accessibilityservice.AccessibilityService;
 import android.graphics.Rect;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Toast;
 
 import com.androidlearning.boris.familycentralcontroler.fragment01.websitemanager.start.StartActivity;
 
@@ -25,6 +28,8 @@ public class AutoLoginService extends AccessibilityService {
     public static final String YOUKU = "com.youku.phone";
     public static final String TENCENT = "com.tencent.qqlive";
     public static final String QQ = "com.tencent.mobileqq";
+    public static final String LESHI = "com.letv.android.client";
+
 
     public static final int NO_ACTION = 0;
     public static final int IQIYI_LOGIN = 1;
@@ -33,6 +38,8 @@ public class AutoLoginService extends AccessibilityService {
     public static final int YOUKU_LOGOUT = 4;
     public static final int TENCENT_LOGIN = 5;
     public static final int TENCENT_LOGOUT = 6;
+    public static final int LESHI_LOGIN = 7;
+    public static final int LESHI_LOGOUT = 8;
 
     public static int state = NO_ACTION;
 
@@ -70,7 +77,7 @@ public class AutoLoginService extends AccessibilityService {
             case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
                 Log.w(TAG+"CHANGED", event.getPackageName().toString());
                 switch (state){
-                    case IQIYI_LOGIN:{
+                    case IQIYI_LOGIN:
                         if (event.getPackageName().toString().equals(IQIYI)){
                             AccessibilityNodeInfo root = getRootInActiveWindow();
                             if (root == null) return;
@@ -85,7 +92,6 @@ public class AutoLoginService extends AccessibilityService {
                             }
                         }
                         break;
-                    }
                     case IQIYI_LOGOUT:
                         if (event.getPackageName().toString().equals(IQIYI)){
                             AccessibilityNodeInfo root = getRootInActiveWindow();
@@ -97,6 +103,50 @@ public class AutoLoginService extends AccessibilityService {
                                     nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
                                     Log.w(TAG,"AreaParty:爱奇艺退出登录");
                                     Toasty.success(getApplicationContext(),"AreaParty:爱奇艺退出登录").show();
+                                    state = NO_ACTION;
+                                    StartActivity.logoutVip("iqiyi");
+                                    if (mFloatView.isShow()) mFloatView.close();
+                                }
+                            }
+                        }
+                        break;
+                    case LESHI_LOGIN:
+                        if (event.getPackageName().toString().equals(LESHI)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            List<AccessibilityNodeInfo> nodeList_et_pwd = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/password_edittext");
+                            List<AccessibilityNodeInfo> nodeList_et_phone = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/account_edittext");
+                            List<AccessibilityNodeInfo> nodeList_tv_login = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/login_button");
+                            List<AccessibilityNodeInfo> nodeList_cb_show_passwd = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/plaintext_imageview");
+                            if (nodeList_et_pwd.size() > 0 && nodeList_et_phone.size() > 0 && nodeList_tv_login.size() > 0 &&  nodeList_cb_show_passwd.size() >0){
+                                if (!mFloatView.isShow()) mFloatView.show();
+                                Rect outBounds = new Rect();
+                                nodeList_cb_show_passwd.get(0).getBoundsInScreen(outBounds);
+                                if (!mFloatView2.isShow()){
+                                    mFloatView2.setPosition(outBounds.left, outBounds.top);
+                                    mFloatView2.show();
+                                }
+                            }else {
+                                if (mFloatView.isShow()) mFloatView.close();
+                                if (mFloatView2.isShow()) mFloatView2.close();
+                            }
+                        }
+                        break;
+                    case LESHI_LOGOUT:
+                        if (event.getPackageName().toString().equals(LESHI)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            List<AccessibilityNodeInfo> nodeList_navi = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/main_my_radio");
+                            List<AccessibilityNodeInfo> nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/verficationcode_logout_ensure_tx");
+                            if (nodeList_navi.size() > 0 && nodeList_navi.get(0).isSelected()){
+                                if (!mFloatView.isShow()) mFloatView.show();
+                            }
+                            else if (nodeInfoList.size() > 0 ){
+                                AccessibilityNodeInfo nodeInfo = nodeInfoList.get(0);
+                                if (nodeInfo.isEnabled()){
+                                    nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                                    Log.w(TAG,"AreaParty:乐视视频退出登录");
+                                    Toasty.success(getApplicationContext(),"AreaParty:乐视视频退出登录").show();
                                     state = NO_ACTION;
                                     StartActivity.logoutVip("iqiyi");
                                     if (mFloatView.isShow()) mFloatView.close();
@@ -122,8 +172,12 @@ public class AutoLoginService extends AccessibilityService {
                         if (event.getPackageName().toString().equals(YOUKU)){
                             AccessibilityNodeInfo root = getRootInActiveWindow();
                             if (root == null) return;
+                            List<AccessibilityNodeInfo> nodeList_user = root.findAccessibilityNodeInfosByViewId("com.youku.phone:id/layout_user");
                             List<AccessibilityNodeInfo> nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.youku.phone:id/negtive_btn_layout");
-                            if (nodeInfoList.size() > 0 ){
+                            if (nodeList_user.size() > 0 && nodeList_user.get(0).isSelected()){
+                                if (!mFloatView.isShow()) mFloatView.show();
+                            }
+                            else if (nodeInfoList.size() > 0 ){
                                 AccessibilityNodeInfo nodeInfo = nodeInfoList.get(0);
                                 if (nodeInfo.isClickable()){
                                     nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
@@ -147,7 +201,8 @@ public class AutoLoginService extends AccessibilityService {
                             }else {
                                 if (mFloatView.isShow()) mFloatView.close();
                             }
-                        }else if (event.getPackageName().toString().equals(QQ)){
+                        }
+                        else if (event.getPackageName().toString().equals(QQ)){
                             AccessibilityNodeInfo root = getRootInActiveWindow();
                             if (root == null) return;
                             List<AccessibilityNodeInfo> nodeInfoList_qq = root.findAccessibilityNodeInfosByViewId("com.tencent.mobileqq:id/account");
@@ -164,16 +219,50 @@ public class AutoLoginService extends AccessibilityService {
                         if (event.getPackageName().toString().equals(TENCENT)){
                             AccessibilityNodeInfo root = getRootInActiveWindow();
                             if (root == null) return;
+                            List<AccessibilityNodeInfo> nodeList_LoginTxt = root.findAccessibilityNodeInfosByViewId("com.tencent.qqlive:id/login_text");
                             List<AccessibilityNodeInfo> nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.tencent.qqlive:id/button2");
+                            if (nodeList_LoginTxt.size() > 0 ){
+                                if (!mFloatView.isShow()) mFloatView.show();
+                            }
                             if (nodeInfoList.size() > 0 ){
                                 AccessibilityNodeInfo nodeInfo = nodeInfoList.get(0);
                                 if (nodeInfo.isClickable()){
                                     nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-                                    Log.w(TAG,"AreaParty:腾讯视频退出登录");
-                                    Toasty.success(getApplicationContext(),"AreaParty:腾讯视频退出登录").show();
-                                    state = NO_ACTION;
-                                    StartActivity.logoutVip("tencent");
-                                    if (mFloatView.isShow()) mFloatView.close();
+                                    if (StartActivity.QQVersionCode == 0 || TextUtils.isEmpty(Util.getRecordId(getApplicationContext()))){
+                                        Log.w(TAG,"AreaParty:腾讯视频退出登录");
+                                        Toasty.success(getApplicationContext(),"AreaParty:腾讯视频退出登录").show();
+                                        state = NO_ACTION;
+                                        StartActivity.logoutVip("tencent");
+                                        if (mFloatView.isShow()) mFloatView.close();
+                                    }else{
+                                        Toasty.success(getApplicationContext(),"AreaParty:由于你安装了手机QQ,你还需要在登录界面进行检测来清除使用记录", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        }
+                        else if (event.getPackageName().toString().equals(QQ)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            List<AccessibilityNodeInfo> nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.tencent.mobileqq:id/ivTitleName");
+                            List<AccessibilityNodeInfo> nodeInfoList_dialogText = root.findAccessibilityNodeInfosByViewId("com.tencent.mobileqq:id/dialogText");
+                            List<AccessibilityNodeInfo> nodeInfoList_dialogRightBtn = root.findAccessibilityNodeInfosByViewId("com.tencent.mobileqq:id/dialogRightBtn");
+                            Log.w(TAG,nodeInfoList.size()+">"+nodeInfoList_dialogText.size()+">"+nodeInfoList_dialogRightBtn.size()+"");
+                            if (nodeInfoList.size() > 0){
+                                if (!mFloatView.isShow()) mFloatView.show();
+                            }
+                            else if (nodeInfoList_dialogText.size() > 0 && nodeInfoList_dialogRightBtn.size() > 0){
+                                AccessibilityNodeInfo dialogText = nodeInfoList_dialogText.get(0);
+                                AccessibilityNodeInfo dialogRightBtn = nodeInfoList_dialogRightBtn.get(0);
+                                String record = Util.getRecordId(getApplicationContext());
+                                if (dialogRightBtn.getText().toString().equals("删除") && dialogRightBtn.isClickable()){
+                                    if (dialogRightBtn.performAction(AccessibilityNodeInfo.ACTION_CLICK)){
+                                        if (dialogText.getText().toString().equals(record+"?")){
+                                            Toasty.success(getApplicationContext(),"AreaParty:腾讯视频退出登录").show();
+                                            state = NO_ACTION;
+                                            StartActivity.logoutVip("tencent");
+                                            if (mFloatView.isShow()) mFloatView.close();
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -296,6 +385,15 @@ public class AutoLoginService extends AccessibilityService {
     public void onInterrupt() {
 
     }
+
+    @Override
+    protected boolean onKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_HOME){
+            Log.w(TAG,"KEYCODE_HOME");
+        }
+        return super.onKeyEvent(event);
+    }
+
     public void bianli(AccessibilityNodeInfo nodeInfo){//递归遍历根节点找所需节点
         if (nodeInfo == null) return;
         if (nodeInfo.getChildCount() == 0){
@@ -306,6 +404,7 @@ public class AutoLoginService extends AccessibilityService {
             }
         }
     }
+
 }
 /*
 public class AutoLoginService extends AccessibilityService {

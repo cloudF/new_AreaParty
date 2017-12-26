@@ -55,7 +55,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="本应用提供腾讯视频，爱奇艺，优酷视频三个平台的账号分享服务，请自行下载安装.\n使用规则：\n    AreaParty分为手机端，电脑端，电视端。安装手机端后可以使用腾讯视频的账号，安装电脑端（并与手机端连接）后可以使用优酷的账号，安装电视端（并与手机端连接）后可以使用爱奇艺的账号。\n    您一次只能使用一个平台的账号，如果您想切换平台，必须把已使用平台的账号退出后才能使用。\n使用步骤："
+                android:text="本应用提供腾讯视频，乐视视频，优酷视频三个平台的账号分享服务，请自行下载安装.\n使用规则：\n    AreaParty分为手机端，电脑端，电视端。安装手机端后可以使用腾讯视频的账号，安装电脑端（并与手机端连接）后可以使用优酷的账号，安装电视端（并与手机端连接）后可以使用乐视视频的账号。\n    您一次只能使用一个平台的账号，如果您想切换平台，必须把已使用平台的账号退出后才能使用。\n使用步骤："
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -89,6 +89,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
+                android:textColor="@color/colorPrimary"
                 android:text=">>进入设置>>"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -101,6 +102,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
+                android:textColor="@color/colorPrimary"
                 android:text=">>进入设置>>"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.25"
@@ -179,7 +181,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="点击上个界面的登录按钮进入一个对应的视频应用，跳转到用户名密码登录界面（切换账号），到达该界面后会出现悬浮窗图标，单击悬浮图标就会自动填写输入框并登录。（若到达指定界面单未出现悬浮窗图标，请检查自助登录服务是否开启以及悬浮窗能否正常使用，或重启AreaParty后再试）\na.爱奇艺(在如下图所示界面，出现悬浮图标，单击图标执行自动填写输入框和登录功能)"
+                android:text="点击上个界面的登录按钮进入一个对应的视频应用，跳转到用户名密码登录界面（切换账号），到达该界面后会出现悬浮窗图标，单击悬浮图标就会自动填写输入框并登录。（若到达指定界面单未出现悬浮窗图标，请检查自助登录服务是否开启以及悬浮窗能否正常使用，或重启AreaParty后再试）\na.乐视视频(依次点击 “未登录”>>“点击登录” 到达如下图所示界面，出现悬浮图标，单击图标执行自动填写输入框和登录功能)"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView20" />
@@ -193,7 +195,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView21"
-                app:srcCompat="@drawable/iqiyi_login" />
+                app:srcCompat="@drawable/leshi_login" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -202,7 +204,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="b.优酷(在如下图所示界面，出现悬浮图标，单击图标执行自动填写输入框和登录功能)"
+                android:text="b.优酷(依次点击 “我的”>>“登录/注册”>>“账号登录” 到达如下图所示界面，出现悬浮图标，单击图标执行自动填写输入框和登录功能)"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
@@ -223,7 +225,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="c.腾讯视频(仅支持QQ账号登录，若你的手机安装了手机QQ软件，在腾讯视频如下图所示界面，出现悬浮图标，单击图标执行自动填写输入框和登录功能)"
+                android:text="c.腾讯视频(仅支持QQ账号登录，若你的手机安装了手机QQ，依次点击 “个人中心”>>“点击登录”>>“QQ登录”>>“添加账号” 到达如下图所示界面，出现悬浮图标，单击图标执行自动填写输入框和登录功能)"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView4" />
@@ -244,7 +246,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="(若你的手机未安装手机QQ软件，在腾讯视频如下图所示界面，出现悬浮图标，单击图标执行自动填写输入框和登录功能)"
+                android:text="(若你的手机未安装手机QQ软件，依次点击“个人中心”>>“点击登录”>>“QQ登录”到达如下图所示界面，出现悬浮图标，单击图标执行自动填写输入框和登录功能)"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView5" />
@@ -258,7 +260,50 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView10"
                 app:srcCompat="@drawable/tencent_login2" />
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="4.退出"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="你一次只能使用一个视频应用的账号，因此，当你需要使用另一个视频应用的账号时，你必须先退出之前使用的账号。\n\n操作方法如下:\n在自助登录服务处于开启状态且悬浮窗能正常使用时，点击上一页面中对应视频应用的退出按钮，进入该应用界面，在该应用中执行注销登录的操作，若成功执行会弹出AreaParty的操作成功的提示，返回AreaParty后，你就可以使用使用其他视频应用账号。\n\n若你已经退出了该视频应用的账号，但点击上一页面的登录按钮还是提示你需要执行退出操作，你需执行如下操作：保持该应用未登录的状态，点击上一页面对应视频应用的退出按钮，切换到该应用主页”我的“界面，点击悬浮窗进行检测。"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView1" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="如果你要退出腾讯视频账号，并且你的手机安装了手机QQ，则你需要额外进行如下操作:点击上页的腾讯视频退出按钮进入腾讯视频，依次点击 “个人中心”>>“点击登录”>>“QQ登录”，到达如下图所示界面，点击悬浮窗。"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:srcCompat="@drawable/tencent_check" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 

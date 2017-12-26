@@ -249,13 +249,15 @@ public class Base {
                         @Override
                         public void run() {
                             System.out.println(id+"logout");
-                            Message userMsg = MainActivity.handlerTab06.obtainMessage();
-                            userObj user = new userObj();
-                            user.setUserId(id);
-                            userMsg.what = OrderConst.userLogOut;
-                            userMsg.obj = user;
-                            MainActivity.handlerTab06.sendMessage(userMsg);
-                            onlineUserId.remove(id);
+                            if (MainActivity.handlerTab06 != null){
+                                Message userMsg = MainActivity.handlerTab06.obtainMessage();
+                                userObj user = new userObj();
+                                user.setUserId(id);
+                                userMsg.what = OrderConst.userLogOut;
+                                userMsg.obj = user;
+                                MainActivity.handlerTab06.sendMessage(userMsg);
+                                onlineUserId.remove(id);
+                            }
                         }
                     }).start();
                 }

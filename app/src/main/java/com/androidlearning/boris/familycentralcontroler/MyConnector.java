@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication;
 import com.androidlearning.boris.familycentralcontroler.utils_comman.LogUtil;
+import com.androidlearning.boris.familycentralcontroler.utils_comman.PreferenceUtil;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,6 +14,12 @@ import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.util.HashMap;
+
+import static com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication.context;
+import static com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication.selectedPCIP;
+import static com.androidlearning.boris.familycentralcontroler.myapplication.MyApplication.selectedTVIP;
+import static com.androidlearning.boris.familycentralcontroler.utils_comman.Send2SpecificTVThread.stringToMD5;
 
 /**
  * Created by boris on 2016/12/16.
@@ -28,7 +35,9 @@ public class MyConnector {
     private String IP = "";
     private boolean connetedState = false;
     private MyConnector() {}
-
+    public static String password = null;
+    public static String pass = null;
+    public static String pass1 = null;
     public static MyConnector getInstance() {
         if(instance == null) {
             synchronized (MyConnector.class) {
@@ -143,24 +152,26 @@ public class MyConnector {
                 SocketAddress address = new InetSocketAddress(IP, IPAddressConst.PCACTIONPORT_B);
                 Socket actionSocket = new Socket();
                 actionSocket.connect(address, 2000);
+                password = new PreferenceUtil(context).read("PCMACS");
+                HashMap<String, String> PCMacs = MyApplication.parse(password);
+                pass=PCMacs.get(selectedPCIP.mac);
+                pass1=stringToMD5(pass);
+                Log.i("myconnetor", "回复: " + msgSend);
+                String msgSend1 = AESc.EncryptAsDoNet(msgSend,pass1.substring(0,8));
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(actionSocket.getOutputStream(), "utf-8"));
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(actionSocket.getInputStream(), "utf-8"));
-                bufferedWriter.write(msgSend);
+                bufferedWriter.write(msgSend1);
                 bufferedWriter.flush();
 
-                char[] rev = new char[4000];
-                while((len = bufferedReader.read(rev)) > 0) {
-                    String temp = new String(rev, 0, len);
-                    msg += temp;
-                    if(len <= 0)
-                        break;
-                }
+                String dataReceived = bufferedReader.readLine();
 
+                msg = AESc.DecryptDoNet(dataReceived,pass1.substring(0,8));
+                Log.i("myconnetor", "解密: " + msg);
                 actionSocket.close();
                 bufferedReader.close();
                 bufferedWriter.close();
                 return msg;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return "";
             }
@@ -190,21 +201,29 @@ public class MyConnector {
                 SocketAddress address = new InetSocketAddress(IP, MyApplication.getSelectedPCIP().port);//IPAddressConst.PCACTIONPORT_ADDPATHTOHTTP_Y
                 Socket actionSocket = new Socket();
                 actionSocket.connect(address, 2000);
+                password = new PreferenceUtil(context).read("PCMACS");
+                HashMap<String, String>  PCMacs = MyApplication.parse(password);
+                pass=PCMacs.get(selectedPCIP.mac);
+                pass1=stringToMD5(pass);
+                String msgSend1 = AESc.EncryptAsDoNet(msgSend,pass1.substring(0,8));
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(actionSocket.getOutputStream(), "utf-8"));
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(actionSocket.getInputStream(), "utf-8"));
-                bufferedWriter.write(msgSend);
+                bufferedWriter.write(msgSend1);
                 bufferedWriter.flush();
 
-                char[] rev = new char[1024];
-                if((len = bufferedReader.read(rev)) > 0) {
-                    msg = new String(rev, 0, len);
-                }
+//                char[] rev = new char[1024];
+//                if((len = bufferedReader.read(rev)) > 0) {
+//                    msg = new String(rev, 0, len);
+//                }
+                String dataReceived = bufferedReader.readLine();
+                msg = AESc.DecryptDoNet(dataReceived,pass1.substring(0,8));
+                Log.i("myconnetor", "解密111: " + msg);
                 actionSocket.close();
                 bufferedReader.close();
                 bufferedWriter.close();
 
                 return msg;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return "";
             }
@@ -217,8 +236,13 @@ public class MyConnector {
         boolean signal = false;
         try {
             Socket actionSocket = new Socket(ip, port);
+            password = new PreferenceUtil(context).read("TVMACS");
+            HashMap<String, String> TVMacs = MyApplication.parse(password);
+            pass=TVMacs.get(selectedTVIP.mac);
+            pass1=stringToMD5(pass);
+            String msgSend1 = newAES.encrypt(msgSend,pass1.getBytes());
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(actionSocket.getOutputStream(), "utf-8"));
-            bufferedWriter.write(msgSend);
+            bufferedWriter.write(msgSend1);
             bufferedWriter.flush();
             actionSocket.close();
             bufferedWriter.close();
@@ -242,11 +266,16 @@ public class MyConnector {
         boolean result;
         if(monitoringBufferedWriter != null) {
             try {
-                monitoringBufferedWriter.write(msg);
+                password = new PreferenceUtil(context).read("PCMACS");
+                HashMap<String, String>  PCMacs = MyApplication.parse(password);
+                pass=PCMacs.get(selectedPCIP.mac);
+                pass1=stringToMD5(pass);
+                String msg1 = AESc.EncryptAsDoNet(msg,pass1.substring(0,8));
+                monitoringBufferedWriter.write(msg1);
                 monitoringBufferedWriter.flush();
                 result = true;
                 connetedState = true;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 boolean signal = rebuildSocket();
                 if(signal) {
                     System.out.println("重连成功");
