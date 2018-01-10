@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dkzy.areaparty.phone">
 
+    <uses-sdk tools:overrideLibrary="com.linsh.utilseverywhere"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -30,15 +31,18 @@
     <application
         android:name="com.dkzy.areaparty.phone.myapplication.MyApplication"
         android:allowBackup="true"
+        android:persistent="true"
         android:icon="@mipmap/app_logo"
         android:label="AreaParty"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:vmSafeMode="true"
-        tools:replace="android:label">
+        tools:replace="android:icon, android:label,android:theme">
         <activity
-            android:name="com.dkzy.areaparty.phone.Login"
+            android:name=".Login"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="standard"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

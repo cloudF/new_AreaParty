@@ -57,6 +57,7 @@
                 android:padding="14dp"
                 android:src="@drawable/playmusictop" />
             <TextView
+                android:id="@+id/play_as_bgm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="播放全部"
@@ -75,7 +76,8 @@
                 android:layout_height="match_parent"
                 android:background="#F2F2F2"/>
             <TextView
-                android:id="@+id/play_as_bgm"
+                android:visibility="gone"
+
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="4dp"

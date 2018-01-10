@@ -52,6 +52,8 @@ import protocol.ProtoHead;
 import server.NetworkPacket;
 import tools.DataTypeTranslater;
 
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.AREAPARTY_NET;
+
 /**
  * Created by SnowMonkey on 2017/5/22.
  *
@@ -157,7 +159,7 @@ public class RegisterPersonalInfo extends BaseActivity {
                                 SharedPreferences sp;
                                 sp = RegisterPersonalInfo.this.getSharedPreferences("serverInfo", Context.MODE_PRIVATE);
                                 int port = Integer.parseInt(sp.getString("SERVER_PORT", "3333"));
-                                String host = sp.getString("SERVER_IP", "119.23.12.116");
+                                String host = sp.getString("SERVER_IP", AREAPARTY_NET);
                                 Socket socket = new Socket(host, port);
                                 InputStream inputStream = socket.getInputStream();
                                 OutputStream outputStream = socket.getOutputStream();
@@ -346,7 +348,7 @@ public class RegisterPersonalInfo extends BaseActivity {
             SharedPreferences sp;
             sp = RegisterPersonalInfo.this.getSharedPreferences("serverInfo", Context.MODE_PRIVATE);
             int port = Integer.parseInt(sp.getString("SERVER_PORT", "3333"));
-            String host = sp.getString("SERVER_IP", "119.23.12.116");
+            String host = sp.getString("SERVER_IP", AREAPARTY_NET);
             RegisterMsg.RegisterReq.Builder builder = RegisterMsg.RegisterReq.newBuilder();
             builder.setRequestCode(RegisterMsg.RegisterReq.RequestCode.CHECKMOBILE);
 //            builder.setUserId(userId);

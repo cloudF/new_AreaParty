@@ -239,7 +239,7 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
 
         loadingView = LayoutInflater.from(this).inflate(R.layout.tab04_loadingcontent, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(loadingView).setCancelable(false);
+        builder.setView(loadingView).setCancelable(true);
         dialog = builder.create();
 
         noWifiNoticeTxtTV.setText("需和PC设备处于同一WiFi才能检测PC");

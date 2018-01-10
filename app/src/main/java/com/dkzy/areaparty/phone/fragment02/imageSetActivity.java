@@ -162,7 +162,7 @@ public class imageSetActivity extends Activity implements View.OnClickListener{
                             setList_app.addAll(LocalSetListContainer.getLocalSetList("image"));
                             fileAdapter.notifyDataSetChanged();
                             dialog.dismiss();
-                            Toasty.success(imageSetActivity.this, "添加新的音频列表成功", Toast.LENGTH_SHORT, true).show();
+                            Toasty.success(imageSetActivity.this, "添加新的图片列表成功", Toast.LENGTH_SHORT, true).show();
                         }
                     }
 

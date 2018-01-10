@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 .execute(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        Log.w("MainActivity", "onFailure");
+                        Log.w("SubTitleUtil", "onFailure");
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -114,11 +114,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         ResponseBody responseBody = response.body();
                         if (responseBody == null){
-                            Log.w("MainActivity","responseBody null");
+                            Log.w("SubTitleUtil","responseBody null");
                         }else {
                             String responseData = responseBody.string();
                             if (TextUtils.isEmpty(responseData)){
-                                Log.w("MainActivity","responseData null");
+                                Log.w("SubTitleUtil","responseData null");
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                                 });
 
                             }else {
-                                Log.w("MainActivity",responseData+"&&&"+responseData.length());
+                                Log.w("SubTitleUtil",responseData+"&&&"+responseData.length());
                                 if (!(responseData.length() == 121)){
                                     runOnUiThread(new Runnable() {
                                         @Override

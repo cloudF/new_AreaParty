@@ -1,6 +1,7 @@
 package com.dkzy.areaparty.phone.utils_comman;
 
 import com.dkzy.areaparty.phone.OrderConst;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_playPicList;
 import com.dkzy.areaparty.phone.model_comman.PCCommandItem;
 import com.dkzy.areaparty.phone.model_comman.TVCommandItem;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
@@ -55,6 +56,7 @@ public class CommandUtil {
         cmd.setSecondcommand(OrderConst.VLCAction_Pause_secondCommand);
         return cmd;
     }
+
 
     /**
      * <summary>
@@ -158,6 +160,11 @@ public class CommandUtil {
         TVCommandItem cmd = new TVCommandItem();
         cmd.setFirstcommand(OrderConst.VLCAction_firCommand);
         cmd.setSecondcommand(OrderConst.VLCAction_Exit_SecondCommand);
+        return cmd;
+    }
+    public static TVCommandItem createOpenMoonlightCommand() {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.VLCAction_openMoonLightCommand);
         return cmd;
     }
 
@@ -386,6 +393,7 @@ public class CommandUtil {
     public static TVCommandItem createPlayUrlFileOnTVCommand(List<String> urls, String fileName, String fileType) {
         TVCommandItem cmd = new TVCommandItem();
         cmd.setFirstcommand(OrderConst.dlnaCastToTV_Command);
+        cmd.setSecondcommand(""+ ActionDialog_playPicList.t);
         cmd.setFifthCommand(fileType);
         cmd.setSixthcommand(urls);
         return cmd;
@@ -489,6 +497,11 @@ public class CommandUtil {
         cmd.param = new HashMap<>();
         return cmd;
     }
+    public static PCCommandItem openUtorrent() {
+        PCCommandItem cmd = new PCCommandItem();
+        cmd.setName(OrderConst.UTOrrent);
+        return cmd;
+    }
 
     /**
      * <summary>
@@ -547,13 +560,14 @@ public class CommandUtil {
         return cmd;
     }
 
-    public static PCCommandItem createPlayAllCommand(String path,String tvname ,String type) {
+    public static PCCommandItem createPlayAllCommand(String path,String tvname ,String t,String type) {
         PCCommandItem cmd = new PCCommandItem();
         cmd.setName(type);
         cmd.setCommand(OrderConst.mediaAction_playALL_command);
         Map<String, String> params = new HashMap<>();
         params.put("folder", path);
         params.put("tvname", tvname);
+        params.put("t",t);
         cmd.param = params;
         return cmd;
     }
@@ -753,10 +767,12 @@ public class CommandUtil {
         return cmd;
     }
 
-    public static TVCommandItem createLoadSubtitleVLCCommand() {
+    public static TVCommandItem createLoadSubtitleVLCCommand(String url,String f) {
         TVCommandItem cmd = new TVCommandItem();
         cmd.setFirstcommand(OrderConst.VLCAction_firCommand);
         cmd.setSecondcommand(OrderConst.VLCAction_LoadSubtitle_SecondCommand);
+        cmd.setFourthCommand(url);
+        cmd.setFifthCommand(f);
         return cmd;
     }
 
@@ -786,5 +802,6 @@ public class CommandUtil {
         cmd.setFirstcommand(OrderConst.CLOSERDP);
         return cmd;
     }
+
 
 }

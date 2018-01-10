@@ -65,12 +65,14 @@ public class audioSetActivity extends Activity implements View.OnClickListener{
     private TextView app_file,pc_file;
     private boolean isAppContent = false;
 
+    private boolean asBGM;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab02_audioset_activity);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
+        asBGM = getIntent().getBooleanExtra("asBGM",false);
         initData();
         initView();
         initEvent();
@@ -229,11 +231,13 @@ public class audioSetActivity extends Activity implements View.OnClickListener{
                     Intent intent = new Intent(audioSetActivity.this, audioSetContentActivity.class);
                     intent.putExtra("isAppContent",false);
                     intent.putExtra("setName", setList.get(i).name);
+                    intent.putExtra("asBGM",asBGM);
                     startActivity(intent);
                 }else {
                     Intent intent = new Intent(audioSetActivity.this, audioSetContentActivity.class);
                     intent.putExtra("isAppContent",true);
                     intent.putExtra("setName", setList_app.get(i).name);
+                    intent.putExtra("asBGM",asBGM);
                     startActivity(intent);
                 }
 

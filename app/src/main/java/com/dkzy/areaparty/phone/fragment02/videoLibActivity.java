@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.fragment01.ui.DeleteDialog;
+import com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.RemoteDownloadActivity;
 import com.dkzy.areaparty.phone.fragment02.contentResolver.ContentDataControl;
 import com.dkzy.areaparty.phone.fragment02.contentResolver.ContentDataLoadTask;
 import com.dkzy.areaparty.phone.fragment02.contentResolver.FileItem;
@@ -71,7 +72,7 @@ public class videoLibActivity extends Activity implements View.OnClickListener,C
     private boolean isAppContent = false;
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
             if (isAppContent){
                 if (folderSLV.getVisibility() == View.VISIBLE){
@@ -230,7 +231,12 @@ public class videoLibActivity extends Activity implements View.OnClickListener,C
         folderAdapter = new MyAdapter<MediaItem>(MediafileHelper.mediaFolders, R.layout.tab02_folder_item) {
             @Override
             public void bindView(final ViewHolder holder, final MediaItem obj) {
-                holder.setText(R.id.nameTV, obj.getName());
+                if (RemoteDownloadActivity.rootPath != null && obj.getPathName().equals(RemoteDownloadActivity.rootPath)){
+                    holder.setText(R.id.nameTV, "下载文件");
+                }else {
+                    holder.setText(R.id.nameTV, obj.getName());
+                }
+
                 holder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -362,8 +368,6 @@ public class videoLibActivity extends Activity implements View.OnClickListener,C
             }
         });
     }
-
-
 
     public Handler myHandler = new Handler() {
         @Override

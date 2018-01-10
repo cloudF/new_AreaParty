@@ -24,8 +24,10 @@ import com.dkzy.areaparty.phone.androideventbusutils.events.changeSelectedDevice
 import com.dkzy.areaparty.phone.fragment01.model.SharedfileBean;
 import com.dkzy.areaparty.phone.fragment01.utils.HttpServer;
 import com.dkzy.areaparty.phone.fragment01.utorrent.utils.UrlUtils;
+import com.dkzy.areaparty.phone.fragment01.websitemanager.start.StartActivity;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.RemoteDownloadActivity;
 import com.dkzy.areaparty.phone.fragment03.utils.TVAppHelper;
+import com.dkzy.areaparty.phone.fragment06.DownloadFolderFragment;
 import com.dkzy.areaparty.phone.myapplication.floatview.FloatView;
 import com.dkzy.areaparty.phone.myapplication.floatview.FloatView2;
 import com.dkzy.areaparty.phone.myapplication.inforUtils.FillingIPInforList;
@@ -40,6 +42,7 @@ import com.dkzy.areaparty.phone.utils_comman.jsonFormat.ReceivedActionMessageFor
 import com.dkzy.areaparty.phone.utils_comman.jsonFormat.RequestFormat;
 import com.dkzy.areaparty.phone.utils_comman.netWork.NetBroadcastReceiver;
 import com.dkzy.areaparty.phone.utils_comman.netWork.NetUtil;
+import com.dkzy.areaparty.phone.utilseverywhere.utils.Utils;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.google.gson.Gson;
@@ -52,7 +55,9 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okserver.OkDownload;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
 
 import java.io.BufferedReader;
@@ -66,6 +71,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -76,9 +82,14 @@ import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static android.R.attr.tag;
+import static com.dkzy.areaparty.phone.IPAddressConst.statisticServer_ip;
 import static com.dkzy.areaparty.phone.utils_comman.Send2SpecificTVThread.stringToMD5;
 
 
@@ -90,6 +101,10 @@ import static com.dkzy.areaparty.phone.utils_comman.Send2SpecificTVThread.string
  */
 
 public class MyApplication extends Application implements NetBroadcastReceiver.netEventHandler {
+    public static String AREAPARTY_NET;//服務器ip地址
+    public static String domain = "www.areaparty.net";//用户服務器域名
+    public static String domain1 = "www.areaparty.com";//统计服務器域名
+//119.23.12.116
     public static FloatView mFloatView;
     public static FloatView2 mFloatView2;
 
@@ -139,8 +154,40 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
 
         getPcAreaPartyPath();
 
+
     }
-    public static void getPcAreaPartyPath(){//发送请求获取AreaParty安装目录
+
+    public static void getWebSiteUrl(){
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder().url("http://"+IPAddressConst.statisticServer_ip+"/bt_website/get_data.json").build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                //Log.w("getWebSiteUrl",responseData);
+                try {
+                    JSONArray jsonArray = new JSONArray(responseData);
+                    StartActivity.url = new String[5];
+                    StartActivity.imageUrl = new String[5];
+                    for (int i =0 ; i< jsonArray.length() ; i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        StartActivity.url[i] = jsonObject.getString("url");
+                        StartActivity.imageUrl[i] = "http://"+IPAddressConst.statisticServer_ip+"/bt_website/"+jsonObject.getString("image");
+                        //Log.w("getWebSiteUrl",StartActivity.url[i] + StartActivity.imageUrl[i]);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+    public static void getPcAreaPartyPath(){//发送请求获取AreaParty下载目录
         if (selectedPCOnline && !TextUtils.isEmpty(selectedPCIP.ip)){
             try {
                 RequestFormat request = new RequestFormat();
@@ -162,7 +209,10 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                             String path = jsonObject.getString("message");
                             Log.w("GET_AREAPARTY_PATH",path);
                             if (!TextUtils.isEmpty(path)){
-                                RemoteDownloadActivity.btFilesPath = path + "BtFiles\\";
+                                RemoteDownloadActivity.rootPath = path;
+                                RemoteDownloadActivity.btFilesPath = path + "\\BTdownload\\Torrent\\";
+                                RemoteDownloadActivity.targetPath = path + "\\BTdownload\\forLoad\\";
+                                DownloadFolderFragment.rootPath = path + "\\FriendsDownload\\";
                                 Log.w("GET_AREAPARTY_PATH",RemoteDownloadActivity.btFilesPath);
                             }
                         } catch (JSONException e) {
@@ -173,9 +223,9 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                 }).start();
             }catch (Exception e){e.printStackTrace(); Log.w("GET_AREAPARTY_PATH","Exception");}
 
-            if (TextUtils.isEmpty(UrlUtils.token)){
+            /*if (TextUtils.isEmpty(UrlUtils.token)){
                 RemoteDownloadActivity.initUTorrent();
-            }
+            }*/
         }
     }
 
@@ -326,7 +376,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                         Log.e("stateChange", "连接PC成功");
                         PCOnline = true;
                         FillingIPInforList.addPCInfor(selectedPCIP);
-                        if (TextUtils.isEmpty(RemoteDownloadActivity.btFilesPath)){getPcAreaPartyPath();}
+                        if (TextUtils.isEmpty(RemoteDownloadActivity.rootPath)){getPcAreaPartyPath();}
                         if (!selectedPCVerified){verifyLastPCMac();}
                     } catch (IOException e) {
                         Log.e("stateChange", "连接PC失败" + selectedPCIP.ip);
@@ -418,7 +468,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
             public void run() {
                 String sendStr = JsonUitl.objectToString(new Update_SendMsgBean("app", version));
                 try {
-                    InetAddress address = InetAddress.getByName(IPAddressConst.statisticServer_ip);
+                    InetAddress address = InetAddress.getByName(statisticServer_ip);
                     DatagramPacket datagramPacket = new DatagramPacket(sendStr.getBytes(), sendStr.length(),
                             address, IPAddressConst.checkNewVersion_port);
                     DatagramSocket socket = new DatagramSocket();
@@ -486,6 +536,8 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         if(MyApplication.getSelectedPCIP()!=null&&MyApplication.getSelectedTVIP()!=null){
             TVAppHelper.currentPcInfo2TV();
         }
+
+
 
 
     }
@@ -586,6 +638,15 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
     public void onCreate() {
         Log.e("MyApplication", "applicationCreate");
         super.onCreate();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                AREAPARTY_NET = GetInetAddress(domain);
+                statisticServer_ip = GetInetAddress(domain1);
+            }
+        }).start();
+
+        Utils.init(this);
         if (mFloatView == null){
             mFloatView = new FloatView(getApplicationContext());
         }
@@ -624,6 +685,8 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
             verifyLastPCMac();
             verifyLastTVMac();
         }catch (Exception e){e.printStackTrace();}
+
+        getWebSiteUrl();
 
         startStateRefreshTimer();
         startCheckIsNewVersionExist();
@@ -799,5 +862,18 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         for(Activity activity : activities){
             activity.finish();
         }
+    }
+
+    public static String GetInetAddress(String host) {
+        String IPAddress = "";
+        InetAddress ReturnStr1 = null;
+        try {
+            ReturnStr1 = java.net.InetAddress.getByName(host);
+            IPAddress = ReturnStr1.getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            return IPAddress;
+        }
+        return IPAddress;
     }
 }

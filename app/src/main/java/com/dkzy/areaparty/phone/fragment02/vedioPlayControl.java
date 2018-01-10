@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +17,9 @@ import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.androideventbusutils.events.TvPlayerChangeEvent;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_page;
+import com.dkzy.areaparty.phone.fragment02.subtitle.ActionDialog_subTitle;
+import com.dkzy.areaparty.phone.fragment02.subtitle.SubTitleUtil;
 import com.dkzy.areaparty.phone.fragment02.view.RemoteControlView;
 import com.dkzy.areaparty.phone.fragment03.utils.TVAppHelper;
 import com.dkzy.areaparty.phone.utils_comman.ReceiveCommandFromTVPlayer;
@@ -27,6 +31,8 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import es.dmoral.toasty.Toasty;
 
 import static com.dkzy.areaparty.phone.R.drawable.vedio_play_control_pause;
 import static com.dkzy.areaparty.phone.R.drawable.vedio_play_control_play;
@@ -40,6 +46,8 @@ public class vedioPlayControl extends AppCompatActivity {
     public static Button Subtitle;
     public static Button subtitle_before;
     public static Button subtitle_delay;
+
+    SubTitleUtil subTitleUtil;
 
 
     private boolean isChanging=false;//互斥变量，防止定时器与SeekBar拖动时进度冲突
@@ -116,13 +124,36 @@ public class vedioPlayControl extends AppCompatActivity {
         Subtitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Subtitle.getText().equals("加载字幕")||Subtitle.getText().equals("加载歌词")){
-                    TVAppHelper.vedioPlayControlLoadSubtitle();
-                    if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("VIDEO")){
-                        Subtitle.setText("隐藏字幕");
-                    }else {
-                        Subtitle.setText("隐藏歌词");
+                if(Subtitle.getText().equals("加载字幕")){
+                    if (player_title.getText().toString().equals("当前无播放视频")){
+                        Toast.makeText(getApplicationContext(),"当前无播放视频",Toast.LENGTH_SHORT).show();
+                        return;
                     }
+                    subTitleUtil = new SubTitleUtil();
+                    subTitleUtil.setListener(new SubTitleUtil.OnLoadListener() {
+                        @Override
+                        public void onStartLoad() {
+
+                        }
+
+                        @Override
+                        public void onFinishLoad() {
+                            Log.w("VideoPlayerActivity",SubTitleUtil.subTitleList.size()+"pppppppp");
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (SubTitleUtil.subTitleList.size() > 0){
+                                        showHelpInfoDialog();
+                                    }else {
+                                        Toasty.error(vedioPlayControl.this,"未找到字幕").show();
+                                    }
+
+                                }
+                            });
+                        }
+                    });
+                    subTitleUtil.getInternetSub(player_title.getText().toString());
 
                 }else {
                     TVAppHelper.vedioPlayControlHideSubtitle();
@@ -560,4 +591,63 @@ public class vedioPlayControl extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+
+    public  void showHelpInfoDialog(){
+        final ActionDialog_subTitle dialog = new ActionDialog_subTitle(this, SubTitleUtil.subTitleList);
+        dialog.setCancelable(true);
+        dialog.show();
+        dialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!dialog.isSubmit()){
+                    subTitleUtil.setListener1(new SubTitleUtil.OnLoadListener() {
+                        @Override
+                        public void onStartLoad() {
+
+                        }
+
+                        @Override
+                        public void onFinishLoad() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (SubTitleUtil.subTitleListDetail.size() < 1){
+                                        Toasty.error(vedioPlayControl.this,"获取字幕文件失败").show();
+                                        dialog.dismiss();
+                                    }else if (SubTitleUtil.subTitleListDetail.size() == 1){
+                                        sendSubTitleUrl(SubTitleUtil.subTitleListDetail.get(0).getId(),SubTitleUtil.subTitleListDetail.get(0).getName());
+                                        dialog.dismiss();
+                                    }else {
+                                        dialog.setTitleText("请选择字幕文件");
+                                        dialog.setData(SubTitleUtil.subTitleListDetail);
+                                        dialog.setSubmit(true);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    subTitleUtil.getSubTitleUrl(dialog.getSelected());
+                }
+                else {
+                    //Toast.makeText(vedioPlayControl.this, ""+dialog.getSelected(), Toast.LENGTH_SHORT).show();
+                    sendSubTitleUrl(dialog.getSelected(),dialog.getSelectedName());
+                    dialog.dismiss();
+                }
+
+            }
+        });
+    }
+    private void sendSubTitleUrl(String url , String f){
+        Log.w("videoPlayerActivity2",url);
+        TVAppHelper.vedioPlayControlLoadSubtitle(url, f );
+        if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("VIDEO")){
+            Subtitle.setText("隐藏字幕");
+        }
+    }
 }

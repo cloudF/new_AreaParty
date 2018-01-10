@@ -282,7 +282,7 @@ public class TVDevicesActivity extends Activity implements View.OnClickListener,
 
         loadingView = LayoutInflater.from(this).inflate(R.layout.tab04_loadingcontent, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(loadingView).setCancelable(false);
+        builder.setView(loadingView).setCancelable(true);
         dialog = builder.create();
 
         noWifiNoticeTxtTV.setText("需和TV设备处于同一WiFi才能检测TV");

@@ -24,9 +24,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.dkzy.areaparty.phone.IPAddressConst;
 import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_help;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_page;
 import com.dkzy.areaparty.phone.fragment01.utorrent.utils.OkHttpUtils;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.hdhome.WelcomeActivity;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.MainActivity;
@@ -37,7 +40,10 @@ import com.dkzy.areaparty.phone.myapplication.MyApplication;
 import com.dkzy.areaparty.phone.myapplication.floatview.FloatView;
 import com.dkzy.areaparty.phone.utils_comman.PreferenceUtil;
 import com.dkzy.areaparty.phone.utils_comman.netWork.NetUtil;
+import com.dkzy.areaparty.phone.utilseverywhere.utils.AccessibilityUtils;
+import com.dkzy.areaparty.phone.utilseverywhere.utils.IntentUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,33 +61,40 @@ import es.dmoral.toasty.Toasty;
 import info.hoang8f.widget.FButton;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
+
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.AREAPARTY_NET;
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener{
     //图片按钮
-    private ImageButton web1080;
-    private ImageButton blufans;
-    private ImageButton hdhome;
-    private ImageButton hdchd;
-    private ImageButton hdchd1;
+    private ImageView[] image = new ImageView[5];
 
     //链接按钮
-    private Button buttonWeb1080;
-    private Button buttonBlufans;
-    private Button buttonHdhome;
-    private Button buttonHdchd;
-    private Button buttonHdchd1;
+    private Button[] btn = new Button[5];
     //下载管理
     private Button downloadManagement;
 
     private TextView share_tv;
     private TextView floatViewTV, autoLoginServiceTV, autoLoginHelper;
+    private TextView helpInfo;
 
     //网站地址
-    private String urlWeb1080="http://www.1080.net";
-    private String urlBlufans="http://www.longbaidu.com/forum.php?forumlist=1&mobile=2";
+    //http://www.87lou.com/
+    //http://www.xixizh.com/
+    //http://www.1080.net
+    //http://www.dayangd.com/
+    //http://www.vkugq.com
+    //http://www.dyttbbs.com
+    //http://www.btshoufa.net/forum.php
+    //http://www.1080.cn/
+    public static String[] url;
+    public static String[] imageUrl;
+    private String urlWeb1080="http://www.dayangd.com";
+    private String urlBlufans="http://www.longbaidu.com";
 
-    private String urlHdchd="http://www.vkugq.com";
+    private String urlHdchd="http://www.87lou.com";
     private String urlHdchd1 = "http://www.hdchd.cc";
     private String urlXunleicun="http://www.webmanager_xunleicun.com/misc.php?mod=mobile";
 
@@ -104,6 +117,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private boolean isHelpDialogShow;
 
     public static String logined;
+
+    public static String userName = "";
+    public static boolean mainMobile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +130,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         initView();
 
 
+
+
         //获取权限
 
 
@@ -121,7 +139,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 //            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
 //        }
 
-        //绑定监听
+        /*//绑定监听
         web1080.setOnClickListener(this);
         blufans.setOnClickListener(this);
         hdhome.setOnClickListener(this);
@@ -132,10 +150,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         buttonBlufans.setOnClickListener(this);
         buttonWeb1080.setOnClickListener(this);
         buttonHdchd.setOnClickListener(this);
-        buttonHdchd1.setOnClickListener(this);
+        buttonHdchd1.setOnClickListener(this);*/
 
         downloadManagement.setOnClickListener(this);
         share_tv.setOnClickListener(this);
+        helpInfo.setOnClickListener(this);
 
     }
 
@@ -155,33 +174,34 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
        switch (v.getId()){
-           case R.id.web1080:
-           case R.id.ButtonWeb1080:
+           case R.id.image1:
+           case R.id.url1:
                Intent intent=new Intent(StartActivity.this, MainActivity.class);
-               intent.putExtra("URL",urlWeb1080);
+               intent.putExtra("URL",url[0]);
                startActivity(intent);
                break;
-           case R.id.blufans:
-           case R.id.ButtonBlufans:
+           case R.id.image2:
+           case R.id.url2:
                Intent intent1=new Intent(StartActivity.this, MainActivity.class);
-               intent1.putExtra("URL",urlBlufans);
+               intent1.putExtra("URL",url[1]);
                startActivity(intent1);
                break;
-           case R.id.hdchd:
-           case R.id.ButtonHdchd:
+           case R.id.image3:
+           case R.id.url3:
                Intent intent2=new Intent(StartActivity.this, MainActivity.class);
-               intent2.putExtra("URL",urlHdchd);
+               intent2.putExtra("URL",url[2]);
                startActivity(intent2);
                break;
-           case R.id.hdchd1:
-           case R.id.ButtonHdchd1:
+           case R.id.image4:
+           case R.id.url4:
                Intent intent5=new Intent(StartActivity.this, MainActivity.class);
-               intent5.putExtra("URL",urlHdchd1);
+               intent5.putExtra("URL",url[3]);
                startActivity(intent5);
                break;
-           case R.id.hdhome:
-           case R.id.ButtonHdhome:
-               Intent intent3=new Intent(StartActivity.this, WelcomeActivity.class);
+           case R.id.image5:
+           case R.id.url5:
+               Intent intent3=new Intent(StartActivity.this, MainActivity.class);
+               intent3.putExtra("URL",url[4]);
                startActivity(intent3);
                break;
            case R.id.downloadManagement:
@@ -201,7 +221,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                }
                break;
            case R.id.autoLoginServiceTV:
-               startActivity(mAccessibleIntent);
+               IntentUtils.gotoAccessibilitySetting();
                break;
            case R.id.autoLogin_help:
                startActivity(new Intent(StartActivity.this,AutoLoginHelperActivity.class));
@@ -214,6 +234,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
            case R.id.btn_logout_tencent:
            case R.id.btn_login_leshi:
            case R.id.btn_logout_leshi:
+               if (!mainMobile){
+                   Toast.makeText(StartActivity.this, "当前设备不是主设备，无法使用此功能",Toast.LENGTH_SHORT).show();
+                   return;
+               }
                if (TextUtils.isEmpty(logined)){
                    checkInfo();
                    return;
@@ -225,10 +249,18 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                }
 
                break;
+           case R.id.helpInfo:
+               showHelpInfoDialog(R.layout.dialog_web);
+               break;
            default:
                break;
 
        }
+    }
+    public  void showHelpInfoDialog(int layout){
+        final ActionDialog_page dialog = new ActionDialog_page(this,layout);
+        dialog.setCancelable(true);
+        dialog.show();
     }
 
 //    private long exitTime = 0;
@@ -236,25 +268,50 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
 
     private  void initView(){
-        web1080=(ImageButton)findViewById(R.id.web1080);
-        blufans=(ImageButton)findViewById(R.id.blufans);
-        hdhome=(ImageButton)findViewById(R.id.hdhome);
-        hdchd=(ImageButton)findViewById(R.id.hdchd);
-        hdchd1=(ImageButton)findViewById(R.id.hdchd1);
+        image[0]=(ImageView) findViewById(R.id.image1);
+        image[1]=(ImageView) findViewById(R.id.image2);
+        image[2]=(ImageView) findViewById(R.id.image3);
+        image[3]=(ImageView) findViewById(R.id.image4);
+        image[4]=(ImageView) findViewById(R.id.image5);
 
-        buttonWeb1080=(Button)findViewById(R.id.ButtonWeb1080);
-        buttonBlufans=(Button)findViewById(R.id.ButtonBlufans);
-        buttonHdhome=(Button)findViewById(R.id.ButtonHdhome);
-        buttonHdchd=(Button)findViewById(R.id.ButtonHdchd) ;
-        buttonHdchd1=(Button)findViewById(R.id.ButtonHdchd1) ;
+        btn[0]=(Button)findViewById(R.id.url1);
+        btn[1]=(Button)findViewById(R.id.url2);
+        btn[2]=(Button)findViewById(R.id.url3);
+        btn[3]=(Button)findViewById(R.id.url4);
+        btn[4]=(Button)findViewById(R.id.url5);
+
+        if (url == null || imageUrl == null) {
+            getWebSiteUrl();
+        }else{
+            initWebSite();
+        }
+
+        /*image1.setOnClickListener(this);
+        image2.setOnClickListener(this);
+        image3.setOnClickListener(this);
+        image4.setOnClickListener(this);
+        image5.setOnClickListener(this);
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
+        btn3.setOnClickListener(this);
+        btn4.setOnClickListener(this);
+        btn5.setOnClickListener(this);*/
 
         downloadManagement=(Button)findViewById(R.id.downloadManagement);
         share_tv = (TextView) findViewById(R.id.tv_share);
+        helpInfo = (TextView) findViewById(R.id.helpInfo);
 
     }
 
 
     private void phoneVIPAppActivity() {
+        if (TextUtils.isEmpty(userName)){
+            userName = Login.userName;
+            if (!TextUtils.isEmpty(userName)){
+                mainMobile = Login.mainMobile;
+            }
+        }
+
         initViews();//初始化界面
 
         logined = Util.getRecordWebsit(getApplicationContext());
@@ -299,7 +356,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public  void checkInfo(){
-        String url = "http://119.23.12.116/AreaParty/GetUserInfo?userName="+ Login.userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext());
+        /*if (TextUtils.isEmpty(logined)) logined = "null";
+        Util.setRecord(MyApplication.getContext(),logined, "");
+        setTag();*/
+        String url = "http://"+AREAPARTY_NET+"/AreaParty/GetUserInfo?userName="+ Login.userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext());
         Log.w("StartActivity",url);
         OkHttpUtils.getInstance().setUrl(url).buildNormal().execute(new Callback() {
             @Override
@@ -326,10 +386,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                         if (iqiyiVipInfo.equals("在线")){
                             logined = AutoLoginService.LESHI;
                         }else if (tencentVipInfo.equals("在线")){
-                            logined = AutoLoginService.YOUKU;
+                            logined = AutoLoginService.TENCENT;
                             account = jsonObject.getString("tencentVipName");
                         }else if (youkuVipInfo.equals("在线")){
-                            logined = AutoLoginService.TENCENT;
+                            logined = AutoLoginService.YOUKU;
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -347,60 +407,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
-    public  void getVipUserCount(final String type) {
-        String userName = "";
-        if (!TextUtils.isEmpty(Login.userName)){userName = Login.userName;}else if(!TextUtils.isEmpty(this.getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){userName = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", "");}
-        String url = "http://119.23.12.116/AreaParty/LoginVip?userName="+userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
-        Log.w("StartActivity",url);
-        FloatView.password = "";
-        FloatView.name = "";
-        OkHttpUtils.getInstance().setUrl(url).buildNormal().execute(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
 
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String responseData = response.body().string();
-                Log.w("StartActivity",responseData);
-                if (responseData.startsWith("fail")){
-                    registerVip(type);
-                }else {
-                    try {
-                        JSONObject jsonObject = new JSONObject(responseData);
-                        FloatView.name = jsonObject.getString("name");
-                        FloatView.password = jsonObject.getString("password");
-                        Log.w("StartActivity",FloatView.name+"**"+FloatView.password);
-                        /*switch (type){
-                            case "iqiyi":
-                                Util.setRecord(MyApplication.getContext(),AutoLoginService.LESHI);
-                                logined = AutoLoginService.LESHI;
-                                break;
-                            case "youku":
-                                Util.setRecord(MyApplication.getContext(),AutoLoginService.YOUKU);
-                                logined = AutoLoginService.YOUKU;
-                                break;
-                            case "tencent":
-                                Util.setRecord(MyApplication.getContext(),AutoLoginService.TENCENT,FloatView.name);
-                                logined = AutoLoginService.TENCENT;
-                                break;
-                        }*/
-                        /*runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                setTag();
-                            }
-                        });*/
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-    }
     public static void logoutVip(final String type){
-        String url = "http://119.23.12.116/AreaParty/LogoutVip?userName="+ Login.userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
+        String url = "http://"+AREAPARTY_NET+"/AreaParty/LogoutVip?userName="+ Login.userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
         Log.w("StartActivity",url);
 
         Util.setRecord(MyApplication.getContext(),"null");
@@ -422,30 +431,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    public void registerVip(final String type){
-        String url = "http://119.23.12.116/AreaParty/RegisterVip?userName=" + Login.userName
-                +"&userMac=" +Login.getAdresseMAC(MyApplication.getContext())
-                +"&ip="+"223.85.200.129"
-                +"&vipType="+type
-                +"&registerTime="+getNowDate()
-                +"&deadlineTime="+getMonthLaterDate(1);
-        Log.w("StartActivity",url);
-        OkHttpUtils.getInstance().setUrl(url).buildNormal().execute(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
 
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String responseData = response.body().string();
-                Log.w("StartActivity",responseData);
-                if (responseData.equals("success")){
-                    getVipUserCount(type);
-                }
-            }
-        });
-    }
 
     private int getVersionCode(String packageName){
         PackageManager packageManager = this.getPackageManager();
@@ -461,7 +447,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initViews() {
-        vipContent = (RelativeLayout) findViewById(R.id.vipContent); if (TextUtils.isEmpty(this.getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){vipContent.setVisibility(View.GONE);}else {vipContent.setVisibility(View.VISIBLE);}
+        vipContent = (RelativeLayout) findViewById(R.id.vipContent); if (TextUtils.isEmpty(userName)){vipContent.setVisibility(View.GONE);}else {vipContent.setVisibility(View.VISIBLE);}
         autoLoginHelper = (TextView) findViewById(R.id.autoLogin_help);  autoLoginHelper.setOnClickListener(this);
         floatViewTV = (TextView) findViewById(R.id.floatViewTV); floatViewTV.setOnClickListener(this);floatViewTV.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         autoLoginServiceTV = (TextView) findViewById(R.id.autoLoginServiceTV); autoLoginServiceTV.setOnClickListener(this);autoLoginServiceTV.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -483,7 +469,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateServiceStatus() {
-        serviceEnabled = false;
+        serviceEnabled = AccessibilityUtils.isAccessibilitySettingsOn();
+        /*serviceEnabled = false;
         AccessibilityManager accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
         if (accessibilityManager == null) return;
         List<AccessibilityServiceInfo> accessibilityServices = accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
@@ -492,8 +479,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 serviceEnabled = true;
                 break;
             }
-        }
-        autoLoginServiceTV.setText(serviceEnabled ? "已开启" : "去开启");
+        }*/
+        autoLoginServiceTV.setText(serviceEnabled ? "已开启" : "未开启");
 
     }
 
@@ -607,20 +594,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         }
         return "";
     }
-    public static String getNowDate() {
-        Date currentTime = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String dateString = formatter.format(currentTime);
-        return dateString;
-    }
-    public static String getMonthLaterDate(int a) {
-        Calendar curr = Calendar.getInstance();
-        curr.set(Calendar.DATE, curr.getActualMaximum(Calendar.DATE));
-        Date date = curr.getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String dateString = formatter.format(date);
-        return dateString;
-    }
+
 
     public void toast(){
         String s = "";
@@ -675,15 +649,15 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             if (NetUtil.getNetWorkState(this) != NetUtil.NETWORK_NONE){
                 switch (v.getId()){
                     case R.id.btn_login_leshi://乐视视频登录
-                        if (!(logined.equals(AutoLoginService.LESHI) || (!logined.equals(AutoLoginService.LESHI) && !TextUtils.isEmpty(new PreferenceUtil(getApplicationContext()).read("lastChosenPC"))))){
-                            Toasty.error(StartActivity.this, "安装AreaParty电脑端并与手机连接后获得乐视视频的使用权限").show();
+                        if (!(logined.equals(AutoLoginService.LESHI) || (!logined.equals(AutoLoginService.LESHI) && !TextUtils.isEmpty(new PreferenceUtil(getApplicationContext()).read("lastChosenTV"))))){
+                            Toasty.error(StartActivity.this, "安装AreaParty电视端并与手机连接后获得乐视视频的使用权限").show();
                             return;
                         }
                         if (logined.equals(AutoLoginService.LESHI) || logined.equals("null")){
                             if (leshiVersionCode != 0){
                                 openPackage(this,AutoLoginService.LESHI);
                                 AutoLoginService.state = AutoLoginService.LESHI_LOGIN;
-                                getVipUserCount("iqiyi");
+                                FloatView.registerVip("iqiyi");
                             }else {
                                 Toasty.error(StartActivity.this, "你未安装乐视视频").show();
                             }
@@ -710,15 +684,15 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                         }
                         break;
                     case R.id.btn_login_youku://优酷登录
-                        if (!(logined.equals(AutoLoginService.YOUKU) || (!logined.equals(AutoLoginService.YOUKU) && !TextUtils.isEmpty(new PreferenceUtil(getApplicationContext()).read("lastChosenTV"))))){
-                            Toasty.error(StartActivity.this, "安装AreaParty电视端并与手机连接后获得优酷的使用权限").show();
+                        if (!(logined.equals(AutoLoginService.YOUKU) || (!logined.equals(AutoLoginService.YOUKU) && !TextUtils.isEmpty(new PreferenceUtil(getApplicationContext()).read("lastChosenPC"))))){
+                            Toasty.error(StartActivity.this, "安装AreaParty电脑端并与手机连接后获得优酷的使用权限").show();
                             return;
                         }
                         if (logined.equals(AutoLoginService.YOUKU) || logined.equals("null")){
                             if (youkuVersionCode != 0){
                                 openPackage(this,AutoLoginService.YOUKU);
                                 AutoLoginService.state = AutoLoginService.YOUKU_LOGIN;
-                                getVipUserCount("youku");
+                                FloatView.registerVip("youku");
                             }else {
                                 Toasty.error(StartActivity.this, "你未安装优酷视频").show();
                             }
@@ -748,7 +722,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                             if (tencentVersionCode != 0){
                                 openPackage(this,AutoLoginService.TENCENT);
                                 AutoLoginService.state = AutoLoginService.TENCENT_LOGIN;
-                                getVipUserCount("tencent");
+                                FloatView.registerVip("tencent");
                             }else {
                                 Toasty.error(StartActivity.this, "你未安装腾讯视频").show();
                             }
@@ -782,6 +756,46 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         }else {
             Toasty.warning(StartActivity.this, "请先开启自助登录服务").show();
+        }
+    }
+
+    public  void getWebSiteUrl(){
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder().url("http://"+ IPAddressConst.statisticServer_ip+"/bt_website/get_data.json").build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                //Log.w("getWebSiteUrl",responseData);
+                try {
+                    JSONArray jsonArray = new JSONArray(responseData);
+                    StartActivity.url = new String[5];
+                    StartActivity.imageUrl = new String[5];
+                    for (int i =0 ; i< jsonArray.length() ; i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        StartActivity.url[i] = jsonObject.getString("url");
+                        StartActivity.imageUrl[i] = "http://"+IPAddressConst.statisticServer_ip+"/bt_website/"+jsonObject.getString("image");
+                    }
+                    initWebSite();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+    public void initWebSite(){
+        for (int i = 0; i< 5; i++){
+            Glide.with(this).load(imageUrl[i]).into(image[i]);
+            btn[i].setText(url[i].replace("http://",""));
+            image[i].setOnClickListener(this);
+            btn[i].setOnClickListener(this);
         }
     }
 

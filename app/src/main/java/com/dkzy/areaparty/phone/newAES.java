@@ -68,6 +68,8 @@ public class newAES {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return asHex(encryptedData);
     }
@@ -103,7 +105,10 @@ public class newAES {
             e.printStackTrace();
         } catch (InvalidAlgorithmParameterException e) {
             e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
         }
+
         return "";
     }
 
@@ -152,6 +157,8 @@ public class newAES {
                 encrypted[i] = (byte) (high * 16 + low);
             }
         }catch (NumberFormatException e) {
+            e.printStackTrace();
+        }catch (Exception e){
             e.printStackTrace();
         }
         return encrypted;

@@ -15,7 +15,7 @@ public class IPAddressConst {
     public static final int LOCALHTTPPORT_Y = 8634;
     public static final int TVRECEIVEPORT_MM = 12548;
     public static final int PC_MSG_PORT = 9752;
-    public static final String statisticServer_ip = "119.23.74.220";
+    public static  String statisticServer_ip;/*"119.23.74.220"*/
     public static final int statisticServer_port = 10000;
     public static final int checkNewVersion_port = 10001;
     public static final int REVEIVE_FROM_TVPLAYER_PORT = 9323;

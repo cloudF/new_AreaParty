@@ -722,7 +722,7 @@ public class diskTVContentActivity extends Activity implements View.OnClickListe
                 dlnaCast("image");
                 break;
             case R.id.to_select_bgm:
-                startActivity(new Intent(diskTVContentActivity.this, audioSetActivity.class));
+                startActivity(new Intent(diskTVContentActivity.this, audioSetActivity.class).putExtra("asBGM",true));
                 break;
 
         }

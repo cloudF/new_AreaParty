@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_playPicList;
 import com.dkzy.areaparty.phone.fragment01.ui.DeleteDialog;
 import com.dkzy.areaparty.phone.fragment02.base.ImageAdapter_APP;
 import com.dkzy.areaparty.phone.fragment02.contentResolver.ContentDataControl;
@@ -213,11 +214,34 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
             case R.id.play_folder_list:
+                showDialog();
+
+                break;
+            case R.id.to_select_bgm:
+                startActivity(new Intent(imageLibActivity.this, audioSetActivity.class).putExtra("asBGM",true));
+                break;
+        }
+    }
+
+    public void showDialog(){
+        final ActionDialog_playPicList dialog = new ActionDialog_playPicList(this);
+        dialog.setCancelable(false);
+        dialog.show();
+        dialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 if (isAppContent){
                     if (MyApplication.isSelectedTVOnline()){
                         dlnaCast(stringFolder,"image");
                     } else  Toasty.warning(imageLibActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
-                }else{
+                }
+                else{
                     if(MyApplication.isSelectedPCOnline()) {
                         if(MyApplication.isSelectedTVOnline()) {
                             MediafileHelper.playAllMediaFile(OrderConst.imageAction_name,
@@ -228,13 +252,10 @@ public class imageLibActivity extends AppCompatActivity implements View.OnClickL
                     } else  Toasty.warning(imageLibActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
 
                 }
-                break;
-            case R.id.to_select_bgm:
-                startActivity(new Intent(imageLibActivity.this, audioSetActivity.class));
-                break;
-        }
-    }
-
+                dialog.dismiss();
+            }
+        });
+    };
     @Subscriber(tag = "selectedDeviceStateChanged")
     private void updateDeviceNetState(TVPCNetStateChangeEvent event) {
         if(event.isPCOnline()) {

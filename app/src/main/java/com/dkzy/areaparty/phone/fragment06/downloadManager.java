@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -68,6 +69,7 @@ public class downloadManager extends FragmentActivity {
             fAdapter = new Find_tab_Adapter(this.getSupportFragmentManager(), list_fragment, mTitles);
             vp_FindFragment_pager.setAdapter(fAdapter);
             tlTitle.setupWithViewPager(vp_FindFragment_pager);
+
 
         }catch (Exception e){
             e.printStackTrace();
@@ -135,5 +137,14 @@ public class downloadManager extends FragmentActivity {
         public CharSequence getPageTitle(int position) {
             return list_Title[position % list_Title.length];
         }
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (vp_FindFragment_pager.getCurrentItem() == 0){
+            ((DownloadFolderFragment)fAdapter.getItem(0)).onKeyUp(keyCode,event);
+            return true;
+        }
+        return super.onKeyUp(keyCode, event);
     }
 }

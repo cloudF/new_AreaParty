@@ -11,6 +11,7 @@ import com.dkzy.areaparty.phone.fragment02.utils.MediafileHelper;
 import com.dkzy.areaparty.phone.fragment03.Model.AppItem;
 import com.dkzy.areaparty.phone.fragment03.Model.PCInforBean;
 import com.dkzy.areaparty.phone.fragment03.utils.PCAppHelper;
+import com.dkzy.areaparty.phone.model_comman.PCCommandItem;
 import com.dkzy.areaparty.phone.utils_comman.jsonFormat.IPInforBean;
 import com.dkzy.areaparty.phone.utils_comman.jsonFormat.JsonUitl;
 import com.dkzy.areaparty.phone.utils_comman.jsonFormat.ReceivedActionMessageFormat;
@@ -250,7 +251,7 @@ public class Send2PCThread extends Thread {
                         cmdStr = JsonUitl.objectToString(CommandUtil.createDeleteCommand(path,typeName));
                         break;
                     case OrderConst.mediaAction_playALL_command:
-                        cmdStr = JsonUitl.objectToString(CommandUtil.createPlayAllCommand(param.get("folder"),param.get("tvname"),typeName));
+                        cmdStr = JsonUitl.objectToString(CommandUtil.createPlayAllCommand(param.get("folder"),param.get("tvname"),param.get("t"),typeName));
                         break;
                 }
             }
@@ -260,6 +261,10 @@ public class Send2PCThread extends Thread {
                     case OrderConst.Media_Search_By_Key:
                         cmdStr = JsonUitl.objectToString(CommandUtil.createSearchMediaCommand(path));
                 }
+                break;
+            case OrderConst.UTOrrent:
+                cmdStr = JsonUitl.objectToString(CommandUtil.openUtorrent());
+                break;
         }
         return cmdStr;
     }

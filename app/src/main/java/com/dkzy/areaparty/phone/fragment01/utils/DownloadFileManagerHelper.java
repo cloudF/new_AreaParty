@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
@@ -73,11 +74,17 @@ public class DownloadFileManagerHelper {
     }
 
     public static boolean isFileExist(String name) {
-        for(downloadedFileBean file : localFiles) {
-            if(file.getName().equals(name))
-                return true;
+        try{
+            for(downloadedFileBean file : localFiles) {
+                if(file.getName().equals(name))
+                    return true;
+            }
+            return false;
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return false;
+
     }
 
     public static String getPathFromName(String name) {
@@ -107,12 +114,18 @@ public class DownloadFileManagerHelper {
                 @Override
                 public void run() {
                     boolean state = prepareDataForFragment.getDlnaCastState(type);
-                    Message message = new Message();
-                    if(state) {
-                        handler.sendEmptyMessage(1);
-                    } else {
-                        handler.sendEmptyMessage(2);
+                    try{
+                        Looper.prepare();
+                        if(state) {
+                            handler.sendEmptyMessage(1);
+                        } else {
+                            handler.sendEmptyMessage(2);
+                        }
+                        Looper.loop();
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
+
                 }
             }.start();
         }else {
@@ -127,11 +140,13 @@ public class DownloadFileManagerHelper {
                 public void run() {
                     boolean state = prepareDataForFragment.getDlnaCastState(file,type);
                     try{
+                        Looper.prepare();
                         if(state) {
                             handler.sendEmptyMessage(1);
                         } else {
                             handler.sendEmptyMessage(2);
                         }
+                        Looper.loop();
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -150,11 +165,13 @@ public class DownloadFileManagerHelper {
                 public void run() {
                     boolean state = prepareDataForFragment.getDlnaCastState(folderName,type);
                     try{
+                        Looper.prepare();
                         if(state) {
                             handler.sendEmptyMessage(1);
                         } else {
                             handler.sendEmptyMessage(2);
                         }
+                        Looper.loop();
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -171,11 +188,13 @@ public class DownloadFileManagerHelper {
                 public void run() {
                     boolean state = prepareDataForFragment.getDlnaCastState(setList,type);
                     try{
+                        Looper.prepare();
                         if(state) {
                             handler.sendEmptyMessage(1);
                         } else {
                             handler.sendEmptyMessage(2);
                         }
+                        Looper.loop();
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -193,11 +212,13 @@ public class DownloadFileManagerHelper {
                 public void run() {
                     boolean state = prepareDataForFragment.getDlnaCastState_bgm(setList,type);
                     try{
+                        Looper.prepare();
                         if(state) {
                             handler.sendEmptyMessage(1);
                         } else {
                             handler.sendEmptyMessage(2);
                         }
+                        Looper.loop();
                     }catch (Exception e){
                         e.printStackTrace();
                     }

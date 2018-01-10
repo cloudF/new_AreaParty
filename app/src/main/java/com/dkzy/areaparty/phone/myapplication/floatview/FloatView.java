@@ -1,8 +1,11 @@
 package com.dkzy.areaparty.phone.myapplication.floatview;
 
+import android.Manifest;
+import android.app.AppOpsManager;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,18 +19,33 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
+import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.R;
+import com.dkzy.areaparty.phone.fragment01.utorrent.utils.OkHttpUtils;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.start.StartActivity;
 import com.dkzy.areaparty.phone.fragment05.accessible_service.AutoLoginService;
 import com.dkzy.areaparty.phone.fragment05.accessible_service.Util;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
 import com.dkzy.areaparty.phone.utils_comman.netWork.NetUtil;
+import com.dkzy.areaparty.phone.utilseverywhere.utils.PermissionUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.AREAPARTY_NET;
 import static com.dkzy.areaparty.phone.myapplication.MyApplication.mFloatView;
 import static com.dkzy.areaparty.phone.myapplication.MyApplication.mFloatView2;
 
@@ -60,6 +78,32 @@ public class FloatView extends View {
 
     List<AccessibilityNodeInfo> node = new ArrayList<>();//用于遍历
 
+    public static boolean checkAlertWindowsPermission(Context context) {
+        try {
+            Object object = context.getSystemService(Context.APP_OPS_SERVICE);
+            if (object == null) {
+                return false;
+            }
+            Class localClass = object.getClass();
+            Class[] arrayOfClass = new Class[3];
+            arrayOfClass[0] = Integer.TYPE;
+            arrayOfClass[1] = Integer.TYPE;
+            arrayOfClass[2] = String.class;
+            Method method = localClass.getMethod("checkOp", arrayOfClass);
+            if (method == null) {
+                return false;
+            }
+            Object[] arrayOfObject1 = new Object[3];
+            arrayOfObject1[0] = 24;
+            arrayOfObject1[1] = Binder.getCallingUid();
+            arrayOfObject1[2] = context.getPackageName();
+            int m = ((Integer) method.invoke(object, arrayOfObject1));
+            return m == AppOpsManager.MODE_ALLOWED;
+        } catch (Exception ex) {
+
+        }
+        return false;
+    }
     public FloatView(Context context) {
         super(context);
         wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -167,7 +211,7 @@ public class FloatView extends View {
 //            --TYPE_SYSTEM_DIALOG : 系统对话框。
 //            --TYPE_STATUS_BAR : 状态栏
 //            --TYPE_TOAST : 短暂通知ToastXiaomi23
-            if (Build.MANUFACTURER.equals("Xiaomi") && Build.VERSION.SDK_INT >= 23){
+            if ((Build.MANUFACTURER.equals("Xiaomi") && Build.VERSION.SDK_INT >= 23) || Build.VERSION.SDK_INT >= 25 || checkAlertWindowsPermission(getContext())){
                 wmParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
             }else {
                 wmParams.type = WindowManager.LayoutParams.TYPE_TOAST;
@@ -234,7 +278,13 @@ public class FloatView extends View {
 //            --TYPE_SYSTEM_DIALOG : 系统对话框。
 //            --TYPE_STATUS_BAR : 状态栏
 //            --TYPE_TOAST : 短暂通知Toast
-            wmParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+            boolean is = checkAlertWindowsPermission(getContext());
+            Log.w(TAG,"悬浮窗权限:"+is);
+            if ((Build.MANUFACTURER.equals("Xiaomi") && Build.VERSION.SDK_INT >= 23) || Build.VERSION.SDK_INT >= 25 || is){
+                wmParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+            }else {
+                wmParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+            }
 
             wmParams.format = PixelFormat.RGBA_8888;//窗口的像素点格式
 //            flags : 窗口的行为准则，常用的标志位如下说明（对于悬浮窗来说，一般只需设置FLAG_NOT_FOCUSABLE）：
@@ -285,11 +335,120 @@ public class FloatView extends View {
         return wmParams.y + statusBarHeight - 8;
     }
 
+    public static String getNowDate() {
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = formatter.format(currentTime);
+        return dateString;
+    }
+    public static String getMonthLaterDate(int a) {
+        Calendar curr = Calendar.getInstance();
+        curr.set(Calendar.DATE, curr.getActualMaximum(Calendar.DATE));
+        Date date = curr.getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = formatter.format(date);
+        return dateString;
+    }
     public void  updateMousePointer(float X,float Y){
         x = x + (int)(1.5*X);if (x<0) x = 0;
         y = y + (int)(1.5*Y);if (y<0) y = 0;
     }
+    public static void registerVip(final String type){
+        String url = "http://"+AREAPARTY_NET+"/AreaParty/RegisterVip?userName=" + Login.userName
+                +"&userMac=" +Login.getAdresseMAC(MyApplication.getContext())
+                +"&ip="+"223.85.200.129"
+                +"&vipType="+type
+                +"&registerTime="+getNowDate()
+                +"&deadlineTime="+getMonthLaterDate(1);
+        Log.w("StartActivity",url);
+        OkHttpUtils.getInstance().setUrl(url).buildNormal().execute(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
 
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                Log.w("StartActivity",responseData);
+                if (responseData.equals("success")){
+                    //getVipUserCount(type);
+                }else {
+
+                }
+            }
+        });
+    }
+    public  void getVipUserCount(final String type) {
+        String userName = "";
+        if (!TextUtils.isEmpty(Login.userName)){userName = Login.userName;}else if(!TextUtils.isEmpty(MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){userName = MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", "");}
+        String url = "http://"+AREAPARTY_NET+"/AreaParty/LoginVip?userName="+userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
+        Log.w("StartActivity",url);
+        FloatView.password = "";
+        FloatView.name = "";
+        OkHttpUtils.getInstance().setUrl(url).buildNormal().execute(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toasty.error(getContext(),"网络故障，未获取到账号").show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                Log.w("StartActivity",responseData);
+                if (responseData.startsWith("fail")){
+                    registerVip(type);
+                }else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseData);
+                        FloatView.name = jsonObject.getString("name");
+                        FloatView.password = jsonObject.getString("password");
+                        mContentView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                login();
+                            }
+                        });
+                        Log.w("StartActivity",FloatView.name+"**"+FloatView.password);
+
+                        /*switch (type){
+                            case "iqiyi":
+                                Util.setRecord(MyApplication.getContext(),AutoLoginService.LESHI);
+                                logined = AutoLoginService.LESHI;
+                                break;
+                            case "youku":
+                                Util.setRecord(MyApplication.getContext(),AutoLoginService.YOUKU);
+                                logined = AutoLoginService.YOUKU;
+                                break;
+                            case "tencent":
+                                Util.setRecord(MyApplication.getContext(),AutoLoginService.TENCENT,FloatView.name);
+                                logined = AutoLoginService.TENCENT;
+                                break;
+                        }*/
+                        /*runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setTag();
+                            }
+                        });*/
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toasty.error(getContext(),"服务器故障，未获取到账号").show();
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
     private void login_iqiyi() {
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
             Toasty.error(getContext(),"服务器故障，未获取到账号").show();
@@ -351,10 +510,10 @@ public class FloatView extends View {
 
     }
     private void login_leshi() {
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
+        /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
             Toasty.error(getContext(),"服务器故障，未获取到账号").show();
             return;
-        }
+        }*/
         if (AutoLoginService.state != AutoLoginService.LESHI_LOGIN) return;
         AutoLoginService autoLoginService = AutoLoginService.getInstance();
         if (autoLoginService == null) return;
@@ -366,6 +525,10 @@ public class FloatView extends View {
         List<AccessibilityNodeInfo> nodeList_tv_login = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/login_button");
         List<AccessibilityNodeInfo> nodeList_cb_show_passwd = root.findAccessibilityNodeInfosByViewId("com.letv.android.client:id/plaintext_imageview");
         if (nodeList_et_pwd.size() > 0 && nodeList_et_phone.size() > 0 && nodeList_tv_login.size() > 0 &&  nodeList_cb_show_passwd.size() >0){
+            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
+                getVipUserCount("iqiyi");
+                return;
+            }
             AccessibilityNodeInfo node_cb_show_passwd = nodeList_cb_show_passwd.get(0);
             AccessibilityNodeInfo node_et_phone = nodeList_et_phone.get(0);
             AccessibilityNodeInfo node_et_pwd = nodeList_et_pwd.get(0);
@@ -410,10 +573,10 @@ public class FloatView extends View {
 
     }
     private void login_youku() {
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
+        /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
             Toasty.error(getContext(),"服务器故障，未获取到账号").show();
             return;
-        };
+        };*/
         if (AutoLoginService.state != AutoLoginService.YOUKU_LOGIN) return;
         AutoLoginService autoLoginService = AutoLoginService.getInstance();
         if (autoLoginService == null) return;
@@ -425,6 +588,10 @@ public class FloatView extends View {
         List<AccessibilityNodeInfo> nodeList_login = root.findAccessibilityNodeInfosByViewId("com.youku.phone:id/passport_login");
 
         if (nodeList_userName.size()>0 && nodeList_pwd.size()>0 && nodeList_login.size()>0){
+            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
+                getVipUserCount("youku");
+                return;
+            }
             AccessibilityNodeInfo node_userName = nodeList_userName.get(0);
             AccessibilityNodeInfo node_pwd = nodeList_pwd.get(0);
             AccessibilityNodeInfo node_login = nodeList_login.get(0);
@@ -455,10 +622,10 @@ public class FloatView extends View {
     }
 
     private void login_tencent(){
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
+        /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
             Toasty.error(getContext(),"服务器故障，未获取到账号").show();
             return;
-        };
+        };*/
         if (AutoLoginService.state != AutoLoginService.TENCENT_LOGIN) return;
         AutoLoginService autoLoginService = AutoLoginService.getInstance();
         if (autoLoginService == null) return;
@@ -473,6 +640,10 @@ public class FloatView extends View {
             Log.w(TAG,nodeInfoList_pwd.size()+"//");
             Log.w(TAG,nodeInfoList_login.size()+"//");
             if (nodeInfoList_qq.size()>0 && nodeInfoList_pwd.size()>0 && nodeInfoList_login.size() >1){
+                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
+                    getVipUserCount("tencent");
+                    return;
+                }
                 AccessibilityNodeInfo qq = nodeInfoList_qq.get(0);
                 AccessibilityNodeInfo pwd = nodeInfoList_pwd.get(0);
                 AccessibilityNodeInfo login = nodeInfoList_login.get(1);
@@ -503,10 +674,10 @@ public class FloatView extends View {
     }
 
     private void login_tencent1(){
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
+        /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
             Toasty.error(getContext(),"服务器故障，未获取到账号").show();
             return;
-        };
+        };*/
         if (AutoLoginService.state != AutoLoginService.TENCENT_LOGIN) return;
 
         AutoLoginService autoLoginService = AutoLoginService.getInstance();
@@ -516,6 +687,10 @@ public class FloatView extends View {
 
         bianli(root);
         if (node.size() == 8 && node.get(3).getViewIdResourceName().equals("u") && node.get(4).getViewIdResourceName().equals("p") && node.get(5).getViewIdResourceName().equals("go")){
+            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
+                getVipUserCount("tencent");
+                return;
+            }
             AccessibilityNodeInfo qq = node.get(3);
             AccessibilityNodeInfo pwd = node.get(4);
             AccessibilityNodeInfo login = node.get(5);
@@ -664,6 +839,7 @@ public class FloatView extends View {
                 AutoLoginService.state = AutoLoginService.NO_ACTION;
                 StartActivity.logoutVip("tencent");
                 if (mFloatView.isShow()) mFloatView.close();
+                return;
             }
             node.clear();
             bianli2(root);

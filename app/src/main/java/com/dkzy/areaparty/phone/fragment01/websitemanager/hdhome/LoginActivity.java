@@ -281,7 +281,7 @@ public class LoginActivity extends Activity {
 //            editor.commit();  
 //              
 //            Intent intent = new Intent();  
-//            intent.setClass(LoginActivity.this, MainActivity.class);
+//            intent.setClass(LoginActivity.this, SubTitleUtil.class);
 //            startActivity(intent);  
 //        } else {  
 //            //alert(this, message);  

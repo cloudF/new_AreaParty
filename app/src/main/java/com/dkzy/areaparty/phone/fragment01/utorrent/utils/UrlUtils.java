@@ -19,9 +19,19 @@ public class UrlUtils {
     private Integer f;
     private String list;
     private String cid;
+    private String s;
+    private String v;
 
     public UrlUtils setList(String list) {
         this.list = list;
+        return this;
+    }
+    public UrlUtils setS(String s) {
+        this.s = s;
+        return this;
+    }
+    public UrlUtils setV(String v) {
+        this.v = v;
         return this;
     }
 
@@ -66,6 +76,8 @@ public class UrlUtils {
         builder.append(ip_port).append("/gui/?");
         if (!TextUtils.isEmpty(token)) builder.append("token=").append(token).append("&");
         if (!TextUtils.isEmpty(action)) builder.append("action=").append(action).append("&");
+        if (!TextUtils.isEmpty(s)) builder.append("s=").append(s).append("&");
+        if (!TextUtils.isEmpty(v)) builder.append("v=").append(v).append("&");
         if (hashList!=null && hashList.size()!=0){
             for (String hash: hashList){
                 builder.append("hash=").append(hash).append("&");

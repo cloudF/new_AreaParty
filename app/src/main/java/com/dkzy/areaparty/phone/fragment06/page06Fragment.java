@@ -27,6 +27,7 @@ import com.dkzy.areaparty.phone.FileTypeConst;
 import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.MainActivity;
 import com.dkzy.areaparty.phone.R;
+import com.dkzy.areaparty.phone.myapplication.MyApplication;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ import server.NetworkPacket;
  */
 
 public class page06Fragment extends Fragment {
-
+    View rootView;
     private LinearLayout newFriend_wrap = null;
     private LinearLayout transform_wrap = null;
     private LinearLayout download_wrap = null;
@@ -101,6 +102,8 @@ public class page06Fragment extends Fragment {
     public static HashMap<String,Integer> friendChatNum = new HashMap<>();
     private FriendRequestDBManager friendRequestDB = MainActivity.getFriendRequestDBManager();
 
+    private TextView helpInfo;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +112,12 @@ public class page06Fragment extends Fragment {
         outline = bundle.getBoolean("outline");
         myUserId = intent.getExtras().getString("userId");
         myUserHead = intent.getExtras().getInt("userHeadIndex");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MyApplication.getPcAreaPartyPath();
     }
 
     public void getData() {
@@ -167,8 +176,12 @@ public class page06Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(outline)
             return inflater.inflate(R.layout.tab06_outline, container, false);
-        else
-            return inflater.inflate(R.layout.tab06, container, false);
+        else{
+            View view = inflater.inflate(R.layout.tab06, container, false);
+            rootView = view;
+            return view;
+        }
+
     }
 
     @Override
@@ -246,28 +259,30 @@ public class page06Fragment extends Fragment {
         id_tab06_shareWrap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(id_tab06_userShare.getVisibility() == view.VISIBLE){
+                Toast.makeText(getContext(), "功能开发中", Toast.LENGTH_SHORT).show();
+                /*if(id_tab06_userShare.getVisibility() == view.VISIBLE){
                     id_tab06_userShare.setVisibility(view.GONE);
                     id_tab06_share.setBackgroundResource(R.drawable.tab06_item_merge);
                 }
                 else{
                     id_tab06_userShare.setVisibility(view.VISIBLE);
                     id_tab06_share.setBackgroundResource(R.drawable.tab06_item_open);
-                }
+                }*/
             }
         });
 
         id_tab06_netWrap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(id_tab06_userNet.getVisibility() == view.VISIBLE){
+                Toast.makeText(getContext(), "功能开发中", Toast.LENGTH_SHORT).show();
+                /*if(id_tab06_userNet.getVisibility() == view.VISIBLE){
                     id_tab06_userNet.setVisibility(view.GONE);
                     id_tab06_net.setBackgroundResource(R.drawable.tab06_item_merge);
                 }
                 else{
                     id_tab06_userNet.setVisibility(view.VISIBLE);
                     id_tab06_net.setBackgroundResource(R.drawable.tab06_item_open);
-                }
+                }*/
             }
         });
 
@@ -363,6 +378,13 @@ public class page06Fragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        helpInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).showHelpInfoDialog(R.layout.dialog_page06);
+            }
+        });
     }
 
     private void initViews() {
@@ -388,6 +410,7 @@ public class page06Fragment extends Fragment {
         id_tab06_addFriend = (ImageView) getActivity().findViewById(R.id.id_tab06_addFriend);
         id_tab06_addFriendLL = (LinearLayout) getActivity().findViewById(R.id.id_tab06_addFriendLL);
         userHead = (ImageView) getActivity().findViewById(R.id.userHead);
+        helpInfo = (TextView)  rootView.findViewById(R.id.helpInfo);
         //userFriendAdapter = new SimpleAdapter(getActivity(), userFriendData, R.layout.tab06_useritem, new String[]{"userId", "userName", "userHead"}, new int[]{R.id.userId, R.id.userName, R.id.userHead});
         userFriendAdapter = new MyFriendAdapater(getActivity());
         userNetAdapter = new SimpleAdapter(getActivity(), userNetData, R.layout.tab06_useritem, new String[]{"userId", "userName", "userHead"}, new int[]{R.id.userId, R.id.userName, R.id.userHead});

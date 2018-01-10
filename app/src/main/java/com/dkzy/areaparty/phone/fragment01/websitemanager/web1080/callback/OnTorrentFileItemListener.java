@@ -7,5 +7,7 @@ package com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.callback;
 public interface OnTorrentFileItemListener {
     void delete(int position);
     void download(int position);
+    void reName(int position);
     void selectModel();
+
 }

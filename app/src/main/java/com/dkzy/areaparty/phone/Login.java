@@ -32,9 +32,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.fragment01.model.SharedfileBean;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_help;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_launch;
 import com.dkzy.areaparty.phone.fragment06.myChatList;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
 import com.dkzy.areaparty.phone.register.RegisterUserInfo;
+import com.dkzy.areaparty.phone.utils_comman.PreferenceUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -66,6 +69,8 @@ import protocol.ProtoHead;
 import server.NetworkPacket;
 import tools.DataTypeTranslater;
 
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.AREAPARTY_NET;
+
 /**
  * Created by SnowMonkey on 2016/12/29.
  */
@@ -74,7 +79,7 @@ public class Login extends AppCompatActivity {
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_PHONE_STATE
-            };
+    };
 
     public static Base base = null;
     private LoginMsg.LoginReq.Builder builder = LoginMsg.LoginReq.newBuilder();
@@ -116,11 +121,19 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            finish();
+            return;
+        }//
         setContentView(R.layout.login);
 
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         MyApplication.getInstance().addActivity(this);
+        if (!(new PreferenceUtil("isHelpDialogShow",getApplicationContext()).readBoole("launch"))){//提示框
+            showDialog();
+        }
+
 
         new Thread(new Runnable() {
             @Override
@@ -132,7 +145,7 @@ public class Login extends AppCompatActivity {
                     int read = 0;
                     InputStream is = socket.getInputStream();
                     read = is.read(b);
-                   //  = socket.getInputStream().read();
+                    //  = socket.getInputStream().read();
                     System.out.println(read);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -159,7 +172,7 @@ public class Login extends AppCompatActivity {
         mAccount.setText(sp.getString("USER_ID", ""));
         mPwd.setText(sp.getString("USER_PWD", ""));
         port = Integer.parseInt(sp2.getString("SERVER_PORT", "3333"));
-        host = sp2.getString("SERVER_IP", "119.23.12.116");
+        host = sp2.getString("SERVER_IP", AREAPARTY_NET);
 //        if(outline == true){
 //            mLoginButton.setText("离线登录");
 //            mLoginButton.setBackgroundColor(Color.parseColor("#e65757"));
@@ -173,22 +186,22 @@ public class Login extends AppCompatActivity {
         login_btn_outline.setOnClickListener(mListener);
         mRegisterButton.setOnClickListener(mListener);
 
-        mHandler = new Handler(){
+        mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 switch (msg.what) {
                     case 0:
-                        Toast.makeText(Login.this, "请输入用户名密码",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, "请输入用户名密码", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-                        Toast.makeText(Login.this, "登录失败，用户名或密码错误",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, "登录失败，用户名或密码错误", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
                         //跳转主界面
                         Intent intentMain = new Intent();
                         intentMain.setClass(Login.this, MainActivity.class);
-                        Bundle bundle =new Bundle();
+                        Bundle bundle = new Bundle();
                         outline = false;
                         bundle.putBoolean("outline", false);
                         bundle.putString("userId", userId);
@@ -197,17 +210,17 @@ public class Login extends AppCompatActivity {
                         bundle.putSerializable("chats", myChats);
                         intentMain.putExtras(bundle);
                         startActivity(intentMain);
-                        Login.this.finish();
+                        //Login.this.finish();
                         break;
                     case 3:
                         //跳转设置界面
-                        Intent intentSetting = new Intent(Login.this,LoginSetting.class);
-                        Bundle bundleSetting =new Bundle();
+                        Intent intentSetting = new Intent(Login.this, LoginSetting.class);
+                        Bundle bundleSetting = new Bundle();
                         bundleSetting.putString("ip", host);
                         bundleSetting.putString("port", String.valueOf(port));
-                        bundleSetting.putBoolean("outline",outline);
+                        bundleSetting.putBoolean("outline", outline);
                         intentSetting.putExtras(bundleSetting);
-                        startActivityForResult(intentSetting,0);
+                        startActivityForResult(intentSetting, 0);
                         break;
                     case 4:
                         //离线登录
@@ -226,26 +239,26 @@ public class Login extends AppCompatActivity {
                         mPwd.setText(psw);
                         break;
                     case 7:
-                        Toast.makeText(Login.this, "您的账号已登录",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, "您的账号已登录", Toast.LENGTH_SHORT).show();
                         break;
                     case 8:
                         //弹出提示框，告诉用户等待授权
-                        ((TextView)accreditView.findViewById(R.id.accreditDialogTitle)).setText("等待主设备授权");
-                        ((TextView)accreditView.findViewById(R.id.accreditDialogInfo)).setText("请在注册该账号的设备上登录进行授权");
-                        ((Button)accreditView.findViewById(R.id.accreditDialogConfirm)).setOnClickListener(mListener);
+                        ((TextView) accreditView.findViewById(R.id.accreditDialogTitle)).setText("等待主设备授权");
+                        ((TextView) accreditView.findViewById(R.id.accreditDialogInfo)).setText("请在注册该账号的设备上登录进行授权");
+                        ((Button) accreditView.findViewById(R.id.accreditDialogConfirm)).setOnClickListener(mListener);
                         dialog.show();
                         break;
                     case 9:
                         //弹出提示框，告诉用户主设备不在线
-                        ((TextView)accreditView.findViewById(R.id.accreditDialogTitle)).setText("主设备不在线");
-                        ((TextView)accreditView.findViewById(R.id.accreditDialogInfo)).setText("请打开主设备进行授权操作");
-                        ((Button)accreditView.findViewById(R.id.accreditDialogConfirm)).setOnClickListener(mListener);
+                        ((TextView) accreditView.findViewById(R.id.accreditDialogTitle)).setText("主设备不在线");
+                        ((TextView) accreditView.findViewById(R.id.accreditDialogInfo)).setText("请打开主设备进行授权操作");
+                        ((Button) accreditView.findViewById(R.id.accreditDialogConfirm)).setOnClickListener(mListener);
                         dialog.show();
                         break;
                     case 10:
-                        ((TextView)accreditView.findViewById(R.id.accreditDialogTitle)).setText("授权失败");
-                        ((TextView)accreditView.findViewById(R.id.accreditDialogInfo)).setText("主设备拒绝授权您的手机使用该账号登录");
-                        ((Button)accreditView.findViewById(R.id.accreditDialogConfirm)).setOnClickListener(mListener);
+                        ((TextView) accreditView.findViewById(R.id.accreditDialogTitle)).setText("授权失败");
+                        ((TextView) accreditView.findViewById(R.id.accreditDialogInfo)).setText("主设备拒绝授权您的手机使用该账号登录");
+                        ((Button) accreditView.findViewById(R.id.accreditDialogConfirm)).setOnClickListener(mListener);
                         dialog.show();
                         break;
                     default:
@@ -254,29 +267,29 @@ public class Login extends AppCompatActivity {
             }
         };
     }
-    private void tryLogin(){
+
+    private void tryLogin() {
         Date now = new Date();
-        if(outline == false) {
-            if(now.getTime() - timer > 3000){
+        if (outline == false) {
+            if (now.getTime() - timer > 3000) {
                 try {
                     new Thread(login).start();
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
                 timer = now.getTime();
-            }
-            else{
-                Toast.makeText(Login.this, "正在登陆",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(Login.this, "正在登陆", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    OnClickListener mListener = new OnClickListener(){
-        public void onClick(View v){
+    OnClickListener mListener = new OnClickListener() {
+        public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.login_btn_login:                              //登录界面的登录按钮
-                    if (verifyStoragePermissions(Login.this)){
+                    if (verifyStoragePermissions(Login.this)) {
                         tryLogin();
                     }
 
@@ -288,7 +301,7 @@ public class Login extends AppCompatActivity {
                     userId = "";
                     Intent intentMain = new Intent();
                     intentMain.setClass(Login.this, MainActivity.class);
-                    Bundle bundle =new Bundle();
+                    Bundle bundle = new Bundle();
                     bundle.putBoolean("outline", true);
                     intentMain.putExtras(bundle);
                     startActivity(intentMain);
@@ -310,9 +323,19 @@ public class Login extends AppCompatActivity {
         TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
         String mtyb = android.os.Build.BRAND;// 手机品牌
         String mtype = android.os.Build.MODEL; // 手机型号
+        String carrier = android.os.Build.MANUFACTURER;//手机厂商
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return carrier + " " + mtyb;
+        }
         String imei = tm.getDeviceId();
         String imsi = tm.getSubscriberId();
-        String carrier= android.os.Build.MANUFACTURER;//手机厂商
         String numer = tm.getLine1Number(); // 手机号码
         String serviceName = tm.getSimOperatorName(); // 运营商
         System.out.println("品牌: " + mtyb + "\n" + "型号: " + mtype + "\n" + "版本: Android "
@@ -691,6 +714,28 @@ public class Login extends AppCompatActivity {
                 break;
             default:break;
         }
+    }
+
+    public void showDialog(){
+        final ActionDialog_launch dialog = new ActionDialog_launch(this);
+        dialog.setCancelable(true);
+        dialog.show();
+        dialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                Login.this.finish();
+            }
+        });
+        dialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dialog.isRadioButtonChecked()){
+                    new PreferenceUtil("isHelpDialogShow",getApplicationContext()).writeBoole("launch",true);
+                }
+                dialog.dismiss();
+            }
+        });
     }
 }
 

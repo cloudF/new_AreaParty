@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.Base;
 import com.dkzy.areaparty.phone.R;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_page;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +34,8 @@ import protocol.Msg.RegisterMsg;
 import protocol.ProtoHead;
 import server.NetworkPacket;
 import tools.DataTypeTranslater;
+
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.AREAPARTY_NET;
 
 /**
  * Created by SnowMonkey on 2017/5/22.
@@ -95,6 +98,11 @@ public class RegisterUserInfo extends BaseActivity {
             }
         });
     }
+    public  void showHelpInfoDialog(){
+        final ActionDialog_ServiceAgreement dialog = new ActionDialog_ServiceAgreement(this);
+        dialog.setCancelable(true);
+        dialog.show();
+    }
     private void initEvent(){
 //        et_userId.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @Override
@@ -115,6 +123,12 @@ public class RegisterUserInfo extends BaseActivity {
 //                }
 //                }
 //        });
+        findViewById(R.id.tv_QQ_Server).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showHelpInfoDialog();
+            }
+        });
         btn_register.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View v) {
@@ -244,7 +258,7 @@ public class RegisterUserInfo extends BaseActivity {
             SharedPreferences sp;
             sp = RegisterUserInfo.this.getSharedPreferences("serverInfo", Context.MODE_PRIVATE);
             int port = Integer.parseInt(sp.getString("SERVER_PORT", "3333"));
-            String host = sp.getString("SERVER_IP", "119.23.12.116");
+            String host = sp.getString("SERVER_IP", AREAPARTY_NET);
             RegisterMsg.RegisterReq.Builder builder = RegisterMsg.RegisterReq.newBuilder();
             builder.setRequestCode(RegisterMsg.RegisterReq.RequestCode.CHECKUSERID);
             builder.setUserId(userId);
@@ -300,7 +314,7 @@ public class RegisterUserInfo extends BaseActivity {
         return m.matches();
     }
     private boolean isKeyWord (String keyWord) {
-        Pattern p = Pattern.compile("^([A-Z]|[a-z]|[0-9]|[`~!@#$%^&*()+=|{}':;',\\\\\\\\[\\\\\\\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]){6,20}$");
+        Pattern p = Pattern.compile("^([A-Z]|[a-z]|[0-9]|[_`~!@#$%^&*()+=|{}':;',\\\\\\\\[\\\\\\\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]){6,20}$");
         Matcher m = p.matcher(keyWord);
         return m.matches();
     }

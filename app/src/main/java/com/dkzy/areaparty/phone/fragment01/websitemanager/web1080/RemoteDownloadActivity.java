@@ -22,8 +22,10 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -31,7 +33,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.*;
+import com.dkzy.areaparty.phone.fragment01.diskContentActivity;
 import com.dkzy.areaparty.phone.fragment01.model.fileBean;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_reName;
 import com.dkzy.areaparty.phone.fragment01.ui.DeleteDialog;
 import com.dkzy.areaparty.phone.fragment01.utils.PCFileHelper;
 import com.dkzy.areaparty.phone.fragment01.utorrent.*;
@@ -42,6 +46,12 @@ import com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.adapter.Torren
 import com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.adapter.TorrentFileAdapter;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.callback.OnTorrentFileItemListener;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
+import com.dkzy.areaparty.phone.utils_comman.Send2PCThread;
+import com.dkzy.areaparty.phone.utilseverywhere.utils.FileUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -52,6 +62,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.net.Socket;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -66,10 +77,10 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class RemoteDownloadActivity extends AppCompatActivity {
-    public String TAG = getClass().getSimpleName();
-
+    public static String TAG = "RemoteDownloadActivity";
+    public static String rootPath;
     public static String btFilesPath ;
-    public static String targetPath = "E:\\uTorrent\\forLoad\\";//uTorrent自动从此路径加载种子
+    public static String targetPath;//uTorrent自动从此路径加载种子
 
     private TorrentFileAdapter adapter;
     private TorrentFileAdapter adapter_pc;
@@ -142,6 +153,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(UrlUtils.token)){
             initUTorrent();
+            MyApplication.getPcAreaPartyPath();
         }
         initData();
 
@@ -167,8 +179,8 @@ public class RemoteDownloadActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager); recyclerView_pcFile.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.addItemDecoration(new MyItemDecoration()); recyclerView_pcFile.addItemDecoration(new MyItemDecoration());
 
-        adapter = new TorrentFileAdapter(torrentList);
-        adapter_pc = new TorrentFileAdapter(torrentList_pc);
+        adapter = new TorrentFileAdapter(torrentList,true);
+        adapter_pc = new TorrentFileAdapter(torrentList_pc,false);
 
         recyclerView.setAdapter(adapter);
         recyclerView_pcFile.setAdapter(adapter_pc);
@@ -190,7 +202,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
         initEvent();
 
 
-        getSettings();
+        //getSettings();
 
     }
 
@@ -510,7 +522,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
                 }else {
                     Toasty.warning(getApplicationContext(), "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
                 }
-//                startActivity(new Intent(RemoteDownloadActivity.this, com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.MainActivity.class));
+//                startActivity(new Intent(RemoteDownloadActivity.this, com.androidlearning.boris.familycentralcontroler.fragment01.utorrent.SubTitleUtil.class));
             }
         });
 
@@ -661,6 +673,11 @@ public class RemoteDownloadActivity extends AppCompatActivity {
             }
 
             @Override
+            public void reName(int position) {
+                reNameDialog(torrentList.get(position));
+            }
+
+            @Override
             public void selectModel() {
                 remoteControl.setVisibility(View.GONE);
                 menuList.setVisibility(View.VISIBLE);
@@ -716,10 +733,61 @@ public class RemoteDownloadActivity extends AppCompatActivity {
             }
 
             @Override
+            public void reName(int position) {
+
+            }
+
+            @Override
             public void selectModel() {
                 remoteControl.setVisibility(View.GONE);
                 menuList_pc.setVisibility(View.VISIBLE);
                 swipeRefresh.setEnabled(false);
+            }
+        });
+    }
+    private void reNameDialog(final TorrentFile fileBean) {
+        final ActionDialog_reName reNameDialog = new ActionDialog_reName(this);
+        final String name = fileBean.getTorrentFileName();
+
+        reNameDialog.setCanceledOnTouchOutside(false);
+        reNameDialog.show();
+
+        reNameDialog.setOldName(name);
+
+        final EditText editText = reNameDialog.getValueEditTextView();
+        reNameDialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String des = editText.getText().toString();
+                if(des.equals("") || des.endsWith(".") ||
+                        des.contains("\\") || des.contains("/") ||
+                        des.contains(":")  || des.contains("*") ||
+                        des.contains("?")  || des.contains("\"") ||
+                        des.contains("<")  || des.contains(">") ||
+                        des.contains("|")){
+                    Toasty.error(RemoteDownloadActivity.this, "文件夹名不能为空，不能包含\\ / : * ? \" < > |字符", Toast.LENGTH_SHORT).show();
+                    editText.setText("");
+                } else {
+                    InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    manager.hideSoftInputFromWindow(reNameDialog.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    if (!des.endsWith(".torrent")) des = des+".torrent";
+                    File file = new File(fileBean.getTorrentPath());
+                    if (!file.exists()){
+                        Toasty.error(RemoteDownloadActivity.this, "文件夹名不存在", Toast.LENGTH_SHORT).show();
+                    }else {
+                        if (FileUtils.rename(file,des)){
+                            getName();
+                        }
+                    }
+                }
+
+                reNameDialog.dismiss();
+            }
+        });
+        reNameDialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reNameDialog.dismiss();
             }
         });
     }
@@ -954,20 +1022,28 @@ public class RemoteDownloadActivity extends AppCompatActivity {
                         .execute(new Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {
-                                Log.w("MainActivity", "onFailure");
+                                Log.w("SubTitleUtil", "onFailure");
                                 //uTorrent可能未启动
                                 e.printStackTrace();
+                                new Send2PCThread(OrderConst.UTOrrent, "",new Handler()).start();
+                                try {
+                                    Thread.sleep(4000);
+                                    initUTorrent();
+                                    MyApplication.getPcAreaPartyPath();
+                                } catch (InterruptedException e1) {
+                                    e1.printStackTrace();
+                                }
                             }
 
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
                                 ResponseBody responseBody = response.body();
                                 if (responseBody == null){
-                                    Log.w("MainActivity","responseBody null");
+                                    Log.w("SubTitleUtil","responseBody null");
                                 }else {
                                     String responseData = responseBody.string();
                                     if (TextUtils.isEmpty(responseData)){
-                                        Log.w("MainActivity","responseData null");
+                                        Log.w("SubTitleUtil","responseData null");
                                         new Handler().post(new Runnable() {
                                             @Override
                                             public void run() {
@@ -976,7 +1052,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
                                         });
 
                                     }else {
-                                        Log.w("MainActivity",responseData+"&&&"+responseData.length());
+                                        Log.w("SubTitleUtil",responseData+"&&&"+responseData.length());
                                         if (!(responseData.length() == 121)){
                                             new Handler().post(new Runnable() {
                                                 @Override
@@ -1000,8 +1076,8 @@ public class RemoteDownloadActivity extends AppCompatActivity {
 
     }
 
-    private void getSettings() {
-        if (!TextUtils.isEmpty(UrlUtils.ip_port)&&!TextUtils.isEmpty(UrlUtils.token)&&!TextUtils.isEmpty(OkHttpUtils.authorization)){
+    public static void getSettings() {
+        if (!TextUtils.isEmpty(rootPath) && !TextUtils.isEmpty(UrlUtils.ip_port)&&!TextUtils.isEmpty(UrlUtils.token)&&!TextUtils.isEmpty(OkHttpUtils.authorization)){
             final String url = "http://"+UrlUtils.ip_port+"/gui/?token="+ UrlUtils.token+"&action=getsettings";
             OkHttpUtils.getInstance().setUrl(url).build()
                     .execute(new Callback() {
@@ -1013,9 +1089,72 @@ public class RemoteDownloadActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             String responseData = response.body().string();
-                            Log.w(TAG, responseData);
+                            //Log.w(TAG, responseData);
+                            try {
+                                JSONObject jsonObject = new JSONObject(responseData);
+                                JSONArray jsonArray = jsonObject.getJSONArray("settings");
+                                String dir_active_download_flag = jsonArray.getJSONArray(69).getString(2);
+                                String dir_active_download = jsonArray.getJSONArray(73).getString(2);
+                                String dir_torrent_files_flag = jsonArray.getJSONArray(70).getString(2);
+                                String dir_torrent_files = jsonArray.getJSONArray(74).getString(2);
+                                String dir_autoload = jsonArray.getJSONArray(180).getString(2);
+                                String dir_autoload_flag = jsonArray.getJSONArray(178).getString(2);
+                                String dir_autoload_delete = jsonArray.getJSONArray(179).getString(2);
+                                Log.w(TAG, dir_active_download_flag+"");
+                                Log.w(TAG, dir_active_download+"");
+                                Log.w(TAG, dir_torrent_files_flag+"");
+                                Log.w(TAG, dir_torrent_files+"");
+                                Log.w(TAG, dir_autoload+"");
+                                Log.w(TAG, dir_autoload_flag+"");
+                                Log.w(TAG, dir_autoload_delete+"");
+                                if (!dir_active_download_flag.equals("true")){
+                                    setUTorrent("dir_active_download_flag","1");
+                                }
+                                if (!dir_active_download.equals(rootPath+"uTorrent")){
+                                    setUTorrent("dir_active_download",rootPath+"uTorrent");
+                                }
+                                if (!dir_torrent_files_flag.equals("true")){
+                                    setUTorrent("dir_torrent_files_flag","1");
+                                }
+                                if (!dir_torrent_files.equals(rootPath+"uTorrent\\torrent")){
+                                    setUTorrent("dir_torrent_files",rootPath+"uTorrent\\torrent");
+                                }
+
+                                if (!dir_autoload_flag.equals("true")){
+                                    setUTorrent("dir_autoload_flag","1");
+                                }
+                                if (!dir_autoload_delete.equals("true")){
+                                    setUTorrent("dir_autoload_delete","1");
+                                }
+                                if (!dir_autoload.equals(rootPath+"uTorrent\\forLoad")){
+                                    setUTorrent("dir_autoload",rootPath+"uTorrent\\forLoad");
+                                }else {
+                                    targetPath = dir_autoload;
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
+        }
+    }
+
+    public static void setUTorrent(final String s, String v){
+        try {
+            String url = new UrlUtils().setAction("setsetting").setS(s).setV(URLEncoder.encode(v,"UTF-8")).toString();
+            OkHttpUtils.getInstance().setUrl(url).build().execute(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.w("url","onFailure");
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    Log.w("url",s + response.body().string());
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 }

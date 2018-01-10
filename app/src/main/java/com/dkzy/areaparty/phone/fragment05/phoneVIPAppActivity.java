@@ -125,7 +125,7 @@ public class phoneVIPAppActivity extends AppCompatActivity implements View.OnCli
             String packageName = "com.qiyi.video";
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            ComponentName comp = new ComponentName(packageName, "org.qiyi.android.video.MainActivity");
+            ComponentName comp = new ComponentName(packageName, "org.qiyi.android.video.SubTitleUtil");
             intent.setComponent(comp);
             startActivity(intent);
 //            Log.w("###","进入爱奇艺");

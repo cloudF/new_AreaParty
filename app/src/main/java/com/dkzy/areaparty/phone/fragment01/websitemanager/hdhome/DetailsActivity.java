@@ -185,7 +185,7 @@ public class DetailsActivity extends AppCompatActivity {
 //                            .setAction("查看", new View.OnClickListener() {
 //                                @Override
 //                                public void onClick(View v) {
-//                                    Intent intent = new Intent(MyApplication.getContext(), MainActivity.class);
+//                                    Intent intent = new Intent(MyApplication.getContext(), SubTitleUtil.class);
 //                                    intent.putExtra("index", 3);
 //                                    startActivity(intent);
 //                                }

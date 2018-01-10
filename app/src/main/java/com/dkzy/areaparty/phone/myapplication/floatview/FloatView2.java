@@ -1,7 +1,9 @@
 package com.dkzy.areaparty.phone.myapplication.floatview;
 
+import android.app.AppOpsManager;
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
@@ -14,7 +16,10 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.fragment05.accessible_service.AutoLoginService;
 
+import java.lang.reflect.Method;
 import java.util.List;
+
+import static com.dkzy.areaparty.phone.myapplication.floatview.FloatView.checkAlertWindowsPermission;
 
 /**
  * Created by zhuyulin on 2017/6/23.
@@ -122,7 +127,7 @@ public class FloatView2 extends View {
 //            --TYPE_SYSTEM_DIALOG : 系统对话框。
 //            --TYPE_STATUS_BAR : 状态栏
 //            --TYPE_TOAST : 短暂通知Toast
-            if (Build.MANUFACTURER.equals("Xiaomi") && Build.VERSION.SDK_INT >= 23){
+            if ((Build.MANUFACTURER.equals("Xiaomi") && Build.VERSION.SDK_INT >= 23) || Build.VERSION.SDK_INT >= 25 || checkAlertWindowsPermission(getContext())){
                 wmParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
             }else {
                 wmParams.type = WindowManager.LayoutParams.TYPE_TOAST;
@@ -196,4 +201,11 @@ public class FloatView2 extends View {
         this.x = x;
         this.y = y - statusBarHeight;
     }
+
+    /**
+     * 判断 悬浮窗口权限是否打开
+     * @param context
+     * @return true 允许  false禁止
+     */
+
 }

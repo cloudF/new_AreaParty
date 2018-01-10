@@ -1014,6 +1014,11 @@ public class IndexMainActivity extends Activity {
 			}
 
 			@Override
+			public void reName(int position) {
+
+			}
+
+			@Override
 			public void selectModel() {
 
 			}

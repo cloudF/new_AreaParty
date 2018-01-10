@@ -281,7 +281,7 @@ public class UTorrentActivity extends AppCompatActivity {
                 .execute(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        Log.w("MainActivity", "onFailure");
+                        Log.w("SubTitleUtil", "onFailure");
                         Toasty.error(getApplicationContext(),"请检查ip地址和端口号是否正确").show();
                         e.printStackTrace();
                     }
@@ -290,11 +290,11 @@ public class UTorrentActivity extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         ResponseBody responseBody = response.body();
                         if (responseBody == null){
-                            Log.w("MainActivity","responseBody null");
+                            Log.w("SubTitleUtil","responseBody null");
                         }else {
                             String responseData = responseBody.string();
                             if (TextUtils.isEmpty(responseData)){
-                                Log.w("MainActivity","responseData null");
+                                Log.w("SubTitleUtil","responseData null");
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -303,7 +303,7 @@ public class UTorrentActivity extends AppCompatActivity {
                                 });
 
                             }else {
-                                Log.w("MainActivity",responseData+"&&&"+responseData.length());
+                                Log.w("SubTitleUtil",responseData+"&&&"+responseData.length());
                                 if (!(responseData.length() == 121)){
                                     runOnUiThread(new Runnable() {
                                         @Override

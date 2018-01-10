@@ -56,6 +56,7 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
     List<FileItem> files_app;
     String setName;
     private boolean isAppContent;
+    private boolean asBGM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
         Intent getIntent = getIntent();
         isAppContent = getIntent.getBooleanExtra("isAppContent",false);
         setName = getIntent.getStringExtra("setName");
+        asBGM = getIntent.getBooleanExtra("asBGM",false);
         Log.w("audioSetContentActivity",""+isAppContent+setName);
         initData();
         initView();
@@ -81,42 +83,40 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
             case R.id.playAllLL:
                 // 列表投屏
                 // Log.w("audioSetContentActivity","playAllLL");
-                if (!isAppContent){
-                    if(MyApplication.isSelectedPCOnline()) {
-                        if(MyApplication.isSelectedTVOnline()) {
-                            if(files.size() > 0)
-                                MediafileHelper.playMediaSet(OrderConst.audioAction_name,
-                                        setName, MyApplication.getSelectedTVIP().name, myHandler);
-                            else  Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
-                        } else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
-                    } else Toasty.warning(audioSetContentActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
-                }else {
-                    if (MyApplication.isSelectedTVOnline()){
-                        if (files_app.size() > 0){
-                            dlnaCast(files_app,"audio");
-                        }else Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
-                    }else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
-
-                }
-                break;
-            case R.id.play_as_bgm:
-                Log.w("audioSetContentActivity","play_as_bgm");
-                if (!isAppContent){
-                    if(MyApplication.isSelectedPCOnline()) {
-                        if(MyApplication.isSelectedTVOnline()) {
-                            if(files.size() > 0)
-                                MediafileHelper.playMediaSetAsBGM(OrderConst.audioAction_name,
-                                        setName, MyApplication.getSelectedTVIP().name, myHandler);
-                            else  Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
-                        } else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
-                    } else Toasty.warning(audioSetContentActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
-                }else {
-                    if (MyApplication.isSelectedTVOnline()){
-                        if (files_app.size() > 0){
-                            dlnaCast(files_app,"audio",true);//作为背景音乐播放
-                        }else Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
-                    }else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
-
+                if (!isAppContent){//电脑列表
+                    if (!asBGM){//正常播放
+                        if(MyApplication.isSelectedPCOnline()) {
+                            if(MyApplication.isSelectedTVOnline()) {
+                                if(files.size() > 0)
+                                    MediafileHelper.playMediaSet(OrderConst.audioAction_name,
+                                            setName, MyApplication.getSelectedTVIP().name, myHandler);
+                                else  Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
+                            } else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+                        } else Toasty.warning(audioSetContentActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                    }else {//作为背景
+                        if(MyApplication.isSelectedPCOnline()) {
+                            if(MyApplication.isSelectedTVOnline()) {
+                                if(files.size() > 0)
+                                    MediafileHelper.playMediaSetAsBGM(OrderConst.audioAction_name,
+                                            setName, MyApplication.getSelectedTVIP().name, myHandler);
+                                else  Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
+                            } else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+                        } else Toasty.warning(audioSetContentActivity.this, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                    }
+                }else {//手机本地列表
+                    if (!asBGM){//正常播放
+                        if (MyApplication.isSelectedTVOnline()){
+                            if (files_app.size() > 0){
+                                dlnaCast(files_app,"audio");
+                            }else Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
+                        }else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+                    }else {//背景音乐
+                        if (MyApplication.isSelectedTVOnline()){
+                            if (files_app.size() > 0){
+                                dlnaCast(files_app,"audio",true);//作为背景音乐播放
+                            }else Toasty.warning(audioSetContentActivity.this, "当前列表文件个数未0", Toast.LENGTH_SHORT, true).show();
+                        }else Toasty.warning(audioSetContentActivity.this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
+                    }
                 }
                 break;
         }
@@ -167,6 +167,7 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
         playAllLL = (LinearLayout) findViewById(R.id.playAllLL);
         fileSGV = (RecyclerView) findViewById(R.id.fileSGV);
         playAsBGM = (TextView) findViewById(R.id.play_as_bgm);
+        if (asBGM) playAsBGM.setText("作为背景音乐");
 
         setNameTV.setText(setName);
 
@@ -191,7 +192,6 @@ public class audioSetContentActivity extends AppCompatActivity implements View.O
     private void initEvent() {
         returnLogoIB.setOnClickListener(this);
         playAllLL.setOnClickListener(this);
-        playAsBGM.setOnClickListener(this);
 
     }
 

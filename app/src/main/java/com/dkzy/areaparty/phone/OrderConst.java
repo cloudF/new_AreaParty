@@ -153,6 +153,7 @@ public class OrderConst {
 
     public static final String dlnaCastToTV_Command = "OPEN_HTTP_MEDIA";
 
+    public static final String UTOrrent = "OPEN_UTORRENT";
     public static final String sysAction_name = "SYS";
     public static final String appAction_name = "APP";
     public static final String identityAction_name = "SECURITY";
@@ -198,6 +199,7 @@ public class OrderConst {
     public static final String getPCInfor_firCommand = "CURRENT_PC_INFOR";
 
     public static final String VLCAction_firCommand = "CONTROL_MEDIA";
+    public static final String VLCAction_openMoonLightCommand = "OPEN_MOONLIGHT";
     public static final String VLCAction_Play_Pause_secondCommand = "PLAY_PAUSE";
     public static final String VLCAction_Play_secondCommand = "PLAY";
     public static final String VLCAction_Pause_secondCommand = "PAUSE";

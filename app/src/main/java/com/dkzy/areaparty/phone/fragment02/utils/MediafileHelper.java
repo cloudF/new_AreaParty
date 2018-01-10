@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.dkzy.areaparty.phone.OrderConst;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_playPicList;
 import com.dkzy.areaparty.phone.fragment02.Model.MediaItem;
 import com.dkzy.areaparty.phone.utils_comman.ReceiveCommandFromTVPlayer;
 import com.dkzy.areaparty.phone.utils_comman.jsonFormat.JsonUitl;
@@ -210,6 +211,7 @@ public class MediafileHelper {
         Map<String, String> param = new HashMap<>();
         param.put("folder", folderPath);
         param.put("tvname", tvname);
+        param.put("t",""+ ActionDialog_playPicList.t);
         new Send2PCThread(filetype, OrderConst.mediaAction_playALL_command, param, myhandler).start();
         if (!ReceiveCommandFromTVPlayer.getPlayerIsRun()){
             new ReceiveCommandFromTVPlayer(true).start();

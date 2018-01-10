@@ -234,7 +234,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:button="@null"
-                    android:checked="true"
+                    android:checked="false"
                     android:drawableLeft="@drawable/checkbox_bg"
                     android:drawablePadding="4dp"
                     android:padding="2dp"
@@ -247,7 +247,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:text="《AeroParty服务条款》"
+                    android:text="《AreaParty服务条款》"
                     android:textSize="12sp"
                     android:textColor="#5858f8" />
             </LinearLayout>
@@ -259,7 +259,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/buttonradius"
+                android:background="@drawable/disabledbuttonradius"
                 android:gravity="center"
                 android:textColor="#fff"
                 android:paddingBottom="10dp"

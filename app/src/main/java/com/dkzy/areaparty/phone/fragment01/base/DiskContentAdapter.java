@@ -19,6 +19,7 @@ import com.dkzy.areaparty.phone.fragment01.diskContentActivity;
 import com.dkzy.areaparty.phone.fragment01.model.fileBean;
 import com.dkzy.areaparty.phone.fragment01.utils.PCFileHelper;
 import com.dkzy.areaparty.phone.fragment01.utils.prepareDataForFragment;
+import com.dkzy.areaparty.phone.fragment06.downloadManager;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
 
 import java.util.List;
@@ -75,50 +76,98 @@ public class DiskContentAdapter extends BaseAdapter {
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b) {
-                    datas.get(i).isChecked = true;
-                    int selectedNum = 0;
-                    for (fileBean file:datas) {
-                        if(file.isChecked)
-                            selectedNum++;
-                    }
-                    if(selectedNum == datas.size()) {
-                        ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconSelectAllIV)).setImageResource(R.drawable.selectedall_pressed);
-                        ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxSelectAllTV)).setText("取消全选");
+                if (context.toString().contains("diskContentActivity")){
+                    if(b) {
+                        datas.get(i).isChecked = true;
+                        int selectedNum = 0;
+                        for (fileBean file:datas) {
+                            if(file.isChecked)
+                                selectedNum++;
+                        }
+                        if(selectedNum == datas.size()) {
+                            ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconSelectAllIV)).setImageResource(R.drawable.selectedall_pressed);
+                            ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxSelectAllTV)).setText("取消全选");
+                        } else {
+                            ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconSelectAllIV)).setImageResource(R.drawable.selectedall_normal);
+                            ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxSelectAllTV)).setText("全选");
+                        }
+                        ((diskContentActivity)(context)).findViewById(R.id.bar02CopyLL).setClickable(true);
+                        ((diskContentActivity)(context)).findViewById(R.id.bar02CutLL).setClickable(true);
+                        ((diskContentActivity)(context)).findViewById(R.id.bar02DeleteLL).setClickable(true);
+                        ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconCopyIV)).setImageResource(R.drawable.copy_normal);
+                        ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconCutIV)).setImageResource(R.drawable.cut_normal);
+                        ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconDeleteIV)).setImageResource(R.drawable.delete_normal);
+                        ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxCopyTV)).setTextColor(Color.rgb(128, 128, 128));
+                        ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxCutTV)).setTextColor(Color.rgb(128, 128, 128));
+                        ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxDeleteTV)).setTextColor(Color.rgb(128, 128, 128));
                     } else {
+                        datas.get(i).isChecked = false;
+                        int selectedNum = 0;
+                        for (fileBean file:datas) {
+                            if(file.isChecked)
+                                selectedNum++;
+                        }
                         ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconSelectAllIV)).setImageResource(R.drawable.selectedall_normal);
                         ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxSelectAllTV)).setText("全选");
+                        if(selectedNum < 1) {
+                            ((diskContentActivity)(context)).findViewById(R.id.bar02CopyLL).setClickable(false);
+                            ((diskContentActivity)(context)).findViewById(R.id.bar02CutLL).setClickable(false);
+                            ((diskContentActivity)(context)).findViewById(R.id.bar02DeleteLL).setClickable(false);
+                            ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconCopyIV)).setImageResource(R.drawable.copy_pressed);
+                            ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconCutIV)).setImageResource(R.drawable.cut_pressed);
+                            ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconDeleteIV)).setImageResource(R.drawable.delete_pressed);
+                            ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxCopyTV)).setTextColor(Color.rgb(211, 211, 211));
+                            ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxCutTV)).setTextColor(Color.rgb(211, 211, 211));
+                            ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxDeleteTV)).setTextColor(Color.rgb(211, 211, 211));
+                        }
                     }
-                    ((diskContentActivity)(context)).findViewById(R.id.bar02CopyLL).setClickable(true);
-                    ((diskContentActivity)(context)).findViewById(R.id.bar02CutLL).setClickable(true);
-                    ((diskContentActivity)(context)).findViewById(R.id.bar02DeleteLL).setClickable(true);
-                    ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconCopyIV)).setImageResource(R.drawable.copy_normal);
-                    ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconCutIV)).setImageResource(R.drawable.cut_normal);
-                    ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconDeleteIV)).setImageResource(R.drawable.delete_normal);
-                    ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxCopyTV)).setTextColor(Color.rgb(128, 128, 128));
-                    ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxCutTV)).setTextColor(Color.rgb(128, 128, 128));
-                    ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxDeleteTV)).setTextColor(Color.rgb(128, 128, 128));
-                } else {
-                    datas.get(i).isChecked = false;
-                    int selectedNum = 0;
-                    for (fileBean file:datas) {
-                        if(file.isChecked)
-                            selectedNum++;
-                    }
-                    ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconSelectAllIV)).setImageResource(R.drawable.selectedall_normal);
-                    ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxSelectAllTV)).setText("全选");
-                    if(selectedNum < 1) {
-                        ((diskContentActivity)(context)).findViewById(R.id.bar02CopyLL).setClickable(false);
-                        ((diskContentActivity)(context)).findViewById(R.id.bar02CutLL).setClickable(false);
-                        ((diskContentActivity)(context)).findViewById(R.id.bar02DeleteLL).setClickable(false);
-                        ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconCopyIV)).setImageResource(R.drawable.copy_pressed);
-                        ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconCutIV)).setImageResource(R.drawable.cut_pressed);
-                        ((ImageView)((diskContentActivity)(context)).findViewById(R.id.bar02IconDeleteIV)).setImageResource(R.drawable.delete_pressed);
-                        ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxCopyTV)).setTextColor(Color.rgb(211, 211, 211));
-                        ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxCutTV)).setTextColor(Color.rgb(211, 211, 211));
-                        ((TextView)((diskContentActivity)(context)).findViewById(R.id.bar02TxDeleteTV)).setTextColor(Color.rgb(211, 211, 211));
+                }else if (context.toString().contains("downloadManager")){
+                    if(b) {
+                        datas.get(i).isChecked = true;
+                        int selectedNum = 0;
+                        for (fileBean file:datas) {
+                            if(file.isChecked)
+                                selectedNum++;
+                        }
+                        if(selectedNum == datas.size()) {
+                            ((ImageView)((downloadManager)(context)).findViewById(R.id.bar02IconSelectAllIV)).setImageResource(R.drawable.selectedall_pressed);
+                            ((TextView)((downloadManager)(context)).findViewById(R.id.bar02TxSelectAllTV)).setText("取消全选");
+                        } else {
+                            ((ImageView)((downloadManager)(context)).findViewById(R.id.bar02IconSelectAllIV)).setImageResource(R.drawable.selectedall_normal);
+                            ((TextView)((downloadManager)(context)).findViewById(R.id.bar02TxSelectAllTV)).setText("全选");
+                        }
+                        ((downloadManager)(context)).findViewById(R.id.bar02CopyLL).setClickable(true);
+                        ((downloadManager)(context)).findViewById(R.id.bar02CutLL).setClickable(true);
+                        ((downloadManager)(context)).findViewById(R.id.bar02DeleteLL).setClickable(true);
+                        ((ImageView)((downloadManager)(context)).findViewById(R.id.bar02IconCopyIV)).setImageResource(R.drawable.copy_normal);
+                        ((ImageView)((downloadManager)(context)).findViewById(R.id.bar02IconCutIV)).setImageResource(R.drawable.cut_normal);
+                        ((ImageView)((downloadManager)(context)).findViewById(R.id.bar02IconDeleteIV)).setImageResource(R.drawable.delete_normal);
+                        ((TextView)((downloadManager)(context)).findViewById(R.id.bar02TxCopyTV)).setTextColor(Color.rgb(128, 128, 128));
+                        ((TextView)((downloadManager)(context)).findViewById(R.id.bar02TxCutTV)).setTextColor(Color.rgb(128, 128, 128));
+                        ((TextView)((downloadManager)(context)).findViewById(R.id.bar02TxDeleteTV)).setTextColor(Color.rgb(128, 128, 128));
+                    } else {
+                        datas.get(i).isChecked = false;
+                        int selectedNum = 0;
+                        for (fileBean file:datas) {
+                            if(file.isChecked)
+                                selectedNum++;
+                        }
+                        ((ImageView)((downloadManager)(context)).findViewById(R.id.bar02IconSelectAllIV)).setImageResource(R.drawable.selectedall_normal);
+                        ((TextView)((downloadManager)(context)).findViewById(R.id.bar02TxSelectAllTV)).setText("全选");
+                        if(selectedNum < 1) {
+                            ((downloadManager)(context)).findViewById(R.id.bar02CopyLL).setClickable(false);
+                            ((downloadManager)(context)).findViewById(R.id.bar02CutLL).setClickable(false);
+                            ((downloadManager)(context)).findViewById(R.id.bar02DeleteLL).setClickable(false);
+                            ((ImageView)((downloadManager)(context)).findViewById(R.id.bar02IconCopyIV)).setImageResource(R.drawable.copy_pressed);
+                            ((ImageView)((downloadManager)(context)).findViewById(R.id.bar02IconCutIV)).setImageResource(R.drawable.cut_pressed);
+                            ((ImageView)((downloadManager)(context)).findViewById(R.id.bar02IconDeleteIV)).setImageResource(R.drawable.delete_pressed);
+                            ((TextView)((downloadManager)(context)).findViewById(R.id.bar02TxCopyTV)).setTextColor(Color.rgb(211, 211, 211));
+                            ((TextView)((downloadManager)(context)).findViewById(R.id.bar02TxCutTV)).setTextColor(Color.rgb(211, 211, 211));
+                            ((TextView)((downloadManager)(context)).findViewById(R.id.bar02TxDeleteTV)).setTextColor(Color.rgb(211, 211, 211));
+                        }
                     }
                 }
+
             }
         });
         try{
@@ -157,42 +206,42 @@ public class DiskContentAdapter extends BaseAdapter {
                 // 其他操作。。。
                 break;
             case FileTypeConst.excel:
-                infor = file.lastChangeTime + " " + file.size + "KB";
+                infor = file.lastChangeTime + "  " + formatSize(file.size);
                 holder.typeView.setImageResource(R.drawable.excel);
                 holder.nameView.setText(file.name);
                 holder.inforView.setText(infor);
                 // 其他操作。。。
                 break;
             case FileTypeConst.word:
-                infor = file.lastChangeTime + " " + file.size + "KB";
+                infor = file.lastChangeTime + "  " + formatSize(file.size);
                 holder.typeView.setImageResource(R.drawable.word);
                 holder.nameView.setText(file.name);
                 holder.inforView.setText(infor);
                 // 其他操作。。。
                 break;
             case FileTypeConst.ppt:
-                infor = file.lastChangeTime + " " + file.size + "KB";
+                infor = file.lastChangeTime + "  " + formatSize(file.size);
                 holder.typeView.setImageResource(R.drawable.ppt);
                 holder.nameView.setText(file.name);
                 holder.inforView.setText(infor);
                 // 其他操作。。。
                 break;
             case FileTypeConst.music:
-                infor = file.lastChangeTime + " " + file.size + "KB";
+                infor = file.lastChangeTime + "  " + formatSize(file.size);
                 holder.typeView.setImageResource(R.drawable.music);
                 holder.nameView.setText(file.name);
                 holder.inforView.setText(infor);
                 // 其他操作。。。
                 break;
             case FileTypeConst.pdf:
-                infor = file.lastChangeTime + " " + file.size + "KB";
+                infor = file.lastChangeTime + "  " + formatSize(file.size);
                 holder.typeView.setImageResource(R.drawable.pdf);
                 holder.nameView.setText(file.name);
                 holder.inforView.setText(infor);
                 // 其他操作。。。
                 break;
             case FileTypeConst.video:
-                infor = file.lastChangeTime + " " + file.size + "KB";
+                infor = file.lastChangeTime + "  " + formatSize(file.size);
                 holder.typeView.setImageResource(R.drawable.video);
                 holder.nameView.setText(file.name);
                 holder.inforView.setText(infor);
@@ -204,16 +253,15 @@ public class DiskContentAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View view) {
                             if (MyApplication.isSelectedTVOnline()){//是视频则可以播放
-                                if (context.toString().contains("diskContentActivity")){
-                                    PCFileHelper.playMedia(file);
-                                }else if (context.toString().contains("diskTVContentActivity")){
+                                if (context.toString().contains("diskTVContentActivity")){
                                     new Thread(new Runnable() {
                                         @Override
                                         public void run() {
                                             prepareDataForFragment.getDlnaCastState(file,"video");
                                         }
                                     }).start();
-
+                                }else {
+                                    PCFileHelper.playMedia(file);
                                 }
 
                             }else {
@@ -226,33 +274,39 @@ public class DiskContentAdapter extends BaseAdapter {
                 // 其他操作。。。
                 break;
             case FileTypeConst.zip:
-                infor = file.lastChangeTime + " " + file.size + "KB";
+                infor = file.lastChangeTime + "  " + formatSize(file.size);
                 holder.typeView.setImageResource(R.drawable.zip);
                 holder.nameView.setText(file.name);
                 holder.inforView.setText(infor);
                 // 其他操作。。。
                 break;
             case FileTypeConst.txt:
-                infor = file.lastChangeTime + " " + file.size + "KB";
+                infor = file.lastChangeTime + "  " + formatSize(file.size);
                 holder.typeView.setImageResource(R.drawable.txt);
                 holder.nameView.setText(file.name);
                 holder.inforView.setText(infor);
                 // 其他操作。。。
                 break;
             case FileTypeConst.pic:
-                infor = file.lastChangeTime + " " + file.size + "KB";
+                infor = file.lastChangeTime + "  " + formatSize(file.size);
                 holder.typeView.setImageResource(R.drawable.pic);
                 holder.nameView.setText(file.name);
                 holder.inforView.setText(infor);
                 // 其他操作。。。
                 break;
             case FileTypeConst.none:
-                infor = file.lastChangeTime + " " + file.size + "KB";
+                infor = file.lastChangeTime + "  " + formatSize(file.size);
                 holder.typeView.setImageResource(R.drawable.none);
                 holder.nameView.setText(file.name);
                 holder.inforView.setText(infor);
 
                 // 其他操作。。。
+                break;
+            case FileTypeConst.apk:
+                infor = file.lastChangeTime + "  " + formatSize(file.size);
+                holder.typeView.setImageResource(R.mipmap.ic_launcher);
+                holder.nameView.setText(file.name);
+                holder.inforView.setText(infor);
                 break;
         }
     }
@@ -263,6 +317,24 @@ public class DiskContentAdapter extends BaseAdapter {
         TextView inforView;
         CheckBox checkBox;
         ImageView imageView;
+    }
+
+    public static String formatSize(int size){
+        if (size < 1024) {
+            return String.valueOf(size) + "KB";
+        } else {
+            size = size*10 / 1024;
+        }
+        if (size < 10240) {
+            //保留1位小数，
+            return String.valueOf((size / 10)) + "."
+                    + String.valueOf((size % 10)) + "MB";
+        } else {
+            //保留2位小数
+            size = size * 10 / 1024;
+            return String.valueOf((size / 100)) + "."
+                    + String.valueOf((size % 100)) + "GB";
+        }
     }
 }
 

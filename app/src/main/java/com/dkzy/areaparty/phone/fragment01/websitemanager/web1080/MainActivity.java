@@ -23,6 +23,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +45,7 @@ import android.widget.Toast;
 
 
 import com.dkzy.areaparty.phone.R;
+import com.dkzy.areaparty.phone.fragment01.websitemanager.hdhome.store.CookieStore;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.start.ADFilterTool;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
 
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String torrentLink;
     private String torrentFileName;
+    CookieManager cookieManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,9 +116,12 @@ public class MainActivity extends AppCompatActivity {
 
         mWebview = (WebView) findViewById(R.id.webView1);
 
-        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
         cookieManager.setAcceptThirdPartyCookies(mWebview, true);
+
+
+
         //cookieManager.removeAllCookie();
         //581
         /*if (StringUrl.contains("www.1080.net") && (TextUtils.isEmpty(cookieManager.getCookie("www.1080.net")) || cookieManager.getCookie("www.1080.net").length()<500)){
@@ -180,11 +188,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
                 String url = request.getUrl().toString().toLowerCase();
-                if (!ADFilterTool.hasAd(MyApplication.getContext(), url)) {
+                return super.shouldInterceptRequest(view, request);
+                /*if (!ADFilterTool.hasAd(MyApplication.getContext(), url)) {
                     return super.shouldInterceptRequest(view, request);//正常加载
                 }else{
                     return new WebResourceResponse(null,null,null);//含有广告资源屏蔽请求
-                }
+                }*/
             }
         });
 
@@ -236,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
             //设置结束加载函数
             @Override
             public void onPageFinished(WebView view, String url) {
-                CookieManager cookieManager = CookieManager.getInstance();
+                //CookieManager cookieManager = CookieManager.getInstance();
 //                String CookieStr1 = cookieManager.getCookie(url);
 //                Log.w("WebView", "2Cookies = "+CookieStr1.length()+"***"+ CookieStr1);
             }
@@ -288,34 +297,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    //点击返回上一页面而不是退出浏览器
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if(keyCode==KeyEvent.KEYCODE_BACK)
-//        {
-//            if(mWebview.canGoBack()) {
-//                mWebview.goBack();//返回上一页面
-//                return true;
-//            } else {
-//                //如果isExit标记为false，提示用户再次按键
-//                if(!isExit){
-//                    isExit=true;
-//                    Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
-//                    //如果用户没有在2秒内再次按返回键的话，就发送消息标记用户为不退出状态
-//                    mHandler.sendEmptyMessageDelayed(0, 3000);
-//                }
-//                //如果isExit标记为true，退出程序
-//                else{
-//                    //退出程序
-//                    finish();
-//                    System.exit(0);
-//                }//退出程序
-//                return false;
-//            }
-//        }
-//
-//        return super.onKeyDown(keyCode, event);
-//    }
+//    /*//*/点击返回上一页面而不是退出浏览器
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK)
+        {
+            if(mWebview.canGoBack()) {
+                //如果isExit标记为false，提示用户再次按键
+                if(!isExit){
+                    mWebview.goBack();
+                    isExit=true;
+                    //如果用户没有在2秒内再次按返回键的话，就发送消息标记用户为不退出状态
+                    mHandler.sendEmptyMessageDelayed(0, 500);
+                }
+                //如果isExit标记为true，退出程序
+                else{
+                    //退出程序
+                    finish();
+                }//退出程序
+                return true;
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 
     //销毁Webview
     @Override
@@ -334,6 +339,16 @@ public class MainActivity extends AppCompatActivity {
     private void downloadTorrent(String versionUrl, String versionName) {
         //创建下载任务
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(versionUrl));
+        String c = cookieManager.getCookie(StringUrl);
+        if (!TextUtils.isEmpty(c)){
+            Log.w("WebView", "Cookies = "+ c);
+            String[] cookies = c.split(" ");
+            for (int i = 0; i < cookies.length; i++){
+                String cookie = cookies[i];
+                request.addRequestHeader("Set-Cookie",cookie);
+                Log.w("WebView", "Cookies = "+ cookie);
+            }
+        }
         request.setAllowedOverRoaming(false);//漫游网络是否可以下载
 
 
@@ -375,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
 //                            .setAction("查看", new View.OnClickListener() {
 //                                @Override
 //                                public void onClick(View v) {
-//                                    Intent intent = new Intent(MyApplication.getContext(), MainActivity.class);
+//                                    Intent intent = new Intent(MyApplication.getContext(), SubTitleUtil.class);
 //                                    intent.putExtra("index", 3);
 //                                    startActivity(intent);
 //                                }

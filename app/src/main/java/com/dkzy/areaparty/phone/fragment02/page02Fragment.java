@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dkzy.areaparty.phone.MainActivity;
 import com.dkzy.areaparty.phone.OrderConst;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.androideventbusutils.events.SelectedDeviceChangedEvent;
@@ -59,6 +60,8 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
     private ImageButton  lastAudioCastIB, lastVideoCastIB;
     private LinearLayout remoteControlLayout;
     private EditText searchET;
+
+    private TextView helpInfo;
 
     @Override
     public void onAttach(Context context) {
@@ -122,19 +125,19 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
                 if((MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())||(MyApplication.selectedTVVerified && MyApplication.isSelectedTVOnline())) {
                     MediafileHelper.setMediaType(OrderConst.videoAction_name);
                     startActivity(new Intent(mContext, videoLibActivity.class));
-                } else  Toasty.warning(mContext, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                } else  Toasty.warning(mContext, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
                 break;
             case R.id.audioLibLL:
                 if((MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())||(MyApplication.selectedTVVerified && MyApplication.isSelectedTVOnline())) {
                     MediafileHelper.setMediaType(OrderConst.audioAction_name);
                     startActivity(new Intent(mContext, audioLibActivity.class));
-                } else  Toasty.warning(mContext, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                } else  Toasty.warning(mContext, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
                 break;
             case R.id.picLibLL:
                 if((MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())||(MyApplication.selectedTVVerified && MyApplication.isSelectedTVOnline())) {
                     MediafileHelper.setMediaType(OrderConst.imageAction_name);
                     startActivity(new Intent(mContext, imageLibActivity.class));
-                } else  Toasty.warning(mContext, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                } else  Toasty.warning(mContext, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
                 break;
             case R.id.picsPlayListLL:
                 if((MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())||(MyApplication.selectedTVVerified && MyApplication.isSelectedTVOnline())) {
@@ -191,17 +194,20 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
             case R.id.search_editText:
                 startActivity(new Intent(MyApplication.getContext(), SearchMediaActivity.class));
                 break;
+            case R.id.helpInfo:
+                ((MainActivity)getActivity()).showHelpInfoDialog(R.layout.dialog_page02);
+                break;
         }
     }
 
     @Subscriber(tag = "selectedTVNameChange")
     private void upDateTVName(changeSelectedDeviceNameEvent event) {
-        TVNameTV.setText(event.getName());
+        TVNameTV.setText("在线");
     }
 
     @Subscriber(tag = "selectedPCNameChange")
     private void upDatePCName(changeSelectedDeviceNameEvent event) {
-        PCNameTV.setText(event.getName());
+        PCNameTV.setText("在线");
     }
 
     @Subscriber(tag = "selectedPCChanged")
@@ -213,7 +219,7 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
         if(event.isDeviceOnline()) {
             // 重置界面(最近播放、播放列表)
             PCStateIV.setImageResource(R.drawable.pcconnected);
-            PCNameTV.setText(event.getDevice().nickName);
+            PCNameTV.setText("在线");
             PCNameTV.setTextColor(Color.parseColor("#ffffff"));
             // 重新获取数据
             MediafileHelper.loadRecentMediaFiles(myHandler);
@@ -229,7 +235,7 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
     private void updateTVState(SelectedDeviceChangedEvent event) {
         if(event.isDeviceOnline()) {
             TVStateIV.setImageResource(R.drawable.tvconnected);
-            TVNameTV.setText(event.getDevice().nickName);
+            TVNameTV.setText("在线");
             TVNameTV.setTextColor(Color.parseColor("#ffffff"));
         } else {
             TVStateIV.setImageResource(R.drawable.tvbroke);
@@ -250,7 +256,7 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
                 MediafileHelper.loadRecentMediaFiles(myHandler);
             }
             PCStateIV.setImageResource(R.drawable.pcconnected);
-            PCNameTV.setText(MyApplication.getSelectedPCIP().nickName);
+            PCNameTV.setText("在线");
             PCNameTV.setTextColor(Color.parseColor("#ffffff"));
         } else {
             PCStateIV.setImageResource(R.drawable.pcbroke);
@@ -259,7 +265,7 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
         }
         if(event.isTVOnline() && MyApplication.selectedTVVerified) {
             TVStateIV.setImageResource(R.drawable.tvconnected);
-            TVNameTV.setText(MyApplication.getSelectedTVIP().nickName);
+            TVNameTV.setText("在线");
             TVNameTV.setTextColor(Color.parseColor("#ffffff"));
         } else {
             TVStateIV.setImageResource(R.drawable.tvbroke);
@@ -299,6 +305,7 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
         remoteControlImg = (ImageView) rootView.findViewById(R.id.RemoteControlImg);
         searchET = (EditText) rootView.findViewById(R.id.search_editText);
 
+        helpInfo = (TextView) rootView.findViewById(R.id.helpInfo);
 
 
         Glide.with(mContext).load(R.drawable.lastmusic).into(audioPicIV);
@@ -320,6 +327,7 @@ public class page02Fragment extends Fragment implements View.OnClickListener{
         lastVideoCastIB.setOnClickListener(this);
         lastAudioCastIB.setOnClickListener(this);
         searchET.setOnClickListener(this);
+        helpInfo.setOnClickListener(this);
 
 //        searchET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 //            @Override

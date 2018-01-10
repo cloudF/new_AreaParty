@@ -64,7 +64,7 @@ public class PtTorrentManagement extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        adapter = new TorrentFileAdapter(torrentList);
+        adapter = new TorrentFileAdapter(torrentList,true);
         recyclerView.setAdapter(adapter);
         getName();
         setListener();
@@ -177,6 +177,11 @@ public class PtTorrentManagement extends AppCompatActivity {
                     }
                 });
                 dialog.show();
+            }
+
+            @Override
+            public void reName(int position) {
+
             }
 
             @Override

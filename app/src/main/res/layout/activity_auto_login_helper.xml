@@ -41,8 +41,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linerlayout1">
+        app:layout_constraintTop_toBottomOf="@+id/linerlayout1"
+        app:layout_constraintVertical_bias="0.0">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -55,7 +57,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="本应用提供腾讯视频，乐视视频，优酷视频三个平台的账号分享服务，请自行下载安装.\n使用规则：\n    AreaParty分为手机端，电脑端，电视端。安装手机端后可以使用腾讯视频的账号，安装电脑端（并与手机端连接）后可以使用优酷的账号，安装电视端（并与手机端连接）后可以使用乐视视频的账号。\n    您一次只能使用一个平台的账号，如果您想切换平台，必须把已使用平台的账号退出后才能使用。\n使用步骤："
+                android:text="        本栏目视频应用VIP账号的分享服务，使用本服务前请先确保本机已安装了对应视频应用。在公开测试期，安装AreaParty的相应组件将可以免费获得腾讯（安装移动端）、优酷（安装电脑端）、乐视（安装电视端）视频VIP账号分享的福利！\n       每月1日开始发放当月免费名额（有效期至下月1日止），先到先得。"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -66,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="1.自助登录服务"
+                android:text="1.手机设置"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -77,89 +79,85 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="在系统设置>辅助功能(>无障碍) 页面找到AreaParty，打开自助登录服。\n（各手机对应的辅助功能界面不一样）"
+                android:text="@string/autoLogin1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-            <TextView
-                android:id="@+id/goSetting"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/colorPrimary"
-                android:text=">>进入设置>>"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
             <TextView
                 android:id="@+id/goSetting3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/colorPrimary"
                 android:text=">>进入设置>>"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/autoLogin2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.25"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                app:layout_constraintTop_toBottomOf="@+id/goSetting3" />
+
+            <TextView
+                android:id="@+id/goSetting"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:text=">>进入设置>>"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <TextView
+                android:id="@+id/autoLoginServiceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:text="自助登录服务:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <TextView
                 android:id="@+id/autoLoginServiceTV"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                android:text="已关闭"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="2.悬浮窗服务"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/goSetting" />
+                android:text="已关闭"
+                app:layout_constraintStart_toEndOf="@+id/autoLoginServiceLabel"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <TextView
-                android:id="@+id/textView17"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:text="本功能需要显示悬浮窗，可点击测试检验悬浮窗是否显示。若在屏幕左侧出现如右所示图标(2秒后消失)，则悬浮窗能正常使用\n长按可拖拽悬浮窗图标\n上滑可关闭悬浮窗图标\n下滑可回到AreaParty\n单击图标可执行相应功能（详见下文）\n若点击测试悬浮窗图标未出现，请到系统设置>应用管理(>权限管理)>AreaParty中开启悬浮窗权限\n（各手机对应的权限管理界面可能不一样）"
-                app:layout_constraintEnd_toStartOf="@+id/imageView2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView16" />
-
-            <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/floatViewLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView16"
-                app:srcCompat="@drawable/ic_float_image" />
+                android:text="悬浮窗服务:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
             <TextView
                 android:id="@+id/floatViewTV"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="测试"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/goSetting" />
+                app:layout_constraintStart_toEndOf="@+id/floatViewLabel"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
             <TextView
                 android:id="@+id/textView20"
@@ -168,11 +166,11 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="3.自助登录"
+                android:text="2、申请共享VIP账号"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/goSetting3" />
+                app:layout_constraintTop_toBottomOf="@+id/autoLoginServiceLabel" />
 
             <TextView
                 android:id="@+id/textView21"
@@ -181,10 +179,32 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="点击上个界面的登录按钮进入一个对应的视频应用，跳转到用户名密码登录界面（切换账号），到达该界面后会出现悬浮窗图标，单击悬浮图标就会自动填写输入框并登录。（若到达指定界面单未出现悬浮窗图标，请检查自助登录服务是否开启以及悬浮窗能否正常使用，或重启AreaParty后再试）\na.乐视视频(依次点击 “未登录”>>“点击登录” 到达如下图所示界面，出现悬浮图标，单击图标执行自动填写输入框和登录功能)"
+                android:text="@string/autoLogin3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView20" />
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="        新用户登录界面示例："
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="        （1）腾讯视频(需要你的手机已安装QQ)：依次点击 “个人中心”>>“点击登录”>>“QQ登录”>>“添加账号” 到达如下图所示界面，然后可单击悬浮图标。"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -194,8 +214,8 @@
                 android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView21"
-                app:srcCompat="@drawable/leshi_login" />
+                app:layout_constraintTop_toBottomOf="@+id/textView23"
+                app:srcCompat="@drawable/tencent_login1" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -204,10 +224,11 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="b.优酷(依次点击 “我的”>>“登录/注册”>>“账号登录” 到达如下图所示界面，出现悬浮图标，单击图标执行自动填写输入框和登录功能)"
+                android:text="        （2）优酷视频：依次点击 “我的”>>“登录/注册”>>“账号登录” 到达如下图所示界面，然后可单击悬浮图标。"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="wrap_content"
@@ -218,6 +239,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView8"
                 app:srcCompat="@drawable/youku_login" />
+
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="0dp"
@@ -225,10 +247,11 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="c.腾讯视频(仅支持QQ账号登录，若你的手机安装了手机QQ，依次点击 “个人中心”>>“点击登录”>>“QQ登录”>>“添加账号” 到达如下图所示界面，出现悬浮图标，单击图标执行自动填写输入框和登录功能)"
+                android:text="        （3）乐视视频：依次点击 “未登录”>>“点击登录” 到达如下图所示界面，所示界面，然后可单击悬浮图标。"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
@@ -238,39 +261,31 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView9"
-                app:srcCompat="@drawable/tencent_login1" />
+                app:srcCompat="@drawable/leshi_login" />
+
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="(若你的手机未安装手机QQ软件，依次点击“个人中心”>>“点击登录”>>“QQ登录”到达如下图所示界面，出现悬浮图标，单击图标执行自动填写输入框和登录功能)"
+                android:text="3、注销共享VIP账号"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView5" />
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10"
-                app:srcCompat="@drawable/tencent_login2" />
+
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="4.退出"
+                android:text="        当你需要分配另一个视频应用的VIP账号，或者你想在同一视频应用中切换分配另一个VIP账号时，你必须在本系统中先注销之前分配的账号。在自助登录服务处于开启状态且悬浮窗能正常使用时，点击对应视频应用的注销按钮，进入该应用，在该应用中进入注销界面，注销成功后，会弹出AreaParty注销成功的提示，再返回AreaParty后，你就可以切换或者分配其他视频应用的VIP账号了。"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -279,31 +294,34 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="你一次只能使用一个视频应用的账号，因此，当你需要使用另一个视频应用的账号时，你必须先退出之前使用的账号。\n\n操作方法如下:\n在自助登录服务处于开启状态且悬浮窗能正常使用时，点击上一页面中对应视频应用的退出按钮，进入该应用界面，在该应用中执行注销登录的操作，若成功执行会弹出AreaParty的操作成功的提示，返回AreaParty后，你就可以使用使用其他视频应用账号。\n\n若你已经退出了该视频应用的账号，但点击上一页面的登录按钮还是提示你需要执行退出操作，你需执行如下操作：保持该应用未登录的状态，点击上一页面对应视频应用的退出按钮，切换到该应用主页”我的“界面，点击悬浮窗进行检测。"
+                android:text="        需要注意的是，如果你自行在视频应用中注销了分配的VIP账号，AreaParty仍会视其占用了原VIP账号。如你想分配新的账号，仍然需要在AreaParty中走一遍注销流程。与一般注销不同的是，这时需要在该应用中进入新用户登录界面，然后点击悬浮图标，弹出AreaParty注销成功的提示后就可以申请分配新账号了。"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView1" />
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView24"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="4、切换共享VIP账号"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            <TextView
+                android:id="@+id/textView25"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="如果你要退出腾讯视频账号，并且你的手机安装了手机QQ，则你需要额外进行如下操作:点击上页的腾讯视频退出按钮进入腾讯视频，依次点击 “个人中心”>>“点击登录”>>“QQ登录”，到达如下图所示界面，点击悬浮窗。"
+                android:layout_marginBottom="8dp"
+                android:text="        使用本服务提供的共享VIP账号时，由于视频应用商的限制，可能会出现某些账号播放VIP视频资源人数超限的问题。你可以耐心等待一个空闲的时间再来播放或下载VIP视频资源，也可以注销当前共享账号，10分钟内再申请同一视频应用的VIP账号，系统将为你切换分配一个访问VIP视频资源成功率更高的新账号。但同一用户一天内最多只允许进行两次切换VIP账号的操作。"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
-                app:srcCompat="@drawable/tencent_check" />
+                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 

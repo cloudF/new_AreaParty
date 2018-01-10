@@ -169,6 +169,10 @@ public class TVAppHelper {
         String cmd = JsonUitl.objectToString(CommandUtil.createExitVLCCommand());
         new Send2TVThread(cmd).start();
     }
+    public static void openMoonlight() {
+        String cmd = JsonUitl.objectToString(CommandUtil.createOpenMoonlightCommand());
+        new Send2TVThread(cmd).start();
+    }
 
     public static void playAppointPosition2TV() {
         TVCommandItem tvCommandItem=CommandUtil.createAppointPlayPositionVLCCommand();
@@ -215,8 +219,8 @@ public class TVAppHelper {
         String cmd = JsonUitl.objectToString(CommandUtil.createHideSubtitleVLCCommand());
         new Send2TVThread(cmd).start();
     }
-    public static void vedioPlayControlLoadSubtitle() {
-        String cmd = JsonUitl.objectToString(CommandUtil.createLoadSubtitleVLCCommand());
+    public static void vedioPlayControlLoadSubtitle(String url,String f) {
+        String cmd = JsonUitl.objectToString(CommandUtil.createLoadSubtitleVLCCommand(url, f));
         new Send2TVThread(cmd).start();
     }
     public static void vedioPlayControlSubtitleBefore() {

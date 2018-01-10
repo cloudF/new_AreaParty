@@ -27,12 +27,13 @@ public class TorrentFileAdapter extends RecyclerView.Adapter<TorrentFileAdapter.
     private Context mContext;
     private List<TorrentFile> mTorrentList;
     private OnTorrentFileItemListener mListener;
+    private boolean isAppContent;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
         CardView cardView;
         BreakTextView torrentFileName;
-        Button downloadBtn, deleteBtn;
+        Button downloadBtn, deleteBtn , reNameBtn;
         CheckBox checkBox;
         SwipeMenuLayout rootView;
 
@@ -44,11 +45,13 @@ public class TorrentFileAdapter extends RecyclerView.Adapter<TorrentFileAdapter.
             downloadBtn = (Button) view.findViewById(R.id.btnDownload);
             deleteBtn = (Button) view.findViewById(R.id.btnDelete);
             checkBox = (CheckBox) view.findViewById(R.id.checkBox);
+            reNameBtn = (Button) view.findViewById(R.id.reName);
         }
     }
 
-    public TorrentFileAdapter(List<TorrentFile> torrentList){
+    public TorrentFileAdapter(List<TorrentFile> torrentList, boolean isAppContent){
         mTorrentList = torrentList;
+        this.isAppContent = isAppContent;
     }
 
     @Override
@@ -65,6 +68,10 @@ public class TorrentFileAdapter extends RecyclerView.Adapter<TorrentFileAdapter.
     @Override
     public void onBindViewHolder(final TorrentFileAdapter.ViewHolder holder,final int position) {
         final TorrentFile torrent = mTorrentList.get(position);
+        if (isAppContent){
+            holder.reNameBtn.setVisibility(View.VISIBLE);
+
+        }else holder.reNameBtn.setVisibility(View.GONE);
         if (torrent.isShow()){
             holder.checkBox.setVisibility(View.VISIBLE);
             holder.checkBox.setClickable(false);
@@ -86,6 +93,13 @@ public class TorrentFileAdapter extends RecyclerView.Adapter<TorrentFileAdapter.
             @Override
             public void onClick(View view) {
                 mListener.download(position);
+                holder.rootView.quickClose();
+            }
+        });
+        holder.reNameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.reName(position);
                 holder.rootView.quickClose();
             }
         });

@@ -20,6 +20,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dkzy.areaparty.phone.MainActivity;
 import com.dkzy.areaparty.phone.model_comman.MyAdapter;
 import com.dkzy.areaparty.phone.bluetoothxie.TVBluetoothSet;
 import com.dkzy.areaparty.phone.OrderConst;
@@ -73,6 +74,8 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
 
     private MyAdapter<AppItem> pcAppAdapter, pcGameAdapter;
     private MyAdapter<AppItem> tvSysAppAdapter, tvInstalledAppAdapter;
+
+    private TextView helpInfo;
 
     @Override
     public void onAttach(Context context) {
@@ -178,7 +181,8 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
                 else Toasty.warning(mContext, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
                 break;
             case R.id.PCUsingHelpLL:
-                startActivity(new Intent(mContext, pcUsingHelpActivity.class));
+                TVAppHelper.openMoonlight();
+                /*startActivity(new Intent(mContext, pcUsingHelpActivity.class));*/
                 break;
             case R.id.PCAppOpenModelNoticeIV:
                 startActivity(new Intent(mContext, pcAppHelpActivity.class));
@@ -222,6 +226,9 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
                 }else
                     Toasty.warning(mContext, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
                 break;
+            case R.id.helpInfo:
+                ((MainActivity)getActivity()).showHelpInfoDialog(R.layout.dialog_page03);
+                break;
 
         }
     }
@@ -242,6 +249,7 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
         PCGameNoticeIV.setOnClickListener(this);
         openPcDesk.setOnClickListener(this);
         closeRdp.setOnClickListener(this);
+        helpInfo.setOnClickListener(this);
 
         TVInstalledAppSGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -388,6 +396,7 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
         PCAppOpenModelNoticeIV = (ImageView) rootView.findViewById(R.id.PCAppOpenModelNoticeIV);
         openPcDesk = (ImageView) rootView.findViewById(R.id.openPcDesk);
         closeRdp = (ImageView) rootView.findViewById(R.id.closeRDP);
+        helpInfo = (TextView) rootView.findViewById(R.id.helpInfo);
 
         updateDeviceNetState(new TVPCNetStateChangeEvent(MyApplication.isSelectedTVOnline(),
                 MyApplication.isSelectedPCOnline()));
@@ -491,12 +500,12 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
 
     @Subscriber(tag = "selectedTVNameChange")
     private void upDateTVName(changeSelectedDeviceNameEvent event) {
-        TVNameTV.setText(event.getName());
+        TVNameTV.setText("在线");
     }
 
     @Subscriber(tag = "selectedPCNameChange")
     private void upDatePCName(changeSelectedDeviceNameEvent event) {
-        PCNameTV.setText(event.getName());
+        PCNameTV.setText("在线");
     }
 
     @Subscriber(tag = "selectedDeviceStateChanged")
@@ -506,7 +515,7 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
             if(PCAppHelper.appList.size() <= 0 && PCAppHelper.gameList.size() <= 0)
                 PCAppHelper.loadList(myHandler);
             PCStateIV.setImageResource(R.drawable.pcconnected);
-            PCNameTV.setText(MyApplication.getSelectedPCIP().nickName);
+            PCNameTV.setText("在线");
             PCNameTV.setTextColor(Color.parseColor("#ffffff"));
         } else {
             PCStateIV.setImageResource(R.drawable.pcbroke);
@@ -518,7 +527,7 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
                 TVAppHelper.loadApps(myHandler);
             }
             TVStateIV.setImageResource(R.drawable.tvconnected);
-            TVNameTV.setText(MyApplication.getSelectedTVIP().nickName);
+            TVNameTV.setText("在线");
             TVNameTV.setTextColor(Color.parseColor("#ffffff"));
         } else {
             TVStateIV.setImageResource(R.drawable.tvbroke);
@@ -536,7 +545,7 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
         if(event.isDeviceOnline()) {
             // 重置界面(最近播放、播放列表)
             PCStateIV.setImageResource(R.drawable.pcconnected);
-            PCNameTV.setText(event.getDevice().nickName);
+            PCNameTV.setText("在线");
             PCNameTV.setTextColor(Color.parseColor("#ffffff"));
             // 重新获取数据
             PCAppHelper.loadList(myHandler);
@@ -555,7 +564,7 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
         tvInstalledAppAdapter.notifyDataSetChanged();
         if(event.isDeviceOnline()) {
             TVStateIV.setImageResource(R.drawable.tvconnected);
-            TVNameTV.setText(event.getDevice().nickName);
+            TVNameTV.setText("在线");
             TVNameTV.setTextColor(Color.parseColor("#ffffff"));
             TVAppHelper.loadApps(myHandler);
         } else {

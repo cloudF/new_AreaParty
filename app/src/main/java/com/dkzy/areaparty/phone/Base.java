@@ -428,27 +428,61 @@ public class Base {
                             intent.putExtra("mobileMac", chatData.split(",")[1]);
                             intent.putExtra("deviceType", "pc");
                             MyApplication.getContext().startActivity(intent);
-                        }else if(chatData.equals("对方已存在相同文件")){
+                        }else if(chatData.contains("FILE_EXIST_RECEIVER")){
+                            Intent intent = new Intent(MyApplication.getContext(),MyService.class);
+                            intent.putExtra("style","holeMsg");
+                            intent.putExtra("msgInfo","已存在相同文件");
+                            MyApplication.getContext().startService(intent);
+                        }
+                        else if(chatData.contains("FILE_EXIST_SENDER")){
                             Intent intent = new Intent(MyApplication.getContext(),MyService.class);
                             intent.putExtra("style","holeMsg");
                             intent.putExtra("msgInfo","对方已存在相同文件");
                             MyApplication.getContext().startService(intent);
-                        }else if(chatData.equals("该文件已被对方删除或更换了路径")){
+                        }
+                        else if(chatData.contains("NO_SUCH_FILE_RECEIVER")){
                             Intent intent = new Intent(MyApplication.getContext(),MyService.class);
                             intent.putExtra("style","holeMsg");
                             intent.putExtra("msgInfo","该文件已被对方删除或更换了路径");
                             MyApplication.getContext().startService(intent);
-                        }else if(chatData.equals("打洞失败")){
+                        }
+                        else if(chatData.contains("NO_SUCH_FILE_SENDER")){
                             Intent intent = new Intent(MyApplication.getContext(),MyService.class);
                             intent.putExtra("style","holeMsg");
-                            intent.putExtra("msgInfo","打洞失败");
+                            intent.putExtra("msgInfo","该文件已删除或更换了路径");
                             MyApplication.getContext().startService(intent);
-                        }else if(chatData.equals("打洞成功")){
+                        }
+                        else if(chatData.contains("HOLE_SUCCESS")){
                             Intent intent = new Intent(MyApplication.getContext(),MyService.class);
                             intent.putExtra("style","holeMsg");
                             intent.putExtra("msgInfo","打洞成功");
                             MyApplication.getContext().startService(intent);
-                        }else if(chatData.contains("fileProcess")){
+                        }
+                        else if(chatData.contains("HOLE_FAIL")){
+                            Intent intent = new Intent(MyApplication.getContext(),MyService.class);
+                            intent.putExtra("style","holeMsg");
+                            intent.putExtra("msgInfo","由于运营商问题直接传输失败，开始中继传输");
+                            MyApplication.getContext().startService(intent);
+                        }
+                        else if(chatData.contains("FILE_OVER")){
+                            Intent intent = new Intent(MyApplication.getContext(),MyService.class);
+                            intent.putExtra("style","holeMsg");
+                            intent.putExtra("msgInfo","文件接收完成");
+                            MyApplication.getContext().startService(intent);
+                        }
+                        else if(chatData.contains("RELAY_SUCCESS")){
+                            Intent intent = new Intent(MyApplication.getContext(),MyService.class);
+                            intent.putExtra("style","holeMsg");
+                            intent.putExtra("msgInfo","中继传输成功");
+                            MyApplication.getContext().startService(intent);
+                        }
+                        else if(chatData.contains("RELAY_FAIL")){
+                            Intent intent = new Intent(MyApplication.getContext(),MyService.class);
+                            intent.putExtra("style","holeMsg");
+                            intent.putExtra("msgInfo","中继传输失败，请重试");
+                            MyApplication.getContext().startService(intent);
+                        }
+                        else if(chatData.contains("fileProcess")){
                             Message friendDownloadStateMsg = DownloadStateFragment.mHandler.obtainMessage();
                             String fileList = chatData.substring(chatData.indexOf(",")+1);
                             friendDownloadStateMsg.obj = fileList;
@@ -594,7 +628,7 @@ public class Base {
                                 chatMsg.what = 2;
                                 fileList.mHandler.sendMessage(chatMsg);
                         }else{
-                            //Message chatMsg = MainActivity.handlerTab06.obtainMessage();
+                            //Message chatMsg = SubTitleUtil.handlerTab06.obtainMessage();
                             if(page06Fragment.friendChatNum.containsKey(senderId)){
                                 page06Fragment.friendChatNum.put(senderId, page06Fragment.friendChatNum.get(senderId)+1);
                             }else{

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialogback04">
+
+    <TextView
+        android:id="@+id/exittitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:gravity="center"
+        android:text="说明"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#dcdcdc" />
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="500dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingBottom="5dp"
+                android:text="        AreaParty系统包括移动端（APP）、电脑端、电视端三种软件组件。支持用户通过移动端的集中控制，实现家庭中基于电脑、电视、NAS硬盘、U盘等设备的分布式家庭数字娱乐功能。"
+                android:textColor="#555"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="#555"
+                android:text="        AreaParty系统的三个组件可分别独立安装使用，以移动端为中心，通过相互配合实现了网络视频下载、视频VIP分享、分布式媒体库、媒体一键投屏、电脑及电视应用控制、用户间文件分享等全面的家庭娱乐功能。"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="#555"
+                android:text="        为了保证安全，AreaParty电脑端、TV端组件与APP首次连接时将要求用户在APP端输入电脑端、TV端安装时设置的配对码。"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="#555"
+                android:text="        为了体验更丰富的家庭数字娱乐功能，强烈建议安装全部三种组件。"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="#555"
+                android:text="@string/info1"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="#555"
+                android:text="@string/info2"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="#555"
+                android:text="软件白皮书："
+                android:paddingTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/wangzhi"
+                android:textColor="#555"
+                android:text="网址：www.areaparty.com"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="20dp"
+                android:paddingBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/youxiang"
+                android:textColor="#555"
+                android:text="邮箱：software@ areaparty.com"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="20dp"
+                android:paddingBottom="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+        <Button
+            android:id="@+id/exitnegativeButton"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttonback04"
+            android:text="取消"
+            android:textColor="#007DFF"
+            android:textSize="16sp"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/exitpositiveButton"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/buttonback04"
+            android:text="确定"
+            android:textColor="#E65757"
+            android:textSize="16sp"
+            android:gravity="center" />
+    </LinearLayout>-->
+
+
+</LinearLayout>
+

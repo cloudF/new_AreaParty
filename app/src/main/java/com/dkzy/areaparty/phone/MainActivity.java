@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dkzy.areaparty.phone.fragment01.page01Fragment;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_page;
 import com.dkzy.areaparty.phone.fragment02.page02Fragment;
 import com.dkzy.areaparty.phone.fragment03.page03Fragment;
 import com.dkzy.areaparty.phone.fragment03.utils.TVAppHelper;
@@ -116,7 +117,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (currentPage == page05) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_BACK:
@@ -253,6 +254,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
+        MyApplication.getPcAreaPartyPath();
         Log.e("change", "Resume");
         //startingTimer();
     }
@@ -506,6 +508,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         id_tab04_text.setTextColor(Color.rgb(153, 153, 153));
 //        id_tab05_text.setTextColor(Color.rgb(153, 153, 153));
 //        id_tab06_text.setTextColor(Color.rgb(153, 153, 153));
+    }
+
+    public  void showHelpInfoDialog(int layout){
+        final ActionDialog_page dialog = new ActionDialog_page(this,layout);
+        dialog.setCancelable(true);
+        dialog.show();
     }
 
 }

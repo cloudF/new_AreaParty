@@ -9,14 +9,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.AREAPARTY_NET;
 
 /**
  * Created by zhuyulin on 2017/7/20.
  */
 
 public class Util {
-    private static final String addressLogin = "http://119.23.12.116:8080/Auto_login.php";
-    public static final String addressLogout = "http://119.23.12.116:8080/Auto_logout.php";
+    private static final String addressLogin = "http://"+AREAPARTY_NET+":8080/Auto_login.php";
+    public static final String addressLogout = "http://"+AREAPARTY_NET+":8080/Auto_logout.php";
     public static void sendRequestLogin(final String requestLogin , final String websit, final String serialNumber , Callback callback){
         OkHttpClient client = new OkHttpClient();
 

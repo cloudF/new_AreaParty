@@ -22,11 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.Login;
+import com.dkzy.areaparty.phone.MainActivity;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.androideventbusutils.events.TVPCNetStateChangeEvent;
 import com.dkzy.areaparty.phone.androideventbusutils.events.changeSelectedDeviceNameEvent;
 import com.dkzy.areaparty.phone.fragment01.base.GlideImageLoader;
 import com.dkzy.areaparty.phone.fragment01.setting.SettingMainActivity;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_launch;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_page;
 import com.dkzy.areaparty.phone.fragment01.utils.tvpcAppHelper;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.start.StartActivity;
 import com.dkzy.areaparty.phone.fragment03.Model.AppItem;
@@ -70,7 +73,7 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
     private boolean outline;
     //姜超 登录按钮
     private LinearLayout tab01_loginWrap;
-    private TextView id_top01_userName;
+    private TextView id_top01_userName, helpInfo;
     private ImageView userLogo_imgButton;
 
     private Context mContext;
@@ -110,7 +113,7 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
             case R.id.lastPCInforLL:
                 if(MyApplication.selectedPCVerified && MyApplication.isSelectedPCOnline())
                     startActivity(new Intent(getActivity(), computerMonitorActivity.class));
-                else Toasty.warning(mContext, "当前电视未验证或不在线", Toast.LENGTH_SHORT, true).show();
+                else Toasty.warning(mContext, "当前电脑未验证或不在线", Toast.LENGTH_SHORT, true).show();
                 break;
             case R.id.lastTVInforLL:
                 if(MyApplication.selectedTVVerified && MyApplication.isSelectedTVOnline()) {
@@ -123,6 +126,9 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 getActivity().finish();
             }
+                break;
+            case R.id.helpInfo:
+                ((MainActivity)getActivity()).showHelpInfoDialog(R.layout.dialog_page01);
                 break;
         }
     }
@@ -293,6 +299,7 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
         TVRecentAppSGV = (SwipeGridView) rootView.findViewById(R.id.TVRecentAppSGV);
         PCRecentAppSGV = (SwipeGridView) rootView.findViewById(R.id.PCRecentAppSGV);
         scrollView = (ScrollView) rootView.findViewById(R.id.scrollView);
+        helpInfo = (TextView) rootView.findViewById(R.id.helpInfo);
 
         TVRecentAppSGV.setAdapter(tvRecentAppAdapter);
         PCRecentAppSGV.setAdapter(pcRecentAppAdapter);
@@ -407,6 +414,7 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
         lastPCInforLL.setOnClickListener(this);
         lastTVInforLL.setOnClickListener(this);
         settingLL.setOnClickListener(this);
+        helpInfo.setOnClickListener(this);
 
 
         bannerB.setOnBannerListener(new OnBannerListener() {
@@ -415,7 +423,6 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(mContext, StartActivity.class));
             }
         });
-
         TVRecentAppSGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -463,5 +470,7 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
             }
         }
     };
+
+
 
 }
