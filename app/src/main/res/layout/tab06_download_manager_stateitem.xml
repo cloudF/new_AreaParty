@@ -1,80 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mcxtzhang.swipemenulib.SwipeMenuLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:gravity="center_vertical"
-    android:orientation="vertical">
-
-    <LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:ios="false"
+    app:leftSwipe="true"
+    app:swipeEnable="false">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF"
-        android:orientation="horizontal">
+        android:gravity="center_vertical"
+        android:paddingTop="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="1dp"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/downloadStateFileImg"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:paddingEnd="5dp"
-            android:paddingStart="0dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:src="@mipmap/ic_launcher"/>
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginEnd="5dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="5dp"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/downloadStateFileName"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:textColor="#000000"
-                android:textSize="14sp"
-                android:text="文件1"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/downloadStateFileSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="--M"
-                    android:textSize="10sp"/>
-                <TextView
-                    android:id="@+id/downloadStateFileTotalSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="/--M"
-                    android:textSize="10sp"/>
-                <TextView
-                    android:id="@+id/downloadStateFileProgress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="--.--%"
-                    android:textSize="10sp"
-                    android:layout_marginLeft="20dp"/>
-            </LinearLayout>
-        </LinearLayout>
-        <TextView
-            android:id="@+id/downloadStateFileFinish"
-            android:layout_width="wrap_content"
+            android:id="@+id/item"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:visibility="gone"
-            android:text="下载完成"/>
-    </LinearLayout>
+            android:background="#FFF"
+            android:orientation="horizontal">
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/prefresh_list_cutline" />
-</LinearLayout>
+            <TextView
+                android:id="@+id/tv_fileName"
+                android:layout_width="0dp"
+                android:textColor="#000"
+                android:textSize="14sp"
+                android:maxLines="2"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical" />
+            <TextView
+                android:id="@+id/tv_downloadState"
+                android:text="下载中"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/iv_expand"
+                android:src="@drawable/ic_expand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:id="@+id/info"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="下载进度:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/tv_downloadProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/textView11"
+                android:text="40%" />
+
+            <TextView
+                android:id="@+id/tv_stopTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@+id/tv_downloadSpeed"
+                android:text="终止时间:"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_downloadSpeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:text="100kb/s"
+                android:visibility="gone" />
+            <!--<TextView
+                android:text="暂停"
+                android:id="@+id/tv_stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_delete"
+                android:text="删除"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />-->
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/prefresh_list_cutline" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/tv_stop"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:background="#34adfd"
+        android:text="暂停"
+        android:textColor="@android:color/white"/>
+    <Button
+        android:id="@+id/tv_delete"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:text="删除"
+        android:textColor="@android:color/white"/>
+</com.mcxtzhang.swipemenulib.SwipeMenuLayout>

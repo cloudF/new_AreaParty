@@ -3,6 +3,7 @@ package com.dkzy.areaparty.phone.utils_comman;
 
 import android.util.Log;
 
+import com.dkzy.areaparty.phone.OrderConst;
 import com.dkzy.areaparty.phone.newAES;
 import com.dkzy.areaparty.phone.utils_comman.jsonFormat.IPInforBean;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
@@ -31,7 +32,7 @@ public class Send2TVThread extends Thread{
     public static String pass = null;
     public static String pass1 = null;
     public Send2TVThread(String cmd){
-        this.cmd = cmd + "\n";
+        this.cmd = cmd;
     }
 
     @Override
@@ -48,7 +49,10 @@ public class Send2TVThread extends Thread{
                 client.connect(new InetSocketAddress(tvInfor.ip, tvInfor.port), SOCKET_TIMEOUT);
 
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
-                writer.write(cmd1);
+
+                    writer.write(cmd1);
+
+
                 writer.newLine();
                 writer.flush();
                 Log.i("dfafafdsfdfasfd", cmd1);

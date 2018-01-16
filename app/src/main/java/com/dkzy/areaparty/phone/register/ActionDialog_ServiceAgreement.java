@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 
 import com.dkzy.areaparty.phone.R;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_page;
 
 /**
  * Project Name： FamilyCentralControler
@@ -40,6 +41,14 @@ public class ActionDialog_ServiceAgreement extends Dialog {
         View mView = LayoutInflater.from(context).inflate(R.layout.dialog_ser, null);
         webView = (WebView) mView.findViewById(R.id.webView);
         displayFromAsset();
+        if (mView.findViewById(R.id.close)!=null){
+            mView.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ActionDialog_ServiceAgreement.this.dismiss();
+                }
+            });
+        }
 
 
         super.setContentView(mView);
@@ -56,14 +65,5 @@ public class ActionDialog_ServiceAgreement extends Dialog {
     private void displayFromAsset() {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/service.html");
-
-        /*pdfView.fromAsset(SAMPLE_FILE)
-                .defaultPage(0)
-                .onPageChange(null)
-                .enableAnnotationRendering(true)
-                .onLoad(null)
-                .scrollHandle(new DefaultScrollHandle(context))
-                .spacing(0) // in dp
-                .load();*/
     }
 }

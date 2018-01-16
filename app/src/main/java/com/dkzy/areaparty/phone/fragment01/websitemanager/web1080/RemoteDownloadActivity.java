@@ -81,6 +81,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
     public static String rootPath;
     public static String btFilesPath ;
     public static String targetPath;//uTorrent自动从此路径加载种子
+    public static boolean isCreated = false;
 
     private TorrentFileAdapter adapter;
     private TorrentFileAdapter adapter_pc;
@@ -141,6 +142,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.web1080_activity_remote_download);
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         toolbar = (Toolbar) findViewById(R.id.login_toolbar);
         setSupportActionBar(toolbar);
@@ -151,10 +153,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.webmanager_ic_goback);
         }
 
-        if (TextUtils.isEmpty(UrlUtils.token)){
-            initUTorrent();
-            MyApplication.getPcAreaPartyPath();
-        }
+
         initData();
 
         initView();
@@ -206,8 +205,20 @@ public class RemoteDownloadActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isCreated = false;
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isCreated = true;
 
+            initUTorrent();
+            MyApplication.getPcAreaPartyPath();
+    }
 
     private void initEvent() {
         app_file.setOnClickListener(new View.OnClickListener() {
@@ -1028,8 +1039,10 @@ public class RemoteDownloadActivity extends AppCompatActivity {
                                 new Send2PCThread(OrderConst.UTOrrent, "",new Handler()).start();
                                 try {
                                     Thread.sleep(4000);
-                                    initUTorrent();
-                                    MyApplication.getPcAreaPartyPath();
+                                    if (isCreated){
+                                        initUTorrent();
+                                        MyApplication.getPcAreaPartyPath();
+                                    }
                                 } catch (InterruptedException e1) {
                                     e1.printStackTrace();
                                 }
@@ -1038,10 +1051,12 @@ public class RemoteDownloadActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
                                 ResponseBody responseBody = response.body();
+                                //response.close();
                                 if (responseBody == null){
                                     Log.w("SubTitleUtil","responseBody null");
                                 }else {
                                     String responseData = responseBody.string();
+                                    response.close();
                                     if (TextUtils.isEmpty(responseData)){
                                         Log.w("SubTitleUtil","responseData null");
                                         new Handler().post(new Runnable() {
@@ -1089,6 +1104,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             String responseData = response.body().string();
+                            response.close();
                             //Log.w(TAG, responseData);
                             try {
                                 JSONObject jsonObject = new JSONObject(responseData);
@@ -1150,6 +1166,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
+                    response.close();
                     Log.w("url",s + response.body().string());
                 }
             });

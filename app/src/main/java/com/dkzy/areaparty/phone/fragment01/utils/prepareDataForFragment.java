@@ -12,6 +12,8 @@ import com.dkzy.areaparty.phone.fragment01.model.fileBean;
 import com.dkzy.areaparty.phone.fragment02.contentResolver.ContentDataControl;
 import com.dkzy.areaparty.phone.fragment02.contentResolver.FileItem;
 import com.dkzy.areaparty.phone.fragment02.contentResolver.FileSystemType;
+import com.dkzy.areaparty.phone.fragment06.zhuyulin.ReceiveDownloadProcessFormat;
+import com.dkzy.areaparty.phone.fragment06.zhuyulin.ReceivedDownloadListFormat;
 import com.dkzy.areaparty.phone.model_comman.TVCommandItem;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
 import com.dkzy.areaparty.phone.utils_comman.CommandUtil;
@@ -298,13 +300,57 @@ public class prepareDataForFragment {
                 message = getFolerInforArray(request);
             }
                 break;
-            case OrderConst.diskAction_get_command:
+            case OrderConst.diskAction_get_command:{
                 String msgReceived;
                 msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);
                 if(!msgReceived.equals("")) {
                     message = JsonUitl.stringToBean(msgReceived, ReceivedDiskListFormat.class);
                 }
+            }
                 break;
+            case OrderConst.GETDOWNLOADSTATE:{
+                String msgReceived;
+                msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);
+                if(!msgReceived.equals("")) {
+                    message = JsonUitl.stringToBean(msgReceived, ReceivedDownloadListFormat.class);
+                }
+            }
+                break;
+            case OrderConst.GETDOWNLOADProcess:{
+                String msgReceived;
+                msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);
+                if(!msgReceived.equals("")) {
+                    message = JsonUitl.stringToBean(msgReceived, ReceiveDownloadProcessFormat.class);
+                }
+            }
+                break;
+            case OrderConst.STOPDOWNLOAD:{
+                String msgReceived;
+                msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);
+                if(!msgReceived.equals("")) {
+                    //message = JsonUitl.stringToBean(msgReceived, ReceiveDownloadProcessFormat.class);
+                    message = msgReceived;
+                }
+            }
+                break;
+            case OrderConst.RECOVERDOWNLOAD:{
+                String msgReceived;
+                msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);
+                if(!msgReceived.equals("")) {
+                    //message = JsonUitl.stringToBean(msgReceived, ReceiveDownloadProcessFormat.class);
+                    message = msgReceived;
+                }
+            }
+            break;
+            case OrderConst.DELETEDOWNLOAD:{
+                String msgReceived;
+                msgReceived = MyConnector.getInstance().getActionStateMsg(requestString);
+                if(!msgReceived.equals("")) {
+                    //message = JsonUitl.stringToBean(msgReceived, ReceiveDownloadProcessFormat.class);
+                    message = msgReceived;
+                }
+            }
+            break;
         }
         return message;
     }

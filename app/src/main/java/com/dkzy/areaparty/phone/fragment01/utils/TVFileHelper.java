@@ -789,7 +789,7 @@ public class TVFileHelper {
      * </summary>
      * <param name="msg">状态对象</param>
      */
-    public void shareFileState(Message msg){
+    /*public void shareFileState(Message msg){
         final boolean shareState = (boolean) msg.obj;
         Log.e("TVFileHelper", "开始向PC写入分享文件的信息,分享状态" + shareState);
         new Thread(){
@@ -823,7 +823,7 @@ public class TVFileHelper {
                 }
             }
         }.start();
-    }
+    }*/
 
     public void addToVideoList(fileBean file,String type){
         final String path = type + nowFilePath + file.name;

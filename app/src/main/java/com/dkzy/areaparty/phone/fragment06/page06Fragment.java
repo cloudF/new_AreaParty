@@ -37,6 +37,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import es.dmoral.toasty.Toasty;
 import protocol.Data.FileData;
 import protocol.Data.UserData;
 import protocol.Msg.GetPersonalInfoMsg;
@@ -373,9 +374,14 @@ public class page06Fragment extends Fragment {
         download_wrap.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), downloadManager.class);
-                startActivity(intent);
+                if (MyApplication.isSelectedPCOnline()){
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(), downloadManager.class);
+                    startActivity(intent);
+                }else {
+                    Toasty.warning(getContext(), "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                }
+
             }
         });
 

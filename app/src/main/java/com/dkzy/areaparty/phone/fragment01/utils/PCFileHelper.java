@@ -796,7 +796,7 @@ public class PCFileHelper {
             @Override
             public void run() {
                 if(shareState) {
-                    SharedFilePathFormat filePath = new SharedFilePathFormat(String.valueOf(selectedShareFile.timeLong), selectedShareFile.path);
+                    SharedFilePathFormat filePath = new SharedFilePathFormat(String.valueOf(selectedShareFile.timeLong), selectedShareFile.path, selectedShareFile.name, selectedShareFile.size);
                     try {
                         ReceivedActionMessageFormat fileActionMessageReceived = (ReceivedActionMessageFormat)
                                 prepareDataForFragment.getFileActionStateData(OrderConst.fileAction_name,

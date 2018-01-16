@@ -89,6 +89,7 @@ public class WelcomeActivity extends Activity {
                         public void onResponse(Call arg0, Response arg1) throws IOException {
                             // TODO Auto-generated method stub
                             String responseData1=arg1.body().string();
+                            arg1.close();
                             Intent intent=new Intent();
                             intent.putExtra("extra", responseData1);
                             intent.setClass(WelcomeActivity.this, IndexMainActivity.class);

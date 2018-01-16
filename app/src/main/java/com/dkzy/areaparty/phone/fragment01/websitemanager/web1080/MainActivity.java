@@ -428,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.go_home:
-                mWebview.loadUrl(StringUrl);
+                startActivity(new Intent(this, com.dkzy.areaparty.phone.MainActivity.class));
                 break;
             case R.id.refresh:
                 mWebview.reload();

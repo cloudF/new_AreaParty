@@ -99,6 +99,10 @@ public class PCAppHelper {
         param.put("gamename", gamename);
         new Send2PCThread(OrderConst.gameAction_name, OrderConst.gameAction_open_command, param, myhandler).start();
     }
+    public static void killPCGame(Handler myhandler) {
+        Map<String, String> param = new HashMap<>();
+        new Send2PCThread(OrderConst.gameAction_name, OrderConst.gameAction_kill_command, param, myhandler).start();
+    }
 
     public static void isPCScreenLocked(Handler myhandler) {
         new Send2PCThread(OrderConst.sysAction_name, OrderConst.sysAction_getScreenState_command, myhandler).start();

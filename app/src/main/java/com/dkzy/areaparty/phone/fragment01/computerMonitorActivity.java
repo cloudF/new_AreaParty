@@ -20,6 +20,7 @@ import com.dkzy.areaparty.phone.MyConnector;
 import com.dkzy.areaparty.phone.MyHandler;
 import com.dkzy.areaparty.phone.OrderConst;
 import com.dkzy.areaparty.phone.R;
+import com.dkzy.areaparty.phone.fragment03.pcInforActivity;
 import com.dkzy.areaparty.phone.utils_comman.measureView;
 
 import java.util.ArrayList;
@@ -169,6 +170,12 @@ public class computerMonitorActivity extends FragmentActivity implements View.On
         computer01MonitorChart_imageView.setOnClickListener(this);
         computer01MonitorProcess_textView.setOnClickListener(this);
         computer01MonitorProcess_imageView.setOnClickListener(this);
+        findViewById(R.id.PCInforLL).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(computerMonitorActivity.this, pcInforActivity.class));
+            }
+        });
 
         computer01Content_viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

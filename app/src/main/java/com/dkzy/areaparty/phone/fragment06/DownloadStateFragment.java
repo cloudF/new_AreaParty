@@ -11,17 +11,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.FileTypeConst;
 import com.dkzy.areaparty.phone.Login;
+import com.dkzy.areaparty.phone.OrderConst;
 import com.dkzy.areaparty.phone.R;
+import com.dkzy.areaparty.phone.fragment01.ui.DeleteDialog;
+import com.dkzy.areaparty.phone.fragment01.utils.prepareDataForFragment;
+import com.dkzy.areaparty.phone.fragment06.zhuyulin.DownloadBean;
+import com.dkzy.areaparty.phone.fragment06.zhuyulin.DownloadProcess;
+import com.dkzy.areaparty.phone.fragment06.zhuyulin.ReceiveData;
+import com.dkzy.areaparty.phone.fragment06.zhuyulin.ReceiveDataFormat;
+import com.dkzy.areaparty.phone.fragment06.zhuyulin.ReceiveDownloadProcessFormat;
+import com.dkzy.areaparty.phone.fragment06.zhuyulin.ReceivedDownloadListFormat;
+import com.dkzy.areaparty.phone.myapplication.MyApplication;
+import com.dkzy.areaparty.phone.utils_comman.Send2PCThread;
+import com.dkzy.areaparty.phone.utils_comman.jsonFormat.ReceivedActionMessageFormat;
+import com.dkzy.areaparty.phone.utils_comman.jsonFormat.ReceivedDiskListFormat;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mcxtzhang.swipemenulib.SwipeMenuLayout;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,10 +45,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import es.dmoral.toasty.Toasty;
 import protocol.Msg.GetDownloadFileInfo;
 import protocol.ProtoHead;
 import server.NetworkPacket;
+
+
 
 /**
  * Created by SnowMonkey on 2017/5/31.
@@ -51,6 +71,9 @@ public class DownloadStateFragment extends Fragment {
     private DownloadStateFragmentFileAdapter downloadFileStateFragmentFileAdapter;
     private long timer = 0;
     public static Handler mHandler;
+
+    private List<DownloadBean> beanList = new ArrayList<>();
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,22 +95,54 @@ public class DownloadStateFragment extends Fragment {
         }catch (Exception e){
             e.printStackTrace();
         }
+
     }
 
     private void initData(){
         downloadFileStateData = (downloadFileStateData==null)? new ArrayList<HashMap<String, Object>>():downloadFileStateData;
     }
     private void getData(){
-        initData();
+        //initData();
+        beanList.clear();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    ReceivedDownloadListFormat receive = (ReceivedDownloadListFormat) prepareDataForFragment.getFileActionStateData(
+                            OrderConst.fileAction_name,
+                            OrderConst.GETDOWNLOADSTATE,
+                            "");
+                    if (receive.getStatus() == 200){
+                        ReceiveDataFormat receiveDataFormat = receive.getData();
+                        if (receiveDataFormat.getDownloading_files().size() > 0 ){
+                            for (ReceiveData data : receiveDataFormat.getDownloading_files()){
+                                beanList.add(new DownloadBean(data,"下载中"));
+                            }
+                        }
+                        if (receiveDataFormat.getPause_files().size() > 0){
+                            for (ReceiveData data : receiveDataFormat.getPause_files()){
+                                beanList.add(new DownloadBean(data,"终止"));
+                            }
+                        }
+                    }
+                    if (beanList.size() > 0){
+                        mHandler.sendEmptyMessage(4);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
     }
 
     private void initViews() {
         downloadStateFragmentRefresh = (LinearLayout) getActivity().findViewById(R.id.downloadStateFragmentRefresh);
         downloadFileStateFragmentList = (ListView) getActivity().findViewById(R.id.downloadFileStateFragmentList);
-        downloadStateFileFinish = (TextView) getActivity().findViewById(R.id.downloadStateFileFinish);
-        downloadFileStateFragmentFileAdapter = new DownloadStateFragmentFileAdapter(getActivity(), downloadFileStateData);
+        //downloadStateFileFinish = (TextView) getActivity().findViewById(R.id.downloadStateFileFinish);
+        downloadFileStateFragmentFileAdapter = new DownloadStateFragmentFileAdapter(getActivity(), beanList);
         downloadFileStateFragmentList.setAdapter(downloadFileStateFragmentFileAdapter);
-        new Thread(new getProgress()).start();
+        //new Thread(new getProgress()).start();
 
         mHandler = new Handler(){
             @Override
@@ -122,6 +177,11 @@ public class DownloadStateFragment extends Fragment {
                             e.printStackTrace();
                         }
                         break;
+
+
+                    case 4:
+                        downloadFileStateFragmentFileAdapter.notifyDataSetChanged();
+                        break;
                     default:
                         break;
                 }
@@ -134,8 +194,7 @@ public class DownloadStateFragment extends Fragment {
             public void onClick(View v) {
                 //重新向服务器请求下载状态 刷新列表
                 if(new Date().getTime() - timer > 5000) {
-                    new Thread(new getProgress()).start();
-                    timer = new Date().getTime();
+                    getData();
                 }else{
                     Toast.makeText(getActivity(), "点击过于频繁，5秒内请勿连续点击",Toast.LENGTH_SHORT).show();
                 }
@@ -247,19 +306,19 @@ public class DownloadStateFragment extends Fragment {
 
     private class DownloadStateFragmentFileAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
-        private List<HashMap<String, Object>> downloadStateFileData;
-        public DownloadStateFragmentFileAdapter(Context context, List<HashMap<String, Object>> downloadStateFileData) {
+        private List<DownloadBean> beanList;
+        public DownloadStateFragmentFileAdapter(Context context, List<DownloadBean> beanList) {
             mInflater = LayoutInflater.from(context);
-            this.downloadStateFileData = downloadStateFileData;
+            this.beanList = beanList;
         }
         @Override
         public int getCount() {
-            return downloadStateFileData.size();
+            return beanList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return downloadStateFileData.get(position);
+            return beanList.get(position);
         }
 
         @Override
@@ -270,20 +329,142 @@ public class DownloadStateFragment extends Fragment {
         @Override
         public View getView(final int position, View convertView, final ViewGroup parent) {
             final ViewHolderFile holder = new ViewHolderFile();
-            convertView = mInflater.inflate(R.layout.tab06_download_manager_stateitem, null);
-            holder.downloadStateFileImg = (ImageView) convertView.findViewById(R.id.downloadStateFileImg);
-            holder.downloadStateFileFinish = (TextView) convertView.findViewById(R.id.downloadStateFileFinish);
-            holder.downloadStateFileName  = (TextView) convertView.findViewById(R.id.downloadStateFileName);
-            holder.downloadStateFileSize = (TextView) convertView.findViewById(R.id.downloadStateFileSize);
-            holder.downloadStateFileTotalSize = (TextView) convertView.findViewById(R.id.downloadStateFileTotalSize);
-            holder.downloadStateFileProgress = (TextView) convertView.findViewById(R.id.downloadStateFileProgress);
+            final DownloadBean bean = beanList.get(position);
 
-            holder.downloadStateFileName.setText((String) downloadStateFileData.get(position).get("downloadStateFileName"));
-            holder.downloadStateFileImg.setImageResource((int) downloadStateFileData.get(position).get("downloadStateFileImg"));
-            holder.downloadStateFileSize.setText((String) downloadStateFileData.get(position).get("downloadStateFileSize"));
-            holder.downloadStateFileTotalSize.setText((String) downloadStateFileData.get(position).get("downloadStateFileTotalSize"));
-            holder.downloadStateFileProgress.setText((String) downloadStateFileData.get(position).get("downloadStateFileProgress"));
+                convertView = mInflater.inflate(R.layout.tab06_download_manager_stateitem, null);
+                holder.rootView = (SwipeMenuLayout) convertView;
+                holder.iv_expand = (ImageView) convertView.findViewById(R.id.iv_expand);
+                holder.tv_fileName = (TextView) convertView.findViewById(R.id.tv_fileName);
+                holder.tv_downloadState  = (TextView) convertView.findViewById(R.id.tv_downloadState);
+                holder.tv_downloadProgress = (TextView) convertView.findViewById(R.id.tv_downloadProgress);
+                holder.tv_downloadSpeed = (TextView)  convertView.findViewById(R.id.tv_downloadSpeed);
+                holder.tv_stopTime = (TextView) convertView.findViewById(R.id.tv_stopTime) ;
+                holder.tv_stop = (Button) convertView.findViewById(R.id.tv_stop);
+                holder.tv_delete = (Button) convertView.findViewById(R.id.tv_delete);
+                holder.info = (RelativeLayout) convertView.findViewById(R.id.info);
+                holder.item = (LinearLayout) convertView.findViewById(R.id.item);
 
+
+            holder.rootView.setSwipeEnable(false);
+            holder.info.setVisibility(View.GONE);
+            holder.tv_fileName.setText(bean.getName());
+            holder.tv_downloadState.setText(bean.getState());
+            holder.tv_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /*prepareDataForFragment.getFileActionStateData(
+                            OrderConst.fileAction_name,
+                            OrderConst.GETDOWNLOADProcess,
+                            bean.getId()
+                    );*/
+                    deleteDialog(bean);
+                }
+            });
+            if (bean.getState().equals("下载中")){
+                holder.tv_stop.setText("暂停");
+                holder.tv_stop.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (MyApplication.isSelectedPCOnline()){
+                                    prepareDataForFragment.getFileActionStateData(
+                                            OrderConst.fileAction_name,
+                                            OrderConst.STOPDOWNLOAD,
+                                            bean.getId()
+                                    );
+                                    getData();
+                                }else {
+                                    Toasty.warning(getContext(),"与电脑断开连接").show();
+                                }
+
+                            }
+                        }).start();
+                    }
+                });
+            }else {
+                holder.tv_stop.setText("恢复");
+                holder.tv_stop.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (MyApplication.isSelectedPCOnline()){
+                                    prepareDataForFragment.getFileActionStateData(
+                                            OrderConst.fileAction_name,
+                                            OrderConst.RECOVERDOWNLOAD,
+                                            bean.getId()
+                                    );
+                                    getData();
+                                }else {
+                                    Toasty.warning(getContext(),"与电脑断开连接").show();
+
+                                }
+
+                            }
+                        }).start();
+                    }
+                });
+            }
+
+
+            holder.item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (holder.info.getVisibility() == View.GONE){
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    if (MyApplication.isSelectedPCOnline()){
+                                        ReceiveDownloadProcessFormat receive = (ReceiveDownloadProcessFormat) prepareDataForFragment.getFileActionStateData(
+                                                OrderConst.fileAction_name,
+                                                OrderConst.GETDOWNLOADProcess,
+                                                bean.getPath()
+                                        );
+                                        if (receive.getStatus() == 200 && receive.getData() != null){
+                                            final DownloadProcess process = receive.getData();
+                                            downloadFileStateFragmentList.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    holder.iv_expand.setImageResource(R.drawable.ic_collapse);
+                                                    holder.tv_downloadProgress.setText(process.getDownloadSpeed());
+                                                    holder.info.setVisibility(View.VISIBLE);
+                                                    holder.rootView.setSwipeEnable(true);
+                                                    if (bean.getState().equals("下载中")){
+                                                        holder.tv_stopTime.setText("下载速度");
+                                                        holder.tv_downloadSpeed.setText(process.getDownloadSpeed());
+                                                        holder.tv_stopTime.setVisibility(View.GONE);
+                                                        holder.tv_downloadSpeed.setVisibility(View.GONE);
+                                                    }else {
+                                                        holder.tv_stopTime.setText("终止时间");
+                                                        holder.tv_downloadSpeed.setText(process.getLastChangeTime());
+                                                        holder.tv_stopTime.setVisibility(View.VISIBLE);
+                                                        holder.tv_downloadSpeed.setVisibility(View.VISIBLE);
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }else {
+                                        Toasty.warning(getContext(),"与电脑断开连接").show();
+                                    }
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        }).start();
+                    }
+                    else if (holder.info.getVisibility() == View.VISIBLE){
+                        holder.info.setVisibility(View.GONE);
+                        holder.rootView.setSwipeEnable(false);
+                        holder.iv_expand.setImageResource(R.drawable.ic_expand);
+                    }
+                }
+            });
 //            if((int) downloadStateFileData.get(position).get("downloadStateFileState") == DOWNLOADED){
 //                holder.downloadStateFileFinish.setVisibility(View.VISIBLE);
 //            }
@@ -292,12 +473,53 @@ public class DownloadStateFragment extends Fragment {
         }
 
         class ViewHolderFile {
-            ImageView downloadStateFileImg;
-            TextView downloadStateFileName;
-            TextView downloadStateFileSize;
-            TextView downloadStateFileTotalSize;
-            TextView downloadStateFileProgress;
-            TextView downloadStateFileFinish;
+            SwipeMenuLayout rootView;
+            ImageView iv_expand;
+            TextView tv_fileName;
+            TextView tv_downloadState;
+            TextView tv_downloadProgress;
+            TextView tv_downloadSpeed;
+            TextView tv_stopTime;
+            Button tv_stop;
+            Button tv_delete;
+            LinearLayout item;
+            RelativeLayout info;
         }
     }
+
+    private void deleteDialog(final DownloadBean bean) {
+        final DeleteDialog deleteDialog = new DeleteDialog(getContext());
+        deleteDialog.setCanceledOnTouchOutside(false);
+        deleteDialog.show();
+        deleteDialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteDialog.dismiss();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (MyApplication.isSelectedPCOnline()){
+                            prepareDataForFragment.getFileActionStateData(
+                                    OrderConst.fileAction_name,
+                                    OrderConst.DELETEDOWNLOAD,
+                                    bean.getId()
+                            );
+                            getData();
+                        }else {
+                            Toasty.warning(getContext(),"与电脑断开连接").show();
+
+                        }
+
+                    }
+                }).start();
+            }
+        });
+        deleteDialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteDialog.dismiss();
+            }
+        });
+    }
+
 }

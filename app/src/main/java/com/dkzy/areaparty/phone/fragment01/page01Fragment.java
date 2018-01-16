@@ -163,7 +163,7 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
     }
 
     private void initData() {
-        imageList.add(R.drawable.videoworldgif2);
+        imageList.add(R.drawable.redboat);
 
         tvRecentAppAdapter = new MyAdapter<AppItem>(tvpcAppHelper.tvApps, R.layout.tab03_app_item) {
             @Override
@@ -269,6 +269,9 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
                 pcRecentAppAdapter.notifyDataSetChanged();
                 tvpcAppHelper.initPCApps();
             }
+            MyApplication.selectedPCVerified = true;
+            MyApplication.setSelectedPCOnline(true);
+            EventBus.getDefault().post(new TVPCNetStateChangeEvent(MyApplication.isSelectedTVOnline(), true), "selectedDeviceStateChanged");
         }
 
         if(requestCode == TVS_REQUESTCODE && resultCode == TVS_RESULTCODE){
@@ -279,6 +282,10 @@ public class page01Fragment extends Fragment implements View.OnClickListener {
                 tvRecentAppAdapter.notifyDataSetChanged();
                 tvpcAppHelper.initTVApps();
             }
+            MyApplication.selectedTVVerified = true;
+            MyApplication.setSelectedTVOnline(true);
+            EventBus.getDefault().post(new TVPCNetStateChangeEvent(true, MyApplication.isSelectedPCOnline()), "selectedDeviceStateChanged");
+
         }
     }
 

@@ -658,6 +658,22 @@ public class CommandUtil {
         cmd.param = params;
         return cmd;
     }
+    /**
+     * <summary>
+     *  关闭pc上的游戏
+     * </summary>
+     * <param name="gamename">游戏名称</param>
+     * <param name="path">游戏路径</param>
+     * <returns>PC指令</returns>
+     */
+    public static PCCommandItem createkillPcGameCommand() {
+        PCCommandItem cmd = new PCCommandItem();
+        cmd.setName(OrderConst.gameAction_name);
+        cmd.setCommand(OrderConst.gameAction_kill_command);
+        Map<String, String> params = new HashMap<>();
+        cmd.param = params;
+        return cmd;
+    }
 
     /**
      * <summary>

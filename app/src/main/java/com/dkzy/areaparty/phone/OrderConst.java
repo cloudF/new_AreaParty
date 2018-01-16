@@ -174,6 +174,7 @@ public class OrderConst {
     public static final String mediaAction_playSet_command_BGM = "PLAYSETASBGM";
     public static final String mediaAction_DELETE_command = "DELETE";
     public static final String gameAction_open_command = "OPEN";
+    public static final String gameAction_kill_command = "KILL";
     public static final String mediaAction_getSets_command = "GETSETS";
     public static final String mediaAction_addSet_command = "ADDSET";
     public static final String mediaAction_deleteSet_command = "DELETESET";
@@ -223,5 +224,10 @@ public class OrderConst {
     public static final String VLCAction_SubtitleDelay_SecondCommand = "SUBTITLE_DELAY";
     public static final String CLOSERDP = "RDP_BACK";
 
+    public static final String GETDOWNLOADSTATE = "GETDOWNLOADSTATE";
+    public static final String GETDOWNLOADProcess = "GETPROCESS";
+    public static final String STOPDOWNLOAD = "STOPDOWNLOAD";
+    public static final String RECOVERDOWNLOAD = "RECOVERDOWNLOAD";
+    public static final String DELETEDOWNLOAD = "DELETEDOWNLOAD";
     // ...
 }

@@ -17,8 +17,14 @@ public class SharedFilePathFormat {
     /// </summary>
     public String wholePath;
 
-    public SharedFilePathFormat(String creatTime, String wholePath) {
+    public String fileName;
+    public int fileSize;
+
+
+    public SharedFilePathFormat(String creatTime, String wholePath, String fileName, int fileSize) {
         this.creatTime = creatTime;
         this.wholePath = wholePath;
+        this.fileName = fileName;
+        this.fileSize = fileSize;
     }
 }

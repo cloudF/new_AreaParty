@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_gravity="center"
     android:layout_marginStart="10dp"
@@ -9,22 +10,56 @@
     android:layout_height="wrap_content"
     android:background="@drawable/dialogback04">
 
-    <TextView
-        android:id="@+id/exittitle"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="10dp"
-        android:gravity="center"
-        android:text="说明"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        >
+        <TextView
+            android:id="@+id/exittitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="20dp"
+            android:text="说明"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_cancel"
+            android:paddingStart="5dp"
+            android:paddingEnd="0dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#dcdcdc" />
     <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="500dp">
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </ScrollView>
+    <TextView
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--<ScrollView
         android:layout_width="wrap_content"
         android:layout_height="500dp">
         <LinearLayout
@@ -47,14 +82,15 @@
                 android:paddingBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
             <TextView
-                android:textColor="#555"
-                android:text="        为了保证安全，AreaParty电脑端、TV端组件与APP首次连接时将要求用户在APP端输入电脑端、TV端安装时设置的配对码。"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:paddingBottom="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:paddingBottom="5dp"
+                android:text="        为了保证安全，AreaParty电脑端、TV端组件与APP首次连接时将要求用户在APP端输入电脑端、TV端安装时设置的配对码。"
+                android:textColor="#555" />
             <TextView
                 android:textColor="#555"
                 android:text="        为了体验更丰富的家庭数字娱乐功能，强烈建议安装全部三种组件。"
@@ -107,7 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-    </ScrollView>
+    </ScrollView>-->
 
 
 

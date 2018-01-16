@@ -181,8 +181,8 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
                 else Toasty.warning(mContext, "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
                 break;
             case R.id.PCUsingHelpLL:
-                TVAppHelper.openMoonlight();
-                /*startActivity(new Intent(mContext, pcUsingHelpActivity.class));*/
+                /*TVAppHelper.openMoonlight();*/
+                startActivity(new Intent(mContext, pcUsingHelpActivity.class));
                 break;
             case R.id.PCAppOpenModelNoticeIV:
                 startActivity(new Intent(mContext, pcAppHelpActivity.class));
@@ -312,11 +312,23 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
         });
         PCGameSGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 if(MyApplication.isSelectedPCOnline()) {
                     if(MyApplication.isSelectedTVOnline()) {
-                        TVAppHelper.prepareForPCGame(MyApplication.getSelectedPCIP().ip, MyApplication.getSelectedPCIP().mac);
-                        PCAppHelper.openPCGame(PCAppHelper.gameList.get(i).getPackageName(), PCAppHelper.gameList.get(i).getAppName(), myHandler);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    PCAppHelper.killPCGame(myHandler);
+                                    Thread.sleep(1000);
+                                    TVAppHelper.prepareForPCGame(MyApplication.getSelectedPCIP().ip, MyApplication.getSelectedPCIP().mac);
+                                    Thread.sleep(8000);
+                                    PCAppHelper.openPCGame(PCAppHelper.gameList.get(i).getPackageName(), PCAppHelper.gameList.get(i).getAppName(), myHandler);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
                     } else {
                         Toasty.warning(mContext, "游戏即将投放的屏幕不在线", Toast.LENGTH_SHORT, true).show();
                     }

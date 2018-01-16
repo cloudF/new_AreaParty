@@ -1,6 +1,7 @@
 package com.dkzy.areaparty.phone.fragment03.utils;
 
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.dkzy.areaparty.phone.OrderConst;
@@ -78,6 +79,7 @@ public class TVAppHelper {
     }
 
     public static void prepareForPCGame(String pc_ip, String pc_mac) {
+        if (TextUtils.isEmpty(pc_mac)) pc_mac = "2C:4D:54:EC:FB:95";
         String cmd = JsonUitl.objectToString(CommandUtil.createPrepareForPCGameCommand(pc_ip, pc_mac));
         new Send2TVThread(cmd).start();
     }

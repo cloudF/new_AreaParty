@@ -213,6 +213,9 @@ public class Send2PCThread extends Thread {
                     case OrderConst.gameAction_open_command:
                         cmdStr = JsonUitl.objectToString(CommandUtil.createOpenPcGameCommand(param.get("gamename"), param.get("path")));
                         break;
+                    case OrderConst.gameAction_kill_command:
+                        cmdStr = JsonUitl.objectToString(CommandUtil.createkillPcGameCommand());
+                        break;
                 }
             }   break;
             case OrderConst.videoAction_name:

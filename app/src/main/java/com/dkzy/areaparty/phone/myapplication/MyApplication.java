@@ -132,9 +132,15 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
     public static boolean isSelectedPCOnline() {
         return selectedPCOnline;
     }
+    public static void setSelectedPCOnline(boolean b) {
+        selectedPCOnline = b;
+    }
 
     public static boolean isSelectedTVOnline() {
         return selectedTVOnline;
+    }
+    public static void setSelectedTVOnline(boolean b) {
+        selectedTVOnline = b;
     }
 
     public static IPInforBean getSelectedTVIP() {

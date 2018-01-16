@@ -10,8 +10,8 @@ public class TVCommandItem {
     private String firstcommand;
     private String secondcommand;
     private Boolean thirdcommand;
-    private String fourthCommand;
-    private String fifthCommand;
+    private String fourthcommand;
+    private String fifthcommand;
     private List<String> sixthcommand;
     private String sevencommand;
 
@@ -24,19 +24,19 @@ public class TVCommandItem {
     }
 
     public String getFourthCommand() {
-        return fourthCommand;
+        return fourthcommand;
     }
 
     public void setFourthCommand(String fourthCommand) {
-        this.fourthCommand = fourthCommand;
+        this.fourthcommand = fourthCommand;
     }
 
     public String getFifthCommand() {
-        return fifthCommand;
+        return fifthcommand;
     }
 
     public void setFifthCommand(String fifthCommand) {
-        this.fifthCommand = fifthCommand;
+        this.fifthcommand = fifthCommand;
     }
 
     public void setFirstcommand(String firstcommand) {

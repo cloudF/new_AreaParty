@@ -280,6 +280,7 @@ public class SearchActivity extends Activity {
 				public void onResponse(Call arg0, Response arg1) throws IOException {
 					// TODO Auto-generated method stub
 					String responseData=arg1.body().string();
+					arg1.close();
 					 doc=Jsoup.parse(responseData);//得到search的HTML
 					 loadData(0);//吧search的结果装入adapter
 
@@ -333,6 +334,7 @@ public class SearchActivity extends Activity {
 					public void onResponse(Call arg0, Response arg1) throws IOException {
 						// TODO Auto-generated method stub
 						String responseData = arg1.body().string();
+						arg1.close();
 						Document parse = Jsoup.parse(responseData);
 						Elements elements=parse.select("td.rowfollow");
 						String str=elements.get(7).text();//取得介绍内容

@@ -252,6 +252,35 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
            case R.id.helpInfo:
                showHelpInfoDialog(R.layout.dialog_web);
                break;
+           case R.id.img_tencent:
+               if (tencentVersionCode != 0){
+                   openPackage(this,AutoLoginService.TENCENT);
+
+               }else {
+                   Toasty.error(StartActivity.this, "你未安装腾讯视频").show();
+
+               }
+               break;
+           case R.id.img_youku:
+               if (youkuVersionCode != 0){
+                   openPackage(this,AutoLoginService.YOUKU);
+
+               }else {
+                   Toasty.error(StartActivity.this, "你未安装优酷视频").show();
+
+               }
+               break;
+           case R.id.img_leshi:
+               if (leshiVersionCode != 0){
+                   openPackage(this,AutoLoginService.LESHI);
+
+               }else {
+                   Toasty.error(StartActivity.this, "你未安装乐视视频").show();
+
+               }
+               break;
+
+
            default:
                break;
 
@@ -463,6 +492,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         tagTencent = (ImageView) findViewById(R.id.tag_tencent);
         tagYouku = (ImageView) findViewById(R.id.tag_youku);
         tagLeshi = (ImageView) findViewById(R.id.tag_leshi);
+
+        findViewById(R.id.img_tencent).setOnClickListener(this);
+        findViewById(R.id.img_leshi).setOnClickListener(this);
+        findViewById(R.id.img_youku).setOnClickListener(this);
 
         //floatViewTV.setText(MyApplication.mFloatView.isShow()?"已开启" : "已关闭");
 
@@ -771,6 +804,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String responseData = response.body().string();
+                response.close();
                 //Log.w("getWebSiteUrl",responseData);
                 try {
                     JSONArray jsonArray = new JSONArray(responseData);

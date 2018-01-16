@@ -489,6 +489,7 @@ public class IndexMainActivity extends Activity {
 							public void onResponse(Call arg0, Response arg1) throws IOException {
 								// TODO Auto-generated method stub
 								String responseData = arg1.body().string();
+								arg1.close();
 								Document parse = Jsoup.parse(responseData);
 								Elements elements=parse.select("td.rowfollow");
 								String str=elements.get(7).text();//取得介绍内容
@@ -1100,6 +1101,7 @@ public class IndexMainActivity extends Activity {
 							.build();
 					Response response1 = WelcomeActivity.instance.okHttpClient.newCall(request1).execute();
 					String responseData1= response1.body().string();
+					response1.close();
 					Document doc = Jsoup.parse(responseData1);
 					Elements username = doc.select("a.User_Name");
 					Elements meilizhi = doc.select("td.bottom>*");

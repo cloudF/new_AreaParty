@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -44,7 +45,10 @@ public class ActionDialog_page extends Dialog {
         View mView = LayoutInflater.from(context).inflate(layout, null);
         title = (TextView) mView.findViewById(R.id.exittitle);
         if (layout == R.layout.dialog_page01){
-            mView.findViewById(R.id.wangzhi).setOnClickListener(new View.OnClickListener() {
+            WebView webView = (WebView) mView.findViewById(R.id.webView);
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.loadUrl("file:///android_asset/page01.html");
+            /*mView.findViewById(R.id.wangzhi).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     try{
@@ -56,9 +60,16 @@ public class ActionDialog_page extends Dialog {
                         context.startActivity(intent);
                     }catch (Exception e){e.printStackTrace();}
                 }
+            });*/
+        }
+        if (mView.findViewById(R.id.close)!=null){
+            mView.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ActionDialog_page.this.dismiss();
+                }
             });
         }
-
         super.setContentView(mView);
 
         WindowManager m = getWindow().getWindowManager();

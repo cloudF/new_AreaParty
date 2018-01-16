@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:gravity="center_vertical"
-                        android:text="视频应用VIP分享:"
+                        android:text="视频VIP分享:"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20sp" />
 
@@ -186,6 +186,7 @@
                                 android:padding="5dp">
 
                                 <ImageView
+                                    android:id="@+id/img_tencent"
                                     android:layout_width="45dp"
                                     android:layout_height="45dp"
                                     android:layout_gravity="center_vertical"
@@ -237,6 +238,7 @@
                                 android:padding="5dp">
 
                                 <ImageView
+                                    android:id="@+id/img_youku"
                                     android:layout_width="45dp"
                                     android:layout_height="45dp"
                                     android:layout_gravity="center_vertical"
@@ -281,6 +283,7 @@
                             </LinearLayout>
                             <!--乐视视频-->
                             <LinearLayout
+                                android:id="@+id/img_leshi"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"

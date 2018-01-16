@@ -536,6 +536,10 @@ public class DownloadFolderFragment extends Fragment implements View.OnClickList
         page04DiskContentErrorIV.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
         dialog.dismiss();
+
+        /*if (PCFileHelper.getNowFilePath().equals(DownloadFolderFragment.rootPath)){
+            initDownloadingFile();
+        }*/
     }
 
     public void openFolderFail(Message msg) {
@@ -563,7 +567,14 @@ public class DownloadFolderFragment extends Fragment implements View.OnClickList
             isCheckBoxIn = false;
         page04DiskContentErrorIV.setVisibility(View.VISIBLE);
         dialog.dismiss();
-        Toasty.error(getContext(), msg.getData().getString("error")+"", Toast.LENGTH_SHORT, true).show();
+        try {
+            Toasty.error(getContext(), msg.getData().getString("error")+"", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
     }
 
     public void actionSuccess(Message msg) {
@@ -1345,4 +1356,14 @@ public class DownloadFolderFragment extends Fragment implements View.OnClickList
             return false;
         else
             return fileName.matches("[^\\s\\\\/:\\*\\?\\\"<>\\|](\\x20|[^\\s\\\\/:\\*\\?\\\"<>\\|])*[^\\s\\\\/:\\*\\?\\\"<>\\|\\.]$"); }
+
+    public void initDownloadingFile(){
+        List<fileBean> downloadingList = new ArrayList<>();
+        for (fileBean bean : PCFileHelper.getDatas()){
+            if (bean.name.endsWith(".temp") && bean.type != FileTypeConst.folder){
+                downloadingList.add(bean);
+            }
+        }
+        Log.w("DownloadFolderFragment", downloadingList.size()+"");
+    }
 }

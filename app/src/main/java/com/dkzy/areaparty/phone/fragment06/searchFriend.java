@@ -187,7 +187,7 @@ public class searchFriend extends AppCompatActivity {
         public void run() {
             try{
                 AddFriendMsg.AddFriendReq.Builder builder = AddFriendMsg.AddFriendReq.newBuilder();
-                builder.setFriendUserId(userSearchId);
+                builder.setFriendUserId(userItem.getUserId());
                 builder.setRequestType(AddFriendMsg.AddFriendReq.RequestType.REQUEST);
                 byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.ADD_FRIEND_REQ.getNumber(), builder.build().toByteArray());
                 Login.base.writeToServer(Login.outputStream, byteArray);

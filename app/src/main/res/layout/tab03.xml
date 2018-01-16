@@ -341,7 +341,7 @@
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:gravity="center_vertical"
-                            android:text="已经安装应用"
+                            android:text="上层应用"
                             android:textSize="14sp"
                             android:textColor="#000"/>
                         <View
@@ -383,7 +383,7 @@
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:gravity="center_vertical"
-                            android:text="系统自带应用"
+                            android:text="系统应用"
                             android:textSize="14sp"
                             android:textColor="#000"/>
                         <View
