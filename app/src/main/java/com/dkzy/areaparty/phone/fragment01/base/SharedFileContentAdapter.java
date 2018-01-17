@@ -63,7 +63,7 @@ public class SharedFileContentAdapter extends BaseAdapter {
 
         SharedfileBean fileItem = files.get(i);
         String name = fileItem.name;
-        String size = "(" + fileItem.size + "KB)";
+        String size = "(" + getSize(fileItem.size)+")";
         String time = fileItem.timeStr;
         //String path = fileItem.path;
         String des  = fileItem.des;
@@ -120,6 +120,27 @@ public class SharedFileContentAdapter extends BaseAdapter {
         TextView sharedFileTimeTV;
         //TextView sharedFilePathTV;
         TextView sharedFileDesTV;
+    }
+
+    public static String getSize(int size) {
+        //如果原字节数除于1024之后，少于1024，则可以直接以KB作为单位
+        //因为还没有到达要使用另一个单位的时候
+        //接下去以此类推
+        if (size < 1024) {
+            return String.valueOf(size) + "KB";
+        } else {
+            size = size*10 / 1024;
+        }
+        if (size < 10240) {
+            //保留1位小数，
+            return String.valueOf((size / 10)) + "."
+                    + String.valueOf((size % 10)) + "MB";
+        } else {
+            //保留2位小数
+            size = size * 10 / 1024;
+            return String.valueOf((size / 100)) + "."
+                    + String.valueOf((size % 100)) + "GB";
+        }
     }
 }
 

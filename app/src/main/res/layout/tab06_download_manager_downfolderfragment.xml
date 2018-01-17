@@ -70,6 +70,7 @@
         android:visibility="gone">
         <!-- 新建文件夹 -->
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/bar01AddFolderLL"
             android:orientation="vertical"
             android:gravity="center"

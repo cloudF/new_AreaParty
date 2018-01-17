@@ -80,6 +80,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
     public static String TAG = "RemoteDownloadActivity";
     public static String rootPath;
     public static String btFilesPath ;
+    public static String downloadPath;
     public static String targetPath;//uTorrent自动从此路径加载种子
     public static boolean isCreated = false;
 
@@ -215,9 +216,9 @@ public class RemoteDownloadActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         isCreated = true;
+        MyApplication.getPcAreaPartyPath();
+        initUTorrent();
 
-            initUTorrent();
-            MyApplication.getPcAreaPartyPath();
     }
 
     private void initEvent() {
@@ -1078,6 +1079,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
 
                                         }else {
                                             UrlUtils.token = responseData.substring(44,108);
+                                            getSettings();
                                         }
                                     }
                                 }
@@ -1126,14 +1128,14 @@ public class RemoteDownloadActivity extends AppCompatActivity {
                                 if (!dir_active_download_flag.equals("true")){
                                     setUTorrent("dir_active_download_flag","1");
                                 }
-                                if (!dir_active_download.equals(rootPath+"uTorrent")){
-                                    setUTorrent("dir_active_download",rootPath+"uTorrent");
+                                if (!TextUtils.isEmpty(downloadPath) && !dir_active_download.equals(downloadPath)){
+                                    setUTorrent("dir_active_download",downloadPath);
                                 }
                                 if (!dir_torrent_files_flag.equals("true")){
                                     setUTorrent("dir_torrent_files_flag","1");
                                 }
-                                if (!dir_torrent_files.equals(rootPath+"uTorrent\\torrent")){
-                                    setUTorrent("dir_torrent_files",rootPath+"uTorrent\\torrent");
+                                if (!TextUtils.isEmpty(rootPath+"\\TorrentHiden") && !dir_torrent_files.equals(rootPath+"\\TorrentHiden")){
+                                    setUTorrent("dir_torrent_files",rootPath+"\\TorrentHiden");
                                 }
 
                                 if (!dir_autoload_flag.equals("true")){
@@ -1142,8 +1144,8 @@ public class RemoteDownloadActivity extends AppCompatActivity {
                                 if (!dir_autoload_delete.equals("true")){
                                     setUTorrent("dir_autoload_delete","1");
                                 }
-                                if (!dir_autoload.equals(rootPath+"uTorrent\\forLoad")){
-                                    setUTorrent("dir_autoload",rootPath+"uTorrent\\forLoad");
+                                if (!TextUtils.isEmpty(targetPath) && !dir_autoload.equals(targetPath)){
+                                    setUTorrent("dir_autoload",targetPath);
                                 }else {
                                     targetPath = dir_autoload;
                                 }
@@ -1167,7 +1169,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     response.close();
-                    Log.w("url",s + response.body().string());
+                    //Log.w("url",s + response.body().string());
                 }
             });
         } catch (UnsupportedEncodingException e) {

@@ -21,6 +21,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,9 @@ import server.NetworkPacket;
 import tools.DataTypeTranslater;
 
 import static com.dkzy.areaparty.phone.myapplication.MyApplication.AREAPARTY_NET;
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.GetInetAddress;
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.domain;
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.getContext;
 
 /**
  * Created by SnowMonkey on 2016/12/29.
@@ -135,25 +139,6 @@ public class Login extends AppCompatActivity {
             showDialog();
         }
 
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ServerSocket server = new ServerSocket(10000);
-                    Socket socket = server.accept();
-                    byte[] b = new byte[20000];
-                    int read = 0;
-                    InputStream is = socket.getInputStream();
-                    read = is.read(b);
-                    //  = socket.getInputStream().read();
-                    System.out.println(read);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }).start();
         mAccount = (EditText) findViewById(R.id.login_edit_account);
         mPwd = (EditText) findViewById(R.id.login_edit_pwd);
         mRegisterButton = (TextView) findViewById(R.id.login_btn_register);
@@ -174,6 +159,9 @@ public class Login extends AppCompatActivity {
         mPwd.setText(sp.getString("USER_PWD", ""));
         port = Integer.parseInt(sp2.getString("SERVER_PORT", "3333"));
         host = sp2.getString("SERVER_IP", AREAPARTY_NET);
+        if (!TextUtils.isEmpty(host)){
+            AREAPARTY_NET = host;
+        }
 //        if(outline == true){
 //            mLoginButton.setText("离线登录");
 //            mLoginButton.setBackgroundColor(Color.parseColor("#e65757"));
@@ -267,10 +255,44 @@ public class Login extends AppCompatActivity {
                 }
             }
         };
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    ServerSocket server = new ServerSocket(10000);
+                    Socket socket = server.accept();
+                    byte[] b = new byte[20000];
+                    int read = 0;
+                    InputStream is = socket.getInputStream();
+                    read = is.read(b);
+                    //  = socket.getInputStream().read();
+                    System.out.println(read);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
     }
 
     private void tryLogin() {
         Date now = new Date();
+        if (TextUtils.isEmpty(host)){
+            host = sp2.getString("SERVER_IP", AREAPARTY_NET);
+            if (TextUtils.isEmpty(host)){
+                host = AREAPARTY_NET;
+                if (TextUtils.isEmpty(host)){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AREAPARTY_NET = GetInetAddress(domain);
+                        }
+                    }).start();
+                    return;
+                }
+            }
+        }
         if (outline == false) {
             if (now.getTime() - timer > 3000) {
                 try {
@@ -350,32 +372,38 @@ public class Login extends AppCompatActivity {
     private static final String fileAddressMac = "/sys/class/net/wlan0/address";
 
     public static String getAdresseMAC(Context context) {
-        WifiManager wifiMan = (WifiManager)context.getSystemService(Context.WIFI_SERVICE) ;
-        WifiInfo wifiInf = wifiMan.getConnectionInfo();
+        String mac = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_MAC","");
+        if (TextUtils.isEmpty(mac)){
+            WifiManager wifiMan = (WifiManager)context.getSystemService(Context.WIFI_SERVICE) ;
+            WifiInfo wifiInf = wifiMan.getConnectionInfo();
 
-        if(wifiInf !=null && marshmallowMacAddress.equals(wifiInf.getMacAddress())){
-            String result = null;
-            try {
-                result= getAdressMacByInterface();
-                if (result != null){
-                    return result;
-                } else {
-                    result = getAddressMacByFile(wifiMan);
-                    return result;
+            if(wifiInf !=null && marshmallowMacAddress.equals(wifiInf.getMacAddress())){
+                String result = null;
+                try {
+                    result= getAdressMacByInterface();
+                    if (result != null){
+                        return result;
+                    } else {
+                        result = getAddressMacByFile(wifiMan);
+                        return result;
+                    }
+                } catch (IOException e) {
+                    Log.e("MobileAccess", "Erreur lecture propriete Adresse MAC");
+                } catch (Exception e) {
+                    Log.e("MobileAcces", "Erreur lecture propriete Adresse MAC ");
                 }
-            } catch (IOException e) {
-                Log.e("MobileAccess", "Erreur lecture propriete Adresse MAC");
-            } catch (Exception e) {
-                Log.e("MobileAcces", "Erreur lecture propriete Adresse MAC ");
+            } else{
+                if (wifiInf != null && wifiInf.getMacAddress() != null) {
+                    return wifiInf.getMacAddress();
+                } else {
+                    return "";
+                }
             }
-        } else{
-            if (wifiInf != null && wifiInf.getMacAddress() != null) {
-                return wifiInf.getMacAddress();
-            } else {
-                return "";
-            }
+            return marshmallowMacAddress;
+        }else {
+            return mac;
         }
-        return marshmallowMacAddress;
+
     }
 
     private static String getAdressMacByInterface(){
@@ -449,6 +477,7 @@ public class Login extends AppCompatActivity {
             if(bundle!=null){
                 host = bundle.getString("ip");
                 port = Integer.parseInt(bundle.getString("port"));
+                AREAPARTY_NET = host;
                 if(outline == true){
                     mLoginButton.setText("离线登录");
                     mLoginButton.setBackgroundColor(Color.parseColor("#e65757"));
@@ -473,7 +502,9 @@ public class Login extends AppCompatActivity {
                 editor.putString("USER_ID",userId);
                 if(userMac.equals("")){
                     userMac = getAdresseMAC(Login.this);
-                    editor.putString("USER_MAC",userMac);
+                    if (!TextUtils.isEmpty(userMac) && !userMac.equals(marshmallowMacAddress)){
+                        editor.putString("USER_MAC",userMac);
+                    }
                 }
                 userMac = userMac.toLowerCase();
                 editor.commit();

@@ -218,6 +218,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                                 RemoteDownloadActivity.rootPath = path;
                                 RemoteDownloadActivity.btFilesPath = path + "\\BTdownload\\Torrent\\";
                                 RemoteDownloadActivity.targetPath = path + "\\BTdownload\\forLoad\\";
+                                RemoteDownloadActivity.downloadPath = path + "\\BTdownload\\download\\";
                                 DownloadFolderFragment.rootPath = path + "\\FriendsDownload\\";
                                 Log.w("GET_AREAPARTY_PATH",RemoteDownloadActivity.btFilesPath);
                             }

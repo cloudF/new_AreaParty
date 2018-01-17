@@ -7,7 +7,7 @@
     android:layout_margin="5dp"
     app:ios="false"
     app:leftSwipe="true"
-    app:swipeEnable="false">
+    app:swipeEnable="true">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

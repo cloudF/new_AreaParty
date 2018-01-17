@@ -32,9 +32,7 @@ import com.dkzy.areaparty.phone.fragment06.zhuyulin.ReceiveDataFormat;
 import com.dkzy.areaparty.phone.fragment06.zhuyulin.ReceiveDownloadProcessFormat;
 import com.dkzy.areaparty.phone.fragment06.zhuyulin.ReceivedDownloadListFormat;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
-import com.dkzy.areaparty.phone.utils_comman.Send2PCThread;
-import com.dkzy.areaparty.phone.utils_comman.jsonFormat.ReceivedActionMessageFormat;
-import com.dkzy.areaparty.phone.utils_comman.jsonFormat.ReceivedDiskListFormat;
+import com.dkzy.areaparty.phone.utils_comman.jsonFormat.JsonUitl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mcxtzhang.swipemenulib.SwipeMenuLayout;
@@ -345,7 +343,7 @@ public class DownloadStateFragment extends Fragment {
                 holder.item = (LinearLayout) convertView.findViewById(R.id.item);
 
 
-            holder.rootView.setSwipeEnable(false);
+            holder.rootView.setSwipeEnable(true);
             holder.info.setVisibility(View.GONE);
             holder.tv_fileName.setText(bean.getName());
             holder.tv_downloadState.setText(bean.getState());
@@ -388,7 +386,8 @@ public class DownloadStateFragment extends Fragment {
                 holder.tv_stop.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        new Thread(new Runnable() {
+                        Toasty.info(getContext(),"请到好友分享重新请求下载该文件",Toast.LENGTH_LONG).show();
+                        /*new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 if (MyApplication.isSelectedPCOnline()){
@@ -404,7 +403,7 @@ public class DownloadStateFragment extends Fragment {
                                 }
 
                             }
-                        }).start();
+                        }).start();*/
                     }
                 });
             }
@@ -430,9 +429,8 @@ public class DownloadStateFragment extends Fragment {
                                                 @Override
                                                 public void run() {
                                                     holder.iv_expand.setImageResource(R.drawable.ic_collapse);
-                                                    holder.tv_downloadProgress.setText(process.getDownloadSpeed());
+                                                    holder.tv_downloadProgress.setText(process.getPercent());
                                                     holder.info.setVisibility(View.VISIBLE);
-                                                    holder.rootView.setSwipeEnable(true);
                                                     if (bean.getState().equals("下载中")){
                                                         holder.tv_stopTime.setText("下载速度");
                                                         holder.tv_downloadSpeed.setText(process.getDownloadSpeed());
@@ -441,8 +439,8 @@ public class DownloadStateFragment extends Fragment {
                                                     }else {
                                                         holder.tv_stopTime.setText("终止时间");
                                                         holder.tv_downloadSpeed.setText(process.getLastChangeTime());
-                                                        holder.tv_stopTime.setVisibility(View.VISIBLE);
-                                                        holder.tv_downloadSpeed.setVisibility(View.VISIBLE);
+                                                        holder.tv_stopTime.setVisibility(View.GONE);
+                                                        holder.tv_downloadSpeed.setVisibility(View.GONE);
                                                     }
                                                 }
                                             });
@@ -460,9 +458,15 @@ public class DownloadStateFragment extends Fragment {
                     }
                     else if (holder.info.getVisibility() == View.VISIBLE){
                         holder.info.setVisibility(View.GONE);
-                        holder.rootView.setSwipeEnable(false);
                         holder.iv_expand.setImageResource(R.drawable.ic_expand);
                     }
+                }
+            });
+            holder.item.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    holder.rootView.setLeftSwipe(true);
+                    return true;
                 }
             });
 //            if((int) downloadStateFileData.get(position).get("downloadStateFileState") == DOWNLOADED){
@@ -502,7 +506,7 @@ public class DownloadStateFragment extends Fragment {
                             prepareDataForFragment.getFileActionStateData(
                                     OrderConst.fileAction_name,
                                     OrderConst.DELETEDOWNLOAD,
-                                    bean.getId()
+                                    JsonUitl.objectToString(bean.getReceiveData())
                             );
                             getData();
                         }else {

@@ -64,7 +64,7 @@ public class downloadActivity extends BaseActivity {
     };
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.downloadactionmenu, menu);
         return super.onCreateOptionsMenu(menu);
@@ -98,7 +98,7 @@ public class downloadActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // ...
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
 
     @Override

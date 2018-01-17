@@ -44,10 +44,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
+import com.dkzy.areaparty.phone.OrderConst;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.hdhome.store.CookieStore;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.start.ADFilterTool;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
+import com.dkzy.areaparty.phone.utils_comman.Send2PCThread;
 
 import java.io.File;
 
@@ -434,6 +436,7 @@ public class MainActivity extends AppCompatActivity {
                 mWebview.reload();
                 break;
             case R.id.remote_download:
+                new Send2PCThread(OrderConst.UTOrrent, "",new Handler()).start();
                 Intent intent1 = new Intent(MainActivity.this, RemoteDownloadActivity.class);
                 startActivity(intent1);
                 break;

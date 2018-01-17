@@ -162,13 +162,11 @@ public class DownloadFolderFragment extends Fragment implements View.OnClickList
                 break;
             case R.id.page04DiskContentErrorIV:
             case R.id.bar01RefreshLL:
-                /*if(page04DiskContentCurrentPathTV.getText().equals("")) {
-                    Toasty.warning(getContext(), "当前路径为空!", Toast.LENGTH_SHORT, true).show();
-                } else {
-                    ((TextView)(loadingView.findViewById(R.id.note))).setText("加载中...");
-                    dialog.show();
-                    PCFileHelper.loadFiles();
-                }*/
+                PCFileHelper.setNowFilePath(DownloadFolderFragment.rootPath);
+                ((TextView)(loadingView.findViewById(R.id.note))).setText("加载中...");
+                dialog.show();
+                PCFileHelper.loadFiles();
+
                 break;
             case R.id.bar01SortLL:
                 // ....

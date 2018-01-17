@@ -34,9 +34,11 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent == null) return super.onStartCommand(intent, flags, startId);
         String style = intent.getStringExtra("style");
         System.out.println("授权消息");
-        if(style.equals("accreditRequest")){//************此段代码已废弃，已使用AlertActivity.java实现授权登录功能*******************
+        //************此段代码已废弃，已使用AlertActivity.java实现授权登录功能*******************
+        if(style.equals("accreditRequest")){
             System.out.println("授权消息");
             String mobileInfo = intent.getStringExtra("mobileInfo");
             final String mobileMac = intent.getStringExtra("mobileMac");

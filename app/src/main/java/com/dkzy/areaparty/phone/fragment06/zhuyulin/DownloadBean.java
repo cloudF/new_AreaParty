@@ -48,4 +48,7 @@ public class DownloadBean {
     public void setState(String state) {
         this.state = state;
     }
+    public ReceiveData getReceiveData(){
+        return new ReceiveData(name,path,id);
+    }
 }

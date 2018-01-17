@@ -14,7 +14,8 @@
         />
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
         android:layout_weight="1"
         android:descendantFocusability="blocksDescendants"
         android:layout_marginLeft="20dp"
@@ -26,6 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:singleLine="true"
+            android:ellipsize="middle"
             android:textColor="#000"
             android:textSize="14sp"/>
 

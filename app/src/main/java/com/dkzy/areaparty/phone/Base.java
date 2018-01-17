@@ -403,7 +403,7 @@ public class Base {
                             userMsg.obj = user;
                             MainActivity.handlerTab06.sendMessage(userMsg);
                         }else if(chatData.split(",")[0].equals("mobile accredit request")){
-                            Intent intent = new Intent(MyApplication.getContext(),AlertActivity.class);
+                            Intent intent = new Intent(MyApplication.getContext(),AlertAccreditActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("style","accreditRequest");
                             intent.putExtra("mobileInfo",chatData.split(",")[2]);
@@ -421,7 +421,7 @@ public class Base {
 //                            Login.base.writeToServer(Login.outputStream, reByteArray);
                         }else if(chatData.split(",")[0].equals("pc accredit request")){
                             System.out.println("授权消息");
-                            Intent intent = new Intent(MyApplication.getContext(), AlertActivity.class);
+                            Intent intent = new Intent(MyApplication.getContext(), AlertAccreditActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("style", "accreditRequest");
                             intent.putExtra("mobileInfo", chatData.split(",")[2]);
@@ -520,6 +520,12 @@ public class Base {
                         fileRequestMsg.obj = fileRequest;
                         fileRequestMsg.what = OrderConst.addFileRequest;
                         MainActivity.handlerTab06.sendMessage(fileRequestMsg);
+
+                        Intent intent = new Intent(MyApplication.getContext(),AlertRequestActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("fileName",response.getChatData(0).getFileName());
+                        intent.putExtra("userId",response.getChatData(0).getSendUserId());
+                        MyApplication.getContext().startActivity(intent);
 //                            SendChatMsg.SendChatReq.Builder responseBuilder = SendChatMsg.SendChatReq.newBuilder();
 //                            ChatData.ChatItem.Builder chatItem = ChatData.ChatItem.newBuilder();
 //                            chatItem.setTargetType(ChatData.ChatItem.TargetType.AGREEDOWNLOAD);

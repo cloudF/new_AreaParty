@@ -9,6 +9,12 @@ public class ReceiveData {
     private String path;
     private String id;
 
+    public ReceiveData(String name, String path, String id) {
+        this.name = name;
+        this.path = path;
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }

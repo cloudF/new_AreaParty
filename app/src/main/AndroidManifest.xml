@@ -248,7 +248,10 @@
         </service>
 
         <activity
-            android:name="com.dkzy.areaparty.phone.AlertActivity"
+            android:name="com.dkzy.areaparty.phone.AlertAccreditActivity"
+            android:theme="@style/AlertActivityStyle" />
+        <activity
+            android:name="com.dkzy.areaparty.phone.AlertRequestActivity"
             android:theme="@style/AlertActivityStyle" />
         <activity
             android:name="com.dkzy.areaparty.phone.fragment02.vedioPlayControl"
