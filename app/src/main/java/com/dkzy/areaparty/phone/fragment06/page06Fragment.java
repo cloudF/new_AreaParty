@@ -27,6 +27,7 @@ import com.dkzy.areaparty.phone.FileTypeConst;
 import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.MainActivity;
 import com.dkzy.areaparty.phone.R;
+import com.dkzy.areaparty.phone.fragment01.model.SharedfileBean;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
 
 import java.io.IOException;
@@ -40,6 +41,7 @@ import java.util.Map;
 import es.dmoral.toasty.Toasty;
 import protocol.Data.FileData;
 import protocol.Data.UserData;
+import protocol.Msg.DeleteFileMsg;
 import protocol.Msg.GetPersonalInfoMsg;
 import protocol.ProtoHead;
 import server.NetworkPacket;
@@ -74,7 +76,8 @@ public class page06Fragment extends Fragment {
     private static List<UserData.UserItem> userFirend_list = null;
     private static List<UserData.UserItem> userNet_list = null;
     private static List<UserData.UserItem> userShare_list = null;
-    private static List<FileData.FileItem> file_list = null;
+    //private static List<FileData.FileItem> file_list = null;
+    //private static List<SharedfileBean> sharedfileBeans = null;
     private MyFriendAdapater userFriendAdapter = null;
     private SimpleAdapter userNetAdapter = null;
     private SimpleAdapter userShareAdapter = null;
@@ -121,6 +124,34 @@ public class page06Fragment extends Fragment {
         MyApplication.getPcAreaPartyPath();
     }
 
+    public void refreshFileData(){
+        //file_list.clear();
+        filedata.clear();
+        //file_list.addAll(Login.files);
+        /*for(FileData.FileItem file : file_list){
+            HashMap<String, Object> item = new HashMap<>();
+            int style = FileTypeConst.determineFileType(file.getFileName());//fileStyle.getFileStyle(file);
+            item.put("fileName", file.getFileName());
+            item.put("fileInfo", file.getFileInfo());
+            item.put("fileSize", file.getFileSize());
+            item.put("fileImg", fileIndexToImgId.toImgId(style));
+            item.put("fileDate", file.getFileDate());
+            filedata.add(item);
+        }*/
+        for (SharedfileBean file : MyApplication.getMySharedFiles()){
+            HashMap<String, Object> item = new HashMap<>();
+            int style = FileTypeConst.determineFileType(file.name);//fileStyle.getFileStyle(file);
+            item.put("fileName", file.name);
+            item.put("fileInfo", file.des);
+            item.put("fileSize", file.size);
+            item.put("fileImg", fileIndexToImgId.toImgId(style));
+            item.put("fileDate", file.timeLong);
+            item.put("id",file.id);
+            filedata.add(item);
+        }
+        if(id_tab06_fileComputer!=null) userFileAdapter.notifyDataSetChanged();
+    }
+
     public void getData() {
         initData();
         System.out.println("getData");
@@ -128,7 +159,8 @@ public class page06Fragment extends Fragment {
         userNet_list = Login.userNet;
         userShare_list = Login.userShare;
         mainMobile = Login.mainMobile;
-        file_list = Login.files;
+        //file_list = Login.files;
+        // = MyApplication.getMySharedFiles();
         if(userFriendData.size() == 0){
             for(UserData.UserItem user : userFirend_list){
                 HashMap<String, Object> item = new HashMap<>();
@@ -160,7 +192,18 @@ public class page06Fragment extends Fragment {
             item.put("userHead", headIndexToImgId.toImgId(user.getHeadIndex()));
             userShareData.add(item);
         }
-        for(FileData.FileItem file : file_list){
+        for (SharedfileBean file : MyApplication.getMySharedFiles()){
+            HashMap<String, Object> item = new HashMap<>();
+            int style = FileTypeConst.determineFileType(file.name);//fileStyle.getFileStyle(file);
+            item.put("fileName", file.name);
+            item.put("fileInfo", file.des);
+            item.put("fileSize", file.size);
+            item.put("fileImg", fileIndexToImgId.toImgId(style));
+            item.put("fileDate", file.timeLong);
+            item.put("id",file.id);
+            filedata.add(item);
+        }
+        /*for(FileData.FileItem file : file_list){
             HashMap<String, Object> item = new HashMap<>();
             int style = FileTypeConst.determineFileType(file.getFileName());//fileStyle.getFileStyle(file);
             item.put("fileName", file.getFileName());
@@ -169,7 +212,7 @@ public class page06Fragment extends Fragment {
             item.put("fileImg", fileIndexToImgId.toImgId(style));
             item.put("fileDate", file.getFileDate());
             filedata.add(item);
-        }
+        }*/
     }
 
     @Nullable
@@ -295,6 +338,7 @@ public class page06Fragment extends Fragment {
                     id_tab06_file.setBackgroundResource(R.drawable.tab06_item_merge);
                 }
                 else{
+                    //refreshFileData();
                     id_tab06_fileComputer.setVisibility(view.VISIBLE);
                     id_tab06_file.setBackgroundResource(R.drawable.tab06_item_open);
                 }
@@ -637,17 +681,44 @@ public class page06Fragment extends Fragment {
         listDialog.show();
     }
 
-    public void showFileInfo(HashMap<String, Object> h){
+    public void showFileInfo(final HashMap<String, Object> h){
         String[] items = new String[3];
         items[0] = "文件名： " + h.get("fileName");
-        items[1] = "文件大小： " + h.get("fileSize") + "KB";
+        items[1] = "文件大小： "+getSize((int)h.get("fileSize"));
         if(!h.get("fileInfo").equals(""))
             items[2] = "文件描述： " + h.get("fileInfo");
         else
             items[2] = "文件描述： 这家伙什么都没写";
-        AlertDialog.Builder listDialog = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder listDialog = new AlertDialog.Builder(getActivity());
         listDialog.setTitle("文件信息");
         listDialog.setItems(items, null);
+        listDialog.setPositiveButton("取消分享", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                new Thread(){
+                    @Override
+                    public void run() {
+
+                        DeleteFileMsg.DeleteFileReq.Builder builder = DeleteFileMsg.DeleteFileReq.newBuilder();
+                        builder.setFileId((int)h.get("id"));
+                        builder.setFileName((String) h.get("fileName"));
+                        builder.setUserId(Login.userId);
+                        builder.setFileInfo((String) h.get("fileInfo"));
+                        builder.setFileSize((int)h.get("fileSize"));
+                        //builder.setFileUrl(file.url);
+                        //builder.setFilePwd(file.pwd);
+                        try {
+                            byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.DELETE_FILE_REQ.getNumber(),
+                                    builder.build().toByteArray());
+                            Login.base.writeToServer(Login.outputStream, byteArray);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+                listDialog.show().dismiss();
+            }
+        });
         listDialog.show();
     }
 
@@ -673,7 +744,8 @@ public class page06Fragment extends Fragment {
     }
 
     public void shareFileSuccess (Message msg){
-        initData();
+        refreshFileData();
+        /*initData();
         fileObj file = (fileObj) msg.obj;
         HashMap<String, Object> item = new HashMap<>();
         int style = FileTypeConst.determineFileType(file.getFileName());//fileStyle.getFileStyle(file);
@@ -683,7 +755,10 @@ public class page06Fragment extends Fragment {
         item.put("fileImg", fileIndexToImgId.toImgId(style));
         item.put("fileDate", file.getFileDate());
         filedata.add(item);
-        if(id_tab06_fileComputer!=null) userFileAdapter.notifyDataSetChanged();
+        if(id_tab06_fileComputer!=null) userFileAdapter.notifyDataSetChanged();*/
+    }
+    public void deleteFileSuccess (Message msg){
+        refreshFileData();
     }
 
     public void shareFileFail (){
@@ -841,6 +916,27 @@ public class page06Fragment extends Fragment {
         TextView userId;
         TextView userName;
         TextView chatNum;
+    }
+
+    public static String getSize(int size) {
+        //如果原字节数除于1024之后，少于1024，则可以直接以KB作为单位
+        //因为还没有到达要使用另一个单位的时候
+        //接下去以此类推
+        if (size < 1024) {
+            return String.valueOf(size) + "KB";
+        } else {
+            size = size*10 / 1024;
+        }
+        if (size < 10240) {
+            //保留1位小数，
+            return String.valueOf((size / 10)) + "."
+                    + String.valueOf((size % 10)) + "MB";
+        } else {
+            //保留2位小数
+            size = size * 10 / 1024;
+            return String.valueOf((size / 100)) + "."
+                    + String.valueOf((size % 100)) + "GB";
+        }
     }
 }
 

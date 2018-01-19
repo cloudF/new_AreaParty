@@ -50,6 +50,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.lang.reflect.Array;
 import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
@@ -114,7 +115,7 @@ public class Login extends AppCompatActivity {
     public static List<UserData.UserItem> userFriend = new ArrayList<>();
     public static List<UserData.UserItem> userNet = new ArrayList<>();
     public static List<UserData.UserItem> userShare = new ArrayList<>();
-    public static List<FileData.FileItem> files;
+    public static List<FileData.FileItem> files = new ArrayList<>();
     public static boolean outline = false;
     public static String userId = "";
     public static String userName = "";
@@ -122,6 +123,7 @@ public class Login extends AppCompatActivity {
     public static boolean mainMobile;
     public static int userHeadIndex;
     public static myChatList myChats = new myChatList();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -667,9 +669,10 @@ public class Login extends AppCompatActivity {
                         System.out.println("Response : " + GetUserInfoMsg.GetUserInfoRsp.ResultCode.valueOf(fileresponse.getResultCode().getNumber()));
                         if (fileresponse.getResultCode().equals(GetUserInfoMsg.GetUserInfoRsp.ResultCode.SUCCESS)) {
                             if(fileresponse.getUserItem(0).getUserId().equals(Login.userId)){
-                                files = fileresponse.getFilesList();
+                                //files = fileresponse.getFilesList();
                                 SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-                                for (FileData.FileItem file:files) {
+                                for (FileData.FileItem file:fileresponse.getFilesList()) {
+                                    files.add(file);
                                     SharedfileBean sharedFile = new SharedfileBean();
                                     sharedFile.id =  Integer.valueOf(file.getFileId());
                                     sharedFile.name = file.getFileName();
@@ -769,5 +772,12 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+    /*public static List<FileData.FileItem> getFiles() {
+        if (files == null){
+            return new ArrayList<>();
+        }
+        return files;
+    }*/
 }
 

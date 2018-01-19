@@ -389,12 +389,13 @@ public class FloatView extends View {
         OkHttpUtils.getInstance().setUrl(url).buildNormal().execute(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                new Handler().post(new Runnable() {
+                mContentView.post(new Runnable() {
                     @Override
                     public void run() {
                         Toasty.error(getContext(),"网络故障，未获取到账号").show();
                     }
                 });
+
             }
 
             @Override
@@ -438,7 +439,7 @@ public class FloatView extends View {
                         });*/
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        new Handler().post(new Runnable() {
+                        mContentView.post(new Runnable() {
                             @Override
                             public void run() {
                                 Toasty.error(getContext(),"服务器故障，未获取到账号").show();

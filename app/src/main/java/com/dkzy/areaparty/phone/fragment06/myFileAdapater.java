@@ -77,11 +77,11 @@ public class myFileAdapater extends BaseAdapter {
         HashMap<String, Object> file = filedata.get(i);
         int headIndex = (int) file.get("fileImg");
         final String fileName =  (String) file.get("fileName");
-        final long fileDate = Long.parseLong((String)file.get("fileDate"));
+        final long fileDate = (long) file.get("fileDate");
         SimpleDateFormat sdf= new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         Date dt = new Date(fileDate);
         String sDateTime = sdf.format(dt);
-        final String fileSize = (String)file.get("fileSize");
+        final String fileSize = String.valueOf(file.get("fileSize"));
         String fileInfo = sDateTime + "  " + getSize(Integer.valueOf(fileSize));
         holder.fileImg.setImageResource(headIndex);
         holder.fileName.setText(fileName);

@@ -138,7 +138,6 @@ public class RemoteDownloadActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -1018,7 +1017,7 @@ public class RemoteDownloadActivity extends AppCompatActivity {
         remoteControl.setVisibility(View.VISIBLE);
     }
 
-    public static void initUTorrent() {
+    public  void initUTorrent() {
         if (MyApplication.isSelectedPCOnline() && !TextUtils.isEmpty(MyApplication.getSelectedPCIP().ip)){
             UrlUtils.ip_port = MyApplication.getSelectedPCIP().ip+":"+IPAddressConst.UTORRENT_PORT;
             try{
@@ -1037,16 +1036,21 @@ public class RemoteDownloadActivity extends AppCompatActivity {
                                 Log.w("SubTitleUtil", "onFailure");
                                 //uTorrent可能未启动
                                 e.printStackTrace();
-                                new Send2PCThread(OrderConst.UTOrrent, "",new Handler()).start();
-                                try {
-                                    Thread.sleep(4000);
-                                    if (isCreated){
-                                        initUTorrent();
-                                        MyApplication.getPcAreaPartyPath();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            new Send2PCThread(OrderConst.UTOrrent, "",new Handler()).start();
+                                            Thread.sleep(4000);
+                                            if (isCreated){
+                                                initUTorrent();
+                                                MyApplication.getPcAreaPartyPath();
+                                            }
+                                        } catch (InterruptedException e1) {
+                                            e1.printStackTrace();
+                                        }
                                     }
-                                } catch (InterruptedException e1) {
-                                    e1.printStackTrace();
-                                }
+                                });
                             }
 
                             @Override
@@ -1060,22 +1064,22 @@ public class RemoteDownloadActivity extends AppCompatActivity {
                                     response.close();
                                     if (TextUtils.isEmpty(responseData)){
                                         Log.w("SubTitleUtil","responseData null");
-                                        new Handler().post(new Runnable() {
+                                        /*handler.post(new Runnable() {
                                             @Override
                                             public void run() {
                                                 Toasty.error(MyApplication.getContext(),"请检查用户名和密码是否正确").show();
                                             }
-                                        });
+                                        });*/
 
                                     }else {
                                         Log.w("SubTitleUtil",responseData+"&&&"+responseData.length());
                                         if (!(responseData.length() == 121)){
-                                            new Handler().post(new Runnable() {
+                                            /*handler.post(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     Toasty.error(MyApplication.getContext(),"未知错误").show();
                                                 }
-                                            });
+                                            });*/
 
                                         }else {
                                             UrlUtils.token = responseData.substring(44,108);

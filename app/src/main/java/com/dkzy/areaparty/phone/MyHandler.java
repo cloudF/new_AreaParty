@@ -148,6 +148,9 @@ public class MyHandler extends Handler {
             case OrderConst.shareFileSuccess:
                 fragment06.shareFileSuccess(msg);
                 break;
+            case OrderConst.deleteShareFileSuccess:
+                fragment06.deleteFileSuccess(msg);
+                break;
             case OrderConst.shareFileFail:
                 fragment06.shareFileFail();
                 break;

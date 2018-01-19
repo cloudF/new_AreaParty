@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.os.Message;
 import android.util.Log;
 
+import com.dkzy.areaparty.phone.fragment01.model.SharedfileBean;
 import com.dkzy.areaparty.phone.fragment01.setting.SettingAddressActivity;
 import com.dkzy.areaparty.phone.fragment01.setting.SettingNameActivity;
 import com.dkzy.areaparty.phone.fragment01.setting.SettingPwdActivity;
+import com.dkzy.areaparty.phone.fragment01.sharedFileIntentActivity;
+import com.dkzy.areaparty.phone.fragment01.utils.PCFileHelper;
 import com.dkzy.areaparty.phone.fragment06.ChatDBManager;
 import com.dkzy.areaparty.phone.fragment06.ChatObj;
 import com.dkzy.areaparty.phone.fragment06.DownloadFolderFragment;
@@ -810,6 +813,9 @@ public class Base {
                 objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
             AddFileMsg.AddFileRsp response = AddFileMsg.AddFileRsp.parseFrom(objBytes);
             if(response.getResultCode().equals(AddFileMsg.AddFileRsp.ResultCode.SUCCESS)){
+
+                MyApplication.addMySharedFiles(PCFileHelper.getSelectedShareFile());
+
                 Message shareFile04 = MainActivity.handlerTab01.obtainMessage();
                 Message shareFile06 = MainActivity.handlerTab06.obtainMessage();
                 boolean shareState = true;
@@ -921,15 +927,39 @@ public class Base {
                 objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
             DeleteFileMsg.DeleteFileRsp response = DeleteFileMsg.DeleteFileRsp.parseFrom(objBytes);
             if(response.getResultCode().equals(DeleteFileMsg.DeleteFileRsp.ResultCode.FAIL)){
-                Message msg = DownloadFolderFragment.mHandler.obtainMessage();
-                msg.obj = response.getFileName();
-                msg.what = 0;
-                DownloadFolderFragment.mHandler.sendMessage(msg);
+
+            if (sharedFileIntentActivity.handler != null){
+                sharedFileIntentActivity.handler.sendEmptyMessage(2);
+            }
             }else if(response.getResultCode().equals(DeleteFileMsg.DeleteFileRsp.ResultCode.SUCCESS)){
-                Message msg = DownloadFolderFragment.mHandler.obtainMessage();
+                for (int i = 0; i < MyApplication.getMySharedFiles().size(); i++){
+                    SharedfileBean file = MyApplication.getMySharedFiles().get(i);
+                    if (file.name.equals(response.getFileName()) && file.des.equals(response.getFileInfo())){
+                        MyApplication.getMySharedFiles().remove(i);
+                        i--;
+                    }
+                }
+                /*if (Login.files != null && Login.files.size() > 0){
+                    for (int i = 0; i < Login.files.size() ;i ++ ){
+                        FileData.FileItem file = Login.files.get(i);
+                        if (file.getFileName().equals(response.getFileName()) && file.getFileInfo().equals(response.getFileInfo())){
+                            Login.files.remove(i);
+                            i-- ;
+                        }
+                    }
+                }*/
+                if (sharedFileIntentActivity.handler != null){
+                    sharedFileIntentActivity.handler.sendEmptyMessage(1);
+                }
+
+                Message shareFile06 = MainActivity.handlerTab06.obtainMessage();
+                shareFile06.what = OrderConst.deleteShareFileSuccess;
+                MainActivity.handlerTab06.sendMessage(shareFile06);
+
+                /*Message msg = DownloadFolderFragment.mHandler.obtainMessage();
                 msg.obj = response.getFileName();
                 msg.what = 1;
-                DownloadFolderFragment.mHandler.sendMessage(msg);
+                DownloadFolderFragment.mHandler.sendMessage(msg);*/
             }
         }catch (IOException e) {
             e.printStackTrace();

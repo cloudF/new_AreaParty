@@ -6,6 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -13,10 +15,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.dkzy.areaparty.phone.FileTypeConst;
+import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.fragment01.base.SharedFileContentAdapter;
 import com.dkzy.areaparty.phone.fragment01.model.SharedfileBean;
@@ -27,8 +31,15 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
+import protocol.Msg.AddFileMsg;
+import protocol.Msg.DeleteFileMsg;
+import protocol.ProtoHead;
+import server.NetworkPacket;
 
 /**
  * Project Name： android
@@ -60,6 +71,7 @@ public class sharedFileIntentActivity extends Activity implements View.OnClickLi
 
     private View loadingView;
     private AlertDialog dialog;
+    private SharedFileContentAdapter adapter;
 
     private List<SharedfileBean> pic = new ArrayList<>();
     private List<SharedfileBean> mus = new ArrayList<>();
@@ -69,8 +81,14 @@ public class sharedFileIntentActivity extends Activity implements View.OnClickLi
     private List<SharedfileBean> oth = new ArrayList<>();
     private int nowType;  // 标识当前类别（0, 1, 2, 3, 4, 5）,方便后续加删除操作使用
 
+    public static Handler handler ;
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler = null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +99,31 @@ public class sharedFileIntentActivity extends Activity implements View.OnClickLi
         initData();
         initView();
         initEvent();
+
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1:
+                        refreshData();
+                        break;
+                    case 2:
+                        Toasty.error(sharedFileIntentActivity.this, "取消分享失败");
+                    default:break;
+                }
+            }
+        };
+
     }
 
     private void initData() {
+        pic.clear();
+        mus.clear();
+        mov.clear();
+        doc.clear();
+        rar.clear();
+        oth.clear();
         List<SharedfileBean> mySharedFiles = MyApplication.getMySharedFiles();
         for (SharedfileBean file : mySharedFiles) {
             int fileType = FileTypeConst.determineFileType(file.name);
@@ -110,6 +150,8 @@ public class sharedFileIntentActivity extends Activity implements View.OnClickLi
                 case FileTypeConst.none:
                     oth.add(file);
                     break;
+                default:oth.add(file);
+                    break;
             }
         }
         creator = new SwipeMenuCreator() {
@@ -126,6 +168,25 @@ public class sharedFileIntentActivity extends Activity implements View.OnClickLi
             }
         };
 
+    }
+    public void refreshData(){
+        initData();
+
+        String numpic = "(" + pic.size() + ")";
+        String nummus = "(" + mus.size() + ")";
+        String numvid = "(" + mov.size() + ")";
+        String numdoc = "(" + doc.size() + ")";
+        String numrar = "(" + rar.size() + ")";
+        String numoth = "(" + oth.size() + ")";
+        sharedPicNumTV.setText(numpic);
+        sharedMusicNumTV.setText(nummus);
+        sharedMovieNumTV.setText(numvid);
+        sharedDocumentNumTV.setText(numdoc);
+        sharedRarNumTV.setText(numrar);
+        sharedOtherNumTV.setText(numoth);
+        if (adapter != null){
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private int dp2px(int dp) {
@@ -147,6 +208,13 @@ public class sharedFileIntentActivity extends Activity implements View.OnClickLi
         sharedRarLL.setOnClickListener(this);
         sharedOtherLL.setOnClickListener(this);
 
+
+        sharedFileRefreshLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                refreshData();
+            }
+        });
         sharedFileContentLV.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
 
             @Override
@@ -194,6 +262,30 @@ public class sharedFileIntentActivity extends Activity implements View.OnClickLi
                     case 0:
                         // 取消分享
                         cancelShare(position);
+                        final SharedfileBean file = getSharedfileBeanList(nowType).get(position);
+                        Log.w("SharedFileIntent",file.toString());
+                        new Thread(){
+                            @Override
+                            public void run() {
+
+                                DeleteFileMsg.DeleteFileReq.Builder builder = DeleteFileMsg.DeleteFileReq.newBuilder();
+                                builder.setFileId(file.id);
+                                builder.setFileName(file.name);
+                                builder.setUserId(Login.userId);
+                                builder.setFileInfo(file.des);
+                                builder.setFileSize(file.size);
+                                //builder.setFileUrl(file.url);
+                                //builder.setFilePwd(file.pwd);
+                                try {
+                                    byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.DELETE_FILE_REQ.getNumber(),
+                                            builder.build().toByteArray());
+                                    Login.base.writeToServer(Login.outputStream, byteArray);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }.start();
+
                         break;
                 }
                 return false;
@@ -282,37 +374,60 @@ public class sharedFileIntentActivity extends Activity implements View.OnClickLi
                 //MyApplication.getSharedFileDBManager().addSharedFileSQL(
                 //        new SharedfileBean("testname", "haha/ha", 100, "this is a test", System.currentTimeMillis()), DBConst.sharedPicTB);
                 SharedFileContentAdapter picAdapter = new SharedFileContentAdapter(pic, this);
-                sharedFileContentLV.setAdapter(picAdapter);
+                adapter = picAdapter;
+                sharedFileContentLV.setAdapter(adapter);
+
                 break;
             case R.id.sharedMusicLL:
                 //List<SharedfileBean> list = MyApplication.getSharedFileDBManager().selectMySharedFileSQL(DBConst.sharedPicTB);
                 //Toasty.info(this, (list.size() > 0)? list.get(0).name : "未查询到数据", Toast.LENGTH_SHORT, true).show();
                 nowType = 1;
                 SharedFileContentAdapter musAdapter = new SharedFileContentAdapter(mus, this);
-                sharedFileContentLV.setAdapter(musAdapter);
+                adapter = musAdapter;
+                sharedFileContentLV.setAdapter(adapter);
+
                 break;
             case R.id.sharedMovieLL:
                 nowType = 2;
                 SharedFileContentAdapter movAdapter = new SharedFileContentAdapter(mov, this);
-                sharedFileContentLV.setAdapter(movAdapter);
+                adapter = movAdapter;
+                sharedFileContentLV.setAdapter(adapter);
+
                 //MyApplication.getSharedFileDBManager().deleteSharedFileSQL(1, DBConst.sharedPicTB);
                 break;
             case R.id.sharedDocumentLL:
                 //Toasty.info(this, MyApplication.getLaunchTimeId(), Toast.LENGTH_SHORT, true).show();
                 nowType = 3;
                 SharedFileContentAdapter docAdapter = new SharedFileContentAdapter(doc, this);
-                sharedFileContentLV.setAdapter(docAdapter);
+                adapter = docAdapter;
+                sharedFileContentLV.setAdapter(adapter);
+
                 break;
             case R.id.sharedRarLL:
                 nowType = 4;
                 SharedFileContentAdapter rarAdapter = new SharedFileContentAdapter(rar, this);
-                sharedFileContentLV.setAdapter(rarAdapter);
+                adapter = rarAdapter;
+                sharedFileContentLV.setAdapter(adapter);
+
                 break;
             case R.id.sharedOtherLL:
                 nowType = 5;
                 SharedFileContentAdapter othAdapter = new SharedFileContentAdapter(oth, this);
-                sharedFileContentLV.setAdapter(othAdapter);
+                adapter = othAdapter;
+                sharedFileContentLV.setAdapter(adapter);
                 break;
+        }
+    }
+
+    private List<SharedfileBean> getSharedfileBeanList(int type){
+        switch (type){
+            case 0: return pic;
+            case 1: return mus;
+            case 2: return mov;
+            case 3: return doc;
+            case 4: return rar;
+            case 5: return oth;
+            default: return new ArrayList<>();
         }
     }
 }

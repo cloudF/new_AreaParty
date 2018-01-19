@@ -30,6 +30,10 @@ public class SharedFileContentAdapter extends BaseAdapter {
         this.inflater = LayoutInflater.from(context);
     }
 
+    public List<SharedfileBean> getFiles() {
+        return files;
+    }
+
     @Override
     public int getCount() {
         return files.size();
@@ -106,6 +110,9 @@ public class SharedFileContentAdapter extends BaseAdapter {
                 break;
             case FileTypeConst.pic:
                 iv.setImageResource(R.drawable.pic);
+                break;
+            case FileTypeConst.apk:
+                iv.setImageResource(R.mipmap.ic_launcher);
                 break;
             case FileTypeConst.none:
                 iv.setImageResource(R.drawable.none);

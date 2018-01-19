@@ -116,7 +116,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     private boolean isHelpDialogShow;
 
-    public static String logined;
+    public static String logined = "";
 
     public static String userName = "";
     public static boolean mainMobile;
@@ -162,6 +162,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void onResume() {
         super.onResume();
         updateServiceStatus();
+        iqiyiVersionCode = getVersionCode(AutoLoginService.IQIYI);//获取爱奇艺的版本号
+        youkuVersionCode = getVersionCode(AutoLoginService.YOUKU);//获取优酷的版本号
+        tencentVersionCode = getVersionCode(AutoLoginService.TENCENT);//获取腾讯视频版本号
+        leshiVersionCode = getVersionCode(AutoLoginService.LESHI);
+        QQVersionCode = getVersionCode(AutoLoginService.QQ);
         setTag();
 
     }
@@ -353,11 +358,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         isHelpDialogShow = new PreferenceUtil("isHelpDialogShow",getApplicationContext()).readBoole("isHelpDialogShow");
 
         //updateServiceStatus();//检测自助登录服务是否开启
-        iqiyiVersionCode = getVersionCode(AutoLoginService.IQIYI);//获取爱奇艺的版本号
-        youkuVersionCode = getVersionCode(AutoLoginService.YOUKU);//获取优酷的版本号
-        tencentVersionCode = getVersionCode(AutoLoginService.TENCENT);//获取腾讯视频版本号
-        leshiVersionCode = getVersionCode(AutoLoginService.LESHI);
-        QQVersionCode = getVersionCode(AutoLoginService.QQ);
+
 
     }
 
@@ -656,6 +657,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         tagIqiyi.setVisibility(View.INVISIBLE);
         tagYouku.setVisibility(View.INVISIBLE);
         tagTencent.setVisibility(View.INVISIBLE);
+        if (TextUtils.isEmpty(logined)) return;
         switch (logined){
             case AutoLoginService.IQIYI:
                 tagLeshi.setVisibility(View.VISIBLE);
@@ -671,6 +673,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             case AutoLoginService.LESHI:
                 tagLeshi.setVisibility(View.VISIBLE);
                 break;
+                default:break;
         }
     }
     public void onClickListener(View v){

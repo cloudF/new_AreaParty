@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="F:\new_AreaParty\app\libs\Client.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2242ab41f8fbd372eb529dff78462c1afac10893">
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\new_AreaParty\mth\build\intermediates\intermediate-jars\release\classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2a9979ee250c7b55ced79c397621380c46d5f627">
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\64\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\new_AreaParty\app\libs\aliyun-java-sdk-dysmsapi-1.0.0-SNAPSHOT.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="db3f63a2a77d02e919db4e2680124c95788a0745">
+        <dex dex="F:\new_AreaParty\app\build\intermediates\transforms\preDex\release\2\classes.dex" />
+    </item>
+
+</items>

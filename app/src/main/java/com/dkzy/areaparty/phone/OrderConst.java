@@ -81,6 +81,7 @@ public class OrderConst {
     public static final int showUnfriendFiles = 0x608;
     public static final int showFriendFiles = 0x609;
     public static final int shareFileSuccess = 0x610;
+    public static final int deleteShareFileSuccess = 0x614;
     public static final int shareFileFail = 0x611;
     public static final int addChatNum = 0x612;
     public static final int addFileRequest = 0x613;

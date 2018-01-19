@@ -802,7 +802,6 @@ public class PCFileHelper {
                                 prepareDataForFragment.getFileActionStateData(OrderConst.fileAction_name,
                                         OrderConst.fileAction_share_command, JsonUitl.objectToString(filePath));
                         if(fileActionMessageReceived.getStatus() == OrderConst.success) {
-                            MyApplication.addMySharedFiles(selectedShareFile);
                             Message message = new Message();
                             message.what = OrderConst.addSharedFilePath_successful;
                             myHandler.sendMessage(message);

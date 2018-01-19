@@ -52,4 +52,19 @@ public class SharedfileBean {
     }
 
     public SharedfileBean() {}
+
+    @Override
+    public String toString() {
+        return "SharedfileBean{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", path='" + path + '\'' +
+                ", size=" + size +
+                ", des='" + des + '\'' +
+                ", timeStr='" + timeStr + '\'' +
+                ", timeLong=" + timeLong +
+                ", url='" + url + '\'' +
+                ", pwd='" + pwd + '\'' +
+                '}';
+    }
 }
