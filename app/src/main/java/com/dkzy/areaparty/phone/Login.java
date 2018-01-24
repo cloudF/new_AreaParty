@@ -102,7 +102,7 @@ public class Login extends AppCompatActivity {
     private AlertDialog dialog = null;
 
     private String host;
-    private int port;
+    private int port = 0;
     //private int port = 3333;
     private SharedPreferences sp;
     private SharedPreferences sp2;
@@ -293,6 +293,12 @@ public class Login extends AppCompatActivity {
                     }).start();
                     return;
                 }
+            }
+        }
+        if (port == 0){
+            port = Integer.parseInt(sp2.getString("SERVER_PORT", "3333"));
+            if (port == 0){
+                port = 3333;
             }
         }
         if (outline == false) {

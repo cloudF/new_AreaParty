@@ -62,7 +62,7 @@ public class FloatView extends View {
     private Context mContext;
     private WindowManager wm;
     private static WindowManager.LayoutParams wmParams;
-    public View mContentView;
+    public static View mContentView;
     private float mRelativeX;
     private float mRelativeY;
     private float mScreenX;
@@ -354,7 +354,9 @@ public class FloatView extends View {
         y = y + (int)(1.5*Y);if (y<0) y = 0;
     }
     public static void registerVip(final String type){
-        String url = "http://"+AREAPARTY_NET+"/AreaParty/RegisterVip?userName=" + Login.userName
+        String userName = "";
+        if (!TextUtils.isEmpty(Login.userId)){userName = Login.userId;}else if(!TextUtils.isEmpty(MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){userName = MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", "");}
+        String url = "http://"+AREAPARTY_NET+"/AreaParty/RegisterVip?userName=" + userName
                 +"&userMac=" +Login.getAdresseMAC(MyApplication.getContext())
                 +"&ip="+"223.85.200.129"
                 +"&vipType="+type
@@ -370,20 +372,35 @@ public class FloatView extends View {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String responseData = response.body().string();
+                response.close();
                 Log.w("StartActivity",responseData);
                 if (responseData.equals("success")){
                     //getVipUserCount(type);
                 }else {
-
+                    String reg = "[\u4e00-\u9fa5]";
+                    int index = -1;
+                    if (responseData.matches (".*" + reg + ".*"))
+                    {
+                        index = responseData.split (reg)[0].length ();
+                    }
+                    if (index > -1){
+                        final String message = responseData.substring(index);
+                        mContentView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toasty.info(MyApplication.getContext(),message,Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
                 }
             }
         });
     }
     public  void getVipUserCount(final String type) {
         String userName = "";
-        if (!TextUtils.isEmpty(Login.userName)){userName = Login.userName;}else if(!TextUtils.isEmpty(MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){userName = MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", "");}
+        if (!TextUtils.isEmpty(Login.userId)){userName = Login.userId;}else if(!TextUtils.isEmpty(MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){userName = MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", "");}
         String url = "http://"+AREAPARTY_NET+"/AreaParty/LoginVip?userName="+userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
-        Log.w("StartActivity",url);
+        //Log.w("StartActivity",url);
         FloatView.password = "";
         FloatView.name = "";
         OkHttpUtils.getInstance().setUrl(url).buildNormal().execute(new Callback() {
@@ -415,7 +432,7 @@ public class FloatView extends View {
                                 login();
                             }
                         });
-                        Log.w("StartActivity",FloatView.name+"**"+FloatView.password);
+                        //Log.w("StartActivity",FloatView.name+"**"+FloatView.password);
 
                         /*switch (type){
                             case "iqiyi":

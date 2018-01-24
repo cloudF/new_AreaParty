@@ -389,7 +389,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         /*if (TextUtils.isEmpty(logined)) logined = "null";
         Util.setRecord(MyApplication.getContext(),logined, "");
         setTag();*/
-        String url = "http://"+AREAPARTY_NET+"/AreaParty/GetUserInfo?userName="+ Login.userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext());
+        String userName = "";
+        if (!TextUtils.isEmpty(Login.userId)){userName = Login.userId;}else if(!TextUtils.isEmpty(MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){userName = MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", "");}
+        String url = "http://"+AREAPARTY_NET+"/AreaParty/GetUserInfo?userName="+ userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext());
         Log.w("StartActivity",url);
         OkHttpUtils.getInstance().setUrl(url).buildNormal().execute(new Callback() {
             @Override
@@ -439,7 +441,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public static void logoutVip(final String type){
-        String url = "http://"+AREAPARTY_NET+"/AreaParty/LogoutVip?userName="+ Login.userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
+        String userName = "";
+        if (!TextUtils.isEmpty(Login.userId)){userName = Login.userId;}else if(!TextUtils.isEmpty(MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){userName = MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", "");}
+        String url = "http://"+AREAPARTY_NET+"/AreaParty/LogoutVip?userName="+ userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
         Log.w("StartActivity",url);
 
         Util.setRecord(MyApplication.getContext(),"null");
@@ -686,7 +690,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 switch (v.getId()){
                     case R.id.btn_login_leshi://乐视视频登录
                         if (!(logined.equals(AutoLoginService.LESHI) || (!logined.equals(AutoLoginService.LESHI) && !TextUtils.isEmpty(new PreferenceUtil(getApplicationContext()).read("lastChosenTV"))))){
-                            Toasty.error(StartActivity.this, "安装AreaParty电视端并与手机连接后获得乐视视频的使用权限").show();
+                            Toasty.error(StartActivity.this, "安装AreaParty电视端并与手机连接后获得乐视视频的使用权限",Toast.LENGTH_LONG).show();
                             return;
                         }
                         if (logined.equals(AutoLoginService.LESHI) || logined.equals("null")){
@@ -721,7 +725,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                         break;
                     case R.id.btn_login_youku://优酷登录
                         if (!(logined.equals(AutoLoginService.YOUKU) || (!logined.equals(AutoLoginService.YOUKU) && !TextUtils.isEmpty(new PreferenceUtil(getApplicationContext()).read("lastChosenPC"))))){
-                            Toasty.error(StartActivity.this, "安装AreaParty电脑端并与手机连接后获得优酷的使用权限").show();
+                            Toasty.error(StartActivity.this, "安装AreaParty电脑端并与手机连接后获得优酷的使用权限",Toast.LENGTH_LONG).show();
                             return;
                         }
                         if (logined.equals(AutoLoginService.YOUKU) || logined.equals("null")){
@@ -818,7 +822,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                         StartActivity.url[i] = jsonObject.getString("url");
                         StartActivity.imageUrl[i] = "http://"+IPAddressConst.statisticServer_ip+"/bt_website/"+jsonObject.getString("image");
                     }
-                    initWebSite();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            initWebSite();
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -123,6 +123,10 @@ public class searchFriend extends AppCompatActivity {
                             userSearchBtn.setOnClickListener(listener);
                         }
                         break;
+                    case 1:
+                        Toast.makeText(searchFriend.this, "未查询到相关用户", Toast.LENGTH_SHORT).show();
+                        break;
+                        default:break;
                 }
             }
         };

@@ -31,7 +31,7 @@ public class sortFIleList extends AppCompatActivity{
     private String user_id = null;
     private fileObj agreeFileMsg;
     private ListView fileListView;
-    private myFileAdapater fileAdapater;
+    private mFriendFileAdapter fileAdapater;
     private TextView sortFileListTitle;
     private ImageButton sortFileListBackBtn;
     private int fileStyle;
@@ -83,7 +83,7 @@ public class sortFIleList extends AppCompatActivity{
                 sortFileListTitle.setText("其他");
                 break;
         }
-        fileAdapater = new myFileAdapater(this, fileData, true, user_id);
+        fileAdapater = new mFriendFileAdapter(this, fileData, true, user_id);
         fileListView.setAdapter(fileAdapater);
 
     }
@@ -101,12 +101,12 @@ public class sortFIleList extends AppCompatActivity{
             }
         });
 
-        fileListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*fileListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 showFileInfo(fileData.get(position));
             }
-        });
+        });*/
 
         sortFileListBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override

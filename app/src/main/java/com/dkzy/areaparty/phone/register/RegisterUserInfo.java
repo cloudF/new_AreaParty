@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.SpannedString;
+import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +37,8 @@ import server.NetworkPacket;
 import tools.DataTypeTranslater;
 
 import static com.dkzy.areaparty.phone.myapplication.MyApplication.AREAPARTY_NET;
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.GetInetAddress;
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.domain;
 
 /**
  * Created by SnowMonkey on 2017/5/22.
@@ -52,11 +55,17 @@ public class RegisterUserInfo extends BaseActivity {
     private String userName;
     private String userKeyword;
     private Handler mHandle;
+    private String host;
+    private int port = 0;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_userinfo);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        SharedPreferences sp;
+        sp = RegisterUserInfo.this.getSharedPreferences("serverInfo", Context.MODE_PRIVATE);
+        port = Integer.parseInt(sp.getString("SERVER_PORT", "3333"));
+        host = sp.getString("SERVER_IP", AREAPARTY_NET);
         initView();
         initEvent();
     }
@@ -257,8 +266,28 @@ public class RegisterUserInfo extends BaseActivity {
         public void run() {
             SharedPreferences sp;
             sp = RegisterUserInfo.this.getSharedPreferences("serverInfo", Context.MODE_PRIVATE);
-            int port = Integer.parseInt(sp.getString("SERVER_PORT", "3333"));
-            String host = sp.getString("SERVER_IP", AREAPARTY_NET);
+            if (TextUtils.isEmpty(host)){
+                host = sp.getString("SERVER_IP", AREAPARTY_NET);
+                if (TextUtils.isEmpty(host)){
+                    host = AREAPARTY_NET;
+                    if (TextUtils.isEmpty(host)){
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                AREAPARTY_NET = GetInetAddress(domain);
+                            }
+                        }).start();
+                        return;
+                    }
+                }
+            }
+            if (port == 0){
+                port = Integer.parseInt(sp.getString("SERVER_PORT", "3333"));
+                if (port == 0){
+                    port = 3333;
+                }
+            }
+
             RegisterMsg.RegisterReq.Builder builder = RegisterMsg.RegisterReq.newBuilder();
             builder.setRequestCode(RegisterMsg.RegisterReq.RequestCode.CHECKUSERID);
             builder.setUserId(userId);

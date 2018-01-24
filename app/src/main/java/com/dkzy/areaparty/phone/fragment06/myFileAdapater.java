@@ -34,12 +34,12 @@ public class myFileAdapater extends BaseAdapter {
         this.isDownload = isDownload;
     }
 
-    public myFileAdapater(Context context, List<HashMap<String, Object>> filedata, boolean isDownload, String user_id) {
+    /*public myFileAdapater(Context context, List<HashMap<String, Object>> filedata, boolean isDownload, String user_id) {
         mInflater = LayoutInflater.from(context);
         this.filedata = filedata;
         this.isDownload = isDownload;
         this.user_id = user_id;
-    }
+    }*/
     @Override
     public int getCount() {
         return filedata.size();

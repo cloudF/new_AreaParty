@@ -693,7 +693,14 @@ public class Base {
                 for (int i = 0; i < objBytes.length; i++)
                     objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
                 GetPersonalInfoMsg.GetPersonalInfoRsp response = GetPersonalInfoMsg.GetPersonalInfoRsp.parseFrom(objBytes);
-                if(response.getWhere().equals("searchFriend")){
+                if (response.getResultCode().equals(GetPersonalInfoMsg.GetPersonalInfoRsp.ResultCode.FAIL) && response.getWhere().equals("")){
+                    if (!(searchFriend.mHandler == null)){
+                        Message userMsg = searchFriend.mHandler.obtainMessage();
+                        userMsg.what = 1;
+                        searchFriend.mHandler.sendMessage(userMsg);
+                    }
+                }
+                else if(response.getWhere().equals("searchFriend")){
                     Message userMsg = searchFriend.mHandler.obtainMessage();
                     userObj user = new userObj();
                     user.setUserId(response.getUserInfo().getUserId());
@@ -707,21 +714,21 @@ public class Base {
                     userMsg.obj = user;
                     searchFriend.mHandler.sendMessage(userMsg);
                 }
-                if(response.getWhere().equals("page06FragmentUnfriend")){
+                else if(response.getWhere().equals("page06FragmentUnfriend")){
                     Message filesMsg = MainActivity.handlerTab06.obtainMessage();
                     List<FileData.FileItem> showFilesList = response.getFilesList();
                     filesMsg.what = OrderConst.showUnfriendFiles;
                     filesMsg.obj = showFilesList;
                     MainActivity.handlerTab06.sendMessage(filesMsg);
                 }
-                if(response.getWhere().equals("page06FragmentFriend")){
+                else if(response.getWhere().equals("page06FragmentFriend")){
                     Message filesMsg = MainActivity.handlerTab06.obtainMessage();
                     List<FileData.FileItem> showFilesList = response.getFilesList();
                     filesMsg.what = OrderConst.showFriendFiles;
                     filesMsg.obj = showFilesList;
                     MainActivity.handlerTab06.sendMessage(filesMsg);
                 }
-                if(response.getWhere().equals("baseLogin")){
+                else if(response.getWhere().equals("baseLogin")){
                     String id = response.getUserInfo().getUserId();
                     if(!id.equals(Login.userId)){
                         Message userMsg = MainActivity.handlerTab06.obtainMessage();
