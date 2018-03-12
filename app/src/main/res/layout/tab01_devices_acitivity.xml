@@ -93,6 +93,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/LL1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="35dp"
@@ -115,5 +116,19 @@
             android:textColor="#fff"
             android:textSize="16sp"/>
     </LinearLayout>
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_below="@+id/LL1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/add"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/addfriend"
+            android:layout_alignParentEnd="true"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+    </RelativeLayout>
 
 </RelativeLayout>

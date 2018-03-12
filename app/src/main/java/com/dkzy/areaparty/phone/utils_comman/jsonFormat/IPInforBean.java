@@ -29,6 +29,13 @@ public class IPInforBean implements Serializable {
         this.function = function;
         this.launch_time_id = launch_time_id;
     }
+    public IPInforBean(String ip, String port, String name, String mac) {
+        this.ip = ip;
+        this.port = Integer.valueOf(port);
+        this.name = name;
+        this.mac = mac;
+    }
+
 
     public String getIp() {
         return ip;

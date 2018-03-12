@@ -71,12 +71,11 @@ public class SharedFileDialog extends Dialog {
     public void setFileName(String text) {
         this.shareFileName.setText(text);
     }
+    public void hindFileName(){this.shareFileName.setVisibility(View.GONE);}
     public void setTitleText(String text) {
         this.title.setText(text);
     }
-    public void setEditHintText(String hint) {
-        editText.setHint(hint);
-    }
+
     public String getEditText() {
         return editText.getText().toString();
     }
@@ -100,5 +99,15 @@ public class SharedFileDialog extends Dialog {
     }
     public void setNegativeButtonText(String text) {
         this.negativeButton.setText(text);
+    }
+
+    public void setEdit1HintText(String hint) {
+        editText.setHint(hint);
+    }
+    public void setEdit2HintText(String hint) {
+        shareFileUrlET.setHint(hint);
+    }
+    public void setEdit3HintText(String hint) {
+        shareFilePwdET.setHint(hint);
     }
 }

@@ -421,7 +421,7 @@ public class DownloadStateFragment extends Fragment {
                                         ReceiveDownloadProcessFormat receive = (ReceiveDownloadProcessFormat) prepareDataForFragment.getFileActionStateData(
                                                 OrderConst.fileAction_name,
                                                 OrderConst.GETDOWNLOADProcess,
-                                                bean.getPath()
+                                                JsonUitl.objectToString(bean.getReceiveData())
                                         );
                                         if (receive.getStatus() == 200 && receive.getData() != null){
                                             final DownloadProcess process = receive.getData();

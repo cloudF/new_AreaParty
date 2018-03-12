@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_verify;
 import com.dkzy.areaparty.phone.fragment01.ui.DiffuseView;
+import com.dkzy.areaparty.phone.fragment01.ui.SharedFileDialog;
 import com.dkzy.areaparty.phone.fragment01.utils.IdentityVerify;
 import com.dkzy.areaparty.phone.fragment03.utils.TVAppHelper;
 import com.dkzy.areaparty.phone.model_comman.MyAdapter;
@@ -220,6 +221,31 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
                 }
             }
         });
+        findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final SharedFileDialog dialog = new SharedFileDialog(PCDevicesActivity.this);
+                dialog.setCancelable(true);
+                dialog.show();
+                dialog.setTitleText("连接电脑");
+                dialog.hindFileName();
+                dialog.setEdit1HintText("IP");
+                dialog.setEdit2HintText("port");
+                dialog.setEdit3HintText("验证码");
+                dialog.setOnNegativeListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setOnPositiveListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        IdentityVerify.identifyPC(myHandler, dialog.getPwdEditText(), dialog.getEditText(), Integer.valueOf(dialog.getUrlEditText()));
+                    }
+                });
+            }
+        });
     }
 
     /**
@@ -313,6 +339,9 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
                     String t = (String)msg.obj;
                     if(t.equals("true")) {
                         MyApplication.selectedPCVerified = true;
+                        if (temp == null){
+                            temp = new IPInforBean("192.168.1.112","18888","胡国勇","909090");
+                        }
                         MyApplication.setSelectedPCIP(temp);
                         MyApplication.addPCMac(temp.mac, code);
                         pcAdapter.notifyDataSetChanged();

@@ -503,6 +503,12 @@ public class Base {
                             intent.putExtra("msgInfo","下载通路已满，请等待正在下载的文件下载完成后重试");
                             MyApplication.getContext().startService(intent);
                         }
+                        else if(chatData.contains("RELAY_FILE_TOO_BIG")){
+                            Intent intent = new Intent(MyApplication.getContext(),MyService.class);
+                            intent.putExtra("style","holeMsg");
+                            intent.putExtra("msgInfo",chatData.split(",")[1]+"文件太大，请重试");
+                            MyApplication.getContext().startService(intent);
+                        }
                         else if(chatData.contains("fileProcess")){
                             Message friendDownloadStateMsg = DownloadStateFragment.mHandler.obtainMessage();
                             String fileList = chatData.substring(chatData.indexOf(",")+1);

@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.fragment01.page01Fragment;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_page;
@@ -42,10 +43,16 @@ import com.dkzy.areaparty.phone.fragment06.myChatList;
 import com.dkzy.areaparty.phone.fragment06.page06Fragment;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
 import com.dkzy.areaparty.phone.myapplication.inforUtils.FillingIPInforList;
+import com.dkzy.areaparty.phone.myapplication.inforUtils.Update_ReceiveMsgBean;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidkun.com.versionupdatelibrary.entity.VersionUpdateConfig;
+import es.dmoral.toasty.Toasty;
 import protocol.Data.ChatData;
 import protocol.Data.UserData;
 
@@ -175,6 +182,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.e("change", "Create");
         verifyStoragePermissions(this);
@@ -218,6 +232,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         initView();
         initEvent();
         setSelect(page01);
+
+        if(!(MyApplication.getReceiveMsgBean().isEmpty())&& !(MyApplication.getReceiveMsgBean().isNew) && (MyApplication.getReceiveMsgBean().isforceNew == 0)) {
+            showUpdateDialog();
+        }
     }
 
     /**
@@ -270,7 +288,44 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected void onDestroy() {
         Log.e("change", "Destroy");
         MyConnector.getInstance().closeLongConnect();
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
+    }
+    @Subscriber(tag = "newVersionInforChecked")
+    private void upDateVersionInfor(Update_ReceiveMsgBean event) {
+        if(event.isforceNew == 1) {
+            showUpdateDialog();
+        }
+    }
+    public void showUpdateDialog(){
+        final UpdateApplicationDialog dialog = new UpdateApplicationDialog(this);
+        dialog.setCancelable(false);
+        dialog.show();
+        dialog.setUpdataContent(MyApplication.getReceiveMsgBean().updataContent);
+        dialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                MyApplication.getInstance().exit();
+            }
+        });
+        dialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                update();
+                //dialog.dismiss();
+            }
+        });
+    }
+    private void update(){
+        VersionUpdateConfig.getInstance()
+                .setContext(this)
+                .setDownLoadURL(MyApplication.getReceiveMsgBean().url)
+                .setNotificationIconRes(R.mipmap.app_logo)
+                .setNotificationSmallIconRes(R.mipmap.app_logo)
+                .setNotificationTitle("AreaParty应用升级")
+                .startDownLoad();
+        Toasty.info(this, "即将下载最新版本", Toast.LENGTH_SHORT, true).show();
     }
 
     private void initEvent() {

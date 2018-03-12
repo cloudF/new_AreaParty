@@ -80,8 +80,8 @@ public class Send2SpecificPCThread extends Thread {
                 dataReceived = reader.readLine();
                 String  decryptdata = AESc.DecryptDoNet(dataReceived,code.substring(0,8));
 
-                Log.i("Send2PCThread", "指令: " + cmdStr);
-                Log.i("Send2PCThread", "回复: " + decryptdata);
+                Log.i("Send2SpecificPCThread", "指令: " + cmdStr);
+                Log.i("Send2SpecificPCThread", "回复: " + decryptdata);
                 if(decryptdata.length() > 0) {
                     try {
                         ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(decryptdata, ReceivedActionMessageFormat.class);

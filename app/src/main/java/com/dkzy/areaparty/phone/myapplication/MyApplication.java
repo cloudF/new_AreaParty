@@ -8,16 +8,19 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.dkzy.areaparty.phone.AESc;
 import com.dkzy.areaparty.phone.IPAddressConst;
 import com.dkzy.areaparty.phone.MyConnector;
 import com.dkzy.areaparty.phone.OrderConst;
+import com.dkzy.areaparty.phone.UpdateApplicationDialog;
 import com.dkzy.areaparty.phone.androideventbusutils.events.SelectedDeviceChangedEvent;
 import com.dkzy.areaparty.phone.androideventbusutils.events.TVPCNetStateChangeEvent;
 import com.dkzy.areaparty.phone.androideventbusutils.events.changeSelectedDeviceNameEvent;
@@ -650,6 +653,8 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
             public void run() {
                 AREAPARTY_NET = GetInetAddress(domain);
                 statisticServer_ip = GetInetAddress(domain1);
+                //statisticServer_ip = "192.168.1.139";
+                //statisticServer_ip = "119.23.74.220";
             }
         }).start();
 
@@ -883,4 +888,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         }
         return IPAddress;
     }
+
+
+
 }

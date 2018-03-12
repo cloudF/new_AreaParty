@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.R;
+import com.dkzy.areaparty.phone.UpdateApplicationDialog;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
 import com.dkzy.areaparty.phone.myapplication.inforUtils.Update_ReceiveMsgBean;
 
@@ -119,16 +121,36 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
                 if(MyApplication.getReceiveMsgBean().isNew) {
                     Toasty.info(this, "当前已是最新版本", Toast.LENGTH_SHORT, true).show();
                 } else {
-                    VersionUpdateConfig.getInstance()
-                        .setContext(this)
-                        .setDownLoadURL(MyApplication.getReceiveMsgBean().url)
-                        .setNotificationIconRes(R.mipmap.app_logo)
-                        .setNotificationSmallIconRes(R.mipmap.app_logo)
-                        .setNotificationTitle("AreaParty应用升级")
-                        .startDownLoad();
-                    Toasty.info(this, "即将下载最新版本", Toast.LENGTH_SHORT, true).show();
+                    final UpdateApplicationDialog dialog = new UpdateApplicationDialog(this);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.show();
+                    dialog.setUpdataContent(MyApplication.getReceiveMsgBean().updataContent);
+                    dialog.setOnNegativeListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.setOnPositiveListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            update();
+                            dialog.dismiss();
+                        }
+                    });
+
                 }
                 break;
         }
+    }
+    private void update(){
+        VersionUpdateConfig.getInstance()
+                .setContext(this)
+                .setDownLoadURL(MyApplication.getReceiveMsgBean().url)
+                .setNotificationIconRes(R.mipmap.app_logo)
+                .setNotificationSmallIconRes(R.mipmap.app_logo)
+                .setNotificationTitle("AreaParty应用升级")
+                .startDownLoad();
+        Toasty.info(this, "即将下载最新版本", Toast.LENGTH_SHORT, true).show();
     }
 }
