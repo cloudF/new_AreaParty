@@ -791,6 +791,14 @@ public class CommandUtil {
         cmd.setFifthCommand(f);
         return cmd;
     }
+    public static TVCommandItem createLoadLyricVLCCommand(String url) {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.VLCAction_firCommand);
+        cmd.setSecondcommand(OrderConst.VLCAction_LoadLRC_SecondCommand);
+        cmd.setFourthCommand(url);
+        cmd.setFifthCommand("");
+        return cmd;
+    }
 
 
     public static TVCommandItem createHideSubtitleVLCCommand() {

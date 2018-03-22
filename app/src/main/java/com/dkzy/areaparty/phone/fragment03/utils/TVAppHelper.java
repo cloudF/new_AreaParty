@@ -234,4 +234,9 @@ public class TVAppHelper {
         String cmd = JsonUitl.objectToString(CommandUtil.createSubtitleDelayVLCCommand());
         new Send2TVThread(cmd).start();
     }
+
+    public static void vedioPlayControlLoadLyric(String url){
+        String cmd = JsonUitl.objectToString(CommandUtil.createLoadLyricVLCCommand(url));
+        new Send2TVThread(cmd).start();
+    }
 }

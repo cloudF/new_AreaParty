@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.dkzy.areaparty.phone.AESc;
+import com.dkzy.areaparty.phone.CrashHandler;
 import com.dkzy.areaparty.phone.IPAddressConst;
 import com.dkzy.areaparty.phone.MyConnector;
 import com.dkzy.areaparty.phone.OrderConst;
@@ -646,8 +647,8 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
 
     @Override
     public void onCreate() {
-        Log.e("MyApplication", "applicationCreate");
         super.onCreate();
+        CrashHandler.getInstance().init(this);
         new Thread(new Runnable() {
             @Override
             public void run() {

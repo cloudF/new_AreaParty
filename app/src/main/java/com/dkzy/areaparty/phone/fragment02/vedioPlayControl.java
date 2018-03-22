@@ -3,6 +3,7 @@ package com.dkzy.areaparty.phone.fragment02;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.androideventbusutils.events.TvPlayerChangeEvent;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_page;
+import com.dkzy.areaparty.phone.fragment02.lyric.ActionDialog_Lyric;
+import com.dkzy.areaparty.phone.fragment02.lyric.LyricUtil;
 import com.dkzy.areaparty.phone.fragment02.subtitle.ActionDialog_subTitle;
 import com.dkzy.areaparty.phone.fragment02.subtitle.SubTitleUtil;
 import com.dkzy.areaparty.phone.fragment02.view.RemoteControlView;
@@ -138,13 +141,12 @@ public class vedioPlayControl extends AppCompatActivity {
 
                         @Override
                         public void onFinishLoad() {
-                            Log.w("VideoPlayerActivity",SubTitleUtil.subTitleList.size()+"pppppppp");
-
+                            //Log.w("VideoPlayerActivity",SubTitleUtil.subTitleList.size()+"pppppppp");
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     if (SubTitleUtil.subTitleList.size() > 0){
-                                        showHelpInfoDialog();
+                                        showSubTitleDialog();
                                     }else {
                                         Toasty.error(vedioPlayControl.this,"未找到字幕").show();
                                     }
@@ -155,13 +157,48 @@ public class vedioPlayControl extends AppCompatActivity {
                     });
                     subTitleUtil.getInternetSub(player_title.getText().toString());
 
-                }else {
+                }
+                else if (Subtitle.getText().equals("隐藏字幕")){
                     TVAppHelper.vedioPlayControlHideSubtitle();
                     if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("VIDEO")){
                         Subtitle.setText("加载字幕");
                     }else {
                         Subtitle.setText("加载歌词");
                     }
+                }
+                else if (Subtitle.getText().equals("加载歌词")){
+                    final LyricUtil lyricUtil = new LyricUtil();
+                    lyricUtil.setListener(new LyricUtil.OnLoadListener() {
+                        @Override
+                        public void onStartLoad() {
+
+                        }
+
+                        @Override
+                        public void onFinishLoad() {
+                            Log.w("VideoPlayerActivity",LyricUtil.lyricList.size()+"qqqqqqqq");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (LyricUtil.lyricList.size()>0){
+                                        Toast.makeText(vedioPlayControl.this, "找到歌词", Toast.LENGTH_SHORT).show();
+                                        showLyricDialog();
+                                    } else {
+                                        Toasty.error(vedioPlayControl.this,"未找到歌词").show();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    try{
+                        String time = player_overlay_length.getText().toString();
+                        String hour = time.substring(0,time.indexOf(":"));
+                        String minute = time.substring(time.indexOf(":")+1,time.lastIndexOf(":"));
+                        String second = time.substring(time.lastIndexOf(":")+1);
+                        int secondTime = Integer.valueOf(hour)*3600+Integer.valueOf(minute)*60+Integer.valueOf(second);
+                        lyricUtil.searchLyric(player_title.getText().toString(),String.valueOf(secondTime)+"000");
+                    }catch (Exception e){e.printStackTrace();}
+
                 }
 
             }
@@ -414,9 +451,28 @@ public class vedioPlayControl extends AppCompatActivity {
         Subtitle=(Button) findViewById(R.id.subtitle);
         subtitle_before=(Button)findViewById(R.id.subtitle_before);
         subtitle_delay=(Button)findViewById(R.id.subtitle_delay);
-
         if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("audio")){
             Subtitle.setText("加载歌词");
+        }
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkPlayerType();
+            }
+        },1500);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkPlayerType();
+            }
+        },3500);
+    }
+    private void checkPlayerType(){
+        if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("audio")){
+            Subtitle.setText("加载歌词");
+        }else {
+            Subtitle.setText("加载字幕");
         }
     }
 
@@ -525,7 +581,12 @@ public class vedioPlayControl extends AppCompatActivity {
                     }
 
                     player_overlay_length.setText(length);
-                    player_title.setText(title);
+                    if(title.contains("/")){
+                        player_title.setText(title.substring(title.lastIndexOf("/")+1));
+                    }else {
+                        player_title.setText(title);
+                    }
+
                 }
             });
         }
@@ -590,9 +651,27 @@ public class vedioPlayControl extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+    public void showLyricDialog(){
+        final ActionDialog_Lyric dialog = new ActionDialog_Lyric(this,LyricUtil.lyricList);
+        dialog.setCancelable(true);
+        dialog.show();
+        dialog.setTitleText("歌词搜索结果");
+        dialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendLyricUrl(dialog.getSelectedNameAccesskey(),dialog.getSelectedId());
+                dialog.dismiss();
+            }
+        });
+    }
 
-
-    public  void showHelpInfoDialog(){
+    public  void showSubTitleDialog(){
         final ActionDialog_subTitle dialog = new ActionDialog_subTitle(this, SubTitleUtil.subTitleList);
         dialog.setCancelable(true);
         dialog.show();
@@ -649,5 +728,14 @@ public class vedioPlayControl extends AppCompatActivity {
         if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("VIDEO")){
             Subtitle.setText("隐藏字幕");
         }
+    }
+
+    private void sendLyricUrl(String accesskey , String id){
+        String url = "http://lyrics.kugou.com/download?ver=1&client=pc&id="+id+"&accesskey="+accesskey+"&fmt=lrc&charset=utf8";
+        Log.w("VideoPlayerActivity",url);
+        TVAppHelper.vedioPlayControlLoadLyric(url);
+        /*if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("VIDEO")){
+            Subtitle.setText("隐藏字幕");
+        }*/
     }
 }

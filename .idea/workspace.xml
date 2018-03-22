@@ -15,14 +15,17 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="收到更新的消息" />
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="warn" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="Ly" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1a645c2-23be-440c-9850-89cb759fbe56" name="Default" comment="优化了一些界面细节">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/UpdateApplicationDialog.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/update_dialog.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/CrashHandler.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/ActionDialog_Lyric.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/Lyric.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/LyricAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/LyricUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
@@ -31,24 +34,19 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/release/AreaParty1.0.apk" afterPath="$PROJECT_DIR$/app/release/AreaParty1.0.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/release/output.json" afterPath="$PROJECT_DIR$/app/release/output.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/Base.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/Base.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/PCDevicesActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/PCDevicesActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/setting/SettingMainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/setting/SettingMainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/ui/SharedFileDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/ui/SharedFileDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment06/DownloadStateFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment06/DownloadStateFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/OrderConst.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/OrderConst.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/page01Fragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/page01Fragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitleAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitleAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitleUtil.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitleUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/vedioPlayControl.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/vedioPlayControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment03/utils/TVAppHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment03/utils/TVAppHelper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/MyApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/MyApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/inforUtils/Update_ReceiveMsgBean.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/inforUtils/Update_ReceiveMsgBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/Send2SpecificPCThread.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/Send2SpecificPCThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/jsonFormat/IPInforBean.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/jsonFormat/IPInforBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/tab01_devices_acitivity.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tab01_devices_acitivity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/com/android/support/constraint/group-index.xml" afterPath="$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/com/android/support/constraint/group-index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/com/android/support/group-index.xml" afterPath="$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/com/android/support/group-index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/master-index.xml" afterPath="$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/master-index.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/CommandUtil.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/CommandUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/jsonFormat/JsonUitl.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/jsonFormat/JsonUitl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utilseverywhere/utils/SharedPreferenceUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utilseverywhere/utils/SharedPreferenceUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/login.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/top01.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/top01.xml" />
     </list>
     <ignored path="android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -84,177 +82,199 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MyApplication.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/MyApplication.java">
+      <file leaf-file-name="vedioPlayControl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/vedioPlayControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="490" column="51" lean-forward="false" selection-start-line="490" selection-start-column="44" selection-end-line="490" selection-end-column="51" />
+            <state relative-caret-position="152">
+              <caret line="735" column="34" lean-forward="false" selection-start-line="735" selection-start-column="34" selection-end-line="735" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="class#6977:8133" expanded="false" />
-                <element signature="method#getPcAreaPartyPath#0;class#MyApplication#0" expanded="true" />
-                <element signature="e#13386#13507#0" expanded="false" />
-                <element signature="e#20986#21105#0" expanded="false" />
-                <element signature="docComment;method#startCheckIsNewVersionExist#0;class#MyApplication#0" expanded="true" />
-                <element signature="method#getVersion#0;class#MyApplication#0" expanded="true" />
-                <element signature="method#onCreate#0;class#MyApplication#0" expanded="true" />
-                <element signature="method#GetInetAddress#0;class#MyApplication#0" expanded="true" />
+                <element signature="method#onCreate#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="method#onFinishLoad#0;class#4883:5802" expanded="true" />
+                <element signature="e#5262#5752#0" expanded="true" />
+                <element signature="e#5751#5752#0" expanded="true" />
+                <element signature="method#onStartLoad#0;class#6462:7473" expanded="true" />
+                <element signature="method#onFinishLoad#0;class#6462:7473" expanded="true" />
+                <element signature="e#6830#7423#0" expanded="true" />
+                <element signature="e#7422#7423#0" expanded="true" />
+                <element signature="e#8225#8406#0" expanded="true" />
+                <element signature="e#8405#8406#0" expanded="true" />
+                <element signature="e#8452#8632#0" expanded="true" />
+                <element signature="e#8631#8632#0" expanded="true" />
+                <element signature="e#9150#9331#0" expanded="true" />
+                <element signature="e#9330#9331#0" expanded="true" />
+                <element signature="e#10518#11780#0" expanded="true" />
+                <element signature="e#10899#11451#0" expanded="true" />
+                <element signature="e#11450#11451#0" expanded="true" />
+                <element signature="e#11779#11780#0" expanded="true" />
+                <element signature="e#12166#12345#0" expanded="true" />
+                <element signature="e#12344#12345#0" expanded="true" />
+                <element signature="e#13535#14794#0" expanded="true" />
+                <element signature="e#13915#14465#0" expanded="true" />
+                <element signature="e#14464#14465#0" expanded="true" />
+                <element signature="e#14793#14794#0" expanded="true" />
+                <element signature="e#15033#15873#0" expanded="true" />
+                <element signature="e#15872#15873#0" expanded="true" />
+                <element signature="e#16072#16359#0" expanded="true" />
+                <element signature="e#16358#16359#0" expanded="true" />
+                <element signature="e#16591#16938#0" expanded="true" />
+                <element signature="e#16937#16938#0" expanded="true" />
+                <element signature="method#initView#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="e#17623#17752#0" expanded="true" />
+                <element signature="e#17751#17752#0" expanded="true" />
+                <element signature="e#17794#17923#0" expanded="true" />
+                <element signature="e#17922#17923#0" expanded="true" />
+                <element signature="method#checkPlayerType#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="class#MySeekbar#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="method#onProgressChanged#0;class#MySeekbar#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="e#18412#18413#0" expanded="true" />
+                <element signature="e#18451#18452#0" expanded="true" />
+                <element signature="method#onStopTrackingTouch#0;class#MySeekbar#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="e#18766#19110#0" expanded="true" />
+                <element signature="e#19109#19110#0" expanded="true" />
+                <element signature="method#updateTime#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="method#updateTimeInThread#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="e#19993#20164#0" expanded="true" />
+                <element signature="e#20163#20164#0" expanded="true" />
+                <element signature="method#play#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="method#pause#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="method#exit#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="e#20669#21000#0" expanded="true" />
+                <element signature="e#20999#21000#0" expanded="true" />
+                <element signature="method#checkPlayInfo#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="e#21323#21970#0" expanded="true" />
+                <element signature="e#21969#21970#0" expanded="true" />
+                <element signature="method#playAppointPosition#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="method#onKeyDown#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="method#showLyricDialog#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="e#24074#24315#0" expanded="true" />
+                <element signature="e#24314#24315#0" expanded="true" />
+                <element signature="method#showSubTitleDialog#0;class#vedioPlayControl#0" expanded="true" />
+                <element signature="e#24565#24718#0" expanded="true" />
+                <element signature="e#24717#24718#0" expanded="true" />
+                <element signature="e#24758#26685#0" expanded="true" />
+                <element signature="method#onStartLoad#0;class#24945:26293" expanded="true" />
+                <element signature="method#onFinishLoad#0;class#24945:26293" expanded="true" />
+                <element signature="e#25220#26243#0" expanded="true" />
+                <element signature="e#26242#26243#0" expanded="true" />
+                <element signature="e#26684#26685#0" expanded="true" />
+                <element signature="method#sendSubTitleUrl#0;class#vedioPlayControl#0" expanded="true" />
+                <marker date="1521536418803" expanded="true" signature="4544:5907" ph="{...}" />
+                <marker date="1521536418803" expanded="false" signature="5967:6289" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Login.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/Login.java">
+      <file leaf-file-name="videoLibActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/videoLibActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="134" column="33" lean-forward="false" selection-start-line="134" selection-start-column="33" selection-end-line="134" selection-end-column="33" />
+            <state relative-caret-position="-1205">
+              <caret line="50" column="13" lean-forward="false" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/login.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="SubTitleAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitleAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+            <state relative-caret-position="269">
+              <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/MainActivity.java">
+      <file leaf-file-name="SubTitleUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitleUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2838">
-              <caret line="235" column="156" lean-forward="false" selection-start-line="235" selection-start-column="156" selection-end-line="235" selection-end-column="156" />
+            <state relative-caret-position="180">
+              <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#onKeyDown#0;class#MainActivity#0" expanded="true" />
-                <element signature="docComment;method#exitAppDialog#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#exitAppDialog#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#onConfigurationChanged#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#onStart#0;class#MainActivity#0" expanded="true" />
-                <element signature="docComment;method#getChatDBManager#0;class#MainActivity#0" expanded="true" />
-                <element signature="e#9019#9020#0" expanded="true" />
-                <element signature="e#9055#9056#0" expanded="true" />
-                <element signature="method#getFriendRequestDBManager#0;class#MainActivity#0" expanded="true" />
-                <element signature="e#9236#9237#0" expanded="true" />
-                <element signature="e#9279#9280#0" expanded="true" />
-                <element signature="e#9324#9325#0" expanded="true" />
-                <element signature="e#9349#9350#0" expanded="true" />
-                <element signature="method#verifyStoragePermissions#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#onResume#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#onPause#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#onDestroy#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#upDateVersionInfor#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#showUpdateDialog#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#update#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#initEvent#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#onPageScrolled#0;class#12184:12595" expanded="true" />
-                <element signature="e#12434#12435#0" expanded="true" />
-                <element signature="e#12485#12486#0" expanded="true" />
-                <element signature="method#onPageScrollStateChanged#0;class#12184:12595" expanded="true" />
-                <element signature="method#initView#0;class#MainActivity#0" expanded="true" />
-                <element signature="e#18151#18152#0" expanded="true" />
-                <element signature="e#18213#18214#0" expanded="true" />
-                <element signature="e#18272#18273#0" expanded="true" />
-                <element signature="e#18327#18328#0" expanded="true" />
-                <element signature="method#destroyItem#0;class#18027:18527" expanded="true" />
-                <element signature="method#onClick#0;class#MainActivity#0" expanded="true" />
-                <element signature="docComment;method#setSelect#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#setSelect#0;class#MainActivity#0" expanded="true" />
-                <element signature="docComment;method#resetImgText#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#resetImgText#0;class#MainActivity#0" expanded="true" />
-                <element signature="method#showHelpInfoDialog#0;class#MainActivity#0" expanded="true" />
+                <element signature="method#SubTitleUtil#0;class#SubTitleUtil#0" expanded="true" />
+                <element signature="method#getInternetSub#0;class#SubTitleUtil#0" expanded="true" />
+                <element signature="method#getSubTitleUrl#0;class#SubTitleUtil#0" expanded="true" />
+                <element signature="class#OnLoadListener#0;class#SubTitleUtil#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Update_ReceiveMsgBean.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/inforUtils/Update_ReceiveMsgBean.java">
+      <file leaf-file-name="LyricUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/LyricUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-              <folding>
-                <element signature="docComment;class#Update_ReceiveMsgBean#0" expanded="false" />
-                <element signature="method#Update_ReceiveMsgBean#1;class#Update_ReceiveMsgBean#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyConnector.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/MyConnector.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1144">
-              <caret line="343" column="16" lean-forward="false" selection-start-line="343" selection-start-column="16" selection-end-line="343" selection-end-column="16" />
-              <folding>
-                <element signature="method#closeLongConnect#0;class#MyConnector#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Base.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/Base.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="880">
-              <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FloatView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/floatview/FloatView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1122">
-              <caret line="216" column="16" lean-forward="false" selection-start-line="216" selection-start-column="16" selection-end-line="216" selection-end-column="70" />
-              <folding>
-                <element signature="e#17753#17952#0" expanded="true" />
-                <element signature="e#17951#17952#0" expanded="true" />
-                <element signature="e#34020#34165#0" expanded="true" />
-                <element signature="e#34164#34165#0" expanded="true" />
-                <element signature="e#37284#37429#0" expanded="true" />
-                <element signature="e#37428#37429#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="9" column="21" lean-forward="false" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SettingMainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/setting/SettingMainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="770">
-              <caret line="80" column="103" lean-forward="false" selection-start-line="80" selection-start-column="58" selection-end-line="80" selection-end-column="103" />
+            <state relative-caret-position="477">
+              <caret line="41" column="24" lean-forward="false" selection-start-line="41" selection-start-column="15" selection-end-line="41" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="docComment;class#SettingMainActivity#0" expanded="true" />
-                <element signature="method#onStart#0;class#SettingMainActivity#0" expanded="true" />
-                <element signature="method#onCreate#0;class#SettingMainActivity#0" expanded="true" />
-                <element signature="e#1669#1670#0" expanded="true" />
-                <element signature="e#1747#1748#0" expanded="true" />
-                <element signature="method#onDestroy#0;class#SettingMainActivity#0" expanded="true" />
-                <element signature="method#upDateVersionInfor#0;class#SettingMainActivity#0" expanded="true" />
-                <element signature="method#initEvent#0;class#SettingMainActivity#0" expanded="true" />
-                <element signature="method#onClick#0;class#SettingMainActivity#0" expanded="true" />
-                <element signature="method#update#0;class#SettingMainActivity#0" expanded="true" />
+                <element signature="method#onResponse#0;class#1451:2809" expanded="true" />
+                <element signature="class#OnLoadListener#0;class#LyricUtil#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReceiveCommandFromTVPlayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/ReceiveCommandFromTVPlayer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1285">
+              <caret line="72" column="55" lean-forward="false" selection-start-line="72" selection-start-column="55" selection-end-line="72" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TVAppHelper.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment03/utils/TVAppHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="344">
+              <caret line="239" column="0" lean-forward="false" selection-start-line="239" selection-start-column="0" selection-end-line="239" selection-end-column="0" />
+              <folding>
+                <element signature="method#vedioPlayControlLoadSubtitle#0;class#TVAppHelper#0" expanded="true" />
+                <element signature="method#vedioPlayControlSubtitleDelay#0;class#TVAppHelper#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Send2TVThread.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/Send2TVThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-347">
+              <caret line="38" column="22" lean-forward="false" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
+              <folding>
+                <element signature="e#1096#1097#0" expanded="true" />
+                <element signature="e#1126#1127#0" expanded="true" />
+                <element signature="method#run#0;class#Send2TVThread#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JsonUitl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/jsonFormat/JsonUitl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="17" column="32" lean-forward="false" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+              <folding>
+                <element signature="e#928#929#0" expanded="true" />
+                <element signature="e#971#972#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommandUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/CommandUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="148">
+              <caret line="793" column="42" lean-forward="false" selection-start-line="793" selection-start-column="42" selection-end-line="793" selection-end-column="42" />
+              <folding>
+                <element signature="method#createLoadSubtitleVLCCommand#0;class#CommandUtil#0" expanded="true" />
+                <element signature="method#createLoadLyricVLCCommand#0;class#CommandUtil#0" expanded="true" />
+                <element signature="method#createSubtitleDelayVLCCommand#0;class#CommandUtil#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -273,21 +293,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fileSLV</find>
-      <find>adapter</find>
-      <find>sharedFileRefreshLL</find>
-      <find>id_tab06_fileWrap</find>
-      <find>0x614</find>
-      <find>files_</find>
-      <find>userFileAdapter</find>
-      <find>id_tab06_fileComputer</find>
-      <find>file.size</find>
-      <find>审批</find>
-      <find>transform_wrap</find>
-      <find>Toasty</find>
-      <find>dial</find>
-      <find>AlertD</find>
-      <find>注册</find>
       <find>bar02MoreShareLL</find>
       <find>tvDatasList</find>
       <find>游戏</find>
@@ -303,6 +308,21 @@
       <find>isforceNew</find>
       <find>event</find>
       <find>广播</find>
+      <find>id_tab06_net</find>
+      <find>id_tab06_userFriend</find>
+      <find>userFriendAdapter</find>
+      <find>ok</find>
+      <find>client</find>
+      <find>onclick</find>
+      <find>player_title</find>
+      <find>setOnC</find>
+      <find>(&quot;加载字幕&quot;)</find>
+      <find>(&quot;加载歌词&quot;)</find>
+      <find>lyricList</find>
+      <find>listener1</find>
+      <find>subTitleUtil</find>
+      <find>player_overlay_time</find>
+      <find>player_overlay_length</find>
     </findStrings>
     <replaceStrings>
       <replace>TVFileHelper</replace>
@@ -2841,22 +2861,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/tab06_fileitem.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/downloadActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment06/zhuyulin/ReceiveData.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment06/zhuyulin/DownloadBean.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/tab06_download_manager_downfolderfragment.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/MyService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment06/DownloadFolderFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/websitemanager/web1080/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment03/utils/TVAppHelper.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment03/page03Fragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/model/SharedfileBean.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/websitemanager/web1080/RemoteDownloadActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/ui/SwipeListView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/sharedFileIntentActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/base/SharedFileContentAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/OrderConst.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/MyHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment06/zhuyulin/SharedFileItem.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment06/page06Fragment.java" />
@@ -2886,12 +2890,28 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/tab01_devices_acitivity.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/UpdateApplicationDialog.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/update_dialog.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/MyApplication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/inforUtils/Update_ReceiveMsgBean.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/setting/SettingMainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utilseverywhere/utils/SharedPreferenceUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/MyApplication.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/CrashHandler.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/top01.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/page01Fragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitleUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/Lyric.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/LyricUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitleAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/subtitle_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/LyricAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/ActionDialog_Lyric.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/OrderConst.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/CommandUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment03/utils/TVAppHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/vedioPlayControl.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/jsonFormat/JsonUitl.java" />
       </list>
     </option>
   </component>
@@ -2916,22 +2936,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="new_AreaParty" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="new_AreaParty" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2986,8 +2990,98 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phone" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragment02" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phone" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragment02" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="subtitle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="phone" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragment02" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lyric" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new_AreaParty" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -3025,23 +3119,26 @@
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="device.picker.selection" value="A5RNW17B11026819" />
     <property name="last_opened_file_path" value="F:/Android/ALiPayUtils-master" />
-    <property name="SearchEverywhereHistoryKey" value="TV&#9;PSI&#9;JAVA://com.dkzy.areaparty.phone.fragment01.utils.TVFileHelper&#10;FileItem&#9;PSI&#9;JAVA://com.dkzy.areaparty.phone.fragment02.contentResolver.FileItem&#10;Send&#9;PSI&#9;JAVA://com.dkzy.areaparty.phone.utils_comman.Send2TVThread&#10;send&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/Send2PCThread.java&#10;bas&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/dkzy/areaparty/phone/Base.java&#10;Base&#9;PSI&#9;JAVA://com.dkzy.areaparty.phone.Base&#10;thread&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2SpecificTVThread.java&#10;sen&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.Send2PCThread&#10;PCFil&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.PCFileHelper&#10;Ord&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/OrderConst.java&#10;PC&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.PCFileHelper&#10;JSOn&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.JsonUitl&#10;Htt&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/HttpServer.java&#10;Pre&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.bluetoothxie.PreferebceManager&#10;http&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.HttpServer&#10;tvc&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.model_comman.TVCommandItem&#10;tvapp&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment03/utils/TVAppHelper.java&#10;tva&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.tvpcAppHelper&#10;getTv&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.GetTvListThread&#10;senPC&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.Send2SpecificPCThread&#10;Rece&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/ReceiveCommandFromTVPlayer.java&#10;tv&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment03.utils.TVAppHelper&#10;TVa&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment03/utils/TVAppHelper.java&#10;pc&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/PCFileHelper.java&#10;tvCommandItem&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/model_comman/TVCommandItem.java&#10;Comm&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.model_comman.TVCommandItem&#10;Fill&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/inforUtils/FillingIPInforList.java&#10;PCFile&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.PCFileHelper&#10;IP&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.IPAddressConst&#10;or&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.OrderConst&#10;Or&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/OrderConst.java&#10;Fi&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/inforUtils/FillingIPInforList.java&#10;tvpa&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.tvpcAppHelper&#10;onStart&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.bluetoothxie.KeyboardActivity#onStart&#10;OnResume&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.MainActivity#onResume&#10;Tvhelp&#9;FILE&#9;file://F:/AreaParty/android0829_0918/android0829/android/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment03/utils/TVAppHelper.java&#10;stateCh&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.androideventbusutils.events.TVPCNetStateChangeEvent&#10;WindowM&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.bluetoothxie.FloatView#windowManager&#10;SwipeListView&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.ui.SwipeListView" />
+    <property name="SearchEverywhereHistoryKey" value="My&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/dkzy/areaparty/phone/myapplication/MyApplication.java&#10;sett&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/dkzy/areaparty/phone/fragment01/setting/SettingMainActivity.java&#10;TV&#9;PSI&#9;JAVA://com.dkzy.areaparty.phone.fragment01.utils.TVFileHelper&#10;FileItem&#9;PSI&#9;JAVA://com.dkzy.areaparty.phone.fragment02.contentResolver.FileItem&#10;Send&#9;PSI&#9;JAVA://com.dkzy.areaparty.phone.utils_comman.Send2TVThread&#10;send&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/Send2PCThread.java&#10;bas&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/dkzy/areaparty/phone/Base.java&#10;Base&#9;PSI&#9;JAVA://com.dkzy.areaparty.phone.Base&#10;thread&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/Send2SpecificTVThread.java&#10;sen&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.Send2PCThread&#10;PCFil&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.PCFileHelper&#10;Ord&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/OrderConst.java&#10;PC&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.PCFileHelper&#10;JSOn&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.jsonFormat.JsonUitl&#10;Htt&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/HttpServer.java&#10;Pre&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.bluetoothxie.PreferebceManager&#10;http&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.HttpServer&#10;tvc&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.model_comman.TVCommandItem&#10;tvapp&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment03/utils/TVAppHelper.java&#10;tva&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.tvpcAppHelper&#10;getTv&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.GetTvListThread&#10;senPC&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.utils_comman.Send2SpecificPCThread&#10;Rece&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/utils_comman/ReceiveCommandFromTVPlayer.java&#10;tv&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment03.utils.TVAppHelper&#10;TVa&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment03/utils/TVAppHelper.java&#10;pc&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment01/utils/PCFileHelper.java&#10;tvCommandItem&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/model_comman/TVCommandItem.java&#10;Comm&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.model_comman.TVCommandItem&#10;Fill&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/inforUtils/FillingIPInforList.java&#10;PCFile&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.PCFileHelper&#10;IP&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.IPAddressConst&#10;or&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.OrderConst&#10;Or&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/OrderConst.java&#10;Fi&#9;FILE&#9;file://F:/new_AreaParty/app/src/main/java/com/androidlearning/boris/familycentralcontroler/myapplication/inforUtils/FillingIPInforList.java&#10;tvpa&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.utils.tvpcAppHelper&#10;onStart&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.bluetoothxie.KeyboardActivity#onStart&#10;OnResume&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.MainActivity#onResume&#10;Tvhelp&#9;FILE&#9;file://F:/AreaParty/android0829_0918/android0829/android/app/src/main/java/com/androidlearning/boris/familycentralcontroler/fragment03/utils/TVAppHelper.java&#10;stateCh&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.androideventbusutils.events.TVPCNetStateChangeEvent&#10;WindowM&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.bluetoothxie.FloatView#windowManager&#10;SwipeListView&#9;PSI&#9;JAVA://com.androidlearning.boris.familycentralcontroler.fragment01.ui.SwipeListView" />
     <property name="ExportApk.ApkPath" value="F:\new_AreaParty\app" />
     <property name="ExportApk.Flavors" value="" />
-    <property name="ExportApk.BuildType" value="release" />
+    <property name="ExportApk.BuildType" value="debug" />
     <property name="ExportApk.SignV1" value="true" />
     <property name="ExportApk.SignV2" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="android.profiler.active" value="true" />
-    <property name="DEBUGGABLE_DEVICE" value="meizu-m3-98DKBNN22H96" />
+    <property name="DEBUGGABLE_DEVICE" value="huawei-bnd_al10-A5RNW17B11026819" />
     <property name="DEBUGGABLE_PROCESS" value="com.dkzy.areaparty.phone" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="DEBUGGER_ID" value="Auto" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\new_AreaParty\app\src\main\res\drawable-xxhdpi" />
-      <recent name="F:\new_AreaParty\app\src\main\res\array" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\new_AreaParty\app\src\main\res\layout" />
+      <recent name="F:\new_AreaParty\app\src\main\res\drawable" />
+      <recent name="F:\new_AreaParty\app\src\main\res\drawable-xhdpi" />
+      <recent name="F:\new_AreaParty\app\src\main\assets" />
+      <recent name="F:\new_AreaParty\app\src\main\java\com\dkzy\areaparty\phone\fragment02\subtitle" />
     </key>
     <key name="android.template.packageName">
       <recent name="com.androidlearning.boris.familycentralcontroler.fragment01.websitemanager.start" />
@@ -3054,18 +3151,15 @@
       <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.dkzy.areaparty.phone.fragment02.lyric" />
       <recent name="com.dkzy.areaparty.phone" />
       <recent name="com.dkzy.areaparty.phone.fragment06" />
       <recent name="com.dkzy.areaparty.phone.register" />
       <recent name="com.dkzy.areaparty.phone.fragment02.subtitle" />
-      <recent name="com.dkzy.areaparty.phone.fragment01.ui" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\new_AreaParty\app\src\main\res\layout" />
-      <recent name="F:\new_AreaParty\app\src\main\res\drawable" />
-      <recent name="F:\new_AreaParty\app\src\main\res\drawable-xhdpi" />
-      <recent name="F:\new_AreaParty\app\src\main\assets" />
-      <recent name="F:\new_AreaParty\app\src\main\java\com\dkzy\areaparty\phone\fragment02\subtitle" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\new_AreaParty\app\src\main\res\drawable-xxhdpi" />
+      <recent name="F:\new_AreaParty\app\src\main\res\array" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -3150,7 +3244,8 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520817288429" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1521682898756" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -3197,7 +3292,8 @@
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
       </Profilers>
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520817288429" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1521682898756" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -3229,6 +3325,27 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
@@ -3358,7 +3475,8 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520817288430" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1521682898756" />
       </method>
     </configuration>
     <list size="1">
@@ -3488,28 +3606,29 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1692" height="1026" extended-state="0" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32794458" sideWeight="0.49753696" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.49753696" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23583744" sideWeight="0.5129983" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.50490195" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41685912" sideWeight="0.57843137" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294335" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3048499" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290993" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3152425" sideWeight="0.5391198" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23583744" sideWeight="0.5129983" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3152425" sideWeight="0.4608802" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35334873" sideWeight="0.8930318" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32678983" sideWeight="0.49511003" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23672055" sideWeight="0.4963054" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41685912" sideWeight="0.648533" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3152425" sideWeight="0.4584352" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24693628" sideWeight="0.48700175" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.49509802" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294335" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3048499" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294335" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23583744" sideWeight="0.5129983" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -3521,7 +3640,6 @@
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="StringPreview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32794458" sideWeight="0.49753696" order="7" side_tool="false" content_ui="tabs" />
@@ -3665,7 +3783,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/MyApplication.java</url>
-          <line>541</line>
+          <line>542</line>
           <properties />
           <option name="timeStamp" value="221" />
         </line-breakpoint>
@@ -3680,18 +3798,6 @@
           <line>89</line>
           <properties />
           <option name="timeStamp" value="253" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitleUtil.java</url>
-          <line>67</line>
-          <properties />
-          <option name="timeStamp" value="265" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitleUtil.java</url>
-          <line>140</line>
-          <properties />
-          <option name="timeStamp" value="266" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/utils/prepareDataForFragment.java</url>
@@ -3765,6 +3871,12 @@
           <properties />
           <option name="timeStamp" value="322" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment03/utils/TVAppHelper.java</url>
+          <line>239</line>
+          <properties />
+          <option name="timeStamp" value="337" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/websitemanager/web1080/adapter/TorrentFileAdapter.java</url>
           <line>86</line>
@@ -3774,7 +3886,7 @@
           <option name="timeStamp" value="181" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="335" />
+      <option name="time" value="338" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Remote">
@@ -3783,387 +3895,170 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/contentResolver/ContentDataControl.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab06.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1865">
-          <caret line="52" column="37" lean-forward="false" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
+        <state relative-caret-position="500">
+          <caret line="181" column="56" lean-forward="false" selection-start-line="181" selection-start-column="37" selection-end-line="181" selection-end-column="56" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/PCFileSysActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="234" column="48" lean-forward="false" selection-start-line="234" selection-start-column="48" selection-end-line="234" selection-end-column="48" />
+        <state relative-caret-position="660">
+          <caret line="39" column="8" lean-forward="false" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/third01.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/Base.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="80" column="54" lean-forward="false" selection-start-line="80" selection-start-column="37" selection-end-line="80" selection-end-column="54" />
+        <state relative-caret-position="1694">
+          <caret line="302" column="62" lean-forward="false" selection-start-line="302" selection-start-column="62" selection-end-line="302" selection-end-column="62" />
+          <folding>
+            <element signature="method#getPersonalInfo#0;class#Base#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/addfriend.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/MyHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1914">
+          <caret line="125" column="22" lean-forward="false" selection-start-line="125" selection-start-column="22" selection-end-line="125" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#MyHandler#0" expanded="false" />
+            <element signature="e#1463#1464#0" expanded="false" />
+            <element signature="e#1532#1533#0" expanded="false" />
+            <element signature="e#1574#1575#0" expanded="false" />
+            <element signature="e#1643#1644#0" expanded="false" />
+            <element signature="e#1685#1686#0" expanded="false" />
+            <element signature="e#1754#1755#0" expanded="false" />
+            <element signature="e#1796#1797#0" expanded="false" />
+            <element signature="e#1865#1866#0" expanded="false" />
+            <element signature="method#MyHandler#5;class#MyHandler#0" expanded="false" />
+            <element signature="method#MyHandler#6;class#MyHandler#0" expanded="false" />
+            <element signature="method#MyHandler#7;class#MyHandler#0" expanded="false" />
+            <element signature="method#MyHandler#8;class#MyHandler#0" expanded="false" />
+            <element signature="method#MyHandler#9;class#MyHandler#0" expanded="false" />
+            <element signature="method#MyHandler#10;class#MyHandler#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab04_playpiclist_dialog.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-24/android.jar!/android/widget/SimpleAdapter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="15" column="11" lean-forward="false" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+          <folding />
+        </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab06_useritem.xml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/ui/ActionDialog_verify.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="42" column="81" lean-forward="false" selection-start-line="42" selection-start-column="81" selection-end-line="42" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/ui/ActionDialog_page.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="26" column="13" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab04_addfolder_dialog.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="-1122">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/ui/ActionDialog_playPicList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="52" column="82" lean-forward="false" selection-start-line="52" selection-start-column="82" selection-end-line="52" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/diskContentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="966" column="8" lean-forward="false" selection-start-line="966" selection-start-column="8" selection-end-line="966" selection-end-column="77" />
-          <folding>
-            <element signature="method#onClick#0;class#diskContentActivity#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/rt.jar!/java/net/AbstractPlainSocketImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="356" column="0" lean-forward="false" selection-start-line="356" selection-start-column="0" selection-end-line="356" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-24/android.jar!/android/os/Looper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/jsonFormat/ReceivedActionMessageFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/Send2SpecificPCThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="147" column="0" lean-forward="false" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#Send2SpecificPCThread#0" expanded="true" />
-            <element signature="docComment;method#Send2SpecificPCThread#0;class#Send2SpecificPCThread#0" expanded="true" />
-            <element signature="method#Send2SpecificPCThread#0;class#Send2SpecificPCThread#0" expanded="true" />
-            <element signature="method#run#0;class#Send2SpecificPCThread#0" expanded="true" />
-            <element signature="docComment;method#createCmdStr#0;class#Send2SpecificPCThread#0" expanded="true" />
-            <element signature="method#createCmdStr#0;class#Send2SpecificPCThread#0" expanded="true" />
-            <element signature="docComment;method#parseMesgReceived#0;class#Send2SpecificPCThread#0" expanded="true" />
-            <element signature="method#parseMesgReceived#0;class#Send2SpecificPCThread#0" expanded="true" />
-            <element signature="docComment;method#reportResult#0;class#Send2SpecificPCThread#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/utils/IdentityVerify.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="27" column="15" lean-forward="false" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#IdentityVerify#0" expanded="true" />
-            <element signature="docComment;method#identifyPC#0;class#IdentityVerify#0" expanded="true" />
-            <element signature="method#identifyPC#0;class#IdentityVerify#0" expanded="true" />
-            <element signature="method#identifyTV#0;class#IdentityVerify#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/jsonFormat/IPInforBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="31" column="11" lean-forward="false" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/OrderConst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="138" column="31" lean-forward="false" selection-start-line="138" selection-start-column="31" selection-end-line="138" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/TVDevicesActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="51" column="13" lean-forward="false" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab01_devices_acitivity.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="92" column="19" lean-forward="false" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/ui/SharedFileDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="44" column="86" lean-forward="false" selection-start-line="44" selection-start-column="86" selection-end-line="44" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab04_sharefile_dialog.xml">
       <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="37" lean-forward="false" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
-        </state>
-      </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-24/android.jar!/java/net/DatagramSocket.class">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment06/page06Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="76" column="29" lean-forward="false" selection-start-line="76" selection-start-column="29" selection-end-line="76" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/service.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5112">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/exit_dialog_main.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="-1169">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-24/android.jar!/android/widget/TextView.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="612" column="22" lean-forward="false" selection-start-line="612" selection-start-column="22" selection-end-line="612" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/PCDevicesActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="80" column="45" lean-forward="false" selection-start-line="80" selection-start-column="45" selection-end-line="80" selection-end-column="45" />
+        <state relative-caret-position="4862">
+          <caret line="505" column="5" lean-forward="false" selection-start-line="505" selection-start-column="5" selection-end-line="505" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="docComment;method#onRefresh#0;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="method#onRefresh#0;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="docComment;method#onNetChange#0;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="method#onNetChange#0;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="docComment;method#initData#0;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="method#initData#0;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="method#bindView#0;class#6186:6941" expanded="true" />
-            <element signature="docComment;field#isPCChanged#0;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="method#initEvent#0;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="docComment;method#initView#0;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="method#initView#0;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="method#onClick#0;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="docComment;field#code#0;class#PCDevicesActivity#0" expanded="true" />
-            <element signature="method#verifyDialog#0;class#PCDevicesActivity#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#page06Fragment#0" expanded="false" />
+            <element signature="method#refreshFileData#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#getData#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#onActivityCreated#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#onItemClick#0;class#10073:10690" expanded="false" />
+            <element signature="method#onItemClick#0;class#10776:11016" expanded="false" />
+            <element signature="method#onItemClick#0;class#11073:11315" expanded="false" />
+            <element signature="method#onItemClick#0;class#11376:11611" expanded="false" />
+            <element signature="method#onClick#0;class#11692:12248" expanded="false" />
+            <element signature="method#onClick#0;class#12302:12939" expanded="false" />
+            <element signature="method#onClick#0;class#12991:13618" expanded="false" />
+            <element signature="method#onClick#0;class#13671:14270" expanded="false" />
+            <element signature="method#onClick#0;class#14360:14959" expanded="false" />
+            <element signature="method#onClick#0;class#15014:15613" expanded="false" />
+            <element signature="method#onClick#0;class#15689:16420" expanded="false" />
+            <element signature="method#onClick#0;class#16496:17227" expanded="false" />
+            <element signature="method#onClick#0;class#17305:17780" expanded="false" />
+            <element signature="method#onClick#0;class#17824:18029" expanded="false" />
+            <element signature="method#initData#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#addFriend#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#shareUserLogIn#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#friendUserLogIn#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#getUserMsgFail#0;class#page06Fragment#0" expanded="false" />
+            <element signature="e#25662#25663#0" expanded="false" />
+            <element signature="e#25690#25691#0" expanded="false" />
+            <element signature="method#friendUserAdd#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#userLogOut#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#showListDialog#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#onClick#0;class#29787:29995" expanded="false" />
+            <element signature="method#showFileList#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#showFileInfo#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#onClick#0;class#31084:32427" expanded="false" />
+            <element signature="method#run#0;class#31236:32349" expanded="false" />
+            <element signature="method#showFriendFiles#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#shareFileSuccess#0;class#page06Fragment#0" expanded="false" />
+            <element signature="e#34085#34086#0" expanded="false" />
+            <element signature="e#34118#34119#0" expanded="false" />
+            <element signature="method#shareFileFail#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#addChatNum#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#delChatNum#0;class#page06Fragment#0" expanded="false" />
+            <element signature="method#addFileRequest#0;class#page06Fragment#0" expanded="false" />
+            <element signature="e#35924#35925#0" expanded="false" />
+            <element signature="e#35954#35955#0" expanded="false" />
+            <element signature="method#run#0;class#35992:36670" expanded="false" />
+            <element signature="method#run#0;class#36706:37382" expanded="false" />
+            <element signature="e#37639#37640#0" expanded="false" />
+            <element signature="e#37691#37692#0" expanded="false" />
+            <element signature="e#37749#37750#0" expanded="false" />
+            <element signature="e#37801#37802#0" expanded="false" />
+            <element signature="e#37859#37860#0" expanded="false" />
+            <element signature="e#37891#37892#0" expanded="false" />
+            <element signature="method#getSize#0;class#page06Fragment#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/UpdateApplicationDialog.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/websitemanager/web1080/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="43" column="67" lean-forward="false" selection-start-line="43" selection-start-column="67" selection-end-line="43" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/page01.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/jre/jre/lib/rt.jar!/java/net/PlainSocketImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="228" column="59" lean-forward="false" selection-start-line="228" selection-start-column="59" selection-end-line="228" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/inforUtils/FillingIPInforList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="193" column="75" lean-forward="false" selection-start-line="193" selection-start-column="75" selection-end-line="193" selection-end-column="75" />
+        <state relative-caret-position="110">
+          <caret line="56" column="13" lean-forward="false" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
           <folding>
-            <element signature="method#runBroadCast#0;class#FillingIPInforList#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/update_dialog.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/IPAddressConst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="17" column="36" lean-forward="false" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-24/android.jar!/android/content/Context.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="134" column="27" lean-forward="false" selection-start-line="134" selection-start-column="27" selection-end-line="134" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/androideventbusutils/events/changeSelectedDeviceNameEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/androideventbusutils/events/SelectedDeviceChangedEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/androideventbusutils/events/TvPlayerChangeEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mth/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="8" column="27" lean-forward="false" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab01_setting.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="210" column="28" lean-forward="false" selection-start-line="210" selection-start-column="28" selection-end-line="210" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/androideventbusutils/events/TVPCNetStateChangeEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/page01Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1716">
-          <caret line="227" column="0" lean-forward="false" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
-          <folding>
-            <element signature="e#5899#5908#0" expanded="false" />
-            <element signature="class#6458:6874" expanded="false" />
-            <element signature="class#6909:7325" expanded="false" />
-            <element signature="method#onActivityResult#0;class#page01Fragment#0" expanded="true" />
-            <element signature="method#initView#0;class#page01Fragment#0" expanded="true" />
-            <element signature="method#setDevice#0;class#page01Fragment#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/exitApplicationDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="43" column="78" lean-forward="false" selection-start-line="43" selection-start-column="78" selection-end-line="43" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/MyConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1144">
-          <caret line="343" column="16" lean-forward="false" selection-start-line="343" selection-start-column="16" selection-end-line="343" selection-end-column="16" />
-          <folding>
-            <element signature="method#closeLongConnect#0;class#MyConnector#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/inforUtils/Update_ReceiveMsgBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-          <folding>
-            <element signature="docComment;class#Update_ReceiveMsgBean#0" expanded="false" />
-            <element signature="method#Update_ReceiveMsgBean#1;class#Update_ReceiveMsgBean#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2373#2374#0" expanded="false" />
+            <element signature="e#2426#2427#0" expanded="false" />
+            <element signature="method#handleMessage#0;class#2548:2729" expanded="false" />
+            <element signature="method#onCreate#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#shouldOverrideUrlLoading#0;class#8977:9746" expanded="false" />
+            <element signature="method#shouldInterceptRequest#0;class#8977:9746" expanded="false" />
+            <element signature="e#9950#9951#0" expanded="false" />
+            <element signature="e#10005#10006#0" expanded="false" />
+            <element signature="method#onProgressChanged#0;class#9817:10580" expanded="false" />
+            <element signature="method#onPageStarted#0;class#10650:11578" expanded="false" />
+            <element signature="method#onPageFinished#0;class#10650:11578" expanded="false" />
+            <element signature="method#onDownloadStart#0;class#11638:13893" expanded="false" />
+            <element signature="method#onClick#0;class#12834:13619" expanded="false" />
+            <element signature="method#onClick#0;class#13674:13833" expanded="false" />
+            <element signature="method#onKeyDown#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onDestroy#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#downloadTorrent#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#checkDownloadStatus#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onCreateOptionsMenu#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onOptionsItemSelected#0;class#MainActivity#0" expanded="false" />
+            <element signature="method#onRequestPermissionsResult#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -4173,133 +4068,638 @@
         <state relative-caret-position="770">
           <caret line="80" column="103" lean-forward="false" selection-start-line="80" selection-start-column="58" selection-end-line="80" selection-end-column="103" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#SettingMainActivity#0" expanded="true" />
-            <element signature="method#onStart#0;class#SettingMainActivity#0" expanded="true" />
-            <element signature="method#onCreate#0;class#SettingMainActivity#0" expanded="true" />
-            <element signature="e#1669#1670#0" expanded="true" />
-            <element signature="e#1747#1748#0" expanded="true" />
-            <element signature="method#onDestroy#0;class#SettingMainActivity#0" expanded="true" />
-            <element signature="method#upDateVersionInfor#0;class#SettingMainActivity#0" expanded="true" />
-            <element signature="method#initEvent#0;class#SettingMainActivity#0" expanded="true" />
-            <element signature="method#onClick#0;class#SettingMainActivity#0" expanded="true" />
-            <element signature="method#update#0;class#SettingMainActivity#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#SettingMainActivity#0" expanded="false" />
+            <element signature="method#onStart#0;class#SettingMainActivity#0" expanded="false" />
+            <element signature="method#onCreate#0;class#SettingMainActivity#0" expanded="false" />
+            <element signature="e#1669#1670#0" expanded="false" />
+            <element signature="e#1747#1748#0" expanded="false" />
+            <element signature="method#onDestroy#0;class#SettingMainActivity#0" expanded="false" />
+            <element signature="method#upDateVersionInfor#0;class#SettingMainActivity#0" expanded="false" />
+            <element signature="method#initEvent#0;class#SettingMainActivity#0" expanded="false" />
+            <element signature="method#onClick#0;class#SettingMainActivity#0" expanded="false" />
+            <element signature="e#4912#4913#0" expanded="false" />
+            <element signature="e#4984#4985#0" expanded="false" />
+            <element signature="method#onClick#0;class#5063:5310" expanded="false" />
+            <element signature="method#update#0;class#SettingMainActivity#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/inforUtils/Update_ReceiveMsgBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2838">
-          <caret line="235" column="156" lean-forward="false" selection-start-line="235" selection-start-column="156" selection-end-line="235" selection-end-column="156" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#onKeyDown#0;class#MainActivity#0" expanded="true" />
-            <element signature="docComment;method#exitAppDialog#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#exitAppDialog#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#onConfigurationChanged#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#onStart#0;class#MainActivity#0" expanded="true" />
-            <element signature="docComment;method#getChatDBManager#0;class#MainActivity#0" expanded="true" />
-            <element signature="e#9019#9020#0" expanded="true" />
-            <element signature="e#9055#9056#0" expanded="true" />
-            <element signature="method#getFriendRequestDBManager#0;class#MainActivity#0" expanded="true" />
-            <element signature="e#9236#9237#0" expanded="true" />
-            <element signature="e#9279#9280#0" expanded="true" />
-            <element signature="e#9324#9325#0" expanded="true" />
-            <element signature="e#9349#9350#0" expanded="true" />
-            <element signature="method#verifyStoragePermissions#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#onResume#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#onPause#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#onDestroy#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#upDateVersionInfor#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#showUpdateDialog#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#update#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#initEvent#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#onPageScrolled#0;class#12184:12595" expanded="true" />
-            <element signature="e#12434#12435#0" expanded="true" />
-            <element signature="e#12485#12486#0" expanded="true" />
-            <element signature="method#onPageScrollStateChanged#0;class#12184:12595" expanded="true" />
-            <element signature="method#initView#0;class#MainActivity#0" expanded="true" />
-            <element signature="e#18151#18152#0" expanded="true" />
-            <element signature="e#18213#18214#0" expanded="true" />
-            <element signature="e#18272#18273#0" expanded="true" />
-            <element signature="e#18327#18328#0" expanded="true" />
-            <element signature="method#destroyItem#0;class#18027:18527" expanded="true" />
-            <element signature="method#onClick#0;class#MainActivity#0" expanded="true" />
-            <element signature="docComment;method#setSelect#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#setSelect#0;class#MainActivity#0" expanded="true" />
-            <element signature="docComment;method#resetImgText#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#resetImgText#0;class#MainActivity#0" expanded="true" />
-            <element signature="method#showHelpInfoDialog#0;class#MainActivity#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/Base.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+        <state relative-caret-position="88">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/floatview/FloatView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="216" column="16" lean-forward="false" selection-start-line="216" selection-start-column="16" selection-end-line="216" selection-end-column="70" />
-          <folding>
-            <element signature="e#17753#17952#0" expanded="true" />
-            <element signature="e#17951#17952#0" expanded="true" />
-            <element signature="e#34020#34165#0" expanded="true" />
-            <element signature="e#34164#34165#0" expanded="true" />
-            <element signature="e#37284#37429#0" expanded="true" />
-            <element signature="e#37428#37429#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="21" lean-forward="false" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+        <state relative-caret-position="545">
+          <caret line="61" column="48" lean-forward="true" selection-start-line="61" selection-start-column="48" selection-end-line="61" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/Login.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/utorrent/TorrentFileActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="134" column="33" lean-forward="false" selection-start-line="134" selection-start-column="33" selection-end-line="134" selection-end-column="33" />
+        <state relative-caret-position="352">
+          <caret line="38" column="55" lean-forward="true" selection-start-line="38" selection-start-column="55" selection-end-line="38" selection-end-column="55" />
+          <folding>
+            <element signature="method#onCreate#0;class#TorrentFileActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/utorrent/UTFileActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="176" column="12" lean-forward="false" selection-start-line="176" selection-start-column="12" selection-end-line="176" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/websitemanager/hdhome/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="100" column="62" lean-forward="true" selection-start-line="100" selection-start-column="62" selection-end-line="100" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/websitemanager/hdhome/SearchActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="276" column="129" lean-forward="false" selection-start-line="276" selection-start-column="123" selection-end-line="276" selection-end-column="129" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/websitemanager/hdhome/WelcomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="30" column="4" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/utorrent/UTorrentActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="48" column="13" lean-forward="false" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/utorrent/utils/OkHttpUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="51" column="18" lean-forward="false" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#OkHttpUtils#0" expanded="false" />
+            <element signature="method#getInstance#0;class#OkHttpUtils#0" expanded="false" />
+            <element signature="method#getClient#0;class#OkHttpUtils#0" expanded="false" />
+            <element signature="method#setUrl#0;class#OkHttpUtils#0" expanded="false" />
+            <element signature="method#setAuthorization#0;class#OkHttpUtils#0" expanded="false" />
+            <element signature="method#build#0;class#OkHttpUtils#0" expanded="false" />
+            <element signature="method#buildNormal#0;class#OkHttpUtils#0" expanded="false" />
+            <element signature="method#postBuild#0;class#OkHttpUtils#0" expanded="false" />
+            <element signature="method#upFile#0;class#OkHttpUtils#0" expanded="false" />
+            <element signature="method#onFailure#0;class#4678:5267" expanded="false" />
+            <element signature="method#onResponse#0;class#4678:5267" expanded="false" />
+            <element signature="e#5723#5724#0" expanded="false" />
+            <element signature="e#5785#5786#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/test/runner/0.5/runner-0.5-sources.jar!/android/support/test/runner/MonitoringInstrumentation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="201" column="21" lean-forward="false" selection-start-line="201" selection-start-column="21" selection-end-line="201" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/myapplication/MyApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="490" column="51" lean-forward="false" selection-start-line="490" selection-start-column="44" selection-end-line="490" selection-end-column="51" />
+        <state relative-caret-position="308">
+          <caret line="650" column="18" lean-forward="false" selection-start-line="650" selection-start-column="18" selection-end-line="650" selection-end-column="18" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="class#6977:8133" expanded="false" />
-            <element signature="method#getPcAreaPartyPath#0;class#MyApplication#0" expanded="true" />
-            <element signature="e#13386#13507#0" expanded="false" />
-            <element signature="e#20986#21105#0" expanded="false" />
-            <element signature="docComment;method#startCheckIsNewVersionExist#0;class#MyApplication#0" expanded="true" />
-            <element signature="method#getVersion#0;class#MyApplication#0" expanded="true" />
-            <element signature="method#onCreate#0;class#MyApplication#0" expanded="true" />
-            <element signature="method#GetInetAddress#0;class#MyApplication#0" expanded="true" />
+            <element signature="class#7023:8179" expanded="false" />
+            <element signature="e#13432#13553#0" expanded="false" />
+            <element signature="e#21032#21151#0" expanded="false" />
+            <element signature="e#28334#28373#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/login.xml">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.youth.banner/banner/1.4.9/f29c52e344b0ea9f9aeffd48ca1c3cb6ea4d41fc/banner-1.4.9-sources.jar!/com/youth/banner/Banner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/PCFileSysActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="341" column="117" lean-forward="false" selection-start-line="341" selection-start-column="106" selection-end-line="341" selection-end-column="117" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/top01.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="34" column="10" lean-forward="false" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/page01Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+        <state relative-caret-position="852">
+          <caret line="309" column="67" lean-forward="false" selection-start-line="309" selection-start-column="67" selection-end-line="309" selection-end-column="67" />
+          <folding>
+            <element signature="e#5929#5938#0" expanded="false" />
+            <element signature="method#onCreateView#0;class#page01Fragment#0" expanded="false" />
+            <element signature="method#onActivityCreated#0;class#page01Fragment#0" expanded="false" />
+            <element signature="method#initData#0;class#page01Fragment#0" expanded="false" />
+            <element signature="class#6488:6904" expanded="false" />
+            <element signature="class#6939:7355" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/websitemanager/start/StartActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-748">
+          <caret line="395" column="13" lean-forward="false" selection-start-line="395" selection-start-column="13" selection-end-line="395" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#onCreate#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#onResume#0;class#StartActivity#0" expanded="true" />
+            <element signature="e#6335#6336#0" expanded="true" />
+            <element signature="e#6368#6369#0" expanded="true" />
+            <element signature="method#onClick#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#showHelpInfoDialog#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#initView#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#phoneVIPAppActivity#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#showDialog#0;class#StartActivity#0" expanded="true" />
+            <element signature="e#12677#12830#0" expanded="true" />
+            <element signature="e#12829#12830#0" expanded="true" />
+            <element signature="e#12870#13294#0" expanded="true" />
+            <element signature="e#13293#13294#0" expanded="true" />
+            <element signature="method#onFailure#0;class#14094:16198" expanded="true" />
+            <element signature="e#14221#14455#0" expanded="true" />
+            <element signature="e#14454#14455#0" expanded="true" />
+            <element signature="method#onResponse#0;class#14094:16198" expanded="true" />
+            <element signature="e#16011#16171#0" expanded="true" />
+            <element signature="e#16170#16171#0" expanded="true" />
+            <element signature="method#logoutVip#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#onFailure#0;class#17086:17331" expanded="true" />
+            <element signature="method#onResponse#0;class#17086:17331" expanded="true" />
+            <element signature="method#getVersionCode#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#initViews#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#updateServiceStatus#0;class#StartActivity#0" expanded="true" />
+            <element signature="docComment;method#startUpApplication#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#startUpApplication#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#getAppOpenIntentByPackageName#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#getPackageContext#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#openPackage#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#getLocalIpAddress#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#toast#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#setTag#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#onClickListener#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#getWebSiteUrl#0;class#StartActivity#0" expanded="true" />
+            <element signature="method#onFailure#0;class#32942:34255" expanded="true" />
+            <element signature="method#onResponse#0;class#32942:34255" expanded="true" />
+            <element signature="e#33940#34125#0" expanded="true" />
+            <element signature="e#34124#34125#0" expanded="true" />
+            <element signature="method#initWebSite#0;class#StartActivity#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/CrashHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="87" column="22" lean-forward="false" selection-start-line="87" selection-start-column="22" selection-end-line="87" selection-end-column="22" />
+          <folding>
+            <element signature="e#35#79#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#CrashHandler#0" expanded="false" />
+            <element signature="method#getInstance#0;class#CrashHandler#0" expanded="false" />
+            <element signature="method#CrashHandler#0;class#CrashHandler#0" expanded="false" />
+            <element signature="docComment;method#init#0;class#CrashHandler#0" expanded="false" />
+            <element signature="method#init#0;class#CrashHandler#0" expanded="false" />
+            <element signature="docComment;method#handleException#0;class#CrashHandler#0" expanded="false" />
+            <element signature="method#handleException#0;class#CrashHandler#0" expanded="false" />
+            <element signature="e#2617#2864#0" expanded="false" />
+            <element signature="e#2863#2864#0" expanded="false" />
+            <element signature="docComment;method#collectErrorMessages#0;class#CrashHandler#0" expanded="false" />
+            <element signature="method#collectErrorMessages#0;class#CrashHandler#0" expanded="false" />
+            <element signature="docComment;method#saveErrorMessages#0;class#CrashHandler#0" expanded="false" />
+            <element signature="method#saveErrorMessages#0;class#CrashHandler#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/view/RemoteControlView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="48" column="19" lean-forward="false" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#RemoteControlView#0" expanded="false" />
+            <element signature="docComment;field#coreX#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="e#1752#1753#0" expanded="false" />
+            <element signature="e#1782#1783#0" expanded="false" />
+            <element signature="e#1851#1852#0" expanded="false" />
+            <element signature="e#1888#1889#0" expanded="false" />
+            <element signature="method#RemoteControlView#2;class#RemoteControlView#0" expanded="false" />
+            <element signature="method#onDraw#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="method#onTouchEvent#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="docComment;method#addRoundMenu#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="method#addRoundMenu#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="docComment;method#setCoreMenu#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="method#setCoreMenu#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="method#setBackMenu#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="method#setStopMenu#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="docComment;method#getRotationBetweenLines#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="method#getRotationBetweenLines#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="docComment;method#getDisForTwoSpot#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="method#getDisForTwoSpot#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="docComment;class#RoundMenu#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="class#RoundMenu#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="docComment;class#CoreMenu#0;class#RemoteControlView#0" expanded="false" />
+            <element signature="class#CoreMenu#0;class#RemoteControlView#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-24/android.jar!/java/lang/String.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="140" column="19" lean-forward="false" selection-start-line="140" selection-start-column="19" selection-end-line="140" selection-end-column="19" />
+          <folding>
+            <element signature="e#3746#3747#0" expanded="true" />
+            <element signature="e#3797#3798#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/HttpUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="13" column="17" lean-forward="false" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
+          <folding>
+            <element signature="method#sendHttpRequest#0;class#HttpUtil#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/HttpRequestor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+          <folding>
+            <element signature="method#doGet#0;class#HttpRequestor#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/ActionDialog_subTitle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="51" column="21" lean-forward="false" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+          <folding>
+            <element signature="method#ActionDialog_subTitle#0;class#ActionDialog_subTitle#0" expanded="false" />
+            <element signature="method#onCreate#0;class#ActionDialog_subTitle#0" expanded="false" />
+            <element signature="method#setCustomDialog#0;class#ActionDialog_subTitle#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment01/websitemanager/web1080/adapter/TorrentFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/subtitle_item.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="30" column="65" lean-forward="false" selection-start-line="30" selection-start-column="65" selection-end-line="30" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_subtitle.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1320">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/Lyric.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="7" column="28" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="28" />
+          <folding>
+            <element signature="e#293#294#0" expanded="true" />
+            <element signature="e#323#324#0" expanded="true" />
+            <element signature="e#370#371#0" expanded="true" />
+            <element signature="e#408#409#0" expanded="true" />
+            <element signature="method#Lyric#0;class#Lyric#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
+            <element signature="e#673#674#0" expanded="true" />
+            <element signature="e#723#724#0" expanded="true" />
+            <element signature="e#765#766#0" expanded="true" />
+            <element signature="e#794#795#0" expanded="true" />
+            <element signature="e#819#820#0" expanded="true" />
+            <element signature="e#855#856#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <element signature="e#916#917#0" expanded="true" />
+            <element signature="e#945#946#0" expanded="true" />
+            <element signature="e#989#990#0" expanded="true" />
+            <element signature="e#1025#1026#0" expanded="true" />
+            <element signature="e#1056#1057#0" expanded="true" />
+            <element signature="e#1083#1084#0" expanded="true" />
+            <element signature="e#1123#1124#0" expanded="true" />
+            <element signature="e#1155#1156#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/LyricAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-712">
+          <caret line="28" column="18" lean-forward="false" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#LyricAdapter#0" expanded="false" />
+            <element signature="e#817#818#0" expanded="false" />
+            <element signature="e#846#847#0" expanded="false" />
+            <element signature="class#ViewHolder#0;class#LyricAdapter#0" expanded="false" />
+            <element signature="method#ViewHolder#0;class#ViewHolder#0;class#LyricAdapter#0" expanded="false" />
+            <element signature="method#LyricAdapter#0;class#LyricAdapter#0" expanded="false" />
+            <element signature="method#onCreateViewHolder#0;class#LyricAdapter#0" expanded="false" />
+            <element signature="method#onBindViewHolder#0;class#LyricAdapter#0" expanded="false" />
+            <element signature="e#2268#2644#0" expanded="false" />
+            <element signature="e#2643#2644#0" expanded="false" />
+            <element signature="e#2698#2699#0" expanded="false" />
+            <element signature="e#2736#2737#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/ActionDialog_Lyric.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1444">
+          <caret line="91" column="45" lean-forward="false" selection-start-line="91" selection-start-column="45" selection-end-line="91" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="method#ActionDialog_Lyric#0;class#ActionDialog_Lyric#0" expanded="false" />
+            <element signature="method#onCreate#0;class#ActionDialog_Lyric#0" expanded="false" />
+            <element signature="method#setCustomDialog#0;class#ActionDialog_Lyric#0" expanded="false" />
+            <element signature="method#setOnPositiveListener#0;class#ActionDialog_Lyric#0" expanded="false" />
+            <element signature="method#setOnNegativeListener#0;class#ActionDialog_Lyric#0" expanded="false" />
+            <element signature="e#3332#3333#0" expanded="false" />
+            <element signature="e#3397#3398#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/OrderConst.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="219" column="61" lean-forward="false" selection-start-line="219" selection-start-column="61" selection-end-line="219" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_vedio_play_control.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="115" column="50" lean-forward="false" selection-start-line="115" selection-start-column="29" selection-end-line="115" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/model_comman/TVCommandItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="25" column="18" lean-forward="false" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+          <folding>
+            <element signature="e#616#617#0" expanded="true" />
+            <element signature="e#652#653#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/lyric/LyricUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="41" column="24" lean-forward="false" selection-start-line="41" selection-start-column="15" selection-end-line="41" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#onResponse#0;class#1451:2809" expanded="true" />
+            <element signature="class#OnLoadListener#0;class#LyricUtil#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/CommandUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="793" column="42" lean-forward="false" selection-start-line="793" selection-start-column="42" selection-end-line="793" selection-end-column="42" />
+          <folding>
+            <element signature="method#createLoadSubtitleVLCCommand#0;class#CommandUtil#0" expanded="true" />
+            <element signature="method#createLoadLyricVLCCommand#0;class#CommandUtil#0" expanded="true" />
+            <element signature="method#createSubtitleDelayVLCCommand#0;class#CommandUtil#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitleAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/Send2TVThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-347">
+          <caret line="38" column="22" lean-forward="false" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
+          <folding>
+            <element signature="e#1096#1097#0" expanded="true" />
+            <element signature="e#1126#1127#0" expanded="true" />
+            <element signature="method#run#0;class#Send2TVThread#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/videoLibActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1205">
+          <caret line="50" column="13" lean-forward="false" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/ReceiveCommandFromTVPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1285">
+          <caret line="72" column="55" lean-forward="false" selection-start-line="72" selection-start-column="55" selection-end-line="72" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/vedioPlayControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="735" column="34" lean-forward="false" selection-start-line="735" selection-start-column="34" selection-end-line="735" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#onCreate#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="method#onFinishLoad#0;class#4883:5802" expanded="true" />
+            <element signature="e#5262#5752#0" expanded="true" />
+            <element signature="e#5751#5752#0" expanded="true" />
+            <element signature="method#onStartLoad#0;class#6462:7473" expanded="true" />
+            <element signature="method#onFinishLoad#0;class#6462:7473" expanded="true" />
+            <element signature="e#6830#7423#0" expanded="true" />
+            <element signature="e#7422#7423#0" expanded="true" />
+            <element signature="e#8225#8406#0" expanded="true" />
+            <element signature="e#8405#8406#0" expanded="true" />
+            <element signature="e#8452#8632#0" expanded="true" />
+            <element signature="e#8631#8632#0" expanded="true" />
+            <element signature="e#9150#9331#0" expanded="true" />
+            <element signature="e#9330#9331#0" expanded="true" />
+            <element signature="e#10518#11780#0" expanded="true" />
+            <element signature="e#10899#11451#0" expanded="true" />
+            <element signature="e#11450#11451#0" expanded="true" />
+            <element signature="e#11779#11780#0" expanded="true" />
+            <element signature="e#12166#12345#0" expanded="true" />
+            <element signature="e#12344#12345#0" expanded="true" />
+            <element signature="e#13535#14794#0" expanded="true" />
+            <element signature="e#13915#14465#0" expanded="true" />
+            <element signature="e#14464#14465#0" expanded="true" />
+            <element signature="e#14793#14794#0" expanded="true" />
+            <element signature="e#15033#15873#0" expanded="true" />
+            <element signature="e#15872#15873#0" expanded="true" />
+            <element signature="e#16072#16359#0" expanded="true" />
+            <element signature="e#16358#16359#0" expanded="true" />
+            <element signature="e#16591#16938#0" expanded="true" />
+            <element signature="e#16937#16938#0" expanded="true" />
+            <element signature="method#initView#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="e#17623#17752#0" expanded="true" />
+            <element signature="e#17751#17752#0" expanded="true" />
+            <element signature="e#17794#17923#0" expanded="true" />
+            <element signature="e#17922#17923#0" expanded="true" />
+            <element signature="method#checkPlayerType#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="class#MySeekbar#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="method#onProgressChanged#0;class#MySeekbar#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="e#18412#18413#0" expanded="true" />
+            <element signature="e#18451#18452#0" expanded="true" />
+            <element signature="method#onStopTrackingTouch#0;class#MySeekbar#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="e#18766#19110#0" expanded="true" />
+            <element signature="e#19109#19110#0" expanded="true" />
+            <element signature="method#updateTime#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="method#updateTimeInThread#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="e#19993#20164#0" expanded="true" />
+            <element signature="e#20163#20164#0" expanded="true" />
+            <element signature="method#play#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="method#pause#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="method#exit#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="e#20669#21000#0" expanded="true" />
+            <element signature="e#20999#21000#0" expanded="true" />
+            <element signature="method#checkPlayInfo#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="e#21323#21970#0" expanded="true" />
+            <element signature="e#21969#21970#0" expanded="true" />
+            <element signature="method#playAppointPosition#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="method#onKeyDown#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="method#showLyricDialog#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="e#24074#24315#0" expanded="true" />
+            <element signature="e#24314#24315#0" expanded="true" />
+            <element signature="method#showSubTitleDialog#0;class#vedioPlayControl#0" expanded="true" />
+            <element signature="e#24565#24718#0" expanded="true" />
+            <element signature="e#24717#24718#0" expanded="true" />
+            <element signature="e#24758#26685#0" expanded="true" />
+            <element signature="method#onStartLoad#0;class#24945:26293" expanded="true" />
+            <element signature="method#onFinishLoad#0;class#24945:26293" expanded="true" />
+            <element signature="e#25220#26243#0" expanded="true" />
+            <element signature="e#26242#26243#0" expanded="true" />
+            <element signature="e#26684#26685#0" expanded="true" />
+            <element signature="method#sendSubTitleUrl#0;class#vedioPlayControl#0" expanded="true" />
+            <marker date="1521536418803" expanded="true" signature="4544:5907" ph="{...}" />
+            <marker date="1521536418803" expanded="false" signature="5967:6289" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment02/subtitle/SubTitleUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#SubTitleUtil#0;class#SubTitleUtil#0" expanded="true" />
+            <element signature="method#getInternetSub#0;class#SubTitleUtil#0" expanded="true" />
+            <element signature="method#getSubTitleUrl#0;class#SubTitleUtil#0" expanded="true" />
+            <element signature="class#OnLoadListener#0;class#SubTitleUtil#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/utils_comman/jsonFormat/JsonUitl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="17" column="32" lean-forward="false" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+          <folding>
+            <element signature="e#928#929#0" expanded="true" />
+            <element signature="e#971#972#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dkzy/areaparty/phone/fragment03/utils/TVAppHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="239" column="0" lean-forward="false" selection-start-line="239" selection-start-column="0" selection-end-line="239" selection-end-column="0" />
+          <folding>
+            <element signature="method#vedioPlayControlLoadSubtitle#0;class#TVAppHelper#0" expanded="true" />
+            <element signature="method#vedioPlayControlSubtitleDelay#0;class#TVAppHelper#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

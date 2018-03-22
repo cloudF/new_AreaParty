@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.lang.ref.SoftReference;
+import java.util.Map;
 
 /**
  * <pre>
@@ -174,5 +175,9 @@ public class SharedPreferenceUtils {
      */
     public boolean contains(String key) {
         return getSharedPreferences().contains(key);
+    }
+
+    public static Map<String,?> getAll(){
+        return getSharedPreferences().getAll();
     }
 }

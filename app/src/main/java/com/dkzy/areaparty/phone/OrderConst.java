@@ -218,6 +218,7 @@ public class OrderConst {
 
     public static final String VLCAction_HideSubtitle_SecondCommand = "HIDE_SUBTITLE";
     public static final String VLCAction_LoadSubtitle_SecondCommand = "LOAD_SUBTITLE";
+    public static final String VLCAction_LoadLRC_SecondCommand = "LOAD_LRC";
 
     public static final String GET_AREAPARTY_PATH = "GETAREAPARTYPATH";
 

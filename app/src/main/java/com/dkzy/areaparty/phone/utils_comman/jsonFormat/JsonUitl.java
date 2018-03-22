@@ -1,6 +1,7 @@
 package com.dkzy.areaparty.phone.utils_comman.jsonFormat;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -14,7 +15,9 @@ public class JsonUitl {
     private static Gson mGson = null;
     static {
         if(mGson == null) {
-            mGson = new Gson();
+            mGson = new GsonBuilder()
+                    .disableHtmlEscaping()
+                    .create();
         }
     }
 

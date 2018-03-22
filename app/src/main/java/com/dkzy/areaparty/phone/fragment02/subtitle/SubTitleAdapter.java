@@ -93,7 +93,4 @@ public class SubTitleAdapter extends RecyclerView.Adapter<SubTitleAdapter.ViewHo
         return dataList.size();
     }
 
-    public void remove(TorrentFile itemModel){
-        dataList.remove(itemModel);
-    }
 }
