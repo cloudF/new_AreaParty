@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -176,6 +177,7 @@ public class Login extends AppCompatActivity {
         mSettingButton.setOnClickListener(mListener);
         login_btn_outline.setOnClickListener(mListener);
         mRegisterButton.setOnClickListener(mListener);
+        findViewById(R.id.vertificationLogin_TV).setOnClickListener(mListener);
 
         mHandler = new Handler() {
             @Override
@@ -237,6 +239,7 @@ public class Login extends AppCompatActivity {
                         ((TextView) accreditView.findViewById(R.id.accreditDialogTitle)).setText("等待主设备授权");
                         ((TextView) accreditView.findViewById(R.id.accreditDialogInfo)).setText("请在注册该账号的设备上登录进行授权");
                         ((Button) accreditView.findViewById(R.id.accreditDialogConfirm)).setOnClickListener(mListener);
+                        ((TextView)accreditView.findViewById(R.id.verificationBtn)).setVisibility(View.GONE);
                         dialog.show();
                         break;
                     case 9:
@@ -244,6 +247,15 @@ public class Login extends AppCompatActivity {
                         ((TextView) accreditView.findViewById(R.id.accreditDialogTitle)).setText("主设备不在线");
                         ((TextView) accreditView.findViewById(R.id.accreditDialogInfo)).setText("请打开主设备进行授权操作");
                         ((Button) accreditView.findViewById(R.id.accreditDialogConfirm)).setOnClickListener(mListener);
+                        ((TextView)accreditView.findViewById(R.id.verificationBtn)).getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+                        ((TextView)accreditView.findViewById(R.id.verificationBtn)).setVisibility(View.VISIBLE);
+                        ((TextView)accreditView.findViewById(R.id.verificationBtn)).setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(new Intent(Login.this,LoginByVerificationCode.class));
+                                if (dialog.isShowing()) dialog.dismiss();
+                            }
+                        });
                         dialog.show();
                         break;
                     case 10:
@@ -301,9 +313,14 @@ public class Login extends AppCompatActivity {
                 port = 3333;
             }
         }
+        if(mAccount.getText().toString().equals("") || mPwd.getText().toString().equals("")){
+            mHandler.sendEmptyMessage(0);
+            return;
+        }
         if (outline == false) {
             if (now.getTime() - timer > 3000) {
                 try {
+
                     new Thread(login).start();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -346,6 +363,9 @@ public class Login extends AppCompatActivity {
                 case R.id.accreditDialogConfirm:
                     dialog.dismiss();
                     break;
+                case R.id.vertificationLogin_TV:
+                    startActivity(new Intent(Login.this,LoginByVerificationCode.class));
+                    break;
             }
         }
     };
@@ -376,7 +396,7 @@ public class Login extends AppCompatActivity {
         return carrier + " " + mtyb;
     }
 
-    private static final String marshmallowMacAddress = "02:00:00:00:00:00";
+    public static final String marshmallowMacAddress = "02:00:00:00:00:00";
     private static final String fileAddressMac = "/sys/class/net/wlan0/address";
 
     public static String getAdresseMAC(Context context) {
@@ -612,7 +632,8 @@ public class Login extends AppCompatActivity {
                                 break;
                             }
                         }
-                    }else if(response.getResultCode() == LoginMsg.LoginRsp.ResultCode.MAINPHONEOUTLINE){
+                    }
+                    else if(response.getResultCode() == LoginMsg.LoginRsp.ResultCode.MAINPHONEOUTLINE){
                         mHandler.sendEmptyMessage(9);
                         socket.close();
                         return;
@@ -639,12 +660,11 @@ public class Login extends AppCompatActivity {
                             if(u.getIsFriend()){
                                 userFriend.add(u);
                             }
-                            else if(u.getFileNum() >= base.FILENUM){
-                                userShare.add(u);
-                            }
-                            else{
-                                System.out.println(u.getUserId());
+                            if(u.getIsSpeed()&&u.getIsFriend()){
                                 userNet.add(u);
+                            }
+                            if(u.getIsRecommend()){
+                                userShare.add(u);
                             }
                         }
                     }
@@ -670,6 +690,7 @@ public class Login extends AppCompatActivity {
                         Log.i("login",objBytes.length+"");
                         GetUserInfoMsg.GetUserInfoRsp fileresponse = GetUserInfoMsg.GetUserInfoRsp.parseFrom(objBytes);
                         System.out.println(fileresponse);
+                        userId = fileresponse.getUserItem(0).getUserId();
                         userName = fileresponse.getUserItem(0).getUserName();
                         userHeadIndex = fileresponse.getUserItem(0).getHeadIndex();
                         System.out.println("Response : " + GetUserInfoMsg.GetUserInfoRsp.ResultCode.valueOf(fileresponse.getResultCode().getNumber()));

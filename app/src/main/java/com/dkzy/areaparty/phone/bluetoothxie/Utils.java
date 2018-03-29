@@ -93,10 +93,15 @@ public class Utils {
 	}
 	
 	public static boolean isMobileNO(String mobiles) {
-        String str="^((13[0-9])|(14[0-9])|(17[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+        String str="^[1][3,4,5,6,7,8,9][0-9]{9}$";
         Pattern p = Pattern
                 .compile(str);
         Matcher m = p.matcher(mobiles);
+        return m.matches();
+    }
+    public static   boolean isUserCode(String code){
+        Pattern p = Pattern.compile("^\\d{6}$");
+        Matcher m = p.matcher(code);
         return m.matches();
     }
 	

@@ -53,6 +53,7 @@ import protocol.ProtoHead;
 import server.NetworkPacket;
 import tools.DataTypeTranslater;
 
+import static com.dkzy.areaparty.phone.bluetoothxie.Utils.isUserCode;
 import static com.dkzy.areaparty.phone.myapplication.MyApplication.AREAPARTY_NET;
 import static com.dkzy.areaparty.phone.myapplication.MyApplication.GetInetAddress;
 import static com.dkzy.areaparty.phone.myapplication.MyApplication.domain;
@@ -613,13 +614,9 @@ public class RegisterPersonalInfo extends BaseActivity {
     }
 
     private boolean isMobileNO(String mobiles) {
-        Pattern p = Pattern.compile("^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$");
+        Pattern p = Pattern.compile("^[1][3,4,5,6,7,8,9][0-9]{9}$");
         Matcher m = p.matcher(mobiles);
         return m.matches();
     }
-    private  boolean isUserCode(String code){
-        Pattern p = Pattern.compile("^\\d{6}$");
-        Matcher m = p.matcher(code);
-        return m.matches();
-    }
+
 }

@@ -16,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -48,6 +49,7 @@ import com.dkzy.areaparty.phone.myapplication.inforUtils.Update_ReceiveMsgBean;
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +57,10 @@ import androidkun.com.versionupdatelibrary.entity.VersionUpdateConfig;
 import es.dmoral.toasty.Toasty;
 import protocol.Data.ChatData;
 import protocol.Data.UserData;
+import protocol.Msg.LogoutMsg;
+import protocol.Msg.SendCode;
+import protocol.ProtoHead;
+import server.NetworkPacket;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
@@ -161,8 +167,28 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             @Override
             public void onClick(View view) {
                 exitDialog.dismiss();
-                if (MyApplication.isSelectedTVOnline() && exitDialog.isRadioButtonChecked()){
-                    TVAppHelper.vedioPlayControlExit();
+                if (!TextUtils.isEmpty(Login.userId) || (MyApplication.isSelectedTVOnline() && exitDialog.isRadioButtonChecked())){
+                    if ((MyApplication.isSelectedTVOnline() && exitDialog.isRadioButtonChecked())){
+                        TVAppHelper.vedioPlayControlExit();
+                    }
+                    if (!TextUtils.isEmpty(Login.userId)){
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    LogoutMsg.LogoutReq.Builder builder = LogoutMsg.LogoutReq.newBuilder();
+                                    builder.setLogoutType(LogoutMsg.LogoutReq.LogoutType.MOBILE);
+                                    builder.setUserId(Login.userId);
+                                    byte[] reByteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.LOGOUT_REQ.getNumber(), builder.build().toByteArray());
+                                    Login.base.writeToServer(Login.outputStream, reByteArray);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+                    }
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {
@@ -172,6 +198,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 }else {
                     MyApplication.getInstance().exit();
                 }
+
             }
         });
     }

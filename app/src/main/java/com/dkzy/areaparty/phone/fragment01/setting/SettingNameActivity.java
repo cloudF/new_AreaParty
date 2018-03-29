@@ -60,6 +60,7 @@ public class SettingNameActivity extends AppCompatActivity implements View.OnCli
                     public void run() {
                         PersonalSettingsMsg.PersonalSettingsReq.Builder builder = PersonalSettingsMsg.PersonalSettingsReq.newBuilder();
                         builder.setUserName(newName);
+                        builder.setUserId(Login.userId);
                         byte[] reByteArray;
                         try {
                             reByteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.PERSONALSETTINGS_REQ.getNumber(), builder.build().toByteArray());

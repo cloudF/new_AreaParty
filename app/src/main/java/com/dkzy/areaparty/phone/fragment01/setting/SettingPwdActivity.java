@@ -93,6 +93,10 @@ public class SettingPwdActivity extends AppCompatActivity implements View.OnClic
                         MyApplication.getInstance().closeAll();
 
                         break;
+                    case 4:
+                        Toast.makeText(SettingPwdActivity.this, "验证码错误", Toast.LENGTH_LONG).show();
+                        setting_codePwd.setText("");
+                        break;
                 }
             }
         };
@@ -173,6 +177,7 @@ public class SettingPwdActivity extends AppCompatActivity implements View.OnClic
                         try{
                             PersonalSettingsMsg.PersonalSettingsReq.Builder builder = PersonalSettingsMsg.PersonalSettingsReq.newBuilder();
                             builder.setCode(Integer.valueOf(confirmCode));
+                            builder.setUserId(Login.userId);
                             builder.setUserPassword(newPwd1);
                             builder.setUserOldPassword(oldPwd1);
                             byte[] reByteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.PERSONALSETTINGS_REQ.getNumber(), builder.build().toByteArray());

@@ -23,13 +23,29 @@
             android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
             android:gravity="center">
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:padding="10dp"
                 android:id="@+id/login_btn_setting"
+                android:src="@drawable/setting"
+                android:layout_marginRight="10dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="center">
+            <TextView
+                android:text="注册"
+                android:textColor="#fff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:id="@+id/login_btn_register"
                 android:src="@drawable/setting"
                 android:layout_marginRight="10dp"/>
         </LinearLayout>
@@ -56,7 +72,7 @@
             android:id="@+id/login_edit_account"
             android:drawableStart="@drawable/ic_account"
             android:theme="@style/MyEditText"
-            android:hint="请输入您的用户名"/>
+            android:hint="请输入用户名或电话号码"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -65,7 +81,7 @@
             android:id="@+id/login_edit_pwd"
             android:drawableStart="@drawable/ic_password"
             android:theme="@style/MyEditText"
-            android:hint="请输入您的密码"/>
+            android:hint="请输入密码"/>
     </LinearLayout>
 
     <LinearLayout
@@ -103,8 +119,8 @@
                 android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="新用户注册"
-                android:id="@+id/login_btn_register"
+                android:text="验证码登录"
+                android:id="@+id/vertificationLogin_TV"
                 android:textColor="#34adfd"
                 android:textSize="15sp"
                 android:layout_alignParentEnd="true"
@@ -138,7 +154,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="AreaParty Mobile Station 1.0 （2018-01-18）"
+            android:text="AreaParty Mobile Station 1.1 （2018-01-18）"
             app:layout_constraintBottom_toTopOf="@+id/textView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

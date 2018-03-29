@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.UpdateApplicationDialog;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
@@ -27,7 +28,7 @@ import es.dmoral.toasty.Toasty;
  */
 
 public class SettingMainActivity extends AppCompatActivity implements View.OnClickListener {
-    private LinearLayout changeUserNameLL, changeUserPwdLL, changeUserAddressLL, updateVersionLL;
+    private LinearLayout changeUserNameLL, changeUserPwdLL, changeUserAddressLL, updateVersionLL, changMainPhoneLL;
     private TextView newVersionInforTV;
     private ImageButton settingBackBtn;
 
@@ -37,6 +38,18 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        if (Login.mainMobile){
+            changMainPhoneLL.setVisibility(View.GONE);
+
+            changeUserNameLL.setVisibility(View.VISIBLE);
+            changeUserPwdLL.setVisibility(View.VISIBLE);
+            changeUserAddressLL.setVisibility(View.VISIBLE);
+        }else {
+            changMainPhoneLL.setVisibility(View.VISIBLE);
+            changeUserNameLL.setVisibility(View.GONE);
+            changeUserPwdLL.setVisibility(View.GONE);
+            changeUserAddressLL.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -70,13 +83,18 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+
     private void initView(){
         changeUserNameLL = (LinearLayout) this.findViewById(R.id.changeUserNameLL);
         changeUserPwdLL = (LinearLayout) this.findViewById(R.id.changeUserPwdLL);
         changeUserAddressLL = (LinearLayout) this.findViewById(R.id.changeUserAddressLL);
         updateVersionLL = (LinearLayout) findViewById(R.id.updateVersionLL);
+        changMainPhoneLL = (LinearLayout) findViewById(R.id.changMainPhone_LL);
         newVersionInforTV = (TextView) findViewById(R.id.newVersionInforTV);
         settingBackBtn = (ImageButton) this.findViewById(R.id.settingBackBtn);
+
+
+
 
         if(!(MyApplication.getReceiveMsgBean().isEmpty()) && !(MyApplication.getReceiveMsgBean().isNew)) {
             newVersionInforTV.setText("监测到新版本,点击更新");
@@ -91,6 +109,7 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
         changeUserAddressLL.setOnClickListener(this);
         settingBackBtn.setOnClickListener(this);
         updateVersionLL.setOnClickListener(this);
+        changMainPhoneLL.setOnClickListener(this);
     }
 
     @Override
@@ -140,6 +159,12 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
                     });
 
                 }
+                break;
+            case R.id.changMainPhone_LL:
+                if(outline) {
+                    Toasty.error(this, "当前用户未登录, 不能修改地址", Toast.LENGTH_SHORT, true).show();
+                } else
+                    startActivity(new Intent(this, SettingMainPhoneActivity.class));
                 break;
         }
     }

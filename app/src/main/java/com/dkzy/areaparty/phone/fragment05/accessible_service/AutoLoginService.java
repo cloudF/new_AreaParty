@@ -2,6 +2,7 @@ package com.dkzy.areaparty.phone.fragment05.accessible_service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -10,6 +11,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.fragment01.websitemanager.start.StartActivity;
+import com.dkzy.areaparty.phone.utilseverywhere.tools.AccessibilityHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,8 @@ import static com.dkzy.areaparty.phone.myapplication.MyApplication.mFloatView2;
  */
 
 public class AutoLoginService extends AccessibilityService {
+    private AccessibilityHelper helper;
+
     public static final String IQIYI = "com.qiyi.video";
     public static final String YOUKU = "com.youku.phone";
     public static final String TENCENT = "com.tencent.qqlive";
@@ -57,6 +61,7 @@ public class AutoLoginService extends AccessibilityService {
     @Override
     public void onCreate() {
         super.onCreate();
+        helper = new AccessibilityHelper(this);
 
         if (inatance == null){inatance = this;}
 
@@ -228,15 +233,15 @@ public class AutoLoginService extends AccessibilityService {
                                 AccessibilityNodeInfo nodeInfo = nodeInfoList.get(0);
                                 if (nodeInfo.isClickable()){
                                     nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-                                    if (StartActivity.QQVersionCode == 0 || TextUtils.isEmpty(Util.getRecordId(getApplicationContext()))){
+                                    /*if (StartActivity.QQVersionCode == 0 || TextUtils.isEmpty(Util.getRecordId(getApplicationContext()))){*/
                                         Log.w(TAG,"AreaParty:腾讯视频退出登录");
                                         Toasty.success(getApplicationContext(),"AreaParty:腾讯视频退出登录").show();
                                         state = NO_ACTION;
                                         StartActivity.logoutVip("tencent");
                                         if (mFloatView.isShow()) mFloatView.close();
-                                    }else{
+                                    /*}else{
                                         Toasty.success(getApplicationContext(),"AreaParty:由于你安装了手机QQ,你还需要在登录界面进行检测来清除使用记录", Toast.LENGTH_LONG).show();
-                                    }
+                                    }*/
                                 }
                             }
                         }
@@ -269,6 +274,29 @@ public class AutoLoginService extends AccessibilityService {
                         break;
                     default:
                         break;
+                }
+                if (event.getPackageName().toString().equals("com.qiyi.video")){
+                    AccessibilityNodeInfo e1 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block1");
+                    AccessibilityNodeInfo e2 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block2");
+                    AccessibilityNodeInfo e3 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block3");
+                    AccessibilityNodeInfo e4 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block4");
+                    AccessibilityNodeInfo e5 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block5");
+                    AccessibilityNodeInfo e6 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block6");
+                    if (e1!=null){
+                        Bundle arguments = new Bundle();
+                        arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "1");
+                        e1.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                        arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "2");
+                        e2.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                        arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "3");
+                        e3.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                        arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "4");
+                        e4.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                        arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "5");
+                        e5.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                        arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "6");
+                        e6.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                    }
                 }
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:

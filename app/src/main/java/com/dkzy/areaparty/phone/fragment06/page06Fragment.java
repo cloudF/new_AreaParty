@@ -79,8 +79,8 @@ public class page06Fragment extends Fragment {
     //private static List<FileData.FileItem> file_list = null;
     //private static List<SharedfileBean> sharedfileBeans = null;
     private MyFriendAdapater userFriendAdapter = null;
-    private SimpleAdapter userNetAdapter = null;
-    private SimpleAdapter userShareAdapter = null;
+    private NetUserAdapater userNetAdapter = null;
+    private ShareUserAdapater userShareAdapter = null;
     private myFileAdapater userFileAdapter = null;
     private List<HashMap<String, Object>> userFriendData = null;
     private List<HashMap<String, Object>> userNetData = null;
@@ -181,6 +181,7 @@ public class page06Fragment extends Fragment {
             item.put("userId", user.getUserId());
             item.put("userName", user.getUserName());
             item.put("fileNum", user.getFileNum());
+            item.put("userOnline", user.getIsOnline());
             item.put("userHead", headIndexToImgId.toImgId(user.getHeadIndex()));
             userNetData.add(item);
         }
@@ -189,6 +190,7 @@ public class page06Fragment extends Fragment {
             item.put("userId", user.getUserId());
             item.put("userName", user.getUserName());
             item.put("fileNum", user.getFileNum());
+            item.put("userOnline", user.getIsOnline());
             item.put("userHead", headIndexToImgId.toImgId(user.getHeadIndex()));
             userShareData.add(item);
         }
@@ -303,30 +305,30 @@ public class page06Fragment extends Fragment {
         id_tab06_shareWrap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "功能开发中", Toast.LENGTH_SHORT).show();
-                /*if(id_tab06_userShare.getVisibility() == view.VISIBLE){
+                //Toast.makeText(getContext(), "功能开发中", Toast.LENGTH_SHORT).show();
+                if(id_tab06_userShare.getVisibility() == view.VISIBLE){
                     id_tab06_userShare.setVisibility(view.GONE);
                     id_tab06_share.setBackgroundResource(R.drawable.tab06_item_merge);
                 }
                 else{
                     id_tab06_userShare.setVisibility(view.VISIBLE);
                     id_tab06_share.setBackgroundResource(R.drawable.tab06_item_open);
-                }*/
+                }
             }
         });
 
         id_tab06_netWrap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "功能开发中", Toast.LENGTH_SHORT).show();
-                /*if(id_tab06_userNet.getVisibility() == view.VISIBLE){
+                //Toast.makeText(getContext(), "功能开发中", Toast.LENGTH_SHORT).show();
+                if(id_tab06_userNet.getVisibility() == view.VISIBLE){
                     id_tab06_userNet.setVisibility(view.GONE);
                     id_tab06_net.setBackgroundResource(R.drawable.tab06_item_merge);
                 }
                 else{
                     id_tab06_userNet.setVisibility(view.VISIBLE);
                     id_tab06_net.setBackgroundResource(R.drawable.tab06_item_open);
-                }*/
+                }
             }
         });
 
@@ -463,8 +465,8 @@ public class page06Fragment extends Fragment {
         helpInfo = (TextView)  rootView.findViewById(R.id.helpInfo);
         //userFriendAdapter = new SimpleAdapter(getActivity(), userFriendData, R.layout.tab06_useritem, new String[]{"userId", "userName", "userHead"}, new int[]{R.id.userId, R.id.userName, R.id.userHead});
         userFriendAdapter = new MyFriendAdapater(getActivity());
-        userNetAdapter = new SimpleAdapter(getActivity(), userNetData, R.layout.tab06_useritem, new String[]{"userId", "userName", "userHead"}, new int[]{R.id.userId, R.id.userName, R.id.userHead});
-        userShareAdapter = new SimpleAdapter(getActivity(), userShareData, R.layout.tab06_useritem, new String[]{"userId", "userName", "userHead"}, new int[]{R.id.userId, R.id.userName, R.id.userHead});
+        userNetAdapter = new NetUserAdapater(getActivity());
+        userShareAdapter = new ShareUserAdapater(getActivity());
         //fileadapter = new SimpleAdapter(getActivity(), filedata, R.layout.tab06_fileitem, new String[]{"fileImg", "fileName"}, new int[]{R.id.fileImg, R.id.fileName});
         userFileAdapter = new myFileAdapater(getActivity(),filedata, false);
         id_tab06_fileComputer.setAdapter(userFileAdapter);
@@ -505,27 +507,41 @@ public class page06Fragment extends Fragment {
             newFriend_num.setVisibility(View.VISIBLE);
     }
     public void netUserLogIn(Message msg){
-        initData();
-        userNetMsg = (userObj) msg.obj;
-        HashMap<String, Object> userNetItem = new HashMap<>();
-        userNetItem.put("userId", userNetMsg.getUserId());
-        userNetItem.put("userName", userNetMsg.getUserName());
-        userNetItem.put("fileNum", userNetMsg.getFileNum());
-        userNetItem.put("userHead", headIndexToImgId.toImgId(userNetMsg.getHeadIndex()));
-        userNetData.add(userNetItem);
-        if(id_tab06_userNet!=null) userNetAdapter.notifyDataSetChanged();
+//        initData();
+//        userNetMsg = (userObj) msg.obj;
+//        HashMap<String, Object> userNetItem = new HashMap<>();
+//        userNetItem.put("userId", userNetMsg.getUserId());
+//        userNetItem.put("userName", userNetMsg.getUserName());
+//        userNetItem.put("fileNum", userNetMsg.getFileNum());
+//        userNetItem.put("userHead", headIndexToImgId.toImgId(userNetMsg.getHeadIndex()));
+//        userNetData.add(userNetItem);
+//        if(id_tab06_userNet!=null) userNetAdapter.notifyDataSetChanged();
     }
 
     public void shareUserLogIn(Message msg){
         initData();
-        userShareMsg = (userObj) msg.obj;
-        HashMap<String, Object> userShareItem = new HashMap<>();
-        userShareItem.put("userId", userShareMsg.getUserId());
-        userShareItem.put("userName", userShareMsg.getUserName());
-        userShareItem.put("fileNum", userShareMsg.getFileNum());
-        userShareItem.put("userHead", headIndexToImgId.toImgId(userShareMsg.getHeadIndex()));
-        userShareData.add(userShareItem);
-        if(id_tab06_userShare!=null) userShareAdapter.notifyDataSetChanged();
+        if(userShareData.size()!=0){
+            userShareMsg = (userObj) msg.obj;
+            HashMap<String, Object> userShareItem = new HashMap<>();
+            for(int i = 0; i < userShareData.size(); i++){
+                if(((String)userShareData.get(i).get("userId")).equals(userShareMsg.getUserId())){
+                    userShareItem = userShareData.get(i);
+                    userShareItem.put("userOnline",true);
+                    userShareData.remove(i);
+                    userShareData.add(0,userShareItem);
+                }
+            }
+            if(id_tab06_share!=null) userShareAdapter.notifyDataSetChanged();
+        }else{
+            userShareMsg = (userObj) msg.obj;
+            HashMap<String, Object> userShareItem = new HashMap<>();
+            userShareItem.put("userId", userShareMsg.getUserId());
+            userShareItem.put("userName", userShareMsg.getUserName());
+            userShareItem.put("fileNum", userShareMsg.getFileNum());
+            userShareItem.put("userHead", headIndexToImgId.toImgId(userShareMsg.getHeadIndex()));
+            userShareData.add(userShareItem);
+            if(id_tab06_userShare!=null) userShareAdapter.notifyDataSetChanged();
+        }
     }
 
     public void friendUserLogIn(Message msg){
@@ -556,7 +572,30 @@ public class page06Fragment extends Fragment {
                 break;
             }
         }
+        for(int i = 0; i < userNetData.size(); i++){
+            if(((String)userNetData.get(i).get("userId")).equals(userFriendMsg.getUserId())){
+                userFriendItem = userNetData.get(i);
+                userFriendItem.put("userOnline",true);
+                userNetData.remove(i);
+                userNetData.add(0,userFriendItem);
+                break;
+            }
+        }
+        if(userShareData.size()!=0){
+            userShareMsg = (userObj) msg.obj;
+            HashMap<String, Object> userShareItem = new HashMap<>();
+            for(int i = 0; i < userShareData.size(); i++){
+                if(((String)userShareData.get(i).get("userId")).equals(userShareMsg.getUserId())){
+                    userShareItem = userShareData.get(i);
+                    userShareItem.put("userOnline",true);
+                    userShareData.remove(i);
+                    userShareData.add(0,userShareItem);
+                }
+            }
+            if(id_tab06_share!=null) userShareAdapter.notifyDataSetChanged();
+        }
         if(id_tab06_userFriend!=null) userFriendAdapter.notifyDataSetChanged();
+        if(id_tab06_net!=null) userNetAdapter.notifyDataSetChanged();
     }
 
     public void getUserMsgFail(){
@@ -632,7 +671,10 @@ public class page06Fragment extends Fragment {
             while(netIt.hasNext()){
                 HashMap<String,Object> hm = netIt.next();
                 if(hm.get("userId").equals(logOutId)){
-                    netIt.remove();
+                    HashMap<String, Object> userNetItem = hm;
+                    userNetItem.put("userOnline",false);
+
+                    //有点问题 netIt.remove();
                     if(id_tab06_userNet!=null) userNetAdapter.notifyDataSetChanged();
                     break;
                 }
@@ -640,7 +682,8 @@ public class page06Fragment extends Fragment {
             while(shareIt.hasNext()){
                 HashMap<String,Object> hm = shareIt.next();
                 if(hm.get("userId").equals(logOutId)){
-                    shareIt.remove();
+                    HashMap<String, Object> userShareItem = hm;
+                    userShareItem.put("userOnline",false);
                     if(id_tab06_userShare!=null) userShareAdapter.notifyDataSetChanged();
                     break;
                 }
@@ -937,6 +980,118 @@ public class page06Fragment extends Fragment {
             return String.valueOf((size / 100)) + "."
                     + String.valueOf((size % 100)) + "GB";
         }
+    }
+
+    private class ShareUserAdapater extends BaseAdapter {
+        LayoutInflater mInflater;
+        public ShareUserAdapater(Context context) {
+            mInflater = LayoutInflater.from(context);
+        }
+        @Override
+        public int getCount() {
+            return userShareData.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return userShareData.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+            ViewHolderShareUser holder;
+            if(view == null) {
+                view = mInflater.inflate(R.layout.tab06_useritem, null);
+                holder = new ViewHolderShareUser();
+                holder.headIndex  = (ImageView) view.findViewById(R.id.userHead);
+                holder.userId  = (TextView) view.findViewById(R.id.userId);
+                holder.userName = (TextView) view.findViewById(R.id.userName);
+                view.setTag(holder);
+            } else {
+                holder = (ViewHolderShareUser) view.getTag();
+            }
+
+            HashMap<String, Object> user = userShareData.get(i);
+            int headIndex = (int) user.get("userHead");
+            String userId =  (String) user.get("userId");
+            String userName = (String) user.get("userName");
+            holder.headIndex.setImageResource(headIndex);
+            holder.userId.setText(userId);
+            holder.userName.setText(userName);
+            if(((boolean)user.get("userOnline")) == false){
+                holder.headIndex.setImageAlpha(80);
+            }
+            else{
+                holder.headIndex.setImageAlpha(255);
+            }
+            return view;
+        }
+    }
+    class ViewHolderShareUser {
+        ImageView headIndex;
+        TextView userId;
+        TextView userName;
+    }
+
+    private class NetUserAdapater extends BaseAdapter {
+        LayoutInflater mInflater;
+        public NetUserAdapater(Context context) {
+            mInflater = LayoutInflater.from(context);
+        }
+        @Override
+        public int getCount() {
+            return userNetData.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return userNetData.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+            ViewHolderNetUser holder;
+            if(view == null) {
+                view = mInflater.inflate(R.layout.tab06_useritem, null);
+                holder = new ViewHolderNetUser();
+                holder.headIndex  = (ImageView) view.findViewById(R.id.userHead);
+                holder.userId  = (TextView) view.findViewById(R.id.userId);
+                holder.userName = (TextView) view.findViewById(R.id.userName);
+                view.setTag(holder);
+            } else {
+                holder = (ViewHolderNetUser) view.getTag();
+            }
+
+            HashMap<String, Object> user = userNetData.get(i);
+            int headIndex = (int) user.get("userHead");
+            String userId =  (String) user.get("userId");
+            String userName = (String) user.get("userName");
+            holder.headIndex.setImageResource(headIndex);
+            holder.userId.setText(userId);
+            holder.userName.setText(userName);
+            if(((boolean)user.get("userOnline")) == false){
+                holder.headIndex.setImageAlpha(80);
+            }
+            else{
+                holder.headIndex.setImageAlpha(255);
+            }
+            return view;
+        }
+    }
+    class ViewHolderNetUser {
+        ImageView headIndex;
+        TextView userId;
+        TextView userName;
     }
 }
 

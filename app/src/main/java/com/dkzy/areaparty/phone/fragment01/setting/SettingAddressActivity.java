@@ -76,6 +76,7 @@ public class SettingAddressActivity extends AppCompatActivity implements View.On
                         builder.setUserAddress(setting_address.getText().toString());
                         builder.setUserStreet(setting_street.getText().toString());
                         builder.setUserCommunity(setting_community.getText().toString());
+                        builder.setUserId(Login.userId);
                         byte[] reByteArray;
                         try {
                             reByteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.PERSONALSETTINGS_REQ.getNumber(), builder.build().toByteArray());

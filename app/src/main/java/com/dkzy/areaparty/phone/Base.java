@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.dkzy.areaparty.phone.fragment01.model.SharedfileBean;
 import com.dkzy.areaparty.phone.fragment01.setting.SettingAddressActivity;
+import com.dkzy.areaparty.phone.fragment01.setting.SettingMainPhoneActivity;
 import com.dkzy.areaparty.phone.fragment01.setting.SettingNameActivity;
 import com.dkzy.areaparty.phone.fragment01.setting.SettingPwdActivity;
 import com.dkzy.areaparty.phone.fragment01.sharedFileIntentActivity;
@@ -295,10 +296,8 @@ public class Base {
                                 System.out.println(response.getUserItem(0).getIsFriend());
                                 if(response.getUserItem(0).getIsFriend())
                                     userMsg.what = OrderConst.friendUserLogIn_order;//好友用户登录
-                                else if(response.getUserItem(0).getFileNum() >= FILENUM)
+                                else if(response.getUserItem(0).getIsRecommend())
                                     userMsg.what = OrderConst.shareUserLogIn_order;//多文件用户登录
-                                else
-                                    userMsg.what = OrderConst.netUserLogIn_order;//网络状况好的用户登录
                                 userMsg.obj = user;
                                 MainActivity.handlerTab06.sendMessage(userMsg);
                             }
@@ -312,10 +311,8 @@ public class Base {
                             System.out.println(response.getUserItem(0).getIsFriend());
                             if(response.getUserItem(0).getIsFriend())
                                 userMsg.what = OrderConst.friendUserLogIn_order;//好友用户登录
-                            else if(response.getUserItem(0).getFileNum() >= FILENUM)
-                                userMsg.what = OrderConst.shareUserLogIn_order;//多文件用户登录
                             else
-                                userMsg.what = OrderConst.netUserLogIn_order;//网络状况好的用户登录
+                                userMsg.what = OrderConst.shareUserLogIn_order;//多文件用户登录
                             userMsg.obj = user;
                             MainActivity.handlerTab06.sendMessage(userMsg);
                         }
@@ -910,6 +907,8 @@ public class Base {
                     SettingPwdActivity.mHandler.sendEmptyMessage(1);
                 } else if (response.getResultCode().equals(PersonalSettingsMsg.PersonalSettingsRsp.ResultCode.OLDPASSWORDWRONG)) {
                     SettingPwdActivity.mHandler.sendEmptyMessage(2);
+                }else if (response.getResultCode().equals(PersonalSettingsMsg.PersonalSettingsRsp.ResultCode.CODEWRONG)){
+                    SettingPwdActivity.mHandler.sendEmptyMessage(4);
                 }
             }else if(response.getChangeType().equals(PersonalSettingsMsg.PersonalSettingsRsp.ChangeType.NAME)) {
                 if (response.getResultCode().equals(PersonalSettingsMsg.PersonalSettingsRsp.ResultCode.FAIL)) {
@@ -922,6 +921,14 @@ public class Base {
                     SettingAddressActivity.mHandler.sendEmptyMessage(0);
                 } else if (response.getResultCode().equals(PersonalSettingsMsg.PersonalSettingsRsp.ResultCode.SUCCESS)) {
                     SettingAddressActivity.mHandler.sendEmptyMessage(1);
+                }
+            }else if (response.getChangeType().equals(PersonalSettingsMsg.PersonalSettingsRsp.ChangeType.MAINMAC)){
+                if (response.getResultCode().equals(PersonalSettingsMsg.PersonalSettingsRsp.ResultCode.FAIL)) {
+                    SettingMainPhoneActivity.mHandler.sendEmptyMessage(0);
+                } else if (response.getResultCode().equals(PersonalSettingsMsg.PersonalSettingsRsp.ResultCode.SUCCESS)) {
+                    SettingMainPhoneActivity.mHandler.sendEmptyMessage(1);
+                }else if (response.getResultCode().equals(PersonalSettingsMsg.PersonalSettingsRsp.ResultCode.CODEWRONG)){
+                    SettingMainPhoneActivity.mHandler.sendEmptyMessage(2);
                 }
             }
         }catch (IOException e) {
