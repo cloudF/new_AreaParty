@@ -1,6 +1,7 @@
 package com.dkzy.areaparty.phone.fragment03;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -585,7 +586,7 @@ public class page03Fragment extends Fragment implements View.OnClickListener {
             TVNameTV.setTextColor(Color.parseColor("#dbdbdb"));
         }
     }
-
+    @SuppressLint("HandlerLeak")
     private Handler myHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {

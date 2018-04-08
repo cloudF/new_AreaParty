@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.dkzy.areaparty.phone.OrderConst;
 import com.dkzy.areaparty.phone.fragment03.Model.AppItem;
+import com.dkzy.areaparty.phone.fragment03.blueTooth.BlueDevice;
 import com.dkzy.areaparty.phone.fragment03.Model.TVInforBean;
 import com.dkzy.areaparty.phone.fragment03.utils.TVAppHelper;
 import com.dkzy.areaparty.phone.newAES;
@@ -16,6 +17,9 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -118,6 +122,9 @@ public class GetTvListThread extends Thread {
             case OrderConst.getTVInfor_firCommand:
                 cmdStr = JsonUitl.objectToString(CommandUtil.createGetTvInforCommand()) + "\n";
                 break;
+            case OrderConst.openBLUETOOTH:
+                cmdStr = JsonUitl.objectToString(CommandUtil.createOpenBlueToothCommand());
+                break;
         }
         return cmdStr;
     }
@@ -157,7 +164,31 @@ public class GetTvListThread extends Thread {
                     Log.e("GetTvListThread", "逆序列" + type + "失败");
                 }
             }   break;
+            case OrderConst.openBLUETOOTH:{
+
+                if (dataReceived.equals("CancelOpenBlueTooth")){
+                    TVAppHelper.openBlueTooth = false;
+                }else {
+                    try {
+                        TVAppHelper.openBlueTooth = true;
+                        TVAppHelper.blueDevices.clear();
+                        JSONArray jsonArray = new JSONArray(dataReceived);
+                        for (int i = 0 ;  i < jsonArray.length() ; i++){
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            String address = jsonObject.getString("address");
+                            String name = jsonObject.getString("name");
+                            String status = jsonObject.getString("status");
+                            boolean connected = jsonObject.getJSONObject("device").getBoolean("connected");
+                            BlueDevice blueDevice = new BlueDevice(address, name, status, connected);
+                            TVAppHelper.blueDevices.add(blueDevice);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } break;
         }
+
     }
 
     /**
@@ -180,6 +211,15 @@ public class GetTvListThread extends Thread {
                 case OrderConst.getTVInfor_firCommand:
                     handler.sendEmptyMessage(OrderConst.getTVInfor_OK);
                     break;
+                case OrderConst.openBLUETOOTH:
+                    if (!TVAppHelper.openBlueTooth){
+                        handler.sendEmptyMessage(1);
+                    }else if (TVAppHelper.blueDevices.isEmpty()){
+                        handler.sendEmptyMessage(2);
+                    }else {
+                        handler.sendEmptyMessage(3);
+                    }
+                    break;
             }
         } else {
             switch (type) {
@@ -194,6 +234,9 @@ public class GetTvListThread extends Thread {
                     break;
                 case OrderConst.getTVInfor_firCommand:
                     handler.sendEmptyMessage(OrderConst.getTVInfor_Fail);
+                    break;
+                case OrderConst.openBLUETOOTH:
+                    handler.sendEmptyMessage(0);
                     break;
             }
         }

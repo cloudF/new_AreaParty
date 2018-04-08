@@ -133,6 +133,7 @@ public class SettingPwdActivity extends AppCompatActivity implements View.OnClic
                         try{
                             SendCode.SendCodeSync.Builder builder = SendCode.SendCodeSync.newBuilder();
                             builder.setChangeType(SendCode.SendCodeSync.ChangeType.PASSWORD);
+                            builder.setUserId(Login.userId);
                             byte[] reByteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.SEND_CODE.getNumber(), builder.build().toByteArray());
                             Login.base.writeToServer(Login.outputStream, reByteArray);
                         }catch (IOException e){

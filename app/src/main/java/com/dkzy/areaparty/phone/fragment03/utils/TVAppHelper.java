@@ -7,6 +7,7 @@ import android.util.Log;
 import com.dkzy.areaparty.phone.OrderConst;
 import com.dkzy.areaparty.phone.fragment02.vedioPlayControl;
 import com.dkzy.areaparty.phone.fragment03.Model.AppItem;
+import com.dkzy.areaparty.phone.fragment03.blueTooth.BlueDevice;
 import com.dkzy.areaparty.phone.fragment03.Model.TVInforBean;
 import com.dkzy.areaparty.phone.model_comman.TVCommandItem;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
@@ -25,6 +26,8 @@ import java.util.List;
 public class TVAppHelper {
     public static ArrayList<AppItem> installedAppList = new ArrayList<>();
     public static ArrayList<AppItem> ownAppList = new ArrayList<>();
+    public static boolean openBlueTooth;
+    public static List<BlueDevice> blueDevices = new ArrayList<>();
     private static List<String> mouseDevices = new ArrayList<>();
     private static TVInforBean tvInfor = new TVInforBean();
 
@@ -38,6 +41,11 @@ public class TVAppHelper {
     public static void setTvInfor(TVInforBean infor) {
         tvInfor = infor;
     }
+
+    /*public static void blueDevices(List<BlueDevice> list) {
+        blueDevices.clear();
+        blueDevices.addAll(list);
+    }*/
 
     public static void setMouseDevices(List<String> list) {
         mouseDevices.clear();
@@ -237,6 +245,23 @@ public class TVAppHelper {
 
     public static void vedioPlayControlLoadLyric(String url){
         String cmd = JsonUitl.objectToString(CommandUtil.createLoadLyricVLCCommand(url));
+        new Send2TVThread(cmd).start();
+    }
+    public static void vedioPlayControlOpenBlueTooth(Handler handler){
+        //String cmd = JsonUitl.objectToString(CommandUtil.createOpenBlueToothCommand());
+        new GetTvListThread(OrderConst.openBLUETOOTH, handler).start();
+    }
+
+    public static void vedioPlayControlCloseBlueTooth(){
+        String cmd = JsonUitl.objectToString(CommandUtil.createCloseBlueToothCommand());
+        new Send2TVThread(cmd).start();
+    }
+    public static void vedioPlayControlConnectBlueTooth(String address){
+        String cmd = JsonUitl.objectToString(CommandUtil.createConnectBlueToothCommand(address));
+        new Send2TVThread(cmd).start();
+    }
+    public static void vedioPlayControlUnpairBlueTooth(String address){
+        String cmd = JsonUitl.objectToString(CommandUtil.createUnpairBlueToothCommand(address));
         new Send2TVThread(cmd).start();
     }
 }

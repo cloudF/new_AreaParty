@@ -129,6 +129,7 @@
                         android:gravity="end"
                         android:textSize="12sp"
                         android:text=""/>
+
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -198,6 +199,61 @@
                     android:background="#e6e6e6"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"/>
+
+                <!-- 蓝牙 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:background="@drawable/linearlayout_selector02">
+
+                    <TextView
+                        android:id="@+id/openBbluetooth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="打开TV蓝牙并扫描蓝牙设备"
+                        android:textColor="#000"
+                        android:clickable="true"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1sp"
+                    android:background="#e6e6e6"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"/>
+
+                <!-- 关闭蓝牙 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:background="@drawable/linearlayout_selector02">
+
+                    <TextView
+                        android:id="@+id/closeBluetooth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="关闭TV蓝牙"
+                        android:textColor="#000"
+                        android:clickable="true"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1sp"
+                    android:background="#e6e6e6"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"/>
+
             </LinearLayout>
 
             <!-- part03 -->

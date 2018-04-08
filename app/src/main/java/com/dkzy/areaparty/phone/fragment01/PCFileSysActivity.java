@@ -3,6 +3,7 @@ package com.dkzy.areaparty.phone.fragment01;
 
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -440,6 +441,7 @@ public class PCFileSysActivity extends Activity implements View.OnClickListener,
             }});
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler myHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

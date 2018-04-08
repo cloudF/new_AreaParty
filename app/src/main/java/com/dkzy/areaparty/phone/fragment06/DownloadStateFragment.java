@@ -43,7 +43,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 import protocol.Msg.GetDownloadFileInfo;
@@ -421,7 +420,7 @@ public class DownloadStateFragment extends Fragment {
                                         ReceiveDownloadProcessFormat receive = (ReceiveDownloadProcessFormat) prepareDataForFragment.getFileActionStateData(
                                                 OrderConst.fileAction_name,
                                                 OrderConst.GETDOWNLOADProcess,
-                                                JsonUitl.objectToString(bean.getReceiveData())
+                                                bean.getPath()
                                         );
                                         if (receive.getStatus() == 200 && receive.getData() != null){
                                             final DownloadProcess process = receive.getData();

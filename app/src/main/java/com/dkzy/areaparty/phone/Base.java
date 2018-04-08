@@ -240,7 +240,9 @@ public class Base {
                             builder.setUserId(id);
                             builder.setUserInfo(true);
                             byte[] getUserInfo = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.GET_PERSONALINFO_REQ.getNumber(), builder.build().toByteArray());
-                            Login.base.writeToServer(Login.outputStream, getUserInfo);
+                            if (Login.base!=null){
+                                Login.base.writeToServer(Login.outputStream, getUserInfo);
+                            }
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -334,8 +336,8 @@ public class Base {
             System.out.println("Response : " + GetUserInfoMsg.GetUserInfoRsp.ResultCode.valueOf(response.getResultCode().getNumber()));
             if (response.getResultCode().equals(GetUserInfoMsg.GetUserInfoRsp.ResultCode.SUCCESS)) {
                 if(!response.getUserItem(0).getUserId().equals(Login.userId)){
-                    chat.lf = response.getFilesList();
-                    chat.mHandler.sendEmptyMessage(0);
+                    //chat.lf = response.getFilesList();
+                    //chat.mHandler.sendEmptyMessage(0);
                 }
             }else{
                 MainActivity.handlerTab06.sendEmptyMessage(OrderConst.getUserMsgFail_order);

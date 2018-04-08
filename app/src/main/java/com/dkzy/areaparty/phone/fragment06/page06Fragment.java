@@ -1023,7 +1023,7 @@ public class page06Fragment extends Fragment {
             holder.headIndex.setImageResource(headIndex);
             holder.userId.setText(userId);
             holder.userName.setText(userName);
-            if(((boolean)user.get("userOnline")) == false){
+            if((user.containsKey("userOnline"))&&(!(boolean)user.get("userOnline"))){
                 holder.headIndex.setImageAlpha(80);
             }
             else{

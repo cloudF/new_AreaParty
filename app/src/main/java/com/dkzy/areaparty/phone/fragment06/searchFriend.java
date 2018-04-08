@@ -75,9 +75,9 @@ public class searchFriend extends AppCompatActivity {
         userSearchIsFriend = (TextView) findViewById(R.id.userSearchIsFriend);
         userSearchFileNum = (TextView) findViewById(R.id.userSearchFileNum);
         userSearchBtn = (Button) findViewById(R.id.userSearchBtn);
-        Drawable searchImg = getResources().getDrawable(R.drawable.search,null);
+        /*Drawable searchImg = getResources().getDrawable(R.drawable.search,null);
         searchImg.setBounds(7,7,25,25);
-        searchUserId.setCompoundDrawables(searchImg,null,null,null);
+        searchUserId.setCompoundDrawables(searchImg,null,null,null);*/
     }
 
     private void initEvent(){

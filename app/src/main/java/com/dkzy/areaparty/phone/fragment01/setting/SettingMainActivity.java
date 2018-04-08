@@ -41,14 +41,14 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
         if (Login.mainMobile){
             changMainPhoneLL.setVisibility(View.GONE);
 
-            changeUserNameLL.setVisibility(View.VISIBLE);
+            /*changeUserNameLL.setVisibility(View.VISIBLE);
             changeUserPwdLL.setVisibility(View.VISIBLE);
-            changeUserAddressLL.setVisibility(View.VISIBLE);
+            changeUserAddressLL.setVisibility(View.VISIBLE);*/
         }else {
             changMainPhoneLL.setVisibility(View.VISIBLE);
-            changeUserNameLL.setVisibility(View.GONE);
+            /*changeUserNameLL.setVisibility(View.GONE);
             changeUserPwdLL.setVisibility(View.GONE);
-            changeUserAddressLL.setVisibility(View.GONE);
+            changeUserAddressLL.setVisibility(View.GONE);*/
         }
     }
 
@@ -118,19 +118,25 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
             case R.id.changeUserNameLL:
                 if(outline) {
                     Toasty.error(this, "当前用户未登录, 不能修改昵称", Toast.LENGTH_SHORT, true).show();
-                } else
+                } else if(!Login.mainMobile){
+                    Toasty.error(this, "当前不是主设备, 不能修改昵称", Toast.LENGTH_SHORT, true).show();
+                }else
                     startActivity(new Intent(this, SettingNameActivity.class));
                 break;
             case R.id.changeUserPwdLL:
                 if(outline) {
                     Toasty.error(this, "当前用户未登录, 不能修改密码", Toast.LENGTH_SHORT, true).show();
-                } else
+                } else if(!Login.mainMobile){
+                    Toasty.error(this, "当前不是主设备, 不能修改密码", Toast.LENGTH_SHORT, true).show();
+                }else
                     startActivity(new Intent(this, SettingPwdActivity.class));
                 break;
             case R.id.changeUserAddressLL:
                 if(outline) {
                     Toasty.error(this, "当前用户未登录, 不能修改地址", Toast.LENGTH_SHORT, true).show();
-                } else
+                } else if(!Login.mainMobile){
+                    Toasty.error(this, "当前不是主设备, 不能修改地址", Toast.LENGTH_SHORT, true).show();
+                }else
                     startActivity(new Intent(this, SettingAddressActivity.class));
                 break;
             case R.id.settingBackBtn:

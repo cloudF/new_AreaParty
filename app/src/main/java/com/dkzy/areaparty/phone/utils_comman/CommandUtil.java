@@ -2,6 +2,7 @@ package com.dkzy.areaparty.phone.utils_comman;
 
 import com.dkzy.areaparty.phone.OrderConst;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_playPicList;
+import com.dkzy.areaparty.phone.fragment03.blueTooth.BlueToothAdapter;
 import com.dkzy.areaparty.phone.model_comman.PCCommandItem;
 import com.dkzy.areaparty.phone.model_comman.TVCommandItem;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
@@ -797,6 +798,32 @@ public class CommandUtil {
         cmd.setSecondcommand(OrderConst.VLCAction_LoadLRC_SecondCommand);
         cmd.setFourthCommand(url);
         cmd.setFifthCommand("");
+        return cmd;
+    }
+    public static TVCommandItem createOpenBlueToothCommand() {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.BLUETOOTH);
+        cmd.setSecondcommand(OrderConst.openBLUETOOTH);
+        return cmd;
+    }
+    public static TVCommandItem createConnectBlueToothCommand(String address) {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.BLUETOOTH);
+        cmd.setSecondcommand(OrderConst.connectBLUETOOTH);
+        cmd.setFourthCommand(address);
+        return cmd;
+    }
+    public static TVCommandItem createUnpairBlueToothCommand(String address) {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.BLUETOOTH);
+        cmd.setSecondcommand(OrderConst.unpairBlueTooth);
+        cmd.setFourthCommand(address);
+        return cmd;
+    }
+    public static TVCommandItem createCloseBlueToothCommand() {
+        TVCommandItem cmd = new TVCommandItem();
+        cmd.setFirstcommand(OrderConst.BLUETOOTH);
+        cmd.setSecondcommand(OrderConst.closeBLUETOOTH);
         return cmd;
     }
 

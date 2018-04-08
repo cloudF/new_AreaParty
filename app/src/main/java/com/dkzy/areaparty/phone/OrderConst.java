@@ -231,5 +231,11 @@ public class OrderConst {
     public static final String STOPDOWNLOAD = "STOPDOWNLOAD";
     public static final String RECOVERDOWNLOAD = "RECOVERDOWNLOAD";
     public static final String DELETEDOWNLOAD = "DELETEDOWNLOAD";
+
+    public static final String BLUETOOTH = "BLUETOOTH";
+    public static final String openBLUETOOTH = "OPEN_AND_SCAN_BLUETOOTH";
+    public static final String closeBLUETOOTH = "CLOSE_BLUETOOTH";
+    public static final String connectBLUETOOTH = "BOND_OR_CONNECT_BLUETOOTH";
+    public static final String unpairBlueTooth = "BLUETOOTH_UNPAIR";
     // ...
 }
