@@ -283,6 +283,7 @@ public class fileList extends AppCompatActivity {
                 if(Login.mainMobile) {
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
+                    bundle.putBoolean("isUser",true);
                     bundle.putString("userId", user_id);
                     bundle.putInt("userHead", user_head);
                     bundle.putString("userName", user_name);
@@ -435,7 +436,12 @@ public class fileList extends AppCompatActivity {
         map.put("chatId", chatId);
         chatData.add(map);
         if(chatList!=null)
-            chatAdapater.notifyDataSetChanged();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    chatAdapater.notifyDataSetChanged();
+                }
+            });
     }
 
     private class chatItemAdapater extends BaseAdapter {

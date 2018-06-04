@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: me.shaohui:bottomdialog-1.1.9">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bottomdialog-1.1.9.aar/9d3260412a8d70d6e3cb2b2aca29f402/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bottomdialog-1.1.9.aar/9d3260412a8d70d6e3cb2b2aca29f402/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bottomdialog-1.1.9.aar/dad44c82eea0387608812a84aca96570/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bottomdialog-1.1.9.aar/dad44c82eea0387608812a84aca96570/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -9,9 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.R;
+import com.dkzy.areaparty.phone.myapplication.MyApplication;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -106,10 +108,14 @@ public class mFriendFileAdapter extends BaseAdapter {
         holder.file_download_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread (new sendDownloadMsg(user_id, fileName, String.valueOf(fileDate), fileSize)).start();
-                holder.file_download_btn.setText("已请求");
-                holder.file_download_btn.setEnabled(false);
-                holder.file_download_btn.setBackgroundResource(R.drawable.disabledbuttonradius);
+                if(Login.mainMobile) {
+                    new Thread(new sendDownloadMsg(user_id, fileName, String.valueOf(fileDate), fileSize)).start();
+                    holder.file_download_btn.setText("已请求");
+                    holder.file_download_btn.setEnabled(false);
+                    holder.file_download_btn.setBackgroundResource(R.drawable.disabledbuttonradius);
+                }else{
+                    Toast.makeText(MyApplication.getContext(), "当前设备不是主设备，无法使用此功能", Toast.LENGTH_LONG).show();
+                }
             }
         });
         return view;

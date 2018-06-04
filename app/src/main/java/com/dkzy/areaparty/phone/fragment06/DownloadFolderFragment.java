@@ -1,6 +1,7 @@
 package com.dkzy.areaparty.phone.fragment06;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.dkzy.areaparty.phone.OrderConst;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.fragment01.base.DiskContentAdapter;
 import com.dkzy.areaparty.phone.fragment01.diskContentActivity;
+import com.dkzy.areaparty.phone.fragment01.diskTVContentActivity;
 import com.dkzy.areaparty.phone.fragment01.model.SharedfileBean;
 import com.dkzy.areaparty.phone.fragment01.model.fileBean;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_addFolder;
@@ -1218,6 +1220,9 @@ public class DownloadFolderFragment extends Fragment implements View.OnClickList
                 String des = editText.getText().toString();
                 if(des.equals(""))
                     Toasty.error(getContext(), "文件描述信息不能为空", Toast.LENGTH_SHORT).show();
+                else if(sharedFileDialog.getSelected().size()==0){
+                    Toasty.error(MyApplication.getContext(), "分享的分组不能为空", Toast.LENGTH_SHORT).show();
+                }
                 else {
                     InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                     manager.hideSoftInputFromWindow(sharedFileDialog.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -1227,8 +1232,9 @@ public class DownloadFolderFragment extends Fragment implements View.OnClickList
                     String name = PCFileHelper.getSelectedFiles().get(0).name;
                     int size = PCFileHelper.getSelectedFiles().get(0).size;
                     long time = System.currentTimeMillis();
+                    List<String> list = sharedFileDialog.getSelected();
                     PCFileHelper.setSelectedShareFile(new SharedfileBean(name, PCFileHelper.getNowFilePath() + name, size, des, time,
-                            sharedFileDialog.getUrlEditText(), sharedFileDialog.getPwdEditText()));
+                            sharedFileDialog.getUrlEditText(), sharedFileDialog.getPwdEditText(),list));
                     Log.e("page04", "路径：" + PCFileHelper.getSelectedShareFile().path);
                     dialog.show();
                     PCFileHelper.shareFile(des, PCFileHelper.getSelectedShareFile());

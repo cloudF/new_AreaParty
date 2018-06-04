@@ -60,12 +60,14 @@
             android:focusableInTouchMode="true">
 
             <TextView
+                android:id="@+id/label_mobileNo"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="手机号"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:padding="8dp"/>
 
             <EditText
                 android:id="@+id/et_mobileNo"
@@ -111,12 +113,14 @@
             android:focusableInTouchMode="true">
 
             <TextView
+                android:id="@+id/label_code"
                 android:layout_gravity="center_vertical"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="验证码"
                 android:textSize="18sp"
                 android:textColor="#000000"
+                android:padding="8dp"
                  />
 
             <EditText

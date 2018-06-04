@@ -771,7 +771,9 @@ public class PCFileHelper {
                 builder.setFileDate(String.valueOf(file.timeLong));
                 builder.setFileUrl(file.url);
                 builder.setFilePwd(file.pwd);
-
+                for (int i = 0; i < file.listGroupId.size(); i++) {
+                    builder.addFileGroupId(Integer.parseInt(file.listGroupId.get(i)));
+                }
                 try {
                     byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.ADD_FILE_REQ.getNumber(),
                             builder.build().toByteArray());

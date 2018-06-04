@@ -12,6 +12,7 @@ public class DBConst {
     public static final String sharedRarTB      = "rarTB";
     public static final String sharedOthersTB   = "otherTB";
     public static final String chatTB           = Login.userId;
+    public static final String groupChatTB           = Login.userId+"group";
     public static final String friendTB         = Login.userId + "friend";
     public static final String fileRequestTB         = Login.userId + "transform";
 
@@ -20,6 +21,7 @@ public class DBConst {
     public static final String tableItem_receiverID   = "receiver_id";
     public static final String tableItem_msg   = "msg";
     public static final String tableItem_date    = "date";
+    public static final String tableItem_groupId    = "group_id";
 
     public static final String tableItem_friend_id = "friend_id";
     public static final String tableItem_friend_name = "friend_name";

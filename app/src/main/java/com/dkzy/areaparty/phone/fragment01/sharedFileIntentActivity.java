@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.FileTypeConst;
 import com.dkzy.areaparty.phone.Login;
@@ -260,32 +261,34 @@ public class sharedFileIntentActivity extends Activity implements View.OnClickLi
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch(index) {
                     case 0:
-                        // 取消分享
-                        cancelShare(position);
-                        final SharedfileBean file = getSharedfileBeanList(nowType).get(position);
-                        Log.w("SharedFileIntent",file.toString());
-                        new Thread(){
-                            @Override
-                            public void run() {
-
-                                DeleteFileMsg.DeleteFileReq.Builder builder = DeleteFileMsg.DeleteFileReq.newBuilder();
-                                builder.setFileId(file.id);
-                                builder.setFileName(file.name);
-                                builder.setUserId(Login.userId);
-                                builder.setFileInfo(file.des);
-                                builder.setFileSize(file.size);
-                                //builder.setFileUrl(file.url);
-                                //builder.setFilePwd(file.pwd);
-                                try {
-                                    byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.DELETE_FILE_REQ.getNumber(),
-                                            builder.build().toByteArray());
-                                    Login.base.writeToServer(Login.outputStream, byteArray);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                        if(Login.mainMobile) {
+                            // 取消分享
+                            cancelShare(position);
+                            final SharedfileBean file = getSharedfileBeanList(nowType).get(position);
+                            Log.w("SharedFileIntent", file.toString());
+                            new Thread() {
+                                @Override
+                                public void run() {
+                                    DeleteFileMsg.DeleteFileReq.Builder builder = DeleteFileMsg.DeleteFileReq.newBuilder();
+                                    builder.setFileId(file.id);
+                                    builder.setFileName(file.name);
+                                    builder.setUserId(Login.userId);
+                                    builder.setFileInfo(file.des);
+                                    builder.setFileSize(file.size);
+                                    //builder.setFileUrl(file.url);
+                                    //builder.setFilePwd(file.pwd);
+                                    try {
+                                        byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.DELETE_FILE_REQ.getNumber(),
+                                                builder.build().toByteArray());
+                                        Login.base.writeToServer(Login.outputStream, byteArray);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                            }
-                        }.start();
-
+                            }.start();
+                        }else{
+                            Toast.makeText(MyApplication.getContext(), "当前设备不是主设备，无法使用此功能", Toast.LENGTH_LONG).show();
+                        }
                         break;
                 }
                 return false;

@@ -39,6 +39,7 @@ import com.dkzy.areaparty.phone.fragment06.DownloadFolderFragment;
 import com.dkzy.areaparty.phone.fragment06.DownloadStateFragment;
 import com.dkzy.areaparty.phone.fragment06.FileRequestDBManager;
 import com.dkzy.areaparty.phone.fragment06.FriendRequestDBManager;
+import com.dkzy.areaparty.phone.fragment06.GroupChatDBManager;
 import com.dkzy.areaparty.phone.fragment06.fileObj;
 import com.dkzy.areaparty.phone.fragment06.myChatList;
 import com.dkzy.areaparty.phone.fragment06.page06Fragment;
@@ -55,6 +56,7 @@ import java.util.List;
 
 import androidkun.com.versionupdatelibrary.entity.VersionUpdateConfig;
 import es.dmoral.toasty.Toasty;
+import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
 import protocol.Data.ChatData;
 import protocol.Data.UserData;
 import protocol.Msg.LogoutMsg;
@@ -118,6 +120,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public static MyHandler handlerTab06 = null;
 
     private static ChatDBManager chatDBManager;
+    private static GroupChatDBManager groupChatDBManager;
     private static FriendRequestDBManager friendRequestDBManager;
     private static FileRequestDBManager fileRequestDBManager;
     private static SharedPreferences sp;
@@ -233,15 +236,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
          */
         if(Login.userId!=""){
             chatDBManager = new ChatDBManager(this);
+            groupChatDBManager = new GroupChatDBManager(this);
             friendRequestDBManager = new FriendRequestDBManager(this);
             fileRequestDBManager = new FileRequestDBManager(this);
             boolean chatTbExist = chatDBManager.tabbleIsExist(Login.userId);
+            boolean groupChatTbExist = groupChatDBManager.tableIsExist(Login.userId+"group");
             boolean friendRequestTbExist = friendRequestDBManager.tabbleIsExist(Login.userId + "friend");
             boolean fileRequestTbExist = fileRequestDBManager.tabbleIsExist(Login.userId + "transform");
             if(!chatTbExist) {
                 chatDBManager.createTable(Login.userId);
                 chatTbExist = chatDBManager.tabbleIsExist(Login.userId);
                 System.out.println(chatTbExist);
+            }
+            if(!groupChatTbExist){
+                groupChatDBManager.createTable(Login.userId+"group");
+                groupChatTbExist = groupChatDBManager.tableIsExist(Login.userId+"group");
+                System.out.println(groupChatTbExist);
             }
             if(!friendRequestTbExist){
                 friendRequestDBManager.createTable(Login.userId + "friend");
@@ -271,6 +281,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      */
     public static ChatDBManager getChatDBManager(){
         return chatDBManager;
+    }
+    public static GroupChatDBManager getGroupChatDBManager(){
+        return groupChatDBManager;
     }
     public static FriendRequestDBManager getFriendRequestDBManager(){
         return friendRequestDBManager;
@@ -393,7 +406,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 Intent intent = getIntent();
                 myChatList chats = (myChatList) intent.getExtras().get("chats");
                 for (ChatData.ChatItem c : chats.getList()) {
-                    if (c.getTargetType().equals(ChatData.ChatItem.TargetType.INDIVIDUAL)) {
+                    if (c.getTargetType().equals(ChatData.ChatItem.TargetType.INDIVIDUAL)
+                            ||c.getTargetType().equals(ChatData.ChatItem.TargetType.GROUP)) {
                         if (page06Fragment.friendChatNum.containsKey(c.getSendUserId())) {
                             page06Fragment.friendChatNum.put(c.getSendUserId(), page06Fragment.friendChatNum.get(c.getSendUserId()) + 1);
                         } else {

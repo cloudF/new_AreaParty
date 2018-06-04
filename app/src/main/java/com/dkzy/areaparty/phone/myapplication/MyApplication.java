@@ -2,33 +2,41 @@ package com.dkzy.areaparty.phone.myapplication;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.dkzy.areaparty.phone.AESc;
 import com.dkzy.areaparty.phone.CrashHandler;
 import com.dkzy.areaparty.phone.IPAddressConst;
+import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.MyConnector;
 import com.dkzy.areaparty.phone.OrderConst;
-import com.dkzy.areaparty.phone.UpdateApplicationDialog;
+import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.androideventbusutils.events.SelectedDeviceChangedEvent;
 import com.dkzy.areaparty.phone.androideventbusutils.events.TVPCNetStateChangeEvent;
 import com.dkzy.areaparty.phone.androideventbusutils.events.changeSelectedDeviceNameEvent;
 import com.dkzy.areaparty.phone.fragment01.model.SharedfileBean;
 import com.dkzy.areaparty.phone.fragment01.utils.HttpServer;
-import com.dkzy.areaparty.phone.fragment01.utorrent.utils.UrlUtils;
+import com.dkzy.areaparty.phone.fragment01.websitemanager.readSms.ReadSmsService;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.start.StartActivity;
+import com.dkzy.areaparty.phone.fragment01.websitemanager.vipShare.VipRentActivity;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.RemoteDownloadActivity;
 import com.dkzy.areaparty.phone.fragment03.utils.TVAppHelper;
 import com.dkzy.areaparty.phone.fragment06.DownloadFolderFragment;
@@ -62,6 +70,9 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.simple.eventbus.EventBus;
 
 import java.io.BufferedReader;
@@ -91,9 +102,13 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import protocol.Msg.LogoutMsg;
+import protocol.ProtoHead;
+import server.NetworkPacket;
 
 import static android.R.attr.tag;
 import static com.dkzy.areaparty.phone.IPAddressConst.statisticServer_ip;
+import static com.dkzy.areaparty.phone.fragment01.websitemanager.readSms.ReadSmsService.ONCLICK;
 import static com.dkzy.areaparty.phone.utils_comman.Send2SpecificTVThread.stringToMD5;
 
 
@@ -108,9 +123,20 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
     public static String AREAPARTY_NET;//服務器ip地址
     public static String domain = "www.areaparty.net";//用户服務器域名
     public static String domain1 = "www.areaparty.com";//统计服務器域名
+    public static String location = "";
 //119.23.12.116
     public static FloatView mFloatView;
     public static FloatView2 mFloatView2;
+
+    private BroadcastReceiver receiver_onclick = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(ONCLICK)) {
+                Log.w("ReadSmsService",ONCLICK);
+                VipRentActivity.openPackage(getContext(), getContext().getPackageName());
+            }
+        }
+    };
 
     private static int mNetWorkState;      // 当前网络类型
     public static Context context;
@@ -169,7 +195,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
 
     public static void getWebSiteUrl(){
         OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder().url("http://"+IPAddressConst.statisticServer_ip+"/bt_website/get_data.json").build();
+        Request request = new Request.Builder().url("http://"+ IPAddressConst.statisticServer_ip+"/bt_website/get_data.json").build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -184,10 +210,12 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                     JSONArray jsonArray = new JSONArray(responseData);
                     StartActivity.url = new String[5];
                     StartActivity.imageUrl = new String[5];
+                    StartActivity.type = new int[5];
                     for (int i =0 ; i< jsonArray.length() ; i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         StartActivity.url[i] = jsonObject.getString("url");
-                        StartActivity.imageUrl[i] = "http://"+IPAddressConst.statisticServer_ip+"/bt_website/"+jsonObject.getString("image");
+                        StartActivity.imageUrl[i] = "http://"+ IPAddressConst.statisticServer_ip+"/bt_website/"+jsonObject.getString("image");
+                        StartActivity.type[i] = jsonObject.getInt("type");
                         //Log.w("getWebSiteUrl",StartActivity.url[i] + StartActivity.imageUrl[i]);
                     }
                 } catch (JSONException e) {
@@ -214,7 +242,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                             Log.w("GET_AREAPARTY_PATH", "msgReceived is null");
                         }
                         try {
-                            org.json.JSONObject jsonObject = new org.json.JSONObject(msgReceived);
+                            JSONObject jsonObject = new JSONObject(msgReceived);
                             Log.w("GET_AREAPARTY_PATH",msgReceived);
                             String path = jsonObject.getString("message");
                             Log.w("GET_AREAPARTY_PATH",path);
@@ -224,7 +252,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
                                 RemoteDownloadActivity.targetPath = path + "\\BTdownload\\forLoad\\";
                                 RemoteDownloadActivity.downloadPath = path + "\\BTdownload\\download\\";
                                 DownloadFolderFragment.rootPath = path + "\\FriendsDownload\\";
-                                Log.w("GET_AREAPARTY_PATH",RemoteDownloadActivity.btFilesPath);
+                                Log.w("GET_AREAPARTY_PATH", RemoteDownloadActivity.btFilesPath);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -256,7 +284,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
             new PreferenceUtil(context).write("lastChosenTV", tvJsonString);
             new PreferenceUtil(context).write(selectedTVIP.mac, newName);
             EventBus.getDefault().post(new changeSelectedDeviceNameEvent(newName), "selectedTVNameChange");
-            if(MyApplication.getSelectedPCIP()!=null&&MyApplication.getSelectedTVIP()!=null){
+            if(MyApplication.getSelectedPCIP()!=null&& MyApplication.getSelectedTVIP()!=null){
                 TVAppHelper.currentPcInfo2TV();
             }
         }
@@ -270,7 +298,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
             new PreferenceUtil(context).write("lastChosenPC", pcJsonString);
             new PreferenceUtil(context).write(selectedPCIP.mac, newName);
             EventBus.getDefault().post(new changeSelectedDeviceNameEvent(newName), "selectedPCNameChange");
-            if(MyApplication.getSelectedPCIP()!=null&&MyApplication.getSelectedTVIP()!=null){
+            if(MyApplication.getSelectedPCIP()!=null&& MyApplication.getSelectedTVIP()!=null){
                 TVAppHelper.currentPcInfo2TV();
             }
         }
@@ -424,7 +452,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
 
                         BufferedReader buffer = new BufferedReader(new InputStreamReader(client.getInputStream(), "UTF-8"));
                         String data = buffer.readLine();
-                        String decryptdata=newAES.decrypt(data,pass1.getBytes());
+                        String decryptdata= newAES.decrypt(data,pass1.getBytes());
                         Log.e("22222222", "两个rdp111" + decryptdata);
                         Log.e(tag + "ervincm", "Get data from [" + client.getRemoteSocketAddress().toString() + "] : " + data);
                         if (!TextUtils.isEmpty(decryptdata)) {
@@ -544,7 +572,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         }
 
 
-        if(MyApplication.getSelectedPCIP()!=null&&MyApplication.getSelectedTVIP()!=null){
+        if(MyApplication.getSelectedPCIP()!=null&& MyApplication.getSelectedTVIP()!=null){
             TVAppHelper.currentPcInfo2TV();
         }
 
@@ -632,11 +660,39 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
             Log.e("MyApplication", "WIFI已连接");
             FillingIPInforList.setCloseSignal(false);
             FillingIPInforList.startBroadCastAndListen(10000, 10000);
+            getAddress();
+            ReadSmsService.reLogin();
         } else {
             OkDownload.getInstance().pauseAll();
             FillingIPInforList.setCloseSignal(true);
             Log.e("MyApplication", "当前是移动网");
+            getAddress();
+            ReadSmsService.reLogin();
         }
+
+
+    }
+    /*根据网络接口查询所在城市*/
+    public static void getAddress(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder().url("https://ip.cn/").build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    Document doc = Jsoup.parse(responseData);
+                    Element element = doc.getElementsByClass("well").first();
+                    Element element1 = element.child(element.childNodeSize()-1);
+                    String s = element1.text();
+                    location = s.substring(s.indexOf(" ")+1,s.indexOf(","));
+                    Log.w("地理位置",location);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -703,6 +759,14 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
 
         startStateRefreshTimer();
         startCheckIsNewVersionExist();
+
+        registerNotificationReceiver();
+    }
+    private void registerNotificationReceiver(){
+        IntentFilter filter_click = new IntentFilter();
+        filter_click.addAction(ONCLICK);
+        //注册广播
+        registerReceiver(receiver_onclick, filter_click);
     }
 
     @Override
@@ -795,6 +859,50 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
     public void addActivity(Activity activity) {
         activities.add(activity);
     }
+    public void removeActivity(Activity activity) {
+        activities.remove(activity);
+    }
+
+    public void goToLogin(){
+        sendLogoutMessage();
+        boolean b= false;
+        for (Activity activity : activities) {
+            if (activity instanceof Login){
+                b = true;
+                continue;
+            }
+            if (!activity.isFinishing()){
+                activity.finish();
+            }
+        }
+        if (!b){
+            startActivity(new Intent(this, Login.class));
+        }
+    }
+
+    public void sendLogoutMessage(){
+        if (!TextUtils.isEmpty(Login.userId)){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        LogoutMsg.LogoutReq.Builder builder = LogoutMsg.LogoutReq.newBuilder();
+                        builder.setLogoutType(LogoutMsg.LogoutReq.LogoutType.MOBILE);
+                        builder.setUserId(Login.userId);
+                        byte[] reByteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.LOGOUT_REQ.getNumber(), builder.build().toByteArray());
+                        if (Login.base != null){
+                            Login.base.writeToServer(Login.outputStream, reByteArray);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
+
 
     /**
      * <summary>
@@ -804,8 +912,13 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
     public void exit() {
         try {
             for (Activity activity : activities) {
-                if (activity != null)
-                    activity.finish();
+                try {
+                    if (!activity.isFinishing()){
+                        activity.finish();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -873,7 +986,13 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
 
     public void closeAll(){
         for(Activity activity : activities){
-            activity.finish();
+            try {
+                if (!activity.isFinishing()){
+                    activity.finish();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -881,7 +1000,7 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         String IPAddress = "";
         InetAddress ReturnStr1 = null;
         try {
-            ReturnStr1 = java.net.InetAddress.getByName(host);
+            ReturnStr1 = InetAddress.getByName(host);
             IPAddress = ReturnStr1.getHostAddress();
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -890,6 +1009,38 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         return IPAddress;
     }
 
+    /**
+     * 将得到的int类型的IP转换为String类型
+     *
+     * @param ip
+     * @return
+     */
+    public static String intIP2StringIP(int ip) {
+        return (ip & 0xFF) + "." +
+                ((ip >> 8) & 0xFF) + "." +
+                ((ip >> 16) & 0xFF) + "." +
+                (ip >> 24 & 0xFF);
+    }
+
+    public  void showNotification(final String title, final String contentText){
+        Looper.prepare();
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Intent Intent_pre = new Intent(ONCLICK);
+                PendingIntent pendIntent_click = PendingIntent.getBroadcast(context, 0, Intent_pre, 0);
+
+                Notification notification = new Notification.Builder(context).setContentTitle(title)
+                        .setContentText(contentText).setStyle(new Notification.BigTextStyle().bigText(contentText)).setWhen(System.currentTimeMillis()).setSmallIcon(R.mipmap.app_logo)
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.mipmap.app_logo))
+                        .setContentIntent(pendIntent_click).setAutoCancel(true).build();
+
+                NotificationManager manager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+                manager.notify(1,notification);
+            }
+        });
+        Looper.loop();
+    }
 
 
 }

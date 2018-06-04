@@ -145,6 +145,9 @@ public class MyHandler extends Handler {
             case OrderConst.showFriendFiles:
                 fragment06.showFriendFiles(msg);
                 break;
+            case OrderConst.showGroupFiles:
+                fragment06.showGroupFiles(msg);
+                break;
             case OrderConst.shareFileSuccess:
                 fragment06.shareFileSuccess(msg);
                 break;
@@ -160,7 +163,15 @@ public class MyHandler extends Handler {
             case OrderConst.addFileRequest:
                 fragment06.addFileRequest(msg);
                 break;
-
+            case OrderConst.addGroupRequest:
+                fragment06.addGroup(msg);
+                break;
+            case OrderConst.updateGroupInfo:
+                fragment06.updateGroup(msg);
+                break;
+            case OrderConst.deleteGroupInfo:
+                fragment06.deleteGroup(msg);
+                break;
             //downloadFragment
             case OrderConst.torrentFileStartReq:
                 btFolderFragment.torrentFileStartReq(msg);

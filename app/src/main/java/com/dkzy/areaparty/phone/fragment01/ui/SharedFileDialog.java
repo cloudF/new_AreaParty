@@ -7,11 +7,24 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.R;
+import com.dkzy.areaparty.phone.fragment06.headIndexToImgId;
+import com.facebook.common.internal.Objects;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import protocol.Data.GroupData;
 
 /**
  * Project Name： FamilyCentralControler
@@ -28,7 +41,20 @@ public class SharedFileDialog extends Dialog {
     private EditText shareFilePwdET;
     private Button positiveButton;
     private Button negativeButton;
+    private MultiSelectionSpinner sp_group;
+    private static List<GroupData.GroupItem> userGroup_list = null;
+    private List<String> list;
     private Context context;
+    private List<Integer> listSelected;
+
+    public List<String> getSelected() {
+        List<String> listGroupId = new ArrayList<>();
+        listSelected = sp_group.getSelectedIndices();
+        for (int i = 0;i<listSelected.size();i++){
+            listGroupId.add(userGroup_list.get(listSelected.get(i)).getGroupId());
+        }
+        return listGroupId;
+    }
 
     public SharedFileDialog(Context context) {
         super(context, R.style.CustomDialog);
@@ -44,6 +70,7 @@ public class SharedFileDialog extends Dialog {
     private void setCustomDialog() {
         View mView = LayoutInflater.from(getContext()).inflate(R.layout.tab04_sharefile_dialog, null);
         title = (TextView) mView.findViewById(R.id.shareFileTitleTV);
+        sp_group = (MultiSelectionSpinner) mView.findViewById(R.id.sp_group);
         shareFileName = (TextView) mView.findViewById(R.id.shareFileNameTV);
         editText = (EditText) mView.findViewById(R.id.shareFileDesET);
         shareFileUrlET = (EditText) mView.findViewById(R.id.shareFileUrlET);
@@ -58,6 +85,22 @@ public class SharedFileDialog extends Dialog {
         p.width = d.getWidth() - 100; //设置dialog的宽度为当前手机屏幕的宽度-100
         getWindow().setAttributes(p);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        initData();
+    }
+
+    private void initData() {
+        userGroup_list = Login.userGroups;
+        list=new ArrayList<String>();
+        if(userGroup_list.size()>0){
+            for(GroupData.GroupItem group : userGroup_list){
+//                FileGroup fg = new FileGroup();
+//                fg.groupId=group.getGroupId();
+//                fg.groupName=group.getGroupName();
+//                fg.isChecked=false;
+                list.add(group.getGroupName());
+            }
+        }
+        sp_group.setItems(list);
     }
 
 
@@ -110,4 +153,9 @@ public class SharedFileDialog extends Dialog {
     public void setEdit3HintText(String hint) {
         shareFilePwdET.setHint(hint);
     }
+//    class FileGroup{
+//        String groupId;
+//        String groupName;
+//        boolean isChecked;
+//    }
 }

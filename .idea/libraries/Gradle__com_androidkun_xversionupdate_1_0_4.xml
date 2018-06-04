@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.androidkun:xversionupdate-1.0.4">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/xversionupdate-1.0.4.aar/f956101f2bc7abc04747ca60414a8b9e/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/xversionupdate-1.0.4.aar/f956101f2bc7abc04747ca60414a8b9e/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/xversionupdate-1.0.4.aar/b2e69e2a534c168d1e6556096afbb24f/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/xversionupdate-1.0.4.aar/b2e69e2a534c168d1e6556096afbb24f/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

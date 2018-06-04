@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.fragment01.model.SharedfileBean;
 import com.dkzy.areaparty.phone.fragment01.setting.SettingAddressActivity;
@@ -19,16 +20,22 @@ import com.dkzy.areaparty.phone.fragment06.DownloadFolderFragment;
 import com.dkzy.areaparty.phone.fragment06.DownloadStateFragment;
 import com.dkzy.areaparty.phone.fragment06.FileRequestDBManager;
 import com.dkzy.areaparty.phone.fragment06.FriendRequestDBManager;
+import com.dkzy.areaparty.phone.fragment06.GroupChat;
 import com.dkzy.areaparty.phone.fragment06.RequestFriendObj;
 import com.dkzy.areaparty.phone.fragment06.chat;
 import com.dkzy.areaparty.phone.fragment06.dealFileRequest;
 import com.dkzy.areaparty.phone.fragment06.downloadManager;
 import com.dkzy.areaparty.phone.fragment06.fileList;
 import com.dkzy.areaparty.phone.fragment06.fileObj;
+import com.dkzy.areaparty.phone.fragment06.groupObj;
 import com.dkzy.areaparty.phone.fragment06.page06Fragment;
 import com.dkzy.areaparty.phone.fragment06.searchFriend;
 import com.dkzy.areaparty.phone.fragment06.userObj;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
+import com.dkzy.areaparty.phone.utils_comman.netWork.NetUtil;
+import com.google.protobuf.InvalidProtocolBufferException;
+
+import org.simple.eventbus.EventBus;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,15 +51,22 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import protocol.Data.ChatData;
 import protocol.Data.FileData;
+import protocol.Data.GroupData;
+import protocol.Data.UserData;
 import protocol.Msg.AccreditMsg;
 import protocol.Msg.AddFileMsg;
 import protocol.Msg.AddFriendMsg;
 import protocol.Msg.ChangeFriendMsg;
+import protocol.Msg.ChangeGroupMsg;
+import protocol.Msg.CreateGroupChatMsg;
 import protocol.Msg.DeleteFileMsg;
 import protocol.Msg.GetDownloadFileInfo;
+import protocol.Msg.GetGroupInfoMsg;
 import protocol.Msg.GetPersonalInfoMsg;
 import protocol.Msg.GetUserInfoMsg;
 import protocol.Msg.KeepAliveMsg;
@@ -60,9 +74,12 @@ import protocol.Msg.LoginMsg;
 import protocol.Msg.PersonalSettingsMsg;
 import protocol.Msg.ReceiveChatMsg;
 import protocol.Msg.SendChatMsg;
+import protocol.Msg.VipMsg;
 import protocol.ProtoHead;
 import server.NetworkPacket;
 import tools.DataTypeTranslater;
+
+import static com.dkzy.areaparty.phone.fragment01.websitemanager.readSms.ReadSmsService.reLogin;
 
 /**
  * Created by SnowMonkey on 2016/12/29.
@@ -76,10 +93,18 @@ public class Base {
     private OutputStream outputStream;
     public List<String> onlineUserId = Collections.synchronizedList(new ArrayList<String>());
 
+    public static Date aliveDate;
+    public static int random = 0;
+    private int r;
+    private Timer timer;
+
     public Base(Socket socket, InputStream inputStream, OutputStream outputStream){
         this.socket = socket;
         this.inputStream = inputStream;
         this.outputStream = outputStream;
+
+        random = (int)(Math.random()*1000);
+        r = random;
     }
 
 //    public void link(Socket socket, InputStream inputStream, OutputStream outputStream) throws UnknownHostException, IOException {
@@ -138,18 +163,51 @@ public class Base {
         return result;
     }
 
+    private  void timer() {
+
+        // TODO Auto-generated method stub
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (r != random){
+                    timer.cancel();
+                    return;
+                }
+                Date date = new Date();
+                long a = date.getTime();
+                long b = aliveDate.getTime();
+                int c = (int)((a - b) / 1000);
+                Log.w("timer","c="+c);
+                if (c > 21){//25s没有接受到KEEP_ALIVE_SYNC,连接可能断开，尝试重新连接
+                    if (NetUtil.getNetWorkState(MyApplication.getContext()) != NetUtil.NETWORK_NONE){
+                        reLogin();
+                    }
+                    timer.cancel();
+                }
+            }
+        }, 1000 * 10,1000 * 10);//每10s
+    }
+
     Runnable listen = new Runnable(){
         @Override
         public void run() {
             try{
-                while (socket.isConnected()) {
+
+                aliveDate = new Date();
+                timer();
+
+                while (socket.isConnected() && r == random) {
                     byte[] byteArray = readFromServer(inputStream);
                     int size = DataTypeTranslater.bytesToInt(byteArray, 0);
                     System.out.println("BaseServer size: " + size);
                     ProtoHead.ENetworkMessage type = ProtoHead.ENetworkMessage.valueOf(DataTypeTranslater.bytesToInt(byteArray,HEAD_INT_SIZE));
                     System.out.println("BaseServer Type : " + type.toString());
+
+                    if (r != random) break;//已经建立新的Base时，结束此线程
                     switch (type){
                         case KEEP_ALIVE_SYNC:
+                            aliveDate = new Date();
                             keepAlive(byteArray, size);
                             break;
                         case LOGIN_RSP:
@@ -195,6 +253,52 @@ public class Base {
                         case DELETE_FILE_RSP:
                             deleteFile(byteArray, size);
                             break;
+                        case CREATE_GROUP_CHAT_RSP:
+                            createGroupChat(byteArray, size);
+                            break;
+                        case GET_GROUP_INFO_RSP:
+                            getGroupInfo(byteArray,size);
+                            break;
+                        case CHANGE_GROUP_RSP:
+                            changeGroupInfo(byteArray,size);
+                            break;
+                        case VIP_SHARE:
+                            //vipInfo(byteArray,size);
+                            vipRentTest(byteArray, size);
+                            break;
+                        case VIP_RENTINFO:
+                            vipRentInfo(byteArray, size);
+                            break;
+                        case VIP_RENT:
+                            vipRent(byteArray, size);
+                            break;
+                        case VIP_LEASEINFO:
+                            vipLeaseInfo(byteArray, size);
+                            break;
+                        case VIP_LEASE:
+                            vipLease(byteArray, size);
+                            break;
+                        case VIP_LEASE_CODE:
+                            vipLeaseCode(byteArray,size);
+                            break;
+                        case VIP_RENT_CODE:
+                            vipRentCode(byteArray,size);
+                            break;
+                        case SMS_TEST_VERIFY:
+                            smsTestVerify(byteArray,size);
+                            break;
+                        case ZFB_ACCOUNT_SETTING:
+                            zfnAccountSetting(byteArray,size);
+                            break;
+                        case ALIPAY:
+                            alipay(byteArray,size);
+                            break;
+                        case NOTIFICATION:
+                            notification(byteArray,size);
+                            break;
+                        case LEASSEMESSAGE:
+                            leaseMessage(byteArray,size);
+                            break;
                         default:
                             break;
                     }
@@ -204,6 +308,47 @@ public class Base {
             }
         }
     };
+
+    private void createGroupChat(byte[] byteArray, int size) {
+        try {
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            CreateGroupChatMsg.CreateGroupChatRsp response = CreateGroupChatMsg.CreateGroupChatRsp.parseFrom(objBytes);
+            if(response.getResultCode().equals(CreateGroupChatMsg.CreateGroupChatRsp.ResultCode.FAIL)){
+                //Toast.makeText(page06Fragment.class, "xxx",Toast.LENGTH_SHORT).show();
+            }else{
+                Log.i("huguoyong", "createGroupChat: "+response.getGroupChatId());
+                final String id = String.valueOf(response.getGroupChatId());
+                final String groupName = String.valueOf(response.getGroupName());
+                final String createrId = String.valueOf(Login.userId);
+                GroupData.GroupItem.Builder g = GroupData.GroupItem.newBuilder();
+                g.setCreaterUserId(createrId);
+                g.setGroupId(id);
+                g.setGroupName(groupName);
+                Login.userGroups.add(g.build());
+                new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                    if (MainActivity.handlerTab06 != null){
+                        Message groupMsg = MainActivity.handlerTab06.obtainMessage();
+                        groupObj group = new groupObj();
+                        group.setGroupId(id);
+                        group.setGroupName(groupName);
+                        group.setGroupCreateId(createrId);
+                        groupMsg.what = OrderConst.addGroupRequest;
+                        groupMsg.obj = group;
+                        MainActivity.handlerTab06.sendMessage(groupMsg);
+                    }
+                    }
+                }).start();
+            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public void keepAlive(byte[] byteArray, int size){
         try {
             byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
@@ -239,6 +384,7 @@ public class Base {
                             builder.setWhere("baseLogin");
                             builder.setUserId(id);
                             builder.setUserInfo(true);
+                            //builder.setGroupInfo(true);
                             byte[] getUserInfo = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.GET_PERSONALINFO_REQ.getNumber(), builder.build().toByteArray());
                             if (Login.base!=null){
                                 Login.base.writeToServer(Login.outputStream, getUserInfo);
@@ -364,7 +510,19 @@ public class Base {
                     msg.obj = msgObj;
                     msg.what = 0;
                     fileList.mHandler.sendMessage(msg);
-                }else if(response.getWhere().equals("download")){
+                }
+                else if(response.getWhere().equals("group")) {
+                    long chatId = response.getChatId();
+                    long date = response.getDate();
+                    ArrayList<Long> msgObj = new ArrayList<>();
+                    msgObj.add(chatId);
+                    msgObj.add(date);
+                    Message msg = GroupChat.mHandler.obtainMessage();
+                    msg.obj = msgObj;
+                    msg.what = 0;
+                    GroupChat.mHandler.sendMessage(msg);
+                }
+                else if(response.getWhere().equals("download")){
 
                 }else if(response.getWhere().equals("agreeDownload")){
                     FileRequestDBManager fileRequestDBManager = MainActivity.getFileRequestDBManager();
@@ -639,7 +797,8 @@ public class Base {
                         pw.close();
                         socket.close();
                     }
-                    if(response.getChatData(0).getTargetType() == ChatData.ChatItem.TargetType.INDIVIDUAL){
+                    if(response.getChatData(0).getTargetType() == ChatData.ChatItem.TargetType.INDIVIDUAL
+                            || response.getChatData(0).getTargetType() == ChatData.ChatItem.TargetType.GROUP){
                         String chatContent = response.getChatData(0).getChatBody();
                         String senderId = response.getChatData(0).getSendUserId();
                         ChatObj chat = new ChatObj();
@@ -692,6 +851,25 @@ public class Base {
 //        }
 //        @Override
 //        public void run() {
+    private void getGroupInfo(byte[] byteArray, int size) {
+        try {
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            GetGroupInfoMsg.GetGroupInfoRsp response = GetGroupInfoMsg.GetGroupInfoRsp.parseFrom(objBytes);
+            if(response.getWhere().equals("page06FragmentGroup")){
+                Message msg = MainActivity.handlerTab06.obtainMessage();
+//                List<String> showMembersList = response.getGroupItem().getMemberUserIdList();
+//                List<FileData.FileItem> showFilesList = response.getFilesList();
+                msg.what = OrderConst.showGroupFiles;
+                msg.obj = response;
+                MainActivity.handlerTab06.sendMessage(msg);
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void getPersonalInfo(byte[] byteArray, int size){
             try{
                 byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
@@ -787,6 +965,45 @@ public class Base {
             e.printStackTrace();
         }
     }
+    public void changeGroupInfo(byte[] byteArray, int size) {
+        try {
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            ChangeGroupMsg.ChangeGroupRsp response = ChangeGroupMsg.ChangeGroupRsp.parseFrom(objBytes);
+            if(response.getResultCode().equals(ChangeGroupMsg.ChangeGroupRsp.ResultCode.UPDATE_SUCCESS)){
+                Message updateGroupMsg = MainActivity.handlerTab06.obtainMessage();
+                groupObj group = new groupObj();
+                group.setGroupId(String.valueOf(response.getGroupChatId()));
+                group.setGroupName(response.getNewGroupName());
+                group.setMemberUserId(response.getUserIdList());
+                updateGroupMsg.obj=group;
+                updateGroupMsg.what = OrderConst.updateGroupInfo;
+                MainActivity.handlerTab06.sendMessage(updateGroupMsg);
+            }
+            if(response.getResultCode().equals(ChangeGroupMsg.ChangeGroupRsp.ResultCode.DELETE_SUCCESS)){
+                Message updateGroupMsg = MainActivity.handlerTab06.obtainMessage();
+                groupObj group = new groupObj();
+                group.setGroupId(String.valueOf(response.getGroupChatId()));
+                updateGroupMsg.obj=group;
+                updateGroupMsg.what = OrderConst.deleteGroupInfo;
+                MainActivity.handlerTab06.sendMessage(updateGroupMsg);
+                /**
+                 * 感觉有安全隐患，List遍历中一旦出现多线程修改情况，会产生异常，
+                 * 如产生异常请修改，留坑，:>
+                 */
+                for(int i = 0; i< Login.userGroups.size();i++){
+                    GroupData.GroupItem g = Login.userGroups.get(i);
+                    if(g.getGroupId().equals(String.valueOf(response.getGroupChatId()))){
+                        Login.userGroups.remove(g);
+                        break;
+                    }
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
     public void changeFriend(byte[] byteArray, int size){
         try{
             byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
@@ -812,6 +1029,25 @@ public class Base {
                 MainActivity.handlerTab06.sendMessage(addFriendMsg);
                 FriendRequestDBManager friendRequestDB = MainActivity.getFriendRequestDBManager();
                 friendRequestDB.changeRequestStateSQL(request, Login.userId + "friend");
+                /**
+                 * 进行全部好友分组的好友同步
+                 */
+                GroupData.GroupItem.Builder gg = null;
+                for (int i = 0; i < Login.userGroups.size(); i++) {
+                    GroupData.GroupItem g = Login.userGroups.get(i);
+                    if("0".equals(g.getGroupId())) {
+                        gg = g.toBuilder();
+                        gg.addMemberUserId(response.getUserItem().getUserId());
+                        Login.userGroups.set(i,gg.build());
+                    }
+                }
+                UserData.UserItem.Builder uu = UserData.UserItem.newBuilder();
+                uu.setUserId(response.getUserItem().getUserId());
+                uu.setUserName(response.getUserItem().getUserName());
+                uu.setIsFriend(response.getUserItem().getIsFriend());
+                uu.setFileNum(response.getUserItem().getFileNum());
+                uu.setHeadIndex(response.getUserItem().getHeadIndex());
+                Login.userFriend.add(uu.build());
                 Log.i("addfriend","add finish");
             }
         }catch (IOException e) {
@@ -825,8 +1061,14 @@ public class Base {
                 objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
             AddFileMsg.AddFileRsp response = AddFileMsg.AddFileRsp.parseFrom(objBytes);
             if(response.getResultCode().equals(AddFileMsg.AddFileRsp.ResultCode.SUCCESS)){
-
-                MyApplication.addMySharedFiles(PCFileHelper.getSelectedShareFile());
+                SharedfileBean fileBean = new SharedfileBean();
+                fileBean.id=response.getFileId();
+                fileBean.name=response.getFileName();
+                fileBean.des=response.getFileInfo();
+                fileBean.size=Integer.parseInt(response.getFileSize());
+                fileBean.timeStr=response.getFileDate();
+                MyApplication.addMySharedFiles(fileBean);
+//                MyApplication.addMySharedFiles(PCFileHelper.getSelectedShareFile());
 
                 Message shareFile04 = MainActivity.handlerTab01.obtainMessage();
                 Message shareFile06 = MainActivity.handlerTab06.obtainMessage();
@@ -836,6 +1078,7 @@ public class Base {
                 MainActivity.handlerTab01.sendMessage(shareFile04);
 
                 fileObj file = new fileObj();
+                file.setFileId(response.getFileId());
                 file.setFileName(response.getFileName());
                 file.setFileInfo(response.getFileInfo());
                 file.setFileSize(Integer.parseInt(response.getFileSize()));
@@ -956,7 +1199,7 @@ public class Base {
             }else if(response.getResultCode().equals(DeleteFileMsg.DeleteFileRsp.ResultCode.SUCCESS)){
                 for (int i = 0; i < MyApplication.getMySharedFiles().size(); i++){
                     SharedfileBean file = MyApplication.getMySharedFiles().get(i);
-                    if (file.name.equals(response.getFileName()) && file.des.equals(response.getFileInfo())){
+                    if (file.name.equals(response.getFileName()) && file.des.equals(response.getFileInfo()) && file.id==response.getFileId()){
                         MyApplication.getMySharedFiles().remove(i);
                         i--;
                     }
@@ -987,4 +1230,193 @@ public class Base {
             e.printStackTrace();
         }
     }
+
+    public void vipRentTest(byte[] byteArray, int size){
+        try {
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.VipRentInfoRsp response = VipMsg.VipRentInfoRsp.parseFrom(objBytes);
+            EventBus.getDefault().post(response, "vipRentTest");
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+    public void vipInfo(byte[] byteArray, int size){
+        try {
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.VipRentRsp response = VipMsg.VipRentRsp.parseFrom(objBytes);
+            if (response.getResultCode().equals(VipMsg.VipRentRsp.ResultCode.NOTREGISTER)){
+                Log.w("vip", "未注册");
+            }else if (response.getResultCode().equals(VipMsg.VipRentRsp.ResultCode.REGISTERED)){
+                Log.w("vip", "已注册");
+            }else {
+                Log.w("vip", "查询失败");
+            }
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+    public void vipRentInfo(byte[] byteArray, int size){
+        try {
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.VipRentInfoRsp response = VipMsg.VipRentInfoRsp.parseFrom(objBytes);
+            EventBus.getDefault().post(response, "vipRentInfo");
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+    public void vipRent(byte[] byteArray, int size){
+        try {
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.VipRentRsp response = VipMsg.VipRentRsp.parseFrom(objBytes);
+            EventBus.getDefault().post(response, "vipRent");
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+    public void vipLeaseInfo(byte[] byteArray, int size){
+        try {
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.VipLeaseInfoRsp response = VipMsg.VipLeaseInfoRsp.parseFrom(objBytes);
+            EventBus.getDefault().post(response, "vipLeaseInfo");
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+    public void vipLease(byte[] byteArray, int size){
+        try {
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.VipLeaseRsp response = VipMsg.VipLeaseRsp.parseFrom(objBytes);
+            EventBus.getDefault().post(response, "vipLease");
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+    public void vipLeaseCode(byte[] byteArray, int size){
+        try{
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.VipLeaseYZMRsp response = VipMsg.VipLeaseYZMRsp.parseFrom(objBytes);
+            Log.w("vipLeaseCode",response.toString());
+            EventBus.getDefault().post(response, "vipLeaseCode");
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+    public void vipRentCode(byte[] byteArray, int size){
+        try{
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.VipRentYZMRsp response = VipMsg.VipRentYZMRsp.parseFrom(objBytes);
+            Log.w("vipRentCode",response.toString());
+            EventBus.getDefault().post(response, "vipRentCode");
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void smsTestVerify(byte[] byteArray, int size) {
+        try{
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.SmsTestVerifyRsp response = VipMsg.SmsTestVerifyRsp.parseFrom(objBytes);
+            Log.w("smsTestVerify",response.toString());
+            EventBus.getDefault().post(response, "smsTestVerify");
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void zfnAccountSetting(byte[] byteArray, int size) {
+        try{
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.zmfAccountSettingRsp response = VipMsg.zmfAccountSettingRsp.parseFrom(objBytes);
+            Log.w("zfnAccountSetting",response.toString());
+            EventBus.getDefault().post(response, "zfnAccountSetting");
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void alipay(byte[] byteArray, int size) {
+        try{
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.AliPayRsp response = VipMsg.AliPayRsp.parseFrom(objBytes);
+            Log.w("alipay",response.toString());
+            EventBus.getDefault().post(response, "alipay");
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void notification(byte[] byteArray, int size) {
+        try{
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.NotificationMsg response = VipMsg.NotificationMsg.parseFrom(objBytes);
+            if (response.getType().equals(VipMsg.NotificationMsg.Type.Lease)){
+                MyApplication.getInstance().showNotification("AreaParty:账号出租信息",response.getMessage());
+            }
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void leaseMessage(byte[] byteArray, int size) {
+        try{
+            byte[] objBytes = new byte[size - NetworkPacket.getMessageObjectStartIndex()];
+            for (int i = 0; i < objBytes.length; i++)
+                objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
+            VipMsg.vipLeaseMessageRsp response = VipMsg.vipLeaseMessageRsp.parseFrom(objBytes);
+            Log.w("leaseMessage",response.toString());
+            EventBus.getDefault().post(response, "leaseMessage");
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*private  void timer() {
+
+        // TODO Auto-generated method stub
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (r != random){
+                    timer.cancel();
+                    return;
+                }
+                Date date = new Date();
+                long a = date.getTime();
+                long b = aliveDate.getTime();
+                int c = (int)((a - b) / 1000);
+                Log.w("timer","c="+c);
+                if (c > 25){
+                    if (NetUtil.getNetWorkState(MyApplication.getContext()) != NetUtil.NETWORK_NONE){
+                        reLogin();
+                    }
+                    timer.cancel();
+                }
+            }
+        }, 1000 * 20,1000 * 20);//每10s
+    }*/
 }

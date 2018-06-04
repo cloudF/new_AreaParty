@@ -26,8 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.dkzy.areaparty.phone.fragment01.websitemanager.start.StartActivity.mAccessibleIntent;
-import static com.dkzy.areaparty.phone.fragment01.websitemanager.start.StartActivity.serviceEnabled;
+import static com.dkzy.areaparty.phone.fragment01.websitemanager.vipShare.VipRentActivity.serviceEnabled;
 
 public class AutoLoginHelperActivity extends AppCompatActivity {
     @BindView(R.id.floatViewTV)

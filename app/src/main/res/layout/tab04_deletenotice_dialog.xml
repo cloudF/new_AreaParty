@@ -19,6 +19,19 @@
         android:text="是否删除?"
         android:textColor="#000000"
         android:textSize="16sp" />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/messageTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="#000"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="start|center"
+        android:textSize="14sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

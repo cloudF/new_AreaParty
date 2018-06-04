@@ -11,6 +11,15 @@ public class fileObj {
     private String senderId;
     private String receiverId;
     private String fileDate;
+    private int fileId;
+
+    public int getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(int fileId) {
+        this.fileId = fileId;
+    }
 
     public String getSenderId() {
         return senderId;

@@ -3,23 +3,35 @@ package com.dkzy.areaparty.phone.fragment05.accessible_service;
 import android.accessibilityservice.AccessibilityService;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.Toast;
 
+import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.start.StartActivity;
+import com.dkzy.areaparty.phone.myapplication.MyApplication;
+import com.dkzy.areaparty.phone.myapplication.floatview.FloatView;
 import com.dkzy.areaparty.phone.utilseverywhere.tools.AccessibilityHelper;
 
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
+import org.simple.eventbus.ThreadMode;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import protocol.Msg.VipMsg;
+import protocol.ProtoHead;
+import server.NetworkPacket;
 
 import static com.dkzy.areaparty.phone.myapplication.MyApplication.mFloatView;
 import static com.dkzy.areaparty.phone.myapplication.MyApplication.mFloatView2;
+import static com.dkzy.areaparty.phone.myapplication.floatview.FloatView.allocationId;
 
 /**
  * Created by zhuyulin on 2017/7/13.
@@ -37,14 +49,26 @@ public class AutoLoginService extends AccessibilityService {
 
     public static final int NO_ACTION = 0;
     public static final int IQIYI_LOGIN = 1;
+    public static final int IQIYI_LOGIN_TEST = -1;
+    public static final int IQIYI_LASTCHECT = 11;
+    public static final int IQIYI_LASTCHECT_TEST = -11;
     public static final int IQIYI_LOGOUT = 2;
     public static final int YOUKU_LOGIN = 3;
+    public static final int YOUKU_LOGIN_TEST = -3;
+    public static final int YOUKU_LASTCHECK = 31;
+    public static final int YOUKU_LASTCHECK_TEST = -31;
+    public static final int YOUKU_YZM = 32;
+    public static final int YOUKU_YZM_WAIT = 33;
     public static final int YOUKU_LOGOUT = 4;
     public static final int TENCENT_LOGIN = 5;
+    public static final int TENCENT_LOGIN_TEST = -5;
+    public static final int TENCENT_LASTCHECK = 51;
+    public static final int TENCENT_LASTCHECK_TEST = -51;
     public static final int TENCENT_LOGOUT = 6;
     public static final int LESHI_LOGIN = 7;
     public static final int LESHI_LOGOUT = 8;
-
+    public static final int IQIYI_YZM = 9;//向账号提供者请求爱奇艺验证码
+    public static final int IQIYI_YZM_WAIT = 10;//等待爱奇艺验证码
     public static int state = NO_ACTION;
 
     public static AutoLoginService inatance;
@@ -55,12 +79,15 @@ public class AutoLoginService extends AccessibilityService {
 
     List<AccessibilityNodeInfo> node = new ArrayList<>();//用于遍历
 
+    int count = 0;
+
     public static AutoLoginService getInstance(){
         return inatance;
     }
     @Override
     public void onCreate() {
         super.onCreate();
+        EventBus.getDefault().register(this);
         helper = new AccessibilityHelper(this);
 
         if (inatance == null){inatance = this;}
@@ -80,9 +107,10 @@ public class AutoLoginService extends AccessibilityService {
         switch(event.getEventType()){
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
             case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
-                Log.w(TAG+"CHANGED", event.getPackageName().toString());
+                //Log.w(TAG+"CHANGED", event.getPackageName().toString());
                 switch (state){
                     case IQIYI_LOGIN:
+                    case IQIYI_LOGIN_TEST:
                         if (event.getPackageName().toString().equals(IQIYI)){
                             AccessibilityNodeInfo root = getRootInActiveWindow();
                             if (root == null) return;
@@ -94,6 +122,170 @@ public class AutoLoginService extends AccessibilityService {
                                 if (!mFloatView.isShow()) mFloatView.show();
                             }else {
                                 if (mFloatView.isShow()) mFloatView.close();
+                            }
+                        }
+                        break;
+                    case IQIYI_YZM:
+                        if (event.getPackageName().toString().equals(IQIYI)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            AccessibilityNodeInfo e1 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block1");
+                            if (e1!=null){//在等待验证码阶段，发送获取请求
+                                state = IQIYI_YZM_WAIT;
+                                sendYZMRequest();
+                            }
+                        }
+                       // break;
+                    case IQIYI_YZM_WAIT:
+                    case IQIYI_LASTCHECT:
+                        if (event.getPackageName().toString().equals(IQIYI)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            List<AccessibilityNodeInfo> nodeList_navi3 = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/navi3");
+                            List<AccessibilityNodeInfo> nodeList_head = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/phone_my_main_head_layout");
+                            List<AccessibilityNodeInfo> nodeList_main_login = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/my_main_login");
+                            List<AccessibilityNodeInfo> vip_status_opened = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/vip_status_opened");
+                            List<AccessibilityNodeInfo> vip_status = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/vip_status");
+                            if (!nodeList_navi3.isEmpty() && !nodeList_head.isEmpty()){
+                                if (!nodeList_main_login.isEmpty()){
+                                    if (count < 1){
+                                        count ++;
+                                    }else {
+                                        if (count > 1){
+                                            return;
+                                        }
+                                        count ++;
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Log.w(TAG,"maybe确定登录失11败"+count);
+                                                if (state == IQIYI_LASTCHECT || state == IQIYI_YZM){
+                                                    state = NO_ACTION;
+                                                    Log.w(TAG,"等待2s后再次确定登录失败");
+                                                    count = 0;
+                                                    sendLoginInfo5();
+                                                    new Thread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            MyApplication.getInstance().showNotification("AreaParty:登录过程发生故障","请尝试重新执行登录过程，若多次尝试仍不能登录成功，可申诉退款");
+                                                        }
+                                                    }).start();
+                                                }
+                                            }
+                                        }, 2000);
+                                    }
+                                }else {
+                                    //登录成功
+                                    state = NO_ACTION;
+                                    if (vip_status_opened.isEmpty()){
+                                        if (!vip_status.isEmpty()){
+                                            if (vip_status.get(0).getText().toString().equals("查看")){
+                                                Log.w(TAG,"IQIYI登录成功,是vip账号");
+                                                sendLoginInfo3();
+                                                new Thread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        MyApplication.getInstance().showNotification("AreaParty:登录成功","爱奇艺VIP账号登录成功");
+                                                    }
+                                                }).start();
+                                            }else {
+                                                Log.w(TAG,"IQIYI登录成功,但不是vip账号");
+                                                sendLoginInfo4();
+                                            }
+                                        }else {
+
+                                        }
+                                    }else {
+                                        Log.w(TAG,"IQIYI登录成功,是vip账号");
+                                        sendLoginInfo3();
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                MyApplication.getInstance().showNotification("AreaParty:登录成功","爱奇艺VIP账号登录成功");
+                                            }
+                                        }).start();
+                                    }
+                                }
+
+                            }else {
+                                count = 0;
+                            }
+                        }
+                        break;
+                    case IQIYI_LASTCHECT_TEST:
+                        if (event.getPackageName().toString().equals(IQIYI)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            List<AccessibilityNodeInfo> nodeList_navi3 = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/navi3");
+                            List<AccessibilityNodeInfo> nodeList_head = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/phone_my_main_head_layout");
+                            List<AccessibilityNodeInfo> nodeList_main_login = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/my_main_login");
+                            List<AccessibilityNodeInfo> vip_status_opened = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/vip_status_opened");
+                            List<AccessibilityNodeInfo> vip_status = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/vip_status");
+
+                            if (!nodeList_navi3.isEmpty() && !nodeList_head.isEmpty()){
+                                if (!nodeList_main_login.isEmpty()){
+                                    if (count < 1){
+                                        count ++;
+                                    }else {
+                                        if (count > 1){
+                                            return;
+                                        }
+                                        count ++;
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Log.w(TAG,"maybe确定登录失11败"+count);
+                                                if (state == IQIYI_LASTCHECT_TEST){
+                                                    state = NO_ACTION;
+                                                    Log.w(TAG,"等待2s后再次确定登录失败");
+                                                    count = 0;
+                                                    EventBus.getDefault().post(0,"iqiyiLoginTest");//密码验证未通过
+                                                    new Thread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到爱奇艺账号未登录成功，暂不能出租");
+                                                        }
+                                                    }).start();
+                                                }
+                                            }
+                                        }, 2000);
+                                    }
+                                }else {
+                                    //登录成功
+                                    state = NO_ACTION;
+                                    if (vip_status_opened.isEmpty()){
+                                        if (!vip_status.isEmpty()){
+                                            if (vip_status.get(0).getText().toString().equals("查看")){
+                                                EventBus.getDefault().post(2,"iqiyiLoginTest");//密码验证通过，且是vip账号
+                                                new Thread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到爱奇艺VIP账号登录成功，可以出租");
+                                                    }
+                                                }).start();
+                                            }else {
+                                                EventBus.getDefault().post(1,"iqiyiLoginTest");//密码验证通过，但不是vip账号
+                                                new Thread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到爱奇艺账号登录成功，但未开通VIP会员，暂不能出租");
+                                                    }
+                                                }).start();
+                                            }
+                                        }
+                                    }else {
+                                        EventBus.getDefault().post(2,"iqiyiLoginTest");//密码验证通过，且是vip账号
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到爱奇艺VIP账号登录成功，可以出租");
+                                            }
+                                        }).start();
+                                    }
+                                }
+
+                            }else {
+                                count = 0;
                             }
                         }
                         break;
@@ -160,6 +352,7 @@ public class AutoLoginService extends AccessibilityService {
                         }
                         break;
                     case YOUKU_LOGIN:
+                    case YOUKU_LOGIN_TEST:
                         if (event.getPackageName().toString().equals(YOUKU)){
                             AccessibilityNodeInfo root = getRootInActiveWindow();
                             if (root == null) return;
@@ -171,6 +364,204 @@ public class AutoLoginService extends AccessibilityService {
                             }else {
                                 if (mFloatView.isShow()) mFloatView.close();
                             }
+                        }
+                        break;
+                    case YOUKU_YZM:
+                        if (event.getPackageName().toString().equals(YOUKU)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            AccessibilityNodeInfo passport_sms_code = helper.findFirstNodeInfoByViewId("com.youku.phone:id/passport_sms_code");
+                            AccessibilityNodeInfo passport_get_sms = helper.findFirstNodeInfoByViewId("com.youku.phone:id/passport_get_sms");
+                            AccessibilityNodeInfo passport_button = helper.findFirstNodeInfoByViewId("com.youku.phone:id/passport_button");
+                            if (passport_sms_code != null && passport_get_sms!=null){
+                                if (passport_get_sms.getText().toString().equals("获取验证码")){
+                                    passport_get_sms.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                                    state = YOUKU_YZM_WAIT;
+                                    sendYZMRequest();
+                                }
+                            }else {
+                                //Log.w(TAG,"nodeInfo is null");
+                            }
+                        }
+                    case YOUKU_YZM_WAIT:
+                    case YOUKU_LASTCHECK:
+                        if (event.getPackageName().toString().equals(YOUKU)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            AccessibilityNodeInfo text_user = helper.findFirstNodeInfoByViewId("com.youku.phone:id/text_user");
+                            if (text_user == null){
+                                count = 0;
+                                return;
+                            }
+                            if (!text_user.isSelected()){
+                                count = 0;
+                                helper.performClick(text_user,true);
+                                return;
+                            }
+                            boolean verifyed = false;
+                            //boolean isVip = false;
+                            List<String> strings = helper.findAllTexts();
+                            for (int i = 0; i <= strings.size() ; i++){
+                                if (i < strings.size()){
+                                    String s = strings.get(i);
+                                    if (s.equals("登录/注册")){
+                                        Log.w(TAG,"可能登录失败");
+                                        verifyed = false;
+                                        break;
+                                    }
+                                }else {
+                                    verifyed = true;
+                                    Log.w(TAG,"登录成功");
+                                }
+
+                            }
+                            if (verifyed){
+                                for (int i = 0; i <= strings.size() ; i++){
+                                    if (i < strings.size()){
+                                        String s = strings.get(i);
+                                        if (s.startsWith("[开通会员]")){
+                                            Log.w(TAG,"maybe不是vip账号");
+                                            //isVip = false;
+                                            //解决页面刷新不及时的问题
+                                            youkuLastCheckVip();
+                                            break;
+                                        }
+                                    }else {
+                                        //isVip = true;
+                                        Log.w(TAG,"是vip账号");
+                                        sendLoginInfo3();
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                MyApplication.getInstance().showNotification("AreaParty:登录成功","优酷视频VIP账号登录成功");
+                                            }
+                                        }).start();
+                                    }
+                                }
+                                state = NO_ACTION;
+                                //发送通知；
+                            }else {
+                                if (count < 1){
+                                    count ++;
+                                }else {
+                                    //state = NO_ACTION;
+                                    Log.w(TAG,"maybe确定登录失败"+count);
+                                    if (count > 1){
+                                        return;
+                                    }
+                                    count ++;
+                                    //解决页面刷新不及时的引起的问题
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Log.w(TAG,"maybe确定登录失11败"+count);
+                                            if (state == YOUKU_LASTCHECK || state == YOUKU_YZM){
+                                                state = NO_ACTION;
+                                                Log.w(TAG,"等待2s后再次确定登录失败");
+                                                count = 0;
+                                                sendLoginInfo5();
+                                                new Thread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        MyApplication.getInstance().showNotification("AreaParty:登录过程发生故障","请尝试重新执行登录过程，若多次尝试仍不能登录成功，可申诉退款");
+                                                    }
+                                                }).start();
+                                            }
+                                        }
+                                    }, 2000);
+                                }
+                            }
+                            //Log.w(TAG,strings.size()+"");
+                        }
+                        break;
+                    case YOUKU_LASTCHECK_TEST:
+                        if (event.getPackageName().toString().equals(YOUKU)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            AccessibilityNodeInfo text_user = helper.findFirstNodeInfoByViewId("com.youku.phone:id/text_user");
+                            if (text_user == null){
+                                count = 0;
+                                return;
+                            }
+                            if (!text_user.isSelected()){
+                                count = 0;
+                                helper.performClick(text_user,true);
+                                return;
+                            }
+                            boolean verifyed = false;
+                            boolean isVip = false;
+                            List<String> strings = helper.findAllTexts();
+                            for (int i = 0; i <= strings.size() ; i++){
+                                if (i < strings.size()){
+                                    String s = strings.get(i);
+                                    if (s.equals("登录/注册")){
+                                        Log.w(TAG,"可能登录失败");
+                                        verifyed = false;
+                                        break;
+                                    }
+                                }else {
+                                    verifyed = true;
+                                    Log.w(TAG,"登录成功");
+                                }
+
+                            }
+                            if (verifyed){
+                                for (int i = 0; i <= strings.size() ; i++){
+                                    if (i < strings.size()){
+                                        String s = strings.get(i);
+                                        if (s.startsWith("[开通会员]")){
+                                            Log.w(TAG,"不是vip账号");
+                                            isVip = false;
+                                            //解决页面刷新不及时的引起的问题
+                                            youkuLastCheckVip_TEST();
+
+                                            break;
+                                        }
+                                    }else {
+                                        isVip = true;
+                                        Log.w(TAG,"是vip账号");
+                                        EventBus.getDefault().post(2,"youkuLoginTest");
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到优酷VIP账号登录成功，可以出租");
+                                            }
+                                        }).start();
+                                    }
+                                }
+                                state = NO_ACTION;
+                                //发送通知；
+                            }else {
+                                if (count < 1){
+                                    count ++;
+                                }else {
+                                    Log.w(TAG,"maybe确定登录失败");
+                                    if (count > 1){
+                                        return;
+                                    }
+                                    count ++;
+                                    //解决页面刷新不及时的引起的问题
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (state == YOUKU_LASTCHECK_TEST){
+                                                state = NO_ACTION;
+                                                Log.w(TAG,"等待2s后再次确定登录失败");
+                                                EventBus.getDefault().post(0,"youkuLoginTest");
+                                                new Thread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到优酷视频账号未登录成功，暂不能出租");
+                                                    }
+                                                }).start();
+                                            }
+                                        }
+                                    }, 2000);
+
+
+                                }
+                            }
+                            //Log.w(TAG,strings.size()+"");
                         }
                         break;
                     case YOUKU_LOGOUT:
@@ -196,6 +587,7 @@ public class AutoLoginService extends AccessibilityService {
                         }
                         break;
                     case TENCENT_LOGIN:
+                    case TENCENT_LOGIN_TEST:
                         if (event.getPackageName().toString().equals(TENCENT)){
                             AccessibilityNodeInfo root = getRootInActiveWindow();
                             if (root == null) return;
@@ -217,6 +609,212 @@ public class AutoLoginService extends AccessibilityService {
                                 if (!mFloatView.isShow()) mFloatView.show();
                             }else {
                                 if (mFloatView.isShow()) mFloatView.close();
+                            }
+                        }
+                        break;
+                    case TENCENT_LASTCHECK:
+                        if (event.getPackageName().toString().equals(TENCENT)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            AccessibilityNodeInfo login_text = helper.findFirstNodeInfoByViewId("com.tencent.qqlive:id/c04");
+                            AccessibilityNodeInfo vip_open_title = helper.findFirstNodeInfoByViewId("com.tencent.qqlive:id/c0a");
+                            if (login_text != null){
+                                if (!login_text.getText().toString().equals("点击登录")){
+                                    Log.w(TAG,"腾讯视频登录成功1");
+                                    state = NO_ACTION;
+                                    if (vip_open_title != null){
+                                        //Log.w("TENCENT_LASTCHECK",vip_open_title.getText().toString());
+                                        if (vip_open_title.getText().toString().equals("开通VIP会员")){
+                                            Log.w(TAG,"开通VIP会员");
+                                            sendLoginInfo4();
+                                        }else if (vip_open_title.getText().toString().equals("我的VIP会员")){
+                                            Log.w(TAG,"我的VIP会员");
+                                            sendLoginInfo3();
+                                            new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    MyApplication.getInstance().showNotification("AreaParty:登录成功","腾讯视频VIP账号登录成功");
+                                                }
+                                            }).start();
+                                        }else {
+                                            Log.w(TAG,"会员信息去哪了"+vip_open_title.toString());
+                                            //解决界面刷新不及时的问题
+                                            new Handler().postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    boolean verify = false;
+                                                    AccessibilityNodeInfo root = getRootInActiveWindow();
+                                                    if (root != null && root.getPackageName().toString().equals(TENCENT)){
+                                                        AccessibilityNodeInfo vip_open_title = helper.findFirstNodeInfoByViewId("com.tencent.qqlive:id/bxr");
+                                                        if (vip_open_title != null){
+                                                            verify = true;
+                                                            if (vip_open_title.getText().toString().equals("开通VIP会员")){
+                                                                Log.w(TAG,"0.5s后确认--开通VIP会员");
+                                                                sendLoginInfo4();
+                                                            }else if (vip_open_title.getText().toString().equals("我的VIP会员")){
+                                                                Log.w(TAG,"0.5s后确认--我的VIP会员");
+                                                                sendLoginInfo3();
+                                                                new Thread(new Runnable() {
+                                                                    @Override
+                                                                    public void run() {
+                                                                        MyApplication.getInstance().showNotification("AreaParty:登录成功","腾讯视频VIP账号登录成功");
+                                                                    }
+                                                                }).start();
+                                                            }
+                                                        }
+                                                    }
+                                                    if (!verify){
+                                                        Log.w(TAG,"0.5s后未确认到会员信息");
+                                                    }
+                                                }
+                                            },500);
+                                        }
+                                    }
+                                }else {
+                                    Log.w(TAG,"腾讯视频登录失败");
+                                    if (count < 3){
+                                        count ++;
+                                    }else {
+                                        Log.w(TAG,"腾讯视频登录失败1");
+                                        count = 0;
+                                        state = NO_ACTION;
+                                        sendLoginInfo5();
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                MyApplication.getInstance().showNotification("AreaParty:登录过程发生故障","请尝试重新执行登录过程，若多次尝试仍不能登录成功，可申诉退款");
+                                            }
+                                        }).start();
+                                    }
+
+                                }
+                            }
+                        }
+                        else if (event.getPackageName().toString().equals(QQ)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            AccessibilityNodeInfo dialogTitle = helper.findFirstNodeInfoByViewId("com.tencent.mobileqq:id/dialogTitle");
+                            if (dialogTitle!=null && dialogTitle.getText().equals("登录失败")){
+                                Log.w(TAG,"腾讯视频登录失败qq");
+                                sendLoginInfo5();
+                                AutoLoginService.state = NO_ACTION;
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        MyApplication.getInstance().showNotification("AreaParty:登录过程发生故障","请尝试重新执行登录过程，若多次尝试仍不能登录成功，可申诉退款");
+                                    }
+                                }).start();
+                            }
+                        }
+                        break;
+                    case TENCENT_LASTCHECK_TEST:
+                        if (event.getPackageName().toString().equals(TENCENT)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            AccessibilityNodeInfo login_text = helper.findFirstNodeInfoByViewId("com.tencent.qqlive:id/c04");
+                            AccessibilityNodeInfo vip_open_title = helper.findFirstNodeInfoByViewId("com.tencent.qqlive:id/c0a");
+                            if (login_text != null){
+                                if (!login_text.getText().toString().equals("点击登录")){
+                                    Log.w(TAG,"腾讯视频登录成功1");
+                                    if (vip_open_title != null){
+                                        //Log.w("TENCENT_LASTCHECK",vip_open_title.getText().toString());
+                                        if (vip_open_title.getText().toString().equals("开通VIP会员")){
+                                            Log.w(TAG,"开通VIP会员");
+                                            EventBus.getDefault().post(1,"tencentLoginTest");
+                                            new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到腾讯视频账号登录成功，但未开通VIP会员，暂不能出租");
+                                                }
+                                            }).start();
+                                        }else if (vip_open_title.getText().toString().equals("我的VIP会员")){
+                                            Log.w(TAG,"我的VIP会员");
+                                            EventBus.getDefault().post(2,"tencentLoginTest");
+                                            new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到腾讯视频VIP账号登录成功，可以出租");
+                                                }
+                                            }).start();
+                                        }else {
+                                            Log.w(TAG,"会员信息去哪了"+vip_open_title.toString());
+                                            new Handler().postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    boolean verify = false;
+                                                    AccessibilityNodeInfo root = getRootInActiveWindow();
+                                                    if (root != null && root.getPackageName().toString().equals(TENCENT)){
+                                                        AccessibilityNodeInfo vip_open_title = helper.findFirstNodeInfoByViewId("com.tencent.qqlive:id/bxr");
+                                                        if (vip_open_title != null){
+                                                            verify = true;
+                                                            if (vip_open_title.getText().toString().equals("开通VIP会员")){
+                                                                Log.w(TAG,"0.5s后确认--开通VIP会员");
+                                                                EventBus.getDefault().post(1,"tencentLoginTest");
+                                                                new Thread(new Runnable() {
+                                                                    @Override
+                                                                    public void run() {
+                                                                        MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到腾讯视频账号登录成功，但未开通VIP会员，暂不能出租");
+                                                                    }
+                                                                }).start();
+                                                            }else if (vip_open_title.getText().toString().equals("我的VIP会员")){
+                                                                Log.w(TAG,"0.5s后确认--我的VIP会员");
+                                                                EventBus.getDefault().post(2,"tencentLoginTest");
+                                                                new Thread(new Runnable() {
+                                                                    @Override
+                                                                    public void run() {
+                                                                        MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到腾讯视频VIP账号登录成功，可以出租");
+                                                                    }
+                                                                }).start();
+                                                            }
+                                                        }
+                                                    }
+                                                    if (!verify){
+                                                        EventBus.getDefault().post(1,"tencentLoginTest");
+                                                        new Thread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到腾讯视频账号登录成功，但未开通VIP会员，暂不能出租");
+                                                            }
+                                                        }).start();
+                                                    }
+                                                }
+                                            },500);
+                                        }
+                                        state = NO_ACTION;
+                                    }
+                                }else {
+                                    Log.w(TAG,"腾讯视频登录失败");
+                                    if (count < 3){
+                                        count ++;
+                                    }else {
+                                        count = 0;
+                                        state = NO_ACTION;
+                                        EventBus.getDefault().post(0,"tencentLoginTest");
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到腾讯视频账号未登录成功，暂不能出租");
+                                            }
+                                        }).start();
+                                    }
+
+                                }
+                            }
+                        }
+                        else if (event.getPackageName().toString().equals(QQ)){
+                            AccessibilityNodeInfo root = getRootInActiveWindow();
+                            if (root == null) return;
+                            AccessibilityNodeInfo dialogTitle = helper.findFirstNodeInfoByViewId("com.tencent.mobileqq:id/dialogTitle");
+                            if (dialogTitle!=null && dialogTitle.getText().equals("登录失败")){
+                                Log.w(TAG,"腾讯视频登录失败qq");
+                                AutoLoginService.state = NO_ACTION;
+                                EventBus.getDefault().post(0,"tencentLoginTest");
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到腾讯视频账号未登录成功，暂不能出租");
+                                    }
+                                }).start();
                             }
                         }
                         break;
@@ -273,34 +871,12 @@ public class AutoLoginService extends AccessibilityService {
                         }
                         break;
                     default:
+                        /**/
                         break;
-                }
-                if (event.getPackageName().toString().equals("com.qiyi.video")){
-                    AccessibilityNodeInfo e1 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block1");
-                    AccessibilityNodeInfo e2 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block2");
-                    AccessibilityNodeInfo e3 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block3");
-                    AccessibilityNodeInfo e4 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block4");
-                    AccessibilityNodeInfo e5 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block5");
-                    AccessibilityNodeInfo e6 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block6");
-                    if (e1!=null){
-                        Bundle arguments = new Bundle();
-                        arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "1");
-                        e1.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
-                        arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "2");
-                        e2.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
-                        arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "3");
-                        e3.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
-                        arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "4");
-                        e4.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
-                        arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "5");
-                        e5.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
-                        arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "6");
-                        e6.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
-                    }
                 }
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
-                Log.w(TAG+"CLICKED", event.getPackageName().toString());
+                //Log.w(TAG+"CLICKED", event.getPackageName().toString());
                 switch (state){
                     case IQIYI_LOGIN:
                         if (event.getPackageName().toString().equals(IQIYI)){
@@ -408,6 +984,257 @@ public class AutoLoginService extends AccessibilityService {
         }
     }
 
+    private void youkuLastCheckVip() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean verify = false;
+                AccessibilityNodeInfo root = getRootInActiveWindow();
+                if (root != null){
+                    if (root.getPackageName().toString().equals(YOUKU)){
+                        AccessibilityNodeInfo text_user = helper.findFirstNodeInfoByViewId("com.youku.phone:id/text_user");
+                        if (text_user!=null && text_user.isSelected()){
+                            verify = true;
+                            List<String> strings = helper.findAllTexts();
+                            for (int i = 0; i <= strings.size() ; i++){
+                                if (i < strings.size()){
+                                    String s = strings.get(i);
+                                    if (s.startsWith("[开通会员]")){
+                                        Log.w(TAG,"0.5s后确定不是vip账号");
+                                        sendLoginInfo4();
+                                        break;
+                                    }
+                                }else {
+                                    Log.w(TAG,"0.5s后才确定是vip账号");
+                                    sendLoginInfo3();
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            MyApplication.getInstance().showNotification("AreaParty:登录成功","优酷视频VIP账号登录成功");
+                                        }
+                                    }).start();
+                                }
+                            }
+                        }
+                    }
+                }
+                if (!verify){
+                    Log.w(TAG,"0.1s后确定不是vip账号"+"页面被用户改变");
+                }
+            }
+        },500);
+    }
+
+    private void youkuLastCheckVip_TEST() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean verify = false;
+                AccessibilityNodeInfo root = getRootInActiveWindow();
+                if (root != null){
+                    if (root.getPackageName().toString().equals(YOUKU)){
+                        AccessibilityNodeInfo text_user = helper.findFirstNodeInfoByViewId("com.youku.phone:id/text_user");
+                        if (text_user!=null && text_user.isSelected()){
+                            verify = true;
+                            List<String> strings = helper.findAllTexts();
+                            for (int i = 0; i <= strings.size() ; i++){
+                                if (i < strings.size()){
+                                    String s = strings.get(i);
+                                    if (s.startsWith("[开通会员]")){
+                                        Log.w(TAG,"0.5s后确定不是vip账号");
+                                        EventBus.getDefault().post(1,"youkuLoginTest");
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到优酷视频账号登录成功，但未开通VIP会员，暂不能出租");
+                                            }
+                                        }).start();
+                                        break;
+                                    }
+                                }else {
+                                    Log.w(TAG,"0.5s后才确定是vip账号");
+                                    EventBus.getDefault().post(2,"youkuLoginTest");
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到优酷视频VIP账号登录成功，可以出租");
+                                        }
+                                    }).start();
+                                }
+                            }
+                        }
+                    }
+                }
+                if (!verify){
+                    Log.w(TAG,"0.1s后确定不是vip账号"+"页面被用户改变");
+                    EventBus.getDefault().post(1,"youkuLoginTest");
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            MyApplication.getInstance().showNotification("AreaParty:登录测试","检测到优酷视频账号登录成功，但未开通VIP会员，暂不能出租");
+                        }
+                    }).start();
+                }
+            }
+        },500);
+    }
+
+    private void sendYZMRequest(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.w("vipRent","从账号分享者去获取验证码");
+                    VipMsg.VipRentYZMReq.Builder builder = VipMsg.VipRentYZMReq.newBuilder();
+                    builder.setUserId(Login.userId);
+                    builder.setAppId(FloatView.appId);
+                    builder.setAccountId(FloatView.accountId);
+                    builder.setProviderId(FloatView.providerId);
+                    byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.VIP_RENT_CODE_VALUE, builder.build().toByteArray());
+                    if (Login.base != null){
+                        Login.base.writeToServer(Login.outputStream,byteArray);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+    private void iqiyiYZM(String code){
+        AccessibilityNodeInfo root = getRootInActiveWindow();
+        if (root != null && root.getPackageName().equals(IQIYI)){
+            AccessibilityNodeInfo e1 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block1");
+            AccessibilityNodeInfo e2 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block2");
+            AccessibilityNodeInfo e3 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block3");
+            AccessibilityNodeInfo e4 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block4");
+            AccessibilityNodeInfo e5 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block5");
+            AccessibilityNodeInfo e6 = helper.findFirstNodeInfoByViewId("com.qiyi.video:id/enter_pwd_block6");
+            if (e1!=null){
+                Bundle arguments = new Bundle();
+                arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, String.valueOf(code.charAt(0)));
+                e1.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, String.valueOf(code.charAt(1)));
+                e2.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, String.valueOf(code.charAt(2)));
+                e3.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, String.valueOf(code.charAt(3)));
+                e4.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, String.valueOf(code.charAt(4)));
+                e5.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, String.valueOf(code.charAt(5)));
+                e6.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+
+                state = IQIYI_LASTCHECT;
+            }
+        }
+    }
+
+    private void youkuYZM(String code){
+        AccessibilityNodeInfo root = getRootInActiveWindow();
+        if (root != null && root.getPackageName().equals(YOUKU)){
+            AccessibilityNodeInfo passport_sms_code = helper.findFirstNodeInfoByViewId("com.youku.phone:id/passport_sms_code");
+            AccessibilityNodeInfo passport_get_sms = helper.findFirstNodeInfoByViewId("com.youku.phone:id/passport_get_sms");
+            AccessibilityNodeInfo passport_button = helper.findFirstNodeInfoByViewId("com.youku.phone:id/passport_button");
+            if (passport_sms_code != null && passport_get_sms!=null){
+                Bundle arguments = new Bundle();
+                arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, code);
+                passport_sms_code.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+
+                if (passport_button.isClickable()){
+                    passport_button.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                }
+                state = YOUKU_LASTCHECK;
+            }
+        }
+    }
+
+    @Subscriber(tag = "vipRentCode", mode = ThreadMode.MAIN)
+    private void vipRentCode(final VipMsg.VipRentYZMRsp response ){
+           if (response.getResultCode().equals(VipMsg.VipRentYZMRsp.ResultCode.SUCCESS)){
+               String code = response.getYzmCode();
+               Log.w("vipRentCode","验证码获取成功："+code);
+               if (!TextUtils.isEmpty(code)){
+                   if (response.getAppId() == 1 && state == IQIYI_YZM_WAIT){
+                       iqiyiYZM(code);
+                   }else if (response.getAppId() == 2 && state == YOUKU_YZM_WAIT){
+                       //优酷自动填写验证码
+                       youkuYZM(code);
+                   }
+               }
+               else {
+                   Toasty.error(this,"验证码获取失败").show();
+               }
+           }else {
+               Log.w("vipRentCode","验证码获取失败");
+               Toasty.error(this,response.getYzmCode()).show();
+               new Thread(new Runnable() {
+                   @Override
+                   public void run() {
+                       MyApplication.getInstance().showNotification("AreaParty:验证码获取失败", response.getYzmCode());
+                   }
+               }).start();
+
+           }
+    }
+    private void sendLoginInfo3(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    VipMsg.RentLoginInfo.Builder builder = VipMsg.RentLoginInfo.newBuilder();
+                    builder.setType(VipMsg.RentLoginInfo.Type.SuccessVip);
+                    builder.setUserId(Login.userId);
+                    builder.setAllocationId(allocationId);
+                    byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.RENTLOGININFO_VALUE, builder.build().toByteArray());
+                    if (Login.base != null){
+                        Login.base.writeToServer(Login.outputStream,byteArray);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void sendLoginInfo4(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    VipMsg.RentLoginInfo.Builder builder = VipMsg.RentLoginInfo.newBuilder();
+                    builder.setType(VipMsg.RentLoginInfo.Type.SuccessNotVip);
+                    builder.setUserId(Login.userId);
+                    builder.setAllocationId(allocationId);
+                    byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.RENTLOGININFO_VALUE, builder.build().toByteArray());
+                    if (Login.base != null){
+                        Login.base.writeToServer(Login.outputStream,byteArray);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void sendLoginInfo5(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    VipMsg.RentLoginInfo.Builder builder = VipMsg.RentLoginInfo.newBuilder();
+                    builder.setType(VipMsg.RentLoginInfo.Type.Fail);
+                    builder.setUserId(Login.userId);
+                    builder.setAllocationId(allocationId);
+                    byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.RENTLOGININFO_VALUE, builder.build().toByteArray());
+                    if (Login.base != null){
+                        Login.base.writeToServer(Login.outputStream,byteArray);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 
     @Override
     public void onInterrupt() {
@@ -432,7 +1259,23 @@ public class AutoLoginService extends AccessibilityService {
             }
         }
     }
+    /*public void bianli1(AccessibilityNodeInfo nodeInfo){//递归遍历根节点找所需节点
+        if (nodeInfo == null) return;
+        if (nodeInfo.getChildCount() == 0){
+            Log.w(TAG,nodeInfo.toString());
+            node.add(nodeInfo);
+        }else {
+            for (int i = 0; i<nodeInfo.getChildCount(); i++){
+                bianli1(nodeInfo.getChild(i));
+            }
+        }
+    }*/
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
 /*
 public class AutoLoginService extends AccessibilityService {

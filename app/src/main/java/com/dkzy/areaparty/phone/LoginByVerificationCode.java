@@ -23,6 +23,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 import protocol.Data.ChatData;
 import protocol.Data.FileData;
+import protocol.Data.GroupData;
 import protocol.Data.UserData;
 import protocol.Msg.AccreditMsg;
 import protocol.Msg.GetUserInfoMsg;
@@ -68,6 +70,7 @@ import static com.dkzy.areaparty.phone.Login.userMac;
 import static com.dkzy.areaparty.phone.Login.userName;
 import static com.dkzy.areaparty.phone.Login.userNet;
 import static com.dkzy.areaparty.phone.Login.userShare;
+import static com.dkzy.areaparty.phone.Login.userGroups;
 import static com.dkzy.areaparty.phone.bluetoothxie.Utils.isMobileNO;
 import static com.dkzy.areaparty.phone.bluetoothxie.Utils.isUserCode;
 import static com.dkzy.areaparty.phone.myapplication.MyApplication.AREAPARTY_NET;
@@ -113,7 +116,6 @@ public class LoginByVerificationCode extends AppCompatActivity {
     //public static boolean mainMobile;
     //public static int userHeadIndex;
     //public static myChatList myChats = new myChatList();
-
 
     private Button btn_send_code;
     private EditText et_mobileNo;
@@ -250,6 +252,11 @@ public class LoginByVerificationCode extends AppCompatActivity {
                     userShare.clear();
                     userNet.clear();
                     base.onlineUserId.add(userId);
+                    GroupData.GroupItem.Builder ggb = GroupData.GroupItem.newBuilder();
+                    ggb.setGroupName("全部好友");
+                    ggb.setGroupId("0");
+                    ggb.setCreaterUserId(userId);
+
                     //用户分类
                     List<UserData.UserItem> lu = response.getUserItemList();
                     if(!lu.isEmpty()){
@@ -260,6 +267,7 @@ public class LoginByVerificationCode extends AppCompatActivity {
                             }
                             if(u.getIsFriend()){
                                 userFriend.add(u);
+                                ggb.addMemberUserId(u.getUserId());
                             }
                             if(u.getIsSpeed()&&u.getIsFriend()){
                                 userNet.add(u);
@@ -271,6 +279,14 @@ public class LoginByVerificationCode extends AppCompatActivity {
                     }
                     List<ChatData.ChatItem> chats = response.getChatItemList();
                     myChats.setList(chats);
+
+                    List<GroupData.GroupItem> groups = response.getGroupItemList();
+                    userGroups.add(ggb.build());
+                    if(!groups.isEmpty()) {
+                        for(GroupData.GroupItem g : groups) {
+                            userGroups.add(g);
+                        }
+                    }
 
                     System.out.println("Response : " + LoginMsg.LoginRsp.ResultCode.valueOf(response.getResultCode().getNumber()));
                     userBuilder.addTargetUserId(userId);
@@ -519,6 +535,27 @@ public class LoginByVerificationCode extends AppCompatActivity {
                 if (verifyStoragePermissions(LoginByVerificationCode.this)) {
                     tryLogin();
                 }
+            }
+        });
+
+        findViewById(R.id.label_mobileNo).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                et_mobileNo.setFocusable(true);
+                et_mobileNo.setFocusableInTouchMode(true);
+                et_mobileNo.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(et_mobileNo,0);
+            }
+        });
+        findViewById(R.id.label_code).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                et_userCode.setFocusable(true);
+                et_userCode.setFocusableInTouchMode(true);
+                et_userCode.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(et_userCode,0);
             }
         });
 

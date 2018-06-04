@@ -93,10 +93,6 @@ public class RemoteDownloadActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeRefresh;
     private Toolbar toolbar;
 
-    private SimpleAdapter ptAdapter;
-    private ArrayList<Map<String, String>> ptListData;
-    private ListView ptListView;
-
     private Button remoteControl;
     private TextView pc_file, app_file;
     private LinearLayout menuList, addToDownload, sendToPc, torrentDelete;
@@ -185,18 +181,6 @@ public class RemoteDownloadActivity extends AppCompatActivity {
         recyclerView_pcFile.setAdapter(adapter_pc);
         getName();
         setListener();
-
-        //设置pt文件夹的adapter
-        ptAdapter=new SimpleAdapter(RemoteDownloadActivity.this,ptListData,R.layout.web1080_pt_torrent_file__item,new String[]{"pt"},new int[]{R.id.torrent_file_name});
-        ptListView.setAdapter(ptAdapter);
-
-        ptListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(RemoteDownloadActivity.this,PtTorrentManagement.class);
-                startActivity(intent);
-            }
-        });
 
         initEvent();
 
@@ -507,7 +491,6 @@ public class RemoteDownloadActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        ptListView=(ListView) findViewById(R.id.ptTorrentListView);
         pc_file = (TextView) findViewById(R.id.pc_file);
         app_file = (TextView) findViewById(R.id.app_file);
         menuList = (LinearLayout) findViewById(R.id.menu_list);
@@ -518,7 +501,6 @@ public class RemoteDownloadActivity extends AppCompatActivity {
         addToDownload_pc = (LinearLayout) findViewById(R.id.addToDownload_pc);
         torrentDelete_pc = (LinearLayout) findViewById(R.id.torrentDelete_pc);
 
-        ptListData=new ArrayList<>();
         remoteControl = (Button) findViewById(R.id.download_remote_control);
         remoteControl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -580,18 +562,40 @@ public class RemoteDownloadActivity extends AppCompatActivity {
 //                    torrentList.add(new TorrentFile(torrentTitle, torrentFileName, f.getAbsolutePath()));
 //                }
             }
-
-            File[] files1 = file.listFiles();
-            for(File f : files1){
-                if(f.getName().contains("pt种子")){
-                    Map<String,String> map=new HashMap<String, String>();
-                    map.put("pt","pt种子");
-                    ptListData.add(map);
-                }
-
+        }
+        getBrowserTorrents();
+        adapter.notifyDataSetChanged();
+    }
+    private void getBrowserTorrents(){
+        String root = Environment.getExternalStorageDirectory().getAbsolutePath()+"/";
+        List<String> directors = new ArrayList<>();
+        directors.add(root + "Browser");
+        directors.add(root + "Download");
+        directors.add(root + "downloads");
+        directors.add(root + "QQBrowser");
+        directors.add(root + "UCDownloads");
+        directors.add(root + "360Browser/download");
+        for (String director : directors){
+            File file = new File(director);
+            if (file.exists()){
+                getTorrents(file);
             }
         }
-        adapter.notifyDataSetChanged();
+    }
+
+    private void getTorrents(File file){
+        if (file != null){
+            File[] files = file.listFiles(new FileNameSelector("torrent"));
+            for(File f : files){
+                torrentList.add(new TorrentFile(f.getName(), f.getAbsolutePath()));
+            }
+            for (File f : file.listFiles()){
+                if (f.isDirectory()){
+                    getTorrents(f);
+                }
+            }
+
+        }
     }
 
 

@@ -31,6 +31,7 @@ import com.dkzy.areaparty.phone.fragment01.model.SharedfileBean;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
 
 import java.io.IOException;
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,11 +41,16 @@ import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 import protocol.Data.FileData;
+import protocol.Data.GroupData;
 import protocol.Data.UserData;
+import protocol.Msg.ChangeGroupMsg;
 import protocol.Msg.DeleteFileMsg;
+import protocol.Msg.GetGroupInfoMsg;
 import protocol.Msg.GetPersonalInfoMsg;
 import protocol.ProtoHead;
 import server.NetworkPacket;
+
+import static com.dkzy.areaparty.phone.Login.mainMobile;
 
 /**
  * Created by boris on 2016/11/29.
@@ -57,52 +63,66 @@ public class page06Fragment extends Fragment {
     private LinearLayout transform_wrap = null;
     private LinearLayout download_wrap = null;
     private LinearLayout id_tab06_friendWrap = null;
+    private LinearLayout id_tab06_groupWrap = null;
     private LinearLayout id_tab06_netWrap = null;
     private LinearLayout id_tab06_shareWrap = null;
     private LinearLayout id_tab06_fileWrap = null;
     private TextView newFriend_num = null;
     private TextView transform_num = null;
     private CustomListView id_tab06_userFriend = null;
+    private CustomListView id_tab06_userGroup = null;
     private CustomListView id_tab06_fileComputer = null;
     private CustomListView id_tab06_userNet = null;
     private CustomListView id_tab06_userShare = null;
     private ImageButton id_tab06_friend = null;
+    private ImageButton id_tab06_group = null;
+    private ImageButton id_tab06_addGroup = null;
     private ImageButton id_tab06_file = null;
     private ImageButton id_tab06_net = null;
     private ImageButton id_tab06_share = null;
+    //private ImageButton groupChat_setting = null;
     private ImageView id_tab06_addFriend = null;
     private LinearLayout id_tab06_addFriendLL = null;
     private ImageView userHead = null;
     private static List<UserData.UserItem> userFirend_list = null;
+    private static List<GroupData.GroupItem> userGroup_list = null;
     private static List<UserData.UserItem> userNet_list = null;
     private static List<UserData.UserItem> userShare_list = null;
     //private static List<FileData.FileItem> file_list = null;
     //private static List<SharedfileBean> sharedfileBeans = null;
     private MyFriendAdapater userFriendAdapter = null;
+    private GroupAdapater userGroupAdapter = null;
     private NetUserAdapater userNetAdapter = null;
     private ShareUserAdapater userShareAdapter = null;
     private myFileAdapater userFileAdapter = null;
     private List<HashMap<String, Object>> userFriendData = null;
+    private List<HashMap<String, Object>> userGroupData = null;
+    //private HashMap<String,List<Object>> userGroupData1 = null;
     private List<HashMap<String, Object>> userNetData = null;
     private List<HashMap<String, Object>> userShareData = null;
     private List<HashMap<String, Object>> filedata = null;
     private int[] imgId = null;
     private String myUserId;
     private String myUserName;
-    private boolean mainMobile;
+
     private int myUserHead;
     private String showUserId;
     private String showUserName;
+    private String showGroupId;
+    private String showGroupName;
     private int showUserHead;
     private boolean outline;
     private userObj userFriendMsg;
+    private userObj userGroupMsg;
     private userObj userNetMsg;
     private userObj userShareMsg;
     private SharedPreferences sp=null;
     private int friend_num = 0;
     private int transformNum = 0;
     public static myFileList showFriendFilesList;
+    public static myFileList showGroupFilesList;
     private long getFriendFilesTimer = 0;
+    private long getGroupFilesTimer = 0;
     public static HashMap<String,Integer> friendChatNum = new HashMap<>();
     private FriendRequestDBManager friendRequestDB = MainActivity.getFriendRequestDBManager();
 
@@ -149,7 +169,7 @@ public class page06Fragment extends Fragment {
             item.put("id",file.id);
             filedata.add(item);
         }
-        if(id_tab06_fileComputer!=null) userFileAdapter.notifyDataSetChanged();
+        if(userFileAdapter!=null) userFileAdapter.notifyDataSetChanged();
     }
 
     public void getData() {
@@ -158,7 +178,8 @@ public class page06Fragment extends Fragment {
         userFirend_list = Login.userFriend;
         userNet_list = Login.userNet;
         userShare_list = Login.userShare;
-        mainMobile = Login.mainMobile;
+        mainMobile = mainMobile;
+        userGroup_list = Login.userGroups;
         //file_list = Login.files;
         // = MyApplication.getMySharedFiles();
         if(userFriendData.size() == 0){
@@ -204,6 +225,14 @@ public class page06Fragment extends Fragment {
             item.put("fileDate", file.timeLong);
             item.put("id",file.id);
             filedata.add(item);
+        }
+        for(GroupData.GroupItem group : userGroup_list){
+            HashMap<String, Object> item = new HashMap<>();
+            item.put("createrId",group.getCreaterUserId());
+            item.put("groupName",group.getGroupName());
+            item.put("groupId",group.getGroupId());
+            item.put("groupHead", headIndexToImgId.toImgId(1));
+            userGroupData.add(item);
         }
         /*for(FileData.FileItem file : file_list){
             HashMap<String, Object> item = new HashMap<>();
@@ -266,6 +295,108 @@ public class page06Fragment extends Fragment {
                 }
             }
         });
+        //添加分组点击事件
+        id_tab06_addGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mainMobile) {
+                    if (Login.userFriend.size() > 0) {
+                        Intent intentGroup = new Intent();
+                        intentGroup.setClass(getActivity(), AddGroup.class);
+                        intentGroup.putExtra("isAdd", true);
+                        startActivity(intentGroup);
+                    } else {
+                        Toast.makeText(getContext(), "请先添加好友", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getContext(), "当前设备不是主设备,无法使用此功能", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        id_tab06_userGroup.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                final String groupId = ((HashMap<String, Object>)(userGroupAdapter.getItem(position))).get("groupId").toString();
+                if("0".equals(groupId)){
+                    return true;
+                }
+                if(mainMobile) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("删除：");
+                    builder.setMessage("请问确定要删除该群组?");
+                    //点击对话框以外的区域是否让对话框消失
+                    builder.setCancelable(true);
+                    //设置正面按钮
+                    builder.setPositiveButton("是的", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Toast.makeText(getContext(), "你点击了是的"+((HashMap<String, Object>)(userGroupAdapter.getItem(position))).get("groupId").toString(), Toast.LENGTH_SHORT).show();
+                            try {
+                                ChangeGroupMsg.ChangeGroupReq.Builder builder = ChangeGroupMsg.ChangeGroupReq.newBuilder();
+                                builder.setChangeType(ChangeGroupMsg.ChangeGroupReq.ChangeType.DELETE);
+                                builder.setGroupId(groupId);
+                                byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.CHANGE_GROUP_REQ.getNumber(), builder.build().toByteArray());
+                                Login.base.writeToServer(Login.outputStream, byteArray);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            dialog.dismiss();
+                        }
+                    });
+                    //设置反面按钮
+                    builder.setNegativeButton("不是", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Toast.makeText(getContext(), "你点击了不是", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    //对话框显示的监听事件
+                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialog) {
+
+                        }
+                    });
+                    //对话框消失的监听事件
+                    dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+
+                        }
+                    });
+                    //显示对话框
+                    dialog.show();
+                }else{
+                    Toast.makeText(getContext(), "当前设备不是主设备,无法使用此功能", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
+        //点击群进入聊天界面
+        id_tab06_userGroup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //Map<String, String> map = (Map<String, String>) userGroupAdapter.getItem(position);
+                //Toast.makeText(getActivity(), "xxx",Toast.LENGTH_SHORT).show();
+//                Intent intentGroupChat = new Intent();
+//                intentGroupChat.setClass(getActivity(), GroupChat.class);
+//                startActivity(intentGroupChat);
+                if(mainMobile) {
+                    Map<String, String> map = (Map<String, String>) userGroupAdapter.getItem(position);
+                    showGroupId = map.get("groupId");
+                    showGroupName = map.get("groupName");
+                    long nowTime = new Date().getTime();
+                    if (nowTime - getGroupFilesTimer > 2000) {
+                        getGroupFilesTimer = nowTime;
+                        new Thread(getGroupFile).start();
+                    }
+                }else{
+                    Toast.makeText(MyApplication.getContext(), "当前设备不是主设备,无法使用此功能", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
         //其他用户列表的item点击后显示用户信息
         id_tab06_userNet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -283,7 +414,11 @@ public class page06Fragment extends Fragment {
         id_tab06_fileComputer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                showFileInfo(filedata.get(position));
+                if(mainMobile) {
+                    showFileInfo(filedata.get(position));
+                }else{
+                    Toast.makeText(MyApplication.getContext(), "当前设备不是主设备,无法使用此功能", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -298,6 +433,22 @@ public class page06Fragment extends Fragment {
                 else{
                     id_tab06_userFriend.setVisibility(view.VISIBLE);
                     id_tab06_friend.setBackgroundResource(R.drawable.tab06_item_open);
+                }
+            }
+        });
+
+        id_tab06_groupWrap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(id_tab06_userGroup.getVisibility() == view.VISIBLE){
+                    id_tab06_userGroup.setVisibility(view.GONE);
+                    id_tab06_group.setBackgroundResource(R.drawable.tab06_item_merge);
+                    id_tab06_addGroup.setVisibility(view.GONE);
+                }
+                else{
+                    id_tab06_userGroup.setVisibility(view.VISIBLE);
+                    id_tab06_group.setBackgroundResource(R.drawable.tab06_item_open);
+                    id_tab06_addGroup.setVisibility(view.VISIBLE);
                 }
             }
         });
@@ -358,7 +509,7 @@ public class page06Fragment extends Fragment {
                     intentSearch.putExtra("userName", myUserName);
                     startActivity(intentSearch);
                 }else{
-                    Toast.makeText(getActivity(), "当前设备不是主设备，无法使用此功能",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "当前设备不是主设备,无法使用此功能",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -372,7 +523,7 @@ public class page06Fragment extends Fragment {
                     intentSearch.putExtra("userName", myUserName);
                     startActivity(intentSearch);
                 }else{
-                    Toast.makeText(getActivity(), "当前设备不是主设备，无法使用此功能",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "当前设备不是主设备,无法使用此功能",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -392,7 +543,7 @@ public class page06Fragment extends Fragment {
                     startActivity(intent);
                     newFriend_num.setVisibility(View.GONE);
                 }else{
-                    Toast.makeText(getActivity(), "当前设备不是主设备，无法使用此功能",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "当前设备不是主设备,无法使用此功能",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -411,7 +562,7 @@ public class page06Fragment extends Fragment {
                     startActivity(intent);
                     transform_num.setVisibility(View.GONE);
                 }else {
-                    Toast.makeText(getActivity(), "当前设备不是主设备，无法使用此功能", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "当前设备不是主设备,无法使用此功能", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -420,14 +571,17 @@ public class page06Fragment extends Fragment {
         download_wrap.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                if (MyApplication.isSelectedPCOnline()){
-                    Intent intent = new Intent();
-                    intent.setClass(getActivity(), downloadManager.class);
-                    startActivity(intent);
-                }else {
-                    Toasty.warning(getContext(), "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                if(mainMobile) {
+                    if (MyApplication.isSelectedPCOnline()) {
+                        Intent intent = new Intent();
+                        intent.setClass(getActivity(), downloadManager.class);
+                        startActivity(intent);
+                    } else {
+                        Toasty.warning(getContext(), "当前电脑不在线", Toast.LENGTH_SHORT, true).show();
+                    }
+                }else{
+                    Toast.makeText(getActivity(), "当前设备不是主设备,无法使用此功能", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -437,10 +591,20 @@ public class page06Fragment extends Fragment {
                 ((MainActivity)getActivity()).showHelpInfoDialog(R.layout.dialog_page06);
             }
         });
+
+//        groupChat_setting.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setClass(getActivity(), downloadManager.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void initViews() {
         id_tab06_friendWrap = (LinearLayout) getActivity().findViewById(R.id.id_tab06_friendWrap);
+        id_tab06_groupWrap = (LinearLayout) getActivity().findViewById(R.id.id_tab06_groupWrap);
         id_tab06_netWrap = (LinearLayout) getActivity().findViewById(R.id.id_tab06_netWrap);
         id_tab06_shareWrap = (LinearLayout) getActivity().findViewById(R.id.id_tab06_shareWrap);
         id_tab06_fileWrap = (LinearLayout) getActivity().findViewById(R.id.id_tab06_fileWrap);
@@ -451,25 +615,31 @@ public class page06Fragment extends Fragment {
         transform_num = (TextView) getActivity().findViewById(R.id.transform_num);
         //requestText = (TextView) getActivity().findViewById(R.id.requestText);
         id_tab06_userFriend = (CustomListView) getActivity().findViewById(R.id.id_tab06_userFriend);
+        id_tab06_userGroup = (CustomListView) getActivity().findViewById(R.id.id_tab06_userGroup);
         id_tab06_fileComputer = (CustomListView) getActivity().findViewById(R.id.id_tab06_fileComputer);
         id_tab06_userNet = (CustomListView) getActivity().findViewById(R.id.id_tab06_userNet);
         id_tab06_userShare = (CustomListView) getActivity().findViewById(R.id.id_tab06_userShare);
 //        showFiles = (ImageView) getActivity().findViewById(R.id.showFiles);
+        id_tab06_addGroup = (ImageButton) getActivity().findViewById(R.id.id_tab06_addGroupButton);
         id_tab06_friend = (ImageButton) getActivity().findViewById(R.id.id_tab06_friendButton);
+        id_tab06_group = (ImageButton) getActivity().findViewById(R.id.id_tab06_groupButton);
         id_tab06_file = (ImageButton) getActivity().findViewById(R.id.id_tab06_fileButton);
         id_tab06_net = (ImageButton) getActivity().findViewById(R.id.id_tab06_netButton);
         id_tab06_share = (ImageButton) getActivity().findViewById(R.id.id_tab06_shareButton);
         id_tab06_addFriend = (ImageView) getActivity().findViewById(R.id.id_tab06_addFriend);
         id_tab06_addFriendLL = (LinearLayout) getActivity().findViewById(R.id.id_tab06_addFriendLL);
+        //groupChat_setting = (ImageButton)getActivity().findViewById(R.id.groupChat_setting);
         userHead = (ImageView) getActivity().findViewById(R.id.userHead);
         helpInfo = (TextView)  rootView.findViewById(R.id.helpInfo);
         //userFriendAdapter = new SimpleAdapter(getActivity(), userFriendData, R.layout.tab06_useritem, new String[]{"userId", "userName", "userHead"}, new int[]{R.id.userId, R.id.userName, R.id.userHead});
         userFriendAdapter = new MyFriendAdapater(getActivity());
+        userGroupAdapter = new GroupAdapater(getActivity());
         userNetAdapter = new NetUserAdapater(getActivity());
         userShareAdapter = new ShareUserAdapater(getActivity());
         //fileadapter = new SimpleAdapter(getActivity(), filedata, R.layout.tab06_fileitem, new String[]{"fileImg", "fileName"}, new int[]{R.id.fileImg, R.id.fileName});
         userFileAdapter = new myFileAdapater(getActivity(),filedata, false);
         id_tab06_fileComputer.setAdapter(userFileAdapter);
+        id_tab06_userGroup.setAdapter(userGroupAdapter);
         id_tab06_userFriend.setAdapter(userFriendAdapter);
         id_tab06_userNet.setAdapter(userNetAdapter);
         id_tab06_userShare.setAdapter(userShareAdapter);
@@ -495,6 +665,7 @@ public class page06Fragment extends Fragment {
         }
         filedata = (filedata==null)?new ArrayList<HashMap<String, Object>>():filedata;
         userFriendData = (userFriendData==null)?new ArrayList<HashMap<String, Object>>():userFriendData;
+        userGroupData = (userGroupData==null)?new ArrayList<HashMap<String, Object>>():userGroupData;
         userNetData = (userNetData==null)?new ArrayList<HashMap<String, Object>>():userNetData;
         userShareData = (userShareData==null)?new ArrayList<HashMap<String, Object>>():userShareData;
         imgId = (imgId==null)?new int[]{R.drawable.tx1, R.drawable.tx2, R.drawable.tx3, R.drawable.tx4, R.drawable.tx5}:imgId;
@@ -531,7 +702,7 @@ public class page06Fragment extends Fragment {
                     userShareData.add(0,userShareItem);
                 }
             }
-            if(id_tab06_share!=null) userShareAdapter.notifyDataSetChanged();
+            if(userShareAdapter!=null) userShareAdapter.notifyDataSetChanged();
         }else{
             userShareMsg = (userObj) msg.obj;
             HashMap<String, Object> userShareItem = new HashMap<>();
@@ -540,7 +711,7 @@ public class page06Fragment extends Fragment {
             userShareItem.put("fileNum", userShareMsg.getFileNum());
             userShareItem.put("userHead", headIndexToImgId.toImgId(userShareMsg.getHeadIndex()));
             userShareData.add(userShareItem);
-            if(id_tab06_userShare!=null) userShareAdapter.notifyDataSetChanged();
+            if(userShareAdapter!=null) userShareAdapter.notifyDataSetChanged();
         }
     }
 
@@ -592,10 +763,10 @@ public class page06Fragment extends Fragment {
                     userShareData.add(0,userShareItem);
                 }
             }
-            if(id_tab06_share!=null) userShareAdapter.notifyDataSetChanged();
+            if(userShareAdapter!=null) userShareAdapter.notifyDataSetChanged();
         }
-        if(id_tab06_userFriend!=null) userFriendAdapter.notifyDataSetChanged();
-        if(id_tab06_net!=null) userNetAdapter.notifyDataSetChanged();
+        if(userFriendAdapter!=null) userFriendAdapter.notifyDataSetChanged();
+        if(userNetAdapter!=null) userNetAdapter.notifyDataSetChanged();
     }
 
     public void getUserMsgFail(){
@@ -616,7 +787,15 @@ public class page06Fragment extends Fragment {
         userFriendItem.put("chatNum", friendChatNum.containsKey(user.getUserId())?friendChatNum.get(user.getUserId()):0);
         userFriendItem.put("userOnline", true);
         userFriendData.add(0,userFriendItem);
-        if(id_tab06_userFriend!=null)
+//        for(int i = 0; i < userGroup_list.size(); i++){
+//            GroupData.GroupItem gg = userGroup_list.get(i);
+//            if("0".equals(gg.getGroupId())){
+//                GroupData.GroupItem.Builder ggb = gg.toBuilder();
+//                ggb.addMemberUserId(user.getUserId());
+//
+//            }
+//        }
+        if(userFriendAdapter!=null)
             userFriendAdapter.notifyDataSetChanged();
         if(user.getFileNum() > Base.FILENUM){
             Iterator<HashMap<String,Object>> it = userShareData.iterator();
@@ -624,7 +803,7 @@ public class page06Fragment extends Fragment {
                 HashMap<String,Object> hm = it.next();
                 if(hm.get("userId").equals(user.getUserId())){
                     it.remove();
-                    if(id_tab06_userShare!=null)
+                    if(userShareAdapter!=null)
                         userShareAdapter.notifyDataSetChanged();
                     break;
                 }
@@ -636,7 +815,7 @@ public class page06Fragment extends Fragment {
                 HashMap<String,Object> hm = it.next();
                 if(hm.get("userId").equals(user.getUserId())){
                     it.remove();
-                    if(id_tab06_userNet!=null)
+                    if(userNetAdapter!=null)
                         userNetAdapter.notifyDataSetChanged();
                     break;
                 }
@@ -664,7 +843,7 @@ public class page06Fragment extends Fragment {
                     userFriendItem.put("userOnline",false);
                     friendIt.remove();
                     userFriendData.add(userFriendItem);
-                    if(id_tab06_userFriend!=null) userFriendAdapter.notifyDataSetChanged();
+                    if(userFriendAdapter!=null) userFriendAdapter.notifyDataSetChanged();
                     break;
                 }
             }
@@ -675,7 +854,7 @@ public class page06Fragment extends Fragment {
                     userNetItem.put("userOnline",false);
 
                     //有点问题 netIt.remove();
-                    if(id_tab06_userNet!=null) userNetAdapter.notifyDataSetChanged();
+                    if(userNetAdapter!=null) userNetAdapter.notifyDataSetChanged();
                     break;
                 }
             }
@@ -684,7 +863,7 @@ public class page06Fragment extends Fragment {
                 if(hm.get("userId").equals(logOutId)){
                     HashMap<String, Object> userShareItem = hm;
                     userShareItem.put("userOnline",false);
-                    if(id_tab06_userShare!=null) userShareAdapter.notifyDataSetChanged();
+                    if(userShareAdapter!=null) userShareAdapter.notifyDataSetChanged();
                     break;
                 }
             }
@@ -711,7 +890,7 @@ public class page06Fragment extends Fragment {
         });
         listDialog.show();
     }
-
+    //不是好友只显示一部分信息
     public void showFileList(Message msg){
         List<FileData.FileItem> l = (List<FileData.FileItem>) msg.obj;
         String[] items = new String[l.size()];
@@ -738,16 +917,17 @@ public class page06Fragment extends Fragment {
         listDialog.setPositiveButton("取消分享", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                new Thread(){
+
+                new Thread() {
                     @Override
                     public void run() {
 
                         DeleteFileMsg.DeleteFileReq.Builder builder = DeleteFileMsg.DeleteFileReq.newBuilder();
-                        builder.setFileId((int)h.get("id"));
+                        builder.setFileId((int) h.get("id"));
                         builder.setFileName((String) h.get("fileName"));
                         builder.setUserId(Login.userId);
                         builder.setFileInfo((String) h.get("fileInfo"));
-                        builder.setFileSize((int)h.get("fileSize"));
+                        builder.setFileSize((int) h.get("fileSize"));
                         //builder.setFileUrl(file.url);
                         //builder.setFilePwd(file.pwd);
                         try {
@@ -763,6 +943,39 @@ public class page06Fragment extends Fragment {
             }
         });
         listDialog.show();
+    }
+    public void showGroupFiles(Message msg) {
+        List<String> showMembersList = ((GetGroupInfoMsg.GetGroupInfoRsp)(msg.obj)).getGroupItem().getMemberUserIdList();
+        List<FileData.FileItem> showFilesList = ((GetGroupInfoMsg.GetGroupInfoRsp)(msg.obj)).getFilesList();
+
+        showGroupFilesList = new myFileList();
+        showGroupFilesList.setList(showFilesList);
+        ArrayList<String> groupMems = new ArrayList<>();
+        groupMems.addAll(showMembersList);
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), GroupChat.class);
+        Bundle bundle = new Bundle();
+//        bundle.putString("GroupId", showGroupId);
+//        bundle.putString("GroupName", showGroupName);
+        //bundle.putInt("GroupHead", showGHead);
+        //if(friendChatNum.containsKey(showUserId))
+       // bundle.putInt("chatNum", friendChatNum.get(showUserId));
+        bundle.putString("myUserId", myUserId);
+        bundle.putString("myUserName", myUserName);
+        bundle.putSerializable("GroupFile", showGroupFilesList);
+//        bundle.putSerializable("GroupMembers",showMembersList);
+//        bundle.putStringArrayList("GroupMems",groupMems);
+        //bundle.putInt("myUserHead", myUserHead);
+        GroupChat.group_id="";
+        GroupChat.group_name="";
+        GroupChat.groupMems.clear();
+
+        GroupChat.group_id=showGroupId;
+        GroupChat.group_name=showGroupName;
+        GroupChat.groupMems=groupMems;
+        intent.putExtras(bundle);
+        startActivity(intent);
+        //friendChatNum.put(showUserId,0);
     }
 
     public void showFriendFiles(Message msg){
@@ -858,7 +1071,9 @@ public class page06Fragment extends Fragment {
     public void delFileRequest(Message msg){
         transformNum--;
     }
-
+    //getUnfriendFile getfriendFile有啥区别
+    //getUnfriendFile最终只显示文件个数等
+    //getfriendFile 显示完全文件
     Runnable getUnfriendFile = new Runnable() {
         @Override
         public void run() {
@@ -891,6 +1106,115 @@ public class page06Fragment extends Fragment {
         }
     };
 
+    Runnable getGroupFile = new Runnable() {
+        @Override
+        public void run() {
+            try{
+//                GetPersonalInfoMsg.GetPersonalInfoReq.Builder builder = GetPersonalInfoMsg.GetPersonalInfoReq.newBuilder();
+//                builder.setWhere("page06FragmentGroup");
+//                builder.setUserId(showGroupId);
+//                builder.setFileInfo(true);
+                GetGroupInfoMsg.GetGroupInfoReq.Builder builder = GetGroupInfoMsg.GetGroupInfoReq.newBuilder();
+                builder.setGroupId(showGroupId);
+                builder.setWhere("page06FragmentGroup");
+                builder.setFileInfo(true);
+                byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.GET_GROUP_INFO_REQ.getNumber(), builder.build().toByteArray());
+                Login.base.writeToServer(Login.outputStream, byteArray);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+    };
+    public void addGroup(Message msg) {
+        HashMap<String, Object> item = new HashMap<>();
+        item.put("groupId", ((groupObj) msg.obj).groupId);
+        item.put("groupName", ((groupObj) msg.obj).groupName);
+        item.put("groupHead", headIndexToImgId.toImgId(1));
+        userGroupData.add(item);
+        if (id_tab06_userGroup != null)
+            userGroupAdapter.notifyDataSetChanged();
+    }
+
+    public void updateGroup(Message msg) {
+        for(int i = 0; i< userGroupData.size();i++){
+            HashMap<String, Object> g = userGroupData.get(i);
+            if(g.get("groupId").equals(((groupObj) msg.obj).groupId)){
+                g.put("groupName",((groupObj) msg.obj).groupName);
+                break;
+            }
+        }
+        GroupChat.group_id="";
+        GroupChat.group_name="";
+        GroupChat.groupMems.clear();
+
+        GroupChat.group_id=((groupObj) msg.obj).groupId;
+        GroupChat.group_name=((groupObj) msg.obj).groupName;
+        GroupChat.groupMems.addAll(((groupObj) msg.obj).getMemberUserId());
+        if (id_tab06_userGroup != null)
+            userGroupAdapter.notifyDataSetChanged();
+    }
+
+    public void deleteGroup(Message msg) {
+        for(int i = 0; i< userGroupData.size();i++){
+            HashMap<String, Object> g = userGroupData.get(i);
+            if(g.get("groupId").equals(((groupObj) msg.obj).groupId)){
+                userGroupData.remove(g);
+                break;
+            }
+        }
+        if (id_tab06_userGroup != null)
+            userGroupAdapter.notifyDataSetChanged();
+    }
+    //分组
+    private class GroupAdapater extends BaseAdapter {
+        LayoutInflater mInflater;
+        public GroupAdapater(Context context) {
+            mInflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public int getCount() {
+            return userGroupData.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return userGroupData.get(i);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup parent) {
+
+            ViewHolderGroup holder;
+            if(view == null) {
+                view = mInflater.inflate(R.layout.tab06_groupitem, null);
+                holder = new ViewHolderGroup();
+                holder.headIndex  = (ImageView) view.findViewById(R.id.groupHead);
+                holder.groupName  = (TextView) view.findViewById(R.id.groupName);
+                //holder.chatNum = (TextView) view.findViewById(R.id.chatNum);
+                view.setTag(holder);
+            } else {
+                holder = (ViewHolderGroup) view.getTag();
+            }
+
+            HashMap<String, Object> group = userGroupData.get(i);
+            int headIndex = (int) group.get("groupHead");
+            String groupName = (String) group.get("groupName");
+            holder.headIndex.setImageResource(headIndex);
+            holder.groupName.setText(groupName);
+            return view;
+        }
+    }
+    class ViewHolderGroup {
+        ImageView headIndex;
+        TextView groupName;
+    }
+    //好友
     private class MyFriendAdapater extends BaseAdapter {
         LayoutInflater mInflater;
         public MyFriendAdapater(Context context) {
@@ -1037,7 +1361,7 @@ public class page06Fragment extends Fragment {
         TextView userId;
         TextView userName;
     }
-
+    //速传用户
     private class NetUserAdapater extends BaseAdapter {
         LayoutInflater mInflater;
         public NetUserAdapater(Context context) {

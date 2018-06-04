@@ -1,162 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#e8f0f0">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/login">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="登录"
-            android:textColor="#ffffff"
-            android:textSize="22sp"
-            android:gravity="center"
-            android:background="@drawable/top_bar"/>
-        <LinearLayout
-            android:visibility="visible"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="10dp"
-                android:id="@+id/login_btn_setting"
-                android:src="@drawable/setting"
-                android:layout_marginRight="10dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:visibility="visible"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:gravity="center">
-            <TextView
-                android:text="注册"
-                android:textColor="#fff"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:id="@+id/login_btn_register"
-                android:src="@drawable/setting"
-                android:layout_marginRight="10dp"/>
-        </LinearLayout>
-    </RelativeLayout>
-
+    android:layout_height="match_parent">
     <ImageView
-        android:id="@+id/login_userHead"
+        android:id="@+id/pic"
+        android:scaleType="fitXY"
+        android:src="@drawable/launch_pic"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/tx1"/>
-
+        android:layout_height="match_parent" />
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/main"
+        android:visibility="invisible"
         android:orientation="vertical"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:inputType="textPersonName"
-            android:id="@+id/login_edit_account"
-            android:drawableStart="@drawable/ic_account"
-            android:theme="@style/MyEditText"
-            android:hint="请输入用户名或电话号码"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/login_edit_pwd"
-            android:drawableStart="@drawable/ic_password"
-            android:theme="@style/MyEditText"
-            android:hint="请输入密码"/>
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="登  录"
-            android:id="@+id/login_btn_login"
-            android:background="@drawable/buttonradius"
-            android:textSize="20sp"
-            android:textColor="#ffffff"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp" />
+        android:layout_height="match_parent"
+        android:background="#e8f0f0">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:id="@+id/login">
             <TextView
-                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="登录"
+                android:textColor="#ffffff"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:background="@drawable/top_bar"/>
+            <LinearLayout
+                android:visibility="visible"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="离线登录"
-                android:id="@+id/login_btn_outline"
-                android:textColor="#34adfd"
-                android:textSize="15sp"
+                android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"/>
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:id="@+id/login_btn_setting"
+                    android:src="@drawable/setting"
+                    android:layout_marginRight="10dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:gravity="center">
+                <TextView
+                    android:text="注册"
+                    android:textColor="#fff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:id="@+id/login_btn_register"
+                    android:src="@drawable/setting"
+                    android:layout_marginRight="10dp"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/login_userHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/tx1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:inputType="textPersonName"
+                android:id="@+id/login_edit_account"
+                android:drawableStart="@drawable/ic_account"
+                android:theme="@style/MyEditText"
+                android:hint="请输入用户名或电话号码"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/login_edit_pwd"
+                android:drawableStart="@drawable/ic_password"
+                android:theme="@style/MyEditText"
+                android:hint="请输入密码"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="登  录"
+                android:id="@+id/login_btn_login"
+                android:background="@drawable/buttonradius"
+                android:textSize="20sp"
+                android:textColor="#ffffff"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="离线登录"
+                    android:id="@+id/login_btn_outline"
+                    android:textColor="#34adfd"
+                    android:textSize="15sp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"/>
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="验证码登录"
+                    android:id="@+id/vertificationLogin_TV"
+                    android:textColor="#34adfd"
+                    android:textSize="15sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <android.support.constraint.ConstraintLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
             <TextView
-                android:padding="5dp"
+                android:id="@+id/textView2"
+                android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="验证码登录"
-                android:id="@+id/vertificationLogin_TV"
-                android:textColor="#34adfd"
-                android:textSize="15sp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"/>
-        </RelativeLayout>
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="Copyright © 2018 - ZhiYuan. All Rights Reserved."
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="AreaParty Mobile Station 1.2 （2018-03-30）"
+                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
     </LinearLayout>
-    <android.support.constraint.ConstraintLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:textSize="10sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="Copyright © 2018 - ZhiYuan. All Rights Reserved."
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:textSize="10sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="AreaParty Mobile Station 1.2 （2018-03-30）"
-            app:layout_constraintBottom_toTopOf="@+id/textView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </android.support.constraint.ConstraintLayout>
-</LinearLayout>
+</FrameLayout>

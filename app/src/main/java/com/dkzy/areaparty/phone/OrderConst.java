@@ -81,10 +81,14 @@ public class OrderConst {
     public static final int showUnfriendFiles = 0x608;
     public static final int showFriendFiles = 0x609;
     public static final int shareFileSuccess = 0x610;
-    public static final int deleteShareFileSuccess = 0x614;
     public static final int shareFileFail = 0x611;
     public static final int addChatNum = 0x612;
     public static final int addFileRequest = 0x613;
+    public static final int deleteShareFileSuccess = 0x614;
+    public static final int addGroupRequest = 0x615;
+    public static final int showGroupFiles = 0x616;
+    public static final int updateGroupInfo = 0x617;
+    public static final int deleteGroupInfo = 0x618;
     //downloadFragment
     public static final int torrentFileStartReq = 0x6100;
     public static final int torrentFilePauseReq = 0x6101;

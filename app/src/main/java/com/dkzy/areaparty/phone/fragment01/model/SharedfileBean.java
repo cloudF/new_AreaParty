@@ -1,6 +1,7 @@
 package com.dkzy.areaparty.phone.fragment01.model;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * Project Name： FamilyCentralControler
@@ -19,7 +20,7 @@ public class SharedfileBean {
     public long timeLong;    // 存储数据时保存
     public String url;
     public String pwd;
-
+    public List<String> listGroupId;
 
     public SharedfileBean(int id, String name, String path, int size, String des, String time) {
         this.id = id;
@@ -30,7 +31,7 @@ public class SharedfileBean {
         this.des = des;
     }
 
-    public SharedfileBean(String name, String path, int size, String des, long time, String url, String pwd) {
+    public SharedfileBean(String name, String path, int size, String des, long time, String url, String pwd, List<String> list) {
         this.name = name;
         this.path = path;
         this.size = size;
@@ -40,6 +41,7 @@ public class SharedfileBean {
         this.timeStr = format.format(timeLong);
         this.url = url;
         this.pwd = pwd;
+        this.listGroupId=list;
     }
 
     public SharedfileBean(String name, int size, String des, long timeLong) {

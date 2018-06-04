@@ -25,6 +25,7 @@ public class DeleteDialog extends Dialog {
     private Button positiveButton;
     private Button negativeButton;
     private Context context;
+    private TextView messageTV;
 
     public DeleteDialog(Context context) {
         super(context, R.style.CustomDialog);
@@ -42,6 +43,7 @@ public class DeleteDialog extends Dialog {
         title = (TextView) mView.findViewById(R.id.deletetitle);
         positiveButton = (Button) mView.findViewById(R.id.deletepositiveButton);
         negativeButton = (Button) mView.findViewById(R.id.deletenegativeButton);
+        messageTV = (TextView) mView.findViewById(R.id.messageTV) ;
         super.setContentView(mView);
 
         WindowManager m = getWindow().getWindowManager();
@@ -53,7 +55,12 @@ public class DeleteDialog extends Dialog {
         getWindow().setAttributes(p);
     }
 
-
+    public void setMessageTV(String text){
+        if (messageTV.getVisibility() == View.GONE){
+            messageTV.setVisibility(View.VISIBLE);
+        }
+        messageTV.setText(text);
+    }
     public void setOnPositiveListener(View.OnClickListener listener) {
         positiveButton.setOnClickListener(listener);
     }
@@ -69,5 +76,8 @@ public class DeleteDialog extends Dialog {
     }
     public void setNegativeButtonText(String text) {
         this.negativeButton.setText(text);
+    }
+    public void setPositiveInVisibility(){
+        this.positiveButton.setVisibility(View.INVISIBLE);
     }
 }

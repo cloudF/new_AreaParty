@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,7 +35,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.fragment01.model.SharedfileBean;
-import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_help;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_launch;
 import com.dkzy.areaparty.phone.fragment06.myChatList;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
@@ -51,8 +51,6 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.lang.reflect.Array;
-import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -61,10 +59,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import es.dmoral.toasty.Toasty;
 import protocol.Data.ChatData;
 import protocol.Data.FileData;
+import protocol.Data.GroupData;
 import protocol.Data.UserData;
 import protocol.Msg.AccreditMsg;
 import protocol.Msg.GetUserInfoMsg;
@@ -83,14 +83,15 @@ import static com.dkzy.areaparty.phone.myapplication.MyApplication.getContext;
  */
 
 public class Login extends AppCompatActivity {
+    public static Login instance = null;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_PHONE_STATE
     };
 
     public static Base base = null;
-    private LoginMsg.LoginReq.Builder builder = LoginMsg.LoginReq.newBuilder();
-    private GetUserInfoMsg.GetUserInfoReq.Builder userBuilder = GetUserInfoMsg.GetUserInfoReq.newBuilder();
+    public static LoginMsg.LoginReq.Builder builder = LoginMsg.LoginReq.newBuilder();
+    public static GetUserInfoMsg.GetUserInfoReq.Builder userBuilder = GetUserInfoMsg.GetUserInfoReq.newBuilder();
     private EditText mAccount;                        //用户名编辑
     private EditText mPwd;                            //密码编辑
     private TextView mRegisterButton;                 //注册按钮
@@ -102,13 +103,13 @@ public class Login extends AppCompatActivity {
     private View accreditView;
     private AlertDialog dialog = null;
 
-    private String host;
-    private int port = 0;
+    public static String host;
+    public static int port = 0;
     //private int port = 3333;
     private SharedPreferences sp;
     private SharedPreferences sp2;
     private long timer = 0;
-    public static Handler mHandler;
+    public static Handler mHandler = null;
     public static final int HEAD_INT_SIZE = 4;
     public static Socket socket = null;
     public static InputStream inputStream = null;
@@ -117,6 +118,7 @@ public class Login extends AppCompatActivity {
     public static List<UserData.UserItem> userNet = new ArrayList<>();
     public static List<UserData.UserItem> userShare = new ArrayList<>();
     public static List<FileData.FileItem> files = new ArrayList<>();
+    public static List<GroupData.GroupItem> userGroups = new ArrayList<>();
     public static boolean outline = false;
     public static String userId = "";
     public static String userName = "";
@@ -125,20 +127,50 @@ public class Login extends AppCompatActivity {
     public static int userHeadIndex;
     public static myChatList myChats = new myChatList();
 
+    private boolean autoLogin = false;
+    public static String userPwd;
+
+    private View pic;
+    private View main;
+    public static final String REGEX_MOBILE = "^[1][3,4,5,6,7,8,9][0-9]{9}$";
+
+    public static boolean logining = false;
+
+    public static boolean isFront = false;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isFront = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isFront = false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
             return;
         }//
+        instance = this;
         setContentView(R.layout.login);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        pic = findViewById(R.id.pic);
+        main = findViewById(R.id.main);
 
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         MyApplication.getInstance().addActivity(this);
         if (!(new PreferenceUtil("isHelpDialogShow",getApplicationContext()).readBoole("launch"))){//提示框
+            showMain();
             showDialog();
         }
 
@@ -158,8 +190,11 @@ public class Login extends AppCompatActivity {
 
         sp = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         sp2 = this.getSharedPreferences("serverInfo", Context.MODE_PRIVATE);
-        mAccount.setText(sp.getString("USER_ID", ""));
-        mPwd.setText(sp.getString("USER_PWD", ""));
+        userId = sp.getString("USER_ID", "");
+        mAccount.setText(userId);
+        userPwd = sp.getString("USER_PWD", "");
+        mPwd.setText(userPwd);
+        autoLogin = sp.getBoolean("autoLogin",false);
         port = Integer.parseInt(sp2.getString("SERVER_PORT", "3333"));
         host = sp2.getString("SERVER_IP", AREAPARTY_NET);
         if (!TextUtils.isEmpty(host)){
@@ -183,6 +218,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
+                if (msg.what!=2) showMain();
                 switch (msg.what) {
                     case 0:
                         Toast.makeText(Login.this, "请输入用户名密码", Toast.LENGTH_SHORT).show();
@@ -192,6 +228,17 @@ public class Login extends AppCompatActivity {
                         break;
                     case 2:
                         //跳转主界面
+                        if (mainMobile){//主设备自动登录
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putBoolean("autoLogin",true);
+                            editor.apply();
+                        }else {
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putBoolean("autoLogin",false);
+                            editor.apply();
+                        }
+
+
                         Intent intentMain = new Intent();
                         intentMain.setClass(Login.this, MainActivity.class);
                         Bundle bundle = new Bundle();
@@ -203,7 +250,6 @@ public class Login extends AppCompatActivity {
                         bundle.putSerializable("chats", myChats);
                         intentMain.putExtras(bundle);
                         startActivity(intentMain);
-                        //Login.this.finish();
                         break;
                     case 3:
                         //跳转设置界面
@@ -270,6 +316,27 @@ public class Login extends AppCompatActivity {
             }
         };
 
+        userMac = getAdresseMAC(Login.this);
+
+        userMac = userMac.toLowerCase();
+        if (autoLogin && !TextUtils.isEmpty(userPwd) && !TextUtils.isEmpty(userId) && !TextUtils.isEmpty(userMac)){//自动登录
+            if (Pattern.matches(REGEX_MOBILE, userId)){
+                String id = sp.getString(userId,"");
+                if (!TextUtils.isEmpty(id)){
+                    userId = id;
+                }
+            }
+            new Thread(login).start();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showMain();
+                }
+            }, 2000);
+        }else {
+            showMain();
+        }
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -288,6 +355,8 @@ public class Login extends AppCompatActivity {
 
             }
         }).start();
+
+
     }
 
     private void tryLogin() {
@@ -320,7 +389,24 @@ public class Login extends AppCompatActivity {
         if (outline == false) {
             if (now.getTime() - timer > 3000) {
                 try {
-
+                    userMac = sp.getString("USER_MAC","");
+                    userId = mAccount.getText().toString();
+                    userPwd = mPwd.getText().toString();
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("USER_PWD", userPwd);
+                    editor.putString("USER_ID",userId);
+                    if(userMac.equals("")){
+                        userMac = getAdresseMAC(Login.this);
+                        if (!TextUtils.isEmpty(userMac) && !userMac.equals(marshmallowMacAddress)){
+                            editor.putString("USER_MAC",userMac);
+                        }
+                    }
+                    userMac = userMac.toLowerCase();
+                    editor.apply();
+                    if(userId.equals("") || userPwd.equals("")){
+                        mHandler.sendEmptyMessage(0);
+                        return;
+                    }
                     new Thread(login).start();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -346,6 +432,11 @@ public class Login extends AppCompatActivity {
                     mHandler.sendEmptyMessage(3);
                     break;
                 case R.id.login_btn_outline:
+
+                    SharedPreferences.Editor editor = MyApplication.getInstance().getSharedPreferences("userInfo", Context.MODE_PRIVATE).edit();
+                    editor.putBoolean("autoLogin",false);
+                    editor.commit();
+
                     userId = "";
                     Intent intentMain = new Intent();
                     intentMain.setClass(Login.this, MainActivity.class);
@@ -353,7 +444,6 @@ public class Login extends AppCompatActivity {
                     bundle.putBoolean("outline", true);
                     intentMain.putExtras(bundle);
                     startActivity(intentMain);
-//                    Login.this.finish();
                     break;
                 case R.id.login_btn_register:                           //登录界面的注册按钮
                     Intent intentRegister = new Intent();
@@ -370,12 +460,12 @@ public class Login extends AppCompatActivity {
         }
     };
 
-    public String getPhoneInfo() {
-        TelephonyManager tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
+    public static String getPhoneInfo() {
+        TelephonyManager tm = (TelephonyManager) MyApplication.getContext().getSystemService(TELEPHONY_SERVICE);
         String mtyb = android.os.Build.BRAND;// 手机品牌
         String mtype = android.os.Build.MODEL; // 手机型号
         String carrier = android.os.Build.MANUFACTURER;//手机厂商
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(MyApplication.getContext(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -518,28 +608,25 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    Runnable login = new Runnable() {
+    public static Runnable login = new Runnable() {
         @Override
         public void run() {
             try {
-                userMac = sp.getString("USER_MAC","");
-                userId = mAccount.getText().toString();
-                String userPwd = mPwd.getText().toString();
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("USER_PWD", userPwd);
-                editor.putString("USER_ID",userId);
-                if(userMac.equals("")){
-                    userMac = getAdresseMAC(Login.this);
-                    if (!TextUtils.isEmpty(userMac) && !userMac.equals(marshmallowMacAddress)){
-                        editor.putString("USER_MAC",userMac);
+
+                if (logining) return;//2s内只执行一次登录操作
+                logining = true;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        logining = false;
                     }
-                }
-                userMac = userMac.toLowerCase();
-                editor.commit();
-                if(userId.equals("") || userPwd.equals("")){
-                    mHandler.sendEmptyMessage(0);
-                    return;
-                }
+                }).start();
+
                 socket = new Socket(host, port);
                 //System.out.println("buffersize:"+socket.getReceiveBufferSize());
                 socket.setReceiveBufferSize(8*1024*1024);
@@ -558,7 +645,7 @@ public class Login extends AppCompatActivity {
 
                 byteArray = base.readFromServer(inputStream);
                 if(byteArray.length == 0){
-                    mHandler.sendEmptyMessage(1);
+                    sendEmptyMessage(1);
                     userId = "";
                     socket.close();
                     return;
@@ -577,18 +664,18 @@ public class Login extends AppCompatActivity {
                     System.out.println(objBytes.length+"-------------------------------");
                     LoginMsg.LoginRsp response = LoginMsg.LoginRsp.parseFrom(objBytes);
                     if(response.getResultCode() == LoginMsg.LoginRsp.ResultCode.FAIL){
-                        mHandler.sendEmptyMessage(1);
+                        sendEmptyMessage(1);
                         userId = "";
                         socket.close();
                         return;
                     }else if(response.getResultCode() == LoginMsg.LoginRsp.ResultCode.LOGGEDIN){
-                        mHandler.sendEmptyMessage(7);
+                        sendEmptyMessage(7);
                         userId = "";
                         socket.close();
                         return;
                     }else if(response.getResultCode() == LoginMsg.LoginRsp.ResultCode.NOTMAINPHONE){
                         //此处弹出提示框，告诉用户等待授权
-                        mHandler.sendEmptyMessage(8);
+                        sendEmptyMessage(8);
                         boolean accreditMsg = false;
                         while(!accreditMsg){
                             byteArray = base.readFromServer(inputStream);
@@ -606,7 +693,7 @@ public class Login extends AppCompatActivity {
                                 if(accreditResponse.getResultCode().equals(AccreditMsg.AccreditRsp.ResultCode.RESPONSCODE)){
                                     AccreditMsg.AccreditReq.Builder accreditBuilder = AccreditMsg.AccreditReq.newBuilder();
                                     accreditBuilder.setAccreditCode("11");
-                                    accreditBuilder.setAccreditMac(getAdresseMAC(Login.this));
+                                    accreditBuilder.setAccreditMac(getAdresseMAC(MyApplication.getContext()));
                                     accreditBuilder.setUserId("petter");
                                     accreditBuilder.setType(AccreditMsg.AccreditReq.Type.REQUIRE);
                                     byte[] reByteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.ACCREDIT_REQ.getNumber(), accreditBuilder
@@ -617,7 +704,7 @@ public class Login extends AppCompatActivity {
                                     byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.LOGIN_REQ_VALUE, builder.build().toByteArray());
                                     base.writeToServer(outputStream, byteArray);
                                 }else if(accreditResponse.getResultCode().equals(AccreditMsg.AccreditRsp.ResultCode.FAIL)){
-                                    mHandler.sendEmptyMessage(10);
+                                    sendEmptyMessage(10);
                                     socket.close();
                                     return;
                                 }
@@ -628,13 +715,16 @@ public class Login extends AppCompatActivity {
                                 }
 
                                 response = LoginMsg.LoginRsp.parseFrom(objBytes);
-                                dialog.dismiss();
+                                if (instance != null){
+                                    instance.dialog.dismiss();
+                                }
+
                                 break;
                             }
                         }
                     }
                     else if(response.getResultCode() == LoginMsg.LoginRsp.ResultCode.MAINPHONEOUTLINE){
-                        mHandler.sendEmptyMessage(9);
+                        sendEmptyMessage(9);
                         socket.close();
                         return;
                     }
@@ -648,7 +738,13 @@ public class Login extends AppCompatActivity {
                     userFriend.clear();
                     userShare.clear();
                     userNet.clear();
+                    userGroups.clear();
                     base.onlineUserId.add(userId);
+
+                    GroupData.GroupItem.Builder ggb = GroupData.GroupItem.newBuilder();
+                    ggb.setGroupName("全部好友");
+                    ggb.setGroupId("0");
+                    ggb.setCreaterUserId(userId);
                     //用户分类
                     List<UserData.UserItem> lu = response.getUserItemList();
                     if(!lu.isEmpty()){
@@ -659,6 +755,7 @@ public class Login extends AppCompatActivity {
                             }
                             if(u.getIsFriend()){
                                 userFriend.add(u);
+                                ggb.addMemberUserId(u.getUserId());
                             }
                             if(u.getIsSpeed()&&u.getIsFriend()){
                                 userNet.add(u);
@@ -670,6 +767,14 @@ public class Login extends AppCompatActivity {
                     }
                     List<ChatData.ChatItem> chats = response.getChatItemList();
                     myChats.setList(chats);
+
+                    List<GroupData.GroupItem> groups = response.getGroupItemList();
+                    userGroups.add(ggb.build());
+                    if(!groups.isEmpty()) {
+                        for(GroupData.GroupItem g : groups) {
+                            userGroups.add(g);
+                        }
+                    }
 
                     System.out.println("Response : " + LoginMsg.LoginRsp.ResultCode.valueOf(response.getResultCode().getNumber()));
                     userBuilder.addTargetUserId(userId);
@@ -690,7 +795,17 @@ public class Login extends AppCompatActivity {
                         Log.i("login",objBytes.length+"");
                         GetUserInfoMsg.GetUserInfoRsp fileresponse = GetUserInfoMsg.GetUserInfoRsp.parseFrom(objBytes);
                         System.out.println(fileresponse);
-                        userId = fileresponse.getUserItem(0).getUserId();
+
+                        if (instance != null){
+                            if (Pattern.matches(REGEX_MOBILE, userId)){
+                                String userMobile = userId;
+                                userId = fileresponse.getUserItem(0).getUserId();
+                                SharedPreferences.Editor editor = instance.sp.edit();
+                                editor.putString(userMobile,userId);
+                                editor.apply();
+                            }
+                        }
+                        //电话号码登录
                         userName = fileresponse.getUserItem(0).getUserName();
                         userHeadIndex = fileresponse.getUserItem(0).getHeadIndex();
                         System.out.println("Response : " + GetUserInfoMsg.GetUserInfoRsp.ResultCode.valueOf(fileresponse.getResultCode().getNumber()));
@@ -712,18 +827,24 @@ public class Login extends AppCompatActivity {
                                 }
                             }
                         }else{
-                            MainActivity.handlerTab06.sendEmptyMessage(OrderConst.getUserMsgFail_order);
+                            if (instance != null){
+                                MainActivity.handlerTab06.sendEmptyMessage(OrderConst.getUserMsgFail_order);
+                            }
                         }
                     }
                     new Thread(base.listen).start();
-                    //new Thread(getUserFile).start();
-                    mHandler.sendEmptyMessage(2);
-
+                    sendEmptyMessage(2);
                 }
-                //new Thread(base.listen).start();
             } catch (IOException e) {
                 e.printStackTrace();
+                if (instance != null){
+                    instance.showMain();
+                }
+
             } catch(Exception e){
+                if (instance != null){
+                    instance.showMain();
+                }
                 e.printStackTrace();
             }
         }
@@ -782,14 +903,14 @@ public class Login extends AppCompatActivity {
         final ActionDialog_launch dialog = new ActionDialog_launch(this);
         dialog.setCancelable(true);
         dialog.show();
-        dialog.setOnNegativeListener(new View.OnClickListener() {
+        dialog.setOnNegativeListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
                 Login.this.finish();
             }
         });
-        dialog.setOnPositiveListener(new View.OnClickListener() {
+        dialog.setOnPositiveListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (dialog.isRadioButtonChecked()){
@@ -806,5 +927,33 @@ public class Login extends AppCompatActivity {
         }
         return files;
     }*/
+
+    private void showMain(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (main.getVisibility() != View.VISIBLE){
+                    WindowManager.LayoutParams attrs = getWindow().getAttributes();
+                    attrs.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    getWindow().setAttributes(attrs);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+                    main.setVisibility(View.VISIBLE);
+                    pic.setVisibility(View.GONE);
+                }
+            }
+        });
+
+    }
+
+    public static void sendEmptyMessage(int n){
+        if (instance != null){
+            if (mHandler != null){
+                if (isFront){
+                    mHandler.sendEmptyMessage(n);
+                }
+            }
+        }
+    }
+
 }
 

@@ -45,10 +45,13 @@ public class HistoryMsg extends AppCompatActivity implements DatePickerDialog.On
     private String user_name;
     private int user_head;
     private int myUserHead;
+    private String group_id;
+    private String group_name;
     private List<HashMap<String, Object>> chatData;
     private chatItemAdapater chatAdapater;
-
+    boolean isUser = true;
     private ChatDBManager chatDB = MainActivity.getChatDBManager();
+    private GroupChatDBManager groupChatDB = MainActivity.getGroupChatDBManager();
     public final static int FRIEND=1;
     public final static int ME=0;
     int[] layout={R.layout.tab06_filemain_historymeitem, R.layout.tab06_filemain_historyfrienditem};
@@ -70,11 +73,20 @@ public class HistoryMsg extends AppCompatActivity implements DatePickerDialog.On
     private void getData(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        user_id = bundle.getString("userId");
-        user_name = bundle.getString("userName");
-        user_head = bundle.getInt("userHead");
-        myUserHead = bundle.getInt("myUserHead");
-        chatData = new ArrayList<>();
+        isUser = bundle.getBoolean("isUser");
+        if(isUser) {
+            user_id = bundle.getString("userId");
+            user_name = bundle.getString("userName");
+            user_head = bundle.getInt("userHead");
+            myUserHead = bundle.getInt("myUserHead");
+            chatData = new ArrayList<>();
+        }else{
+            group_id = bundle.getString("groupId");
+            group_name = bundle.getString("groupName");
+            user_head = bundle.getInt("userHead");
+            myUserHead = bundle.getInt("myUserHead");
+            chatData = new ArrayList<>();
+        }
     }
     private void initView(){
         historyMsgBackBtn = (ImageButton) this.findViewById(R.id.historyMsgBackBtn);
@@ -129,7 +141,12 @@ public class HistoryMsg extends AppCompatActivity implements DatePickerDialog.On
         final Long endTime = getTime(endDate);
         chatData.clear();
         int size;
-        ArrayList<ChatObj> chats = chatDB.selectMyChatSQL(Login.userId, Login.userId, user_id, startTime, endTime);
+        ArrayList<ChatObj> chats = null;
+        if(isUser) {
+            chats = chatDB.selectMyChatSQL(Login.userId, Login.userId, user_id, startTime, endTime);
+        }else{
+            chats=groupChatDB.selectMyGroupChatSQL(Login.userId+"group", group_id, startTime, endTime);
+        }
         size = chats.size();
         if(size > 0){
             historyMsgList.setVisibility(View.VISIBLE);

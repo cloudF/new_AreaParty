@@ -1,10 +1,11 @@
 package com.dkzy.areaparty.phone.fragment01.setting;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -28,7 +29,7 @@ import es.dmoral.toasty.Toasty;
  */
 
 public class SettingMainActivity extends AppCompatActivity implements View.OnClickListener {
-    private LinearLayout changeUserNameLL, changeUserPwdLL, changeUserAddressLL, updateVersionLL, changMainPhoneLL;
+    private LinearLayout changeUserNameLL, changeUserPwdLL, changeUserAddressLL, updateVersionLL, changMainPhoneLL, logoutLL;
     private TextView newVersionInforTV;
     private ImageButton settingBackBtn;
 
@@ -90,10 +91,15 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
         changeUserAddressLL = (LinearLayout) this.findViewById(R.id.changeUserAddressLL);
         updateVersionLL = (LinearLayout) findViewById(R.id.updateVersionLL);
         changMainPhoneLL = (LinearLayout) findViewById(R.id.changMainPhone_LL);
+        logoutLL = (LinearLayout) findViewById(R.id.logoutLL);
         newVersionInforTV = (TextView) findViewById(R.id.newVersionInforTV);
         settingBackBtn = (ImageButton) this.findViewById(R.id.settingBackBtn);
 
-
+        if (outline){
+            logoutLL.setVisibility(View.GONE);
+        }else {
+            logoutLL.setVisibility(View.VISIBLE);
+        }
 
 
         if(!(MyApplication.getReceiveMsgBean().isEmpty()) && !(MyApplication.getReceiveMsgBean().isNew)) {
@@ -110,6 +116,7 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
         settingBackBtn.setOnClickListener(this);
         updateVersionLL.setOnClickListener(this);
         changMainPhoneLL.setOnClickListener(this);
+        logoutLL.setOnClickListener(this);
     }
 
     @Override
@@ -171,6 +178,13 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
                     Toasty.error(this, "当前用户未登录, 不能修改地址", Toast.LENGTH_SHORT, true).show();
                 } else
                     startActivity(new Intent(this, SettingMainPhoneActivity.class));
+                break;
+            case R.id.logoutLL:
+                SharedPreferences.Editor editor = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE).edit();
+                editor.putBoolean("autoLogin",false);
+                editor.commit();
+                //MyApplication.getInstance().closeAll();
+                MyApplication.getInstance().goToLogin();
                 break;
         }
     }

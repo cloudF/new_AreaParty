@@ -996,6 +996,9 @@ public class diskTVContentActivity extends Activity implements View.OnClickListe
                 String des = editText.getText().toString();
                 if(des.equals(""))
                     Toasty.error(diskTVContentActivity.this, "文件描述信息不能为空", Toast.LENGTH_SHORT).show();
+                else if(sharedFileDialog.getSelected().size()==0){
+                    Toasty.error(diskTVContentActivity.this, "分享的分组不能为空", Toast.LENGTH_SHORT).show();
+                }
                 else {
                     InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                     manager.hideSoftInputFromWindow(sharedFileDialog.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -1005,13 +1008,13 @@ public class diskTVContentActivity extends Activity implements View.OnClickListe
                     String name = TVFileHelper.getSelectedFiles().get(0).name;
                     int size = TVFileHelper.getSelectedFiles().get(0).size;
                     long time = System.currentTimeMillis();
+                    List<String> list = sharedFileDialog.getSelected();
                     TVFileHelper.setSelectedShareFile(new SharedfileBean(name, TVFileHelper.getNowFilePath() + name, size, des, time,
-                            sharedFileDialog.getUrlEditText(), sharedFileDialog.getPwdEditText()));
+                            sharedFileDialog.getUrlEditText(), sharedFileDialog.getPwdEditText(),list));
                     Log.e("page04", "路径：" + TVFileHelper.getSelectedShareFile().path);
                     dialog.show();
                     TVFileHelper.shareFile(des, TVFileHelper.getSelectedShareFile());
                 }
-
             }
         });
         sharedFileDialog.setOnNegativeListener(new View.OnClickListener() {

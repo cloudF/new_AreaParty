@@ -61,12 +61,17 @@ public class ActionDialog_reName extends Dialog {
     public void setOnNegativeListener(View.OnClickListener listener) {
         negativeButton.setOnClickListener(listener);
     }
-
+    public void setValueEditTextHint(String hint){
+        this.valueEditText.setHint(hint);
+    }
     public void setTitleText(String text) {
         this.title.setText(text);
     }
     public void setOldName(String name) {
         oldName.append(name);
+    }
+    public void setNameInfo(String name) {
+        oldName.setText(name);
     }
 //    public String getPathEditText() {
 //        return pathEditText.getText().toString();

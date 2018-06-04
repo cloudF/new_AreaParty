@@ -21,7 +21,17 @@ public class ChatSQLiteHelper extends SQLiteOpenHelper {
         sBuffer.append("[date] INTEGER)");                                  //发送或接收时间
         db.execSQL(sBuffer.toString());
     }
-
+    private void createGroupChatTables(String table_name, SQLiteDatabase db) {
+        StringBuilder sBuffer = new StringBuilder();
+        sBuffer.append("CREATE TABLE [").append(table_name).append("] (");  //创建表和定义表明
+        sBuffer.append("[_id] INTEGER PRIMARY KEY AUTOINCREMENT, ");        //设置_id为主键，不能为空与自增性质
+        sBuffer.append("[sender_id] TEXT,");                                //发送者id
+        sBuffer.append("[receiver_id] TEXT,");                              //接收者id
+        sBuffer.append("[msg] TEXT,");                                      //信息
+        sBuffer.append("[date] INTEGER,");                                  //发送或接收时间
+        sBuffer.append("[group_id] TEXT)");                                 //群组id
+        db.execSQL(sBuffer.toString());
+    }
     private void createFriendTables(String table_name, SQLiteDatabase db) {
         StringBuilder sBuffer = new StringBuilder();
         sBuffer.append("CREATE TABLE [").append(table_name).append("] (");  //创建表和定义表明

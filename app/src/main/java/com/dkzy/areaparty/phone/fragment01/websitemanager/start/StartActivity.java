@@ -1,24 +1,18 @@
 package com.dkzy.areaparty.phone.fragment01.websitemanager.start;
 
-import android.accessibilityservice.AccessibilityServiceInfo;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,16 +25,14 @@ import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_help;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_page;
 import com.dkzy.areaparty.phone.fragment01.utorrent.utils.OkHttpUtils;
-import com.dkzy.areaparty.phone.fragment01.websitemanager.hdhome.WelcomeActivity;
+import com.dkzy.areaparty.phone.fragment01.websitemanager.vipShare.VipLeaseActivity;
+import com.dkzy.areaparty.phone.fragment01.websitemanager.vipShare.VipRentActivity;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.MainActivity;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.web1080.RemoteDownloadActivity;
 import com.dkzy.areaparty.phone.fragment05.accessible_service.AutoLoginService;
 import com.dkzy.areaparty.phone.fragment05.accessible_service.Util;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
-import com.dkzy.areaparty.phone.myapplication.floatview.FloatView;
 import com.dkzy.areaparty.phone.utils_comman.PreferenceUtil;
-import com.dkzy.areaparty.phone.utils_comman.netWork.NetUtil;
-import com.dkzy.areaparty.phone.utilseverywhere.utils.AccessibilityUtils;
 import com.dkzy.areaparty.phone.utilseverywhere.utils.IntentUtils;
 
 import org.json.JSONArray;
@@ -48,14 +40,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 import info.hoang8f.widget.FButton;
@@ -91,6 +75,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     //http://www.1080.cn/
     public static String[] url;
     public static String[] imageUrl;
+    public static int[] type;
     private String urlWeb1080="http://www.dayangd.com";
     private String urlBlufans="http://www.longbaidu.com";
 
@@ -100,7 +85,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     ///phoneVIPAppActivity的变量
     public static final Intent mAccessibleIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-    public static boolean serviceEnabled;
+    //public static boolean serviceEnabled;
     private IntentFilter intentFilter;
 
     public static int iqiyiVersionCode;
@@ -119,7 +104,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     public static String logined = "";
 
     public static String userName = "";
-    public static boolean mainMobile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,12 +145,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-        updateServiceStatus();
-        iqiyiVersionCode = getVersionCode(AutoLoginService.IQIYI);//获取爱奇艺的版本号
-        youkuVersionCode = getVersionCode(AutoLoginService.YOUKU);//获取优酷的版本号
-        tencentVersionCode = getVersionCode(AutoLoginService.TENCENT);//获取腾讯视频版本号
-        leshiVersionCode = getVersionCode(AutoLoginService.LESHI);
-        QQVersionCode = getVersionCode(AutoLoginService.QQ);
+
         setTag();
 
     }
@@ -181,33 +160,23 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
        switch (v.getId()){
            case R.id.image1:
            case R.id.url1:
-               Intent intent=new Intent(StartActivity.this, MainActivity.class);
-               intent.putExtra("URL",url[0]);
-               startActivity(intent);
+               goToWebSite(0);
                break;
            case R.id.image2:
            case R.id.url2:
-               Intent intent1=new Intent(StartActivity.this, MainActivity.class);
-               intent1.putExtra("URL",url[1]);
-               startActivity(intent1);
+               goToWebSite(1);
                break;
            case R.id.image3:
            case R.id.url3:
-               Intent intent2=new Intent(StartActivity.this, MainActivity.class);
-               intent2.putExtra("URL",url[2]);
-               startActivity(intent2);
+               goToWebSite(2);
                break;
            case R.id.image4:
            case R.id.url4:
-               Intent intent5=new Intent(StartActivity.this, MainActivity.class);
-               intent5.putExtra("URL",url[3]);
-               startActivity(intent5);
+               goToWebSite(3);
                break;
            case R.id.image5:
            case R.id.url5:
-               Intent intent3=new Intent(StartActivity.this, MainActivity.class);
-               intent3.putExtra("URL",url[4]);
-               startActivity(intent3);
+               goToWebSite(4);
                break;
            case R.id.downloadManagement:
                Intent intent4=new Intent(StartActivity.this, RemoteDownloadActivity.class);
@@ -239,12 +208,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
            case R.id.btn_logout_tencent:
            case R.id.btn_login_leshi:
            case R.id.btn_logout_leshi:
-               if (!mainMobile){
+               /*if (!mainMobile){
                    Toast.makeText(StartActivity.this, "当前设备不是主设备，无法使用此功能",Toast.LENGTH_SHORT).show();
                    return;
                }
                if (TextUtils.isEmpty(logined)){
-                   checkInfo();
+                   //checkInfo();
                    return;
                }
                if (!isHelpDialogShow){
@@ -253,39 +222,55 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                    onClickListener(v);
                }
 
-               break;
+               break;*/
            case R.id.helpInfo:
                showHelpInfoDialog(R.layout.dialog_web);
                break;
            case R.id.img_tencent:
-               if (tencentVersionCode != 0){
+               /*if (tencentVersionCode != 0){
                    openPackage(this,AutoLoginService.TENCENT);
 
                }else {
                    Toasty.error(StartActivity.this, "你未安装腾讯视频").show();
 
-               }
+               }*/
                break;
            case R.id.img_youku:
-               if (youkuVersionCode != 0){
+               /*if (youkuVersionCode != 0){
                    openPackage(this,AutoLoginService.YOUKU);
 
                }else {
                    Toasty.error(StartActivity.this, "你未安装优酷视频").show();
 
-               }
+               }*/
                break;
            case R.id.img_leshi:
-               if (leshiVersionCode != 0){
+               /*if (leshiVersionCode != 0){
                    openPackage(this,AutoLoginService.LESHI);
 
                }else {
                    Toasty.error(StartActivity.this, "你未安装乐视视频").show();
 
+               }*/
+               break;
+           case R.id.vipRent:
+               if (TextUtils.isEmpty(Login.userId)){
+                   Toast.makeText(this, "您未登录", Toast.LENGTH_SHORT).show();
+               }else if (!Login.mainMobile){
+                   Toast.makeText(this, "当前设备不是主设备", Toast.LENGTH_SHORT).show();
+               }else {
+                   startActivity(new Intent(StartActivity.this, VipRentActivity.class));
                }
                break;
-
-
+           case R.id.vipLease:
+               if (TextUtils.isEmpty(Login.userId)){
+                   Toast.makeText(this, "您未登录", Toast.LENGTH_SHORT).show();
+               }else if (!Login.mainMobile){
+                   Toast.makeText(this, "当前设备不是主设备", Toast.LENGTH_SHORT).show();
+               }else {
+                   startActivity(new Intent(StartActivity.this, VipLeaseActivity.class));
+               }
+               break;
            default:
                break;
 
@@ -299,6 +284,18 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
 //    private long exitTime = 0;
 
+    private void goToWebSite(int i){
+        if (i > 4 ) return;
+        if (type[i] == 0){
+            Intent intent=new Intent(StartActivity.this, MainActivity.class);
+            intent.putExtra("URL",url[i]);
+            startActivity(intent);
+        }else if (type[i] == 1){
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url[i]));
+            startActivity(intent);
+        }
+    }
 
 
     private  void initView(){
@@ -342,7 +339,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         if (TextUtils.isEmpty(userName)){
             userName = Login.userName;
             if (!TextUtils.isEmpty(userName)){
-                mainMobile = Login.mainMobile;
+
             }
         }
 
@@ -350,7 +347,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         logined = Util.getRecordWebsit(getApplicationContext());
         if (TextUtils.isEmpty(logined)){
-            checkInfo();
+            //checkInfo();
         }else {
             setTag();
         }
@@ -375,7 +372,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         dialog.setOnPositiveListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickListener(v);
+                //onClickListener(v);
+                //onClickListener(v);
                 if (dialog.isRadioButtonChecked()){
                     new PreferenceUtil("isHelpDialogShow",getApplicationContext()).writeBoole("isHelpDialogShow",true);
                     isHelpDialogShow = true;
@@ -385,10 +383,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    public  void checkInfo(){
-        /*if (TextUtils.isEmpty(logined)) logined = "null";
+    /*public  void checkInfo(){
+        *//*if (TextUtils.isEmpty(logined)) logined = "null";
         Util.setRecord(MyApplication.getContext(),logined, "");
-        setTag();*/
+        setTag();*//*
         String userName = "";
         if (!TextUtils.isEmpty(Login.userId)){userName = Login.userId;}else if(!TextUtils.isEmpty(MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){userName = MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", "");}
         String url = "http://"+AREAPARTY_NET+"/AreaParty/GetUserInfo?userName="+ userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext());
@@ -438,12 +436,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
-    }
+    }*/
 
     public static void logoutVip(final String type){
         String userName = "";
         if (!TextUtils.isEmpty(Login.userId)){userName = Login.userId;}else if(!TextUtils.isEmpty(MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){userName = MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", "");}
-        String url = "http://"+AREAPARTY_NET+"/AreaParty/LogoutVip?userName="+ userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
+        String url = "http://"+AREAPARTY_NET+"/AreaParty/LogoutVip?userName="+ userName+"&userMac="+ Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
         Log.w("StartActivity",url);
 
         Util.setRecord(MyApplication.getContext(),"null");
@@ -467,21 +465,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
 
 
-    private int getVersionCode(String packageName){
-        PackageManager packageManager = this.getPackageManager();
-        try {
-            PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
-            int versionCode = packageInfo.versionCode;
-//            Log.w("chg",""+"packageName-->"+packageName+"--versionName-->"+versionName+"--versionCode-->"+versionCode);
-            return versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+
 
     private void initViews() {
-        vipContent = (RelativeLayout) findViewById(R.id.vipContent); if (TextUtils.isEmpty(userName)){vipContent.setVisibility(View.GONE);}else {vipContent.setVisibility(View.VISIBLE);}
+        vipContent = (RelativeLayout) findViewById(R.id.vipContent); vipContent.setVisibility(View.GONE);
         autoLoginHelper = (TextView) findViewById(R.id.autoLogin_help);  autoLoginHelper.setOnClickListener(this);
         floatViewTV = (TextView) findViewById(R.id.floatViewTV); floatViewTV.setOnClickListener(this);floatViewTV.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         autoLoginServiceTV = (TextView) findViewById(R.id.autoLoginServiceTV); autoLoginServiceTV.setOnClickListener(this);autoLoginServiceTV.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -501,139 +488,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.img_tencent).setOnClickListener(this);
         findViewById(R.id.img_leshi).setOnClickListener(this);
         findViewById(R.id.img_youku).setOnClickListener(this);
+        findViewById(R.id.vipRent).setOnClickListener(this);
+        findViewById(R.id.vipLease).setOnClickListener(this);
 
         //floatViewTV.setText(MyApplication.mFloatView.isShow()?"已开启" : "已关闭");
 
     }
-
-    private void updateServiceStatus() {
-        serviceEnabled = AccessibilityUtils.isAccessibilitySettingsOn();
-        /*serviceEnabled = false;
-        AccessibilityManager accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
-        if (accessibilityManager == null) return;
-        List<AccessibilityServiceInfo> accessibilityServices = accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
-        for (AccessibilityServiceInfo info : accessibilityServices) {
-            if (info.getId().equals(getPackageName() + "/.fragment05.accessible_service.AutoLoginService")) {
-                serviceEnabled = true;
-                break;
-            }
-        }*/
-        autoLoginServiceTV.setText(serviceEnabled ? "已开启" : "未开启");
-
-    }
-
-    /**
-     * <功能描述> 重新启动应用程序
-     *
-     * @return void [返回类型说明]
-     */
-    private void startUpApplication(String pkg) {
-        PackageManager packageManager = getPackageManager();
-        PackageInfo packageInfo = null;
-        try {
-            // 获取指定包名的应用程序的PackageInfo实例
-            packageInfo = packageManager.getPackageInfo(pkg, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            // 未找到指定包名的应用程序
-            e.printStackTrace();
-            // 提示没有GPS Test Plus应用
-            return;
-        }
-        if (packageInfo != null) {
-            // 已安装应用
-            Intent resolveIntent = new Intent(Intent.ACTION_MAIN, null);
-            resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-            resolveIntent.setPackage(packageInfo.packageName);
-            List<ResolveInfo> apps = packageManager.queryIntentActivities(
-                    resolveIntent, 0);
-            ResolveInfo ri = null;
-            try {
-                ri = apps.iterator().next();
-            } catch (Exception e) {
-                e.printStackTrace();
-                return;
-            }
-            if (ri != null) {
-                // 获取应用程序对应的启动Activity类名
-                String className = ri.activityInfo.name;
-                // 启动应用程序对应的Activity
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                ComponentName componentName = new ComponentName(pkg, className);
-                intent.setComponent(componentName);
-                startActivity(intent);
-            }
-        }
-    }
-
-    public static Intent getAppOpenIntentByPackageName(Context context,String packageName){
-        // MainActivity完整名
-        String mainAct = null;
-        // 根据包名寻找MainActivity
-        PackageManager pkgMag = context.getPackageManager();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        intent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED|Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        List<ResolveInfo> list = pkgMag.queryIntentActivities(intent, 0);
-        for (int i = 0; i < list.size(); i++) {
-            ResolveInfo info = list.get(i);
-            if (info.activityInfo.packageName.equals(packageName)) {
-                mainAct = info.activityInfo.name;
-                break;
-            }
-        }
-        if (TextUtils.isEmpty(mainAct)) {
-            return null;
-        }
-        intent.setComponent(new ComponentName(packageName, mainAct));
-        return intent;
-    }
-
-    public static Context getPackageContext(Context context, String packageName) {
-        Context pkgContext = null;
-        if (context.getPackageName().equals(packageName)) {
-            pkgContext = context;
-        } else {
-            // 创建第三方应用的上下文环境
-            try {
-                pkgContext = context.createPackageContext(packageName,
-                        Context.CONTEXT_IGNORE_SECURITY
-                                | Context.CONTEXT_INCLUDE_CODE);
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        return pkgContext;
-    }
-    //打开第三方应用，
-    public static boolean openPackage(Context context, String packageName) {
-        Context pkgContext = getPackageContext(context, packageName);
-        Intent intent = getAppOpenIntentByPackageName(context, packageName);
-        if (pkgContext != null && intent != null) {
-            pkgContext.startActivity(intent);
-            return true;
-        }
-        return false;
-    }
-    public static String getLocalIpAddress() {
-        try {
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress()) {
-                        return inetAddress.getHostAddress().toString();
-                    }
-                }
-            }
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-
     public void toast(){
         String s = "";
         switch (logined){
@@ -680,7 +540,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 default:break;
         }
     }
-    public void onClickListener(View v){
+    /*public void onClickListener(View v){
         if (serviceEnabled){
             if (AutoLoginService.getInstance() == null){
                 Toast.makeText(this, "自助登录服务发生故障，你需要重启本应用", Toast.LENGTH_LONG).show();
@@ -797,7 +657,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         }else {
             Toasty.warning(StartActivity.this, "请先开启自助登录服务").show();
         }
-    }
+    }*/
 
     public  void getWebSiteUrl(){
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -817,10 +677,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     JSONArray jsonArray = new JSONArray(responseData);
                     StartActivity.url = new String[5];
                     StartActivity.imageUrl = new String[5];
+                    StartActivity.type = new int[5];
                     for (int i =0 ; i< jsonArray.length() ; i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         StartActivity.url[i] = jsonObject.getString("url");
-                        StartActivity.imageUrl[i] = "http://"+IPAddressConst.statisticServer_ip+"/bt_website/"+jsonObject.getString("image");
+                        StartActivity.imageUrl[i] = "http://"+ IPAddressConst.statisticServer_ip+"/bt_website/"+jsonObject.getString("image");
+                        StartActivity.type[i] = jsonObject.getInt("type");
                     }
                     runOnUiThread(new Runnable() {
                         @Override

@@ -34,6 +34,7 @@ import com.dkzy.areaparty.phone.fragment01.ui.AddToMediaListDialog;
 import com.dkzy.areaparty.phone.fragment01.ui.DeleteDialog;
 import com.dkzy.areaparty.phone.fragment01.ui.SharedFileDialog;
 import com.dkzy.areaparty.phone.fragment01.utils.PCFileHelper;
+import com.dkzy.areaparty.phone.myapplication.MyApplication;
 import com.dkzy.areaparty.phone.utils_comman.netWork.NetBroadcastReceiver;
 
 import java.lang.ref.WeakReference;
@@ -680,7 +681,11 @@ public class diskContentActivity extends Activity implements View.OnClickListene
                 if (name.length() > 100){
                     Toasty.error(this,"文件名过长，不能分享").show();
                 }else {
-                    shareFileDialog();
+                    if(Login.mainMobile) {
+                        shareFileDialog();
+                    }else{
+                        Toast.makeText(MyApplication.getContext(), "当前设备不是主设备，无法使用此功能", Toast.LENGTH_LONG).show();
+                    }
                 }
 
             }
@@ -976,8 +981,12 @@ public class diskContentActivity extends Activity implements View.OnClickListene
             public void onClick(View view) {
                 page04DiskContentBar02MoreRootLL.setVisibility(View.GONE);
                 String des = editText.getText().toString();
-                if(des.equals(""))
+                if(des.equals("")) {
                     Toasty.error(diskContentActivity.this, "文件描述信息不能为空", Toast.LENGTH_SHORT).show();
+                }
+                else if(sharedFileDialog.getSelected().size()==0){
+                    Toasty.error(diskContentActivity.this, "分享的分组不能为空", Toast.LENGTH_SHORT).show();
+                }
                 else {
                     InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                     manager.hideSoftInputFromWindow(sharedFileDialog.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -987,8 +996,9 @@ public class diskContentActivity extends Activity implements View.OnClickListene
                     String name = PCFileHelper.getSelectedFiles().get(0).name;
                     int size = PCFileHelper.getSelectedFiles().get(0).size;
                     long time = System.currentTimeMillis();
+                    List<String> list = sharedFileDialog.getSelected();
                     PCFileHelper.setSelectedShareFile(new SharedfileBean(name, PCFileHelper.getNowFilePath() + name, size, des, time,
-                            sharedFileDialog.getUrlEditText(), sharedFileDialog.getPwdEditText()));
+                            sharedFileDialog.getUrlEditText(), sharedFileDialog.getPwdEditText(),list));
                     Log.e("page04", "路径：" + PCFileHelper.getSelectedShareFile().path);
                     dialog.show();
                     PCFileHelper.shareFile(des, PCFileHelper.getSelectedShareFile());

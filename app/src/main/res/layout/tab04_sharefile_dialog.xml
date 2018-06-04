@@ -85,7 +85,22 @@
             android:gravity="start|center"
             android:textSize="14sp"
             android:hint="输入网盘密码(选填)" />
-
+<!--        <Spinner
+            android:id="@+id/sp_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Spinner>-->
+        <com.dkzy.areaparty.phone.fragment01.ui.MultiSelectionSpinner
+            android:id="@+id/sp_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:gravity="start|center"></com.dkzy.areaparty.phone.fragment01.ui.MultiSelectionSpinner>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,6 +1,5 @@
 package com.dkzy.areaparty.phone.myapplication.floatview;
 
-import android.Manifest;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -23,11 +22,11 @@ import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.fragment01.utorrent.utils.OkHttpUtils;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.start.StartActivity;
+import com.dkzy.areaparty.phone.fragment01.websitemanager.vipShare.VipRentActivity;
 import com.dkzy.areaparty.phone.fragment05.accessible_service.AutoLoginService;
 import com.dkzy.areaparty.phone.fragment05.accessible_service.Util;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
 import com.dkzy.areaparty.phone.utils_comman.netWork.NetUtil;
-import com.dkzy.areaparty.phone.utilseverywhere.utils.PermissionUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +43,9 @@ import es.dmoral.toasty.Toasty;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import protocol.Msg.VipMsg;
+import protocol.ProtoHead;
+import server.NetworkPacket;
 
 import static com.dkzy.areaparty.phone.myapplication.MyApplication.AREAPARTY_NET;
 import static com.dkzy.areaparty.phone.myapplication.MyApplication.mFloatView;
@@ -55,9 +57,12 @@ import static com.dkzy.areaparty.phone.myapplication.MyApplication.mFloatView2;
 
 public class FloatView extends View {
     private final static String TAG = "FloatView";
-
+    public static int accountId = -1;
     public static String name = "";
     public static String password = "";
+    public static int appId = -1;
+    public static String providerId = "";
+    public static int allocationId = -1;
 
     private Context mContext;
     private WindowManager wm;
@@ -77,6 +82,19 @@ public class FloatView extends View {
     private boolean isDragModel = false;
 
     List<AccessibilityNodeInfo> node = new ArrayList<>();//用于遍历
+
+    public static void clearDataDelay(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                name = "";
+                password = "";
+                accountId = -1;
+                appId = -1;
+                allocationId = -1;
+            }
+        },5*60*1000);
+    }
 
     public static boolean checkAlertWindowsPermission(Context context) {
         try {
@@ -127,7 +145,7 @@ public class FloatView extends View {
         mContentView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (StartActivity.serviceEnabled){
+                if (VipRentActivity.serviceEnabled){
                     login();
                 }else {
                     Toasty.warning(getContext(), "请到设置>辅助功能>AreaParty打开自助登录服务").show();
@@ -175,7 +193,7 @@ public class FloatView extends View {
                             if (Math.abs(mScreenX-mScreenX1) < 80 && (mScreenY1-mScreenY) > 100){
                                 close();
                             }else if (Math.abs(mScreenX-mScreenX1) < 80 && (mScreenY-mScreenY1) > 100){
-                                StartActivity.openPackage(getContext(), MyApplication.getContext().getPackageName());
+                                VipRentActivity.openPackage(getContext(), MyApplication.getContext().getPackageName());
                             }
                             mRelativeX = mRelativeY = 0;//松开事件发生后执行代码的区域
                             break;
@@ -357,7 +375,7 @@ public class FloatView extends View {
         String userName = "";
         if (!TextUtils.isEmpty(Login.userId)){userName = Login.userId;}else if(!TextUtils.isEmpty(MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){userName = MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", "");}
         String url = "http://"+AREAPARTY_NET+"/AreaParty/RegisterVip?userName=" + userName
-                +"&userMac=" +Login.getAdresseMAC(MyApplication.getContext())
+                +"&userMac=" + Login.getAdresseMAC(MyApplication.getContext())
                 +"&ip="+"223.85.200.129"
                 +"&vipType="+type
                 +"&registerTime="+getNowDate()
@@ -399,7 +417,7 @@ public class FloatView extends View {
     public  void getVipUserCount(final String type) {
         String userName = "";
         if (!TextUtils.isEmpty(Login.userId)){userName = Login.userId;}else if(!TextUtils.isEmpty(MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", ""))){userName = MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("USER_ID", "");}
-        String url = "http://"+AREAPARTY_NET+"/AreaParty/LoginVip?userName="+userName+"&userMac="+Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
+        String url = "http://"+AREAPARTY_NET+"/AreaParty/LoginVip?userName="+userName+"&userMac="+ Login.getAdresseMAC(MyApplication.getContext())+"&vipType="+type;
         //Log.w("StartActivity",url);
         FloatView.password = "";
         FloatView.name = "";
@@ -511,9 +529,67 @@ public class FloatView extends View {
 
             node_tv_login.performAction(AccessibilityNodeInfo.ACTION_CLICK);
 
-//            AutoLoginService.state = AutoLoginService.NO_ACTION;
+            AutoLoginService.state = AutoLoginService.IQIYI_YZM;
+            sendLoginInfo();
             name = "";
             password = "";
+
+            if (isShow()) close();
+        }else {
+            Toasty.warning(getContext(),"请切换到账号密码登录界面").show();
+            Log.w(TAG, "null");
+        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+    private void login_iqiyi_test() {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
+            Toasty.error(getContext(),"未知故障").show();
+            return;
+        }
+        AutoLoginService autoLoginService = AutoLoginService.getInstance();
+        if (autoLoginService == null) return;
+        AccessibilityNodeInfo root = autoLoginService.getRootInActiveWindow();
+        if (root == null) return;
+
+        List<AccessibilityNodeInfo> nodeList_et_pwd = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/et_pwd");
+        List<AccessibilityNodeInfo> nodeList_et_phone = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/et_phone");
+        List<AccessibilityNodeInfo> nodeList_tv_login = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/tv_login");
+        List<AccessibilityNodeInfo> nodeList_cb_show_passwd = root.findAccessibilityNodeInfosByViewId("com.qiyi.video:id/cb_show_passwd");
+        if (nodeList_et_pwd.size() > 0 && nodeList_et_phone.size() > 0 && nodeList_tv_login.size() > 0 &&  nodeList_cb_show_passwd.size() >0){
+            Log.w(TAG, "nodeList_et_pwd" + nodeList_et_pwd.size());
+            Log.w(TAG, "nodeList_et_phone" + nodeList_et_phone.size());
+            Log.w(TAG, "nodeList_tv_login" + nodeList_tv_login.size());
+            Log.w(TAG, "nodeList_cb_show_passwd" + nodeList_cb_show_passwd.size());
+            AccessibilityNodeInfo node_cb_show_passwd = nodeList_cb_show_passwd.get(0);
+            AccessibilityNodeInfo node_et_phone = nodeList_et_phone.get(0);
+            AccessibilityNodeInfo node_et_pwd = nodeList_et_pwd.get(0);
+            AccessibilityNodeInfo node_tv_login = nodeList_tv_login.get(0);
+            //设置密码显示状态为***
+            boolean is = node_cb_show_passwd.isChecked();
+            if (is){
+                node_cb_show_passwd.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            }
+            Rect outBounds = new Rect();
+            node_cb_show_passwd.getBoundsInScreen(outBounds);
+            if (!mFloatView2.isShow()){
+                mFloatView2.setPosition(outBounds.left, outBounds.top);
+                mFloatView2.show();
+            }
+
+            Bundle arguments = new Bundle();
+            arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, name);
+            node_et_phone.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+            arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, password);
+            node_et_pwd.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+
+            node_tv_login.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+
+            AutoLoginService.state = AutoLoginService.IQIYI_LASTCHECT_TEST;
 
             if (isShow()) close();
         }else {
@@ -573,8 +649,8 @@ public class FloatView extends View {
 
             AutoLoginService.state = AutoLoginService.NO_ACTION;
 
-            Util.setRecord(MyApplication.getContext(),AutoLoginService.LESHI);
-            StartActivity.logined = AutoLoginService.LESHI;
+            Util.setRecord(MyApplication.getContext(), AutoLoginService.LESHI);
+            //StartActivity.logined = AutoLoginService.LESHI;
             name = "";
             password = "";
 
@@ -590,11 +666,12 @@ public class FloatView extends View {
         }
 
     }
+
     private void login_youku() {
-        /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
             Toasty.error(getContext(),"服务器故障，未获取到账号").show();
             return;
-        };*/
+        };
         if (AutoLoginService.state != AutoLoginService.YOUKU_LOGIN) return;
         AutoLoginService autoLoginService = AutoLoginService.getInstance();
         if (autoLoginService == null) return;
@@ -606,10 +683,10 @@ public class FloatView extends View {
         List<AccessibilityNodeInfo> nodeList_login = root.findAccessibilityNodeInfosByViewId("com.youku.phone:id/passport_login");
 
         if (nodeList_userName.size()>0 && nodeList_pwd.size()>0 && nodeList_login.size()>0){
-            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
+            /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
                 getVipUserCount("youku");
                 return;
-            }
+            }*/
             AccessibilityNodeInfo node_userName = nodeList_userName.get(0);
             AccessibilityNodeInfo node_pwd = nodeList_pwd.get(0);
             AccessibilityNodeInfo node_login = nodeList_login.get(0);
@@ -622,9 +699,10 @@ public class FloatView extends View {
 
             node_login.performAction(AccessibilityNodeInfo.ACTION_CLICK);
 
-            AutoLoginService.state = AutoLoginService.NO_ACTION;
-            Util.setRecord(MyApplication.getContext(),AutoLoginService.YOUKU);
-            StartActivity.logined = AutoLoginService.YOUKU;
+            AutoLoginService.state = AutoLoginService.YOUKU_YZM;
+            sendLoginInfo();
+            //Util.setRecord(MyApplication.getContext(),AutoLoginService.YOUKU);
+            //StartActivity.logined = AutoLoginService.YOUKU;
             name = "";
             password = "";
             if (isShow()) close();
@@ -639,11 +717,59 @@ public class FloatView extends View {
         }
     }
 
-    private void login_tencent(){
-        /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
+    private void login_youku_test() {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
             Toasty.error(getContext(),"服务器故障，未获取到账号").show();
             return;
-        };*/
+        };
+        AutoLoginService autoLoginService = AutoLoginService.getInstance();
+        if (autoLoginService == null) return;
+        AccessibilityNodeInfo root = autoLoginService.getRootInActiveWindow();
+        if (root == null) return;
+
+        List<AccessibilityNodeInfo> nodeList_userName = root.findAccessibilityNodeInfosByViewId("com.youku.phone:id/passport_username");
+        List<AccessibilityNodeInfo> nodeList_pwd = root.findAccessibilityNodeInfosByViewId("com.youku.phone:id/passport_password");
+        List<AccessibilityNodeInfo> nodeList_login = root.findAccessibilityNodeInfosByViewId("com.youku.phone:id/passport_login");
+
+        if (nodeList_userName.size()>0 && nodeList_pwd.size()>0 && nodeList_login.size()>0){
+            /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
+                getVipUserCount("youku");
+                return;
+            }*/
+            AccessibilityNodeInfo node_userName = nodeList_userName.get(0);
+            AccessibilityNodeInfo node_pwd = nodeList_pwd.get(0);
+            AccessibilityNodeInfo node_login = nodeList_login.get(0);
+
+            Bundle arguments = new Bundle();
+            arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, name);
+            node_userName.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+            arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, password);
+            node_pwd.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+
+            node_login.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+
+            AutoLoginService.state = AutoLoginService.YOUKU_LASTCHECK_TEST;
+            //Util.setRecord(MyApplication.getContext(),AutoLoginService.YOUKU);
+            //StartActivity.logined = AutoLoginService.YOUKU;
+            //name = "";
+            //password = "";
+            if (isShow()) close();
+        }else {
+
+            Toasty.warning(getContext(), "请切换到账号密码登录界面").show();
+        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void login_tencent(){
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
+            Toasty.error(getContext(),"服务器故障，未获取到账号").show();
+            return;
+        };
         if (AutoLoginService.state != AutoLoginService.TENCENT_LOGIN) return;
         AutoLoginService autoLoginService = AutoLoginService.getInstance();
         if (autoLoginService == null) return;
@@ -658,10 +784,10 @@ public class FloatView extends View {
             Log.w(TAG,nodeInfoList_pwd.size()+"//");
             Log.w(TAG,nodeInfoList_login.size()+"//");
             if (nodeInfoList_qq.size()>0 && nodeInfoList_pwd.size()>0 && nodeInfoList_login.size() >1){
-                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
+                /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
                     getVipUserCount("tencent");
                     return;
-                }
+                }*/
                 AccessibilityNodeInfo qq = nodeInfoList_qq.get(0);
                 AccessibilityNodeInfo pwd = nodeInfoList_pwd.get(0);
                 AccessibilityNodeInfo login = nodeInfoList_login.get(1);
@@ -674,12 +800,86 @@ public class FloatView extends View {
 
                 login.performAction(AccessibilityNodeInfo.ACTION_CLICK);
 
-                AutoLoginService.state = AutoLoginService.NO_ACTION;
-                Util.setRecord(MyApplication.getContext(),AutoLoginService.TENCENT,FloatView.name);
-                StartActivity.logined = AutoLoginService.TENCENT;
+                AutoLoginService.state = AutoLoginService.TENCENT_LASTCHECK;
+                sendLoginInfo();
+                //Util.setRecord(MyApplication.getContext(),AutoLoginService.TENCENT,FloatView.name);
+                //StartActivity.logined = AutoLoginService.TENCENT;
                 name = "";
                 password = "";
                 if (isShow()) close();
+                /*new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (AutoLoginService.state == AutoLoginService.TENCENT_LASTCHECK){
+                            //密码正确
+                            Log.w(TAG,"腾讯视频登录失败qq");
+                        }
+                        AutoLoginService.state = AutoLoginService.NO_ACTION;
+                    }
+                }, 3000);*/
+            }else {
+                Toasty.warning(getContext(), "请切换到账号密码登录界面").show();
+            }
+        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void login_tencent_test(){
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
+            Toasty.error(getContext(),"服务器故障，未获取到账号").show();
+            return;
+        };
+        //if (AutoLoginService.state != AutoLoginService.TENCENT_LOGIN) return;
+        AutoLoginService autoLoginService = AutoLoginService.getInstance();
+        if (autoLoginService == null) return;
+        AccessibilityNodeInfo root = autoLoginService.getRootInActiveWindow();
+        if (root == null) return;
+
+        List<AccessibilityNodeInfo> nodeInfoList_qq = root.findAccessibilityNodeInfosByViewId("com.tencent.mobileqq:id/account");
+        List<AccessibilityNodeInfo> nodeInfoList_pwd = root.findAccessibilityNodeInfosByViewId("com.tencent.mobileqq:id/password");
+        List<AccessibilityNodeInfo> nodeInfoList_login = root.findAccessibilityNodeInfosByText("登录");
+        if (nodeInfoList_qq != null && nodeInfoList_pwd != null && nodeInfoList_login!=null){
+            Log.w(TAG,nodeInfoList_qq.size()+"//");
+            Log.w(TAG,nodeInfoList_pwd.size()+"//");
+            Log.w(TAG,nodeInfoList_login.size()+"//");
+            if (nodeInfoList_qq.size()>0 && nodeInfoList_pwd.size()>0 && nodeInfoList_login.size() >1){
+                /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
+                    getVipUserCount("tencent");
+                    return;
+                }*/
+                AccessibilityNodeInfo qq = nodeInfoList_qq.get(0);
+                AccessibilityNodeInfo pwd = nodeInfoList_pwd.get(0);
+                AccessibilityNodeInfo login = nodeInfoList_login.get(1);
+
+                Bundle arguments = new Bundle();
+                arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, name);
+                qq.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+                arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, password);
+                pwd.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+
+                login.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+
+                AutoLoginService.state = AutoLoginService.TENCENT_LASTCHECK_TEST;
+
+                //Util.setRecord(MyApplication.getContext(),AutoLoginService.TENCENT,FloatView.name);
+                //StartActivity.logined = AutoLoginService.TENCENT;
+                //name = "";
+                //password = "";
+                if (isShow()) close();
+                /*new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (AutoLoginService.state == AutoLoginService.TENCENT_LASTCHECK){
+                            //密码正确
+                            Log.w(TAG,"腾讯视频登录失败qq");
+                        }
+                        AutoLoginService.state = AutoLoginService.NO_ACTION;
+                    }
+                }, 3000);*/
             }else {
                 Toasty.warning(getContext(), "请切换到账号密码登录界面").show();
             }
@@ -692,10 +892,10 @@ public class FloatView extends View {
     }
 
     private void login_tencent1(){
-        /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
             Toasty.error(getContext(),"服务器故障，未获取到账号").show();
             return;
-        };*/
+        };
         if (AutoLoginService.state != AutoLoginService.TENCENT_LOGIN) return;
 
         AutoLoginService autoLoginService = AutoLoginService.getInstance();
@@ -705,10 +905,10 @@ public class FloatView extends View {
 
         bianli(root);
         if (node.size() == 8 && node.get(3).getViewIdResourceName().equals("u") && node.get(4).getViewIdResourceName().equals("p") && node.get(5).getViewIdResourceName().equals("go")){
-            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
+            /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
                 getVipUserCount("tencent");
                 return;
-            }
+            }*/
             AccessibilityNodeInfo qq = node.get(3);
             AccessibilityNodeInfo pwd = node.get(4);
             AccessibilityNodeInfo login = node.get(5);
@@ -720,12 +920,75 @@ public class FloatView extends View {
             pwd.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
 
             login.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-            AutoLoginService.state = AutoLoginService.NO_ACTION;
-            Util.setRecord(MyApplication.getContext(),AutoLoginService.TENCENT,FloatView.name);
-            StartActivity.logined = AutoLoginService.TENCENT;
+            AutoLoginService.state = AutoLoginService.TENCENT_LASTCHECK;
+            sendLoginInfo();
+            //Util.setRecord(MyApplication.getContext(),AutoLoginService.TENCENT,FloatView.name);
+            //StartActivity.logined = AutoLoginService.TENCENT;
             name = "";
             password = "";
             if (isShow()) close();
+            /*new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (AutoLoginService.state == AutoLoginService.TENCENT_LASTCHECK){
+                        //密码正确
+                        Log.w(TAG,"腾讯视频登录失败qqlive");
+                    }
+                    AutoLoginService.state = AutoLoginService.NO_ACTION;
+                }
+            }, 3000);*/
+        }else {
+            Toasty.warning(getContext(), "请切换到账号密码登录界面").show();
+        }
+        node.clear();
+    }
+
+    private void login_tencent1_test(){
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
+            Toasty.error(getContext(),"服务器故障，未获取到账号").show();
+            return;
+        };
+        //if (AutoLoginService.state != AutoLoginService.TENCENT_LOGIN) return;
+
+        AutoLoginService autoLoginService = AutoLoginService.getInstance();
+        if (autoLoginService == null) return;
+        AccessibilityNodeInfo root = autoLoginService.getRootInActiveWindow();
+        if (root == null) return;
+
+        bianli(root);
+        if (node.size() == 8 && node.get(3).getViewIdResourceName().equals("u") && node.get(4).getViewIdResourceName().equals("p") && node.get(5).getViewIdResourceName().equals("go")){
+            /*if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)){
+                getVipUserCount("tencent");
+                return;
+            }*/
+            AccessibilityNodeInfo qq = node.get(3);
+            AccessibilityNodeInfo pwd = node.get(4);
+            AccessibilityNodeInfo login = node.get(5);
+
+            Bundle arguments = new Bundle();
+            arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, name);
+            qq.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+            arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, password);
+            pwd.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
+
+            login.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            AutoLoginService.state = AutoLoginService.TENCENT_LASTCHECK_TEST;
+
+            //Util.setRecord(MyApplication.getContext(),AutoLoginService.TENCENT,FloatView.name);
+            //StartActivity.logined = AutoLoginService.TENCENT;
+            //name = "";
+            //password = "";
+            if (isShow()) close();
+            /*new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (AutoLoginService.state == AutoLoginService.TENCENT_LASTCHECK){
+                        //密码正确
+                        Log.w(TAG,"腾讯视频登录失败qqlive");
+                    }
+                    AutoLoginService.state = AutoLoginService.NO_ACTION;
+                }
+            }, 3000);*/
         }else {
             Toasty.warning(getContext(), "请切换到账号密码登录界面").show();
         }
@@ -908,6 +1171,8 @@ public class FloatView extends View {
                     login_iqiyi();
                 }else if (AutoLoginService.state == AutoLoginService.IQIYI_LOGOUT){
                     check_iqiyi();
+                }else if (AutoLoginService.state == AutoLoginService.IQIYI_LOGIN_TEST){
+                    login_iqiyi_test();
                 }
 
                 break;
@@ -924,6 +1189,8 @@ public class FloatView extends View {
                     login_youku();
                 }else if (AutoLoginService.state == AutoLoginService.YOUKU_LOGOUT){
                     check_youku();
+                }else if (AutoLoginService.state == AutoLoginService.YOUKU_LOGIN_TEST){
+                    login_youku_test();
                 }
                 break;
             case AutoLoginService.TENCENT:
@@ -931,6 +1198,8 @@ public class FloatView extends View {
                     login_tencent1();
                 }else if (AutoLoginService.state == AutoLoginService.TENCENT_LOGOUT){
                     check_tencent1();
+                }else if (AutoLoginService.state == AutoLoginService.TENCENT_LOGIN_TEST){
+                    login_tencent1_test();
                 }
                 break;
             case AutoLoginService.QQ:
@@ -938,6 +1207,8 @@ public class FloatView extends View {
                     login_tencent();
                 }else if (AutoLoginService.state == AutoLoginService.TENCENT_LOGOUT){
                     check_tencent();
+                }else if (AutoLoginService.state == AutoLoginService.TENCENT_LOGIN_TEST){
+                    login_tencent_test();
                 }
                 break;
             default:
@@ -992,5 +1263,26 @@ public class FloatView extends View {
             }
         }
         return null;
+    }
+
+
+    private void sendLoginInfo(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    VipMsg.RentLoginInfo.Builder builder = VipMsg.RentLoginInfo.newBuilder();
+                    builder.setType(VipMsg.RentLoginInfo.Type.Logined);
+                    builder.setUserId(Login.userId);
+                    builder.setAllocationId(allocationId);
+                    byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.RENTLOGININFO_VALUE, builder.build().toByteArray());
+                    if (Login.base != null){
+                        Login.base.writeToServer(Login.outputStream,byteArray);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }

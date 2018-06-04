@@ -15,4 +15,15 @@
         <item>a.baidu.com</item>
         <item>c.baidu.com</item>
     </string-array>
+    <string-array name="applications">
+        <item>腾讯视频</item>
+        <item>爱奇艺 </item>
+        <item>优酷视频</item>
+    </string-array>
+    <string-array name="count">
+        <item>1</item>
+        <item>2 </item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
 </resources>
