@@ -51,9 +51,11 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -127,7 +129,7 @@ public class Login extends AppCompatActivity {
     public static int userHeadIndex;
     public static myChatList myChats = new myChatList();
 
-    private boolean autoLogin = false;
+    public static boolean autoLogin = false;
     public static String userPwd;
 
     private View pic;
@@ -199,6 +201,8 @@ public class Login extends AppCompatActivity {
         host = sp2.getString("SERVER_IP", AREAPARTY_NET);
         if (!TextUtils.isEmpty(host)){
             AREAPARTY_NET = host;
+        }else {
+            host = AREAPARTY_NET;
         }
 //        if(outline == true){
 //            mLoginButton.setText("离线登录");
@@ -232,6 +236,7 @@ public class Login extends AppCompatActivity {
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putBoolean("autoLogin",true);
                             editor.apply();
+                            autoLogin = true;
                         }else {
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putBoolean("autoLogin",false);
@@ -326,13 +331,16 @@ public class Login extends AppCompatActivity {
                     userId = id;
                 }
             }
-            new Thread(login).start();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    showMain();
-                }
-            }, 2000);
+            if (main.getVisibility() != View.VISIBLE){
+                new Thread(login).start();
+                Log.w("login","自动登录");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showMain();
+                    }
+                }, 2000);
+            }
         }else {
             showMain();
         }
@@ -408,6 +416,7 @@ public class Login extends AppCompatActivity {
                         return;
                     }
                     new Thread(login).start();
+                    Log.w("login","手动登录");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -433,15 +442,16 @@ public class Login extends AppCompatActivity {
                     break;
                 case R.id.login_btn_outline:
 
-                    SharedPreferences.Editor editor = MyApplication.getInstance().getSharedPreferences("userInfo", Context.MODE_PRIVATE).edit();
+                    SharedPreferences.Editor editor = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE).edit();
                     editor.putBoolean("autoLogin",false);
-                    editor.commit();
+                    editor.apply();
 
                     userId = "";
                     Intent intentMain = new Intent();
                     intentMain.setClass(Login.this, MainActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putBoolean("outline", true);
+                    outline = true;
                     intentMain.putExtras(bundle);
                     startActivity(intentMain);
                     break;
@@ -619,7 +629,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(3000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -627,7 +637,9 @@ public class Login extends AppCompatActivity {
                     }
                 }).start();
 
-                socket = new Socket(host, port);
+                socket = new Socket();
+                SocketAddress address = new InetSocketAddress(host, port);
+                socket.connect(address,2500);
                 //System.out.println("buffersize:"+socket.getReceiveBufferSize());
                 socket.setReceiveBufferSize(8*1024*1024);
                 System.out.println("buffersize:"+socket.getReceiveBufferSize());
@@ -668,7 +680,8 @@ public class Login extends AppCompatActivity {
                         userId = "";
                         socket.close();
                         return;
-                    }else if(response.getResultCode() == LoginMsg.LoginRsp.ResultCode.LOGGEDIN){
+                    }
+                    else if(response.getResultCode() == LoginMsg.LoginRsp.ResultCode.LOGGEDIN){
                         sendEmptyMessage(7);
                         userId = "";
                         socket.close();

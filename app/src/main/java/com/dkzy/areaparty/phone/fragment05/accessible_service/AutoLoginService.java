@@ -10,12 +10,16 @@ import android.view.KeyEvent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
+import com.dkzy.areaparty.phone.IPAddressConst;
 import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.start.StartActivity;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
 import com.dkzy.areaparty.phone.myapplication.floatview.FloatView;
 import com.dkzy.areaparty.phone.utilseverywhere.tools.AccessibilityHelper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 import org.simple.eventbus.ThreadMode;
@@ -25,6 +29,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import protocol.Msg.VipMsg;
 import protocol.ProtoHead;
 import server.NetworkPacket;
@@ -39,6 +48,9 @@ import static com.dkzy.areaparty.phone.myapplication.floatview.FloatView.allocat
 
 public class AutoLoginService extends AccessibilityService {
     private AccessibilityHelper helper;
+
+    public String t1 = "";
+    public String t2 = "";
 
     public static final String IQIYI = "com.qiyi.video";
     public static final String YOUKU = "com.youku.phone";
@@ -93,12 +105,52 @@ public class AutoLoginService extends AccessibilityService {
         if (inatance == null){inatance = this;}
 
         state = NO_ACTION;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                    getNodeIds();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
 
+    }
+
+    public  void getNodeIds(){
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder().url("http://"+ IPAddressConst.statisticServer_ip+"/bt_website/nodeIds.json").build();
+
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                //Log.w("nodeIds",responseData);
+                try {
+                    JSONObject object = new JSONObject(responseData);
+                    JSONObject jsonObject = object.getJSONObject("tencent");
+                    t1 = jsonObject.getString("t1");
+                    //Log.w("nodeIds",t1);
+                    t2 = jsonObject.getString("t2");
+                    //Log.w("nodeIds",t2);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 
     @Override
@@ -616,8 +668,8 @@ public class AutoLoginService extends AccessibilityService {
                         if (event.getPackageName().toString().equals(TENCENT)){
                             AccessibilityNodeInfo root = getRootInActiveWindow();
                             if (root == null) return;
-                            AccessibilityNodeInfo login_text = helper.findFirstNodeInfoByViewId("com.tencent.qqlive:id/c04");
-                            AccessibilityNodeInfo vip_open_title = helper.findFirstNodeInfoByViewId("com.tencent.qqlive:id/c0a");
+                            AccessibilityNodeInfo login_text = helper.findFirstNodeInfoByViewId(t1);
+                            AccessibilityNodeInfo vip_open_title = helper.findFirstNodeInfoByViewId(t2);
                             if (login_text != null){
                                 if (!login_text.getText().toString().equals("点击登录")){
                                     Log.w(TAG,"腾讯视频登录成功1");
@@ -645,7 +697,7 @@ public class AutoLoginService extends AccessibilityService {
                                                     boolean verify = false;
                                                     AccessibilityNodeInfo root = getRootInActiveWindow();
                                                     if (root != null && root.getPackageName().toString().equals(TENCENT)){
-                                                        AccessibilityNodeInfo vip_open_title = helper.findFirstNodeInfoByViewId("com.tencent.qqlive:id/bxr");
+                                                        AccessibilityNodeInfo vip_open_title = helper.findFirstNodeInfoByViewId(t2);
                                                         if (vip_open_title != null){
                                                             verify = true;
                                                             if (vip_open_title.getText().toString().equals("开通VIP会员")){
@@ -711,8 +763,8 @@ public class AutoLoginService extends AccessibilityService {
                         if (event.getPackageName().toString().equals(TENCENT)){
                             AccessibilityNodeInfo root = getRootInActiveWindow();
                             if (root == null) return;
-                            AccessibilityNodeInfo login_text = helper.findFirstNodeInfoByViewId("com.tencent.qqlive:id/c04");
-                            AccessibilityNodeInfo vip_open_title = helper.findFirstNodeInfoByViewId("com.tencent.qqlive:id/c0a");
+                            AccessibilityNodeInfo login_text = helper.findFirstNodeInfoByViewId(t1);
+                            AccessibilityNodeInfo vip_open_title = helper.findFirstNodeInfoByViewId(t2);
                             if (login_text != null){
                                 if (!login_text.getText().toString().equals("点击登录")){
                                     Log.w(TAG,"腾讯视频登录成功1");
@@ -744,7 +796,7 @@ public class AutoLoginService extends AccessibilityService {
                                                     boolean verify = false;
                                                     AccessibilityNodeInfo root = getRootInActiveWindow();
                                                     if (root != null && root.getPackageName().toString().equals(TENCENT)){
-                                                        AccessibilityNodeInfo vip_open_title = helper.findFirstNodeInfoByViewId("com.tencent.qqlive:id/bxr");
+                                                        AccessibilityNodeInfo vip_open_title = helper.findFirstNodeInfoByViewId(t2);
                                                         if (vip_open_title != null){
                                                             verify = true;
                                                             if (vip_open_title.getText().toString().equals("开通VIP会员")){
@@ -822,7 +874,7 @@ public class AutoLoginService extends AccessibilityService {
                         if (event.getPackageName().toString().equals(TENCENT)){
                             AccessibilityNodeInfo root = getRootInActiveWindow();
                             if (root == null) return;
-                            List<AccessibilityNodeInfo> nodeList_LoginTxt = root.findAccessibilityNodeInfosByViewId("com.tencent.qqlive:id/login_text");
+                            List<AccessibilityNodeInfo> nodeList_LoginTxt = root.findAccessibilityNodeInfosByViewId(t1);
                             List<AccessibilityNodeInfo> nodeInfoList = root.findAccessibilityNodeInfosByViewId("com.tencent.qqlive:id/button2");
                             if (nodeList_LoginTxt.size() > 0 ){
                                 if (!mFloatView.isShow()) mFloatView.show();

@@ -61,7 +61,7 @@
 
             <TextView
                 android:id="@+id/label_mobileNo"
-                android:layout_width="70dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="手机号"
@@ -78,7 +78,7 @@
                 android:layout_marginStart="10dp"
                 android:background="@null"
                 android:textColor="#505050"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"/>
 
@@ -115,7 +115,7 @@
             <TextView
                 android:id="@+id/label_code"
                 android:layout_gravity="center_vertical"
-                android:layout_width="70dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="验证码"
                 android:textSize="18sp"

@@ -268,6 +268,9 @@ public class Send2PCThread extends Thread {
             case OrderConst.UTOrrent:
                 cmdStr = JsonUitl.objectToString(CommandUtil.openUtorrent());
                 break;
+            case OrderConst.PAIRCODE:
+                cmdStr = JsonUitl.objectToString(CommandUtil.changePairCode(path));
+                break;
         }
         return cmdStr;
     }

@@ -17,9 +17,12 @@ import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.UpdateApplicationDialog;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
 import com.dkzy.areaparty.phone.myapplication.inforUtils.Update_ReceiveMsgBean;
+import com.dkzy.areaparty.phone.voiceAssistant.ActivityVoiceAssistant;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
+
+import java.io.IOException;
 
 import androidkun.com.versionupdatelibrary.entity.VersionUpdateConfig;
 import es.dmoral.toasty.Toasty;
@@ -32,7 +35,7 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
     private LinearLayout changeUserNameLL, changeUserPwdLL, changeUserAddressLL, updateVersionLL, changMainPhoneLL, logoutLL;
     private TextView newVersionInforTV;
     private ImageButton settingBackBtn;
-
+    private LinearLayout voice_assistant;
     private boolean outline = true;
 
     @Override
@@ -56,7 +59,7 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tab01_setting);
+        setContentView(R.layout.tab01_setting1);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         MyApplication.getInstance().addActivity(this);
 
@@ -89,6 +92,7 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
         changeUserNameLL = (LinearLayout) this.findViewById(R.id.changeUserNameLL);
         changeUserPwdLL = (LinearLayout) this.findViewById(R.id.changeUserPwdLL);
         changeUserAddressLL = (LinearLayout) this.findViewById(R.id.changeUserAddressLL);
+        voice_assistant=(LinearLayout) findViewById(R.id.voice_assistant);
         updateVersionLL = (LinearLayout) findViewById(R.id.updateVersionLL);
         changMainPhoneLL = (LinearLayout) findViewById(R.id.changMainPhone_LL);
         logoutLL = (LinearLayout) findViewById(R.id.logoutLL);
@@ -117,6 +121,7 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
         updateVersionLL.setOnClickListener(this);
         changMainPhoneLL.setOnClickListener(this);
         logoutLL.setOnClickListener(this);
+        voice_assistant.setOnClickListener(this);
     }
 
     @Override
@@ -180,13 +185,28 @@ public class SettingMainActivity extends AppCompatActivity implements View.OnCli
                     startActivity(new Intent(this, SettingMainPhoneActivity.class));
                 break;
             case R.id.logoutLL:
+                try {
+                    Login.autoLogin = false;
+                    Login.base.socket.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 SharedPreferences.Editor editor = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE).edit();
                 editor.putBoolean("autoLogin",false);
                 editor.commit();
                 //MyApplication.getInstance().closeAll();
                 MyApplication.getInstance().goToLogin();
+
+                break;
+            case R.id.voice_assistant:
+                if(MyApplication.isSelectedTVOnline()) {
+                    startActivity(new Intent(this, ActivityVoiceAssistant.class));
+                } else Toasty.warning(this, "当前电视不在线", Toast.LENGTH_SHORT, true).show();
                 break;
         }
+
+
     }
     private void update(){
         VersionUpdateConfig.getInstance()

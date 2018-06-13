@@ -418,7 +418,7 @@ public class RemoteControlView extends View {
         invalidate();
     }
 
-    public void setBackMenu(int coreMenuColor, int coreMenuSelectColor, int coreMenuStrokeColor,
+    public void setStopMenu(int coreMenuColor, int coreMenuSelectColor, int coreMenuStrokeColor,
                             int coreMenuStrokeSize, double radiusDistance,Bitmap bitmap, OnClickListener onClickListener) {
         isPowerMenu = true;
         this.coreMenuColor = coreMenuColor;
@@ -431,7 +431,7 @@ public class RemoteControlView extends View {
         invalidate();
     }
 
-    public void setStopMenu(int coreMenuColor, int coreMenuSelectColor, int coreMenuStrokeColor,
+    public void setVoiceMenu(int coreMenuColor, int coreMenuSelectColor, int coreMenuStrokeColor,
                             int coreMenuStrokeSize, double radiusDistance,Bitmap bitmap, OnClickListener onClickListener) {
         isBackMenu = true;
         this.coreMenuColor = coreMenuColor;

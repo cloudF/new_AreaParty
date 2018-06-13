@@ -31,6 +31,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
 
     <application
         android:name=".myapplication.MyApplication"
@@ -43,6 +45,24 @@
         android:theme="@style/AppTheme"
         android:vmSafeMode="true"
         tools:replace="android:icon, android:label,android:theme">
+
+        <meta-data
+            android:name="com.baidu.speech.APP_ID"
+            android:value="11093043" />
+        <meta-data
+            android:name="com.baidu.speech.API_KEY"
+            android:value="bnRH7Tvc913OfO3vpirWHq1N" />
+        <meta-data
+            android:name="com.baidu.speech.SECRET_KEY"
+            android:value="fWCYpKGXidnHcoqsKOt6KQgDT0DgolHb" />
+        <!-- 请确认集成后的包名是否正确，本demo的包名是com.baidu.speech.recognizerdemo，在build.gradle文件中查看 -->
+        <service
+            android:name="com.baidu.speech.VoiceRecognitionService"
+            android:exported="false" />
+
+        <activity android:name=".voiceAssistant.ActivityVoiceAssistant"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".Login"
             android:alwaysRetainTaskState="true"

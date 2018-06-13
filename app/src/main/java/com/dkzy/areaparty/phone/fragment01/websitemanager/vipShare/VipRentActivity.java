@@ -652,6 +652,7 @@ public class VipRentActivity extends AppCompatActivity implements View.OnClickLi
                                     }
                                 }else{
                                     sendPayMessageToServer(applicationId,"0.01");
+                                    //sendVipRentRequest(applicationId,false,false);
                                 }
                                 dialog.dismiss();
                             }

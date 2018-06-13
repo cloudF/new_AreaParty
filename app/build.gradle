@@ -63,4 +63,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     testImplementation 'junit:junit:4.12'
+    implementation files('libs/bdasr_V3_20180320_9066860.jar')
 }

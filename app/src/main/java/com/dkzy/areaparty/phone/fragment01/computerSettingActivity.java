@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -25,8 +26,15 @@ import com.dkzy.areaparty.phone.MyConnector;
 import com.dkzy.areaparty.phone.OrderConst;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_addFolder;
+import com.dkzy.areaparty.phone.myapplication.MyApplication;
+import com.dkzy.areaparty.phone.utils_comman.Send2PCThread;
 
 import es.dmoral.toasty.Toasty;
+
+import static com.dkzy.areaparty.phone.OrderConst.PAIRCODE;
+import static com.dkzy.areaparty.phone.OrderConst.UPDATEPAIRCODE;
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.selectedPCIP;
 
 /**
  * Project Name： FamilyCentralControler
@@ -41,6 +49,7 @@ public class computerSettingActivity extends Activity implements View.OnClickLis
     private LinearLayout rebootComputer_linearLayout;
     private LinearLayout checkExe_linearLayout;
     private LinearLayout regEdit_linearLayout;
+    private LinearLayout changePairingCodeLL;
     private ImageView rebootComputer_moreInforIV;
     private ImageView checkExe_moreInforIV;
     private ImageView regEdit_moreInforIV;
@@ -67,6 +76,7 @@ public class computerSettingActivity extends Activity implements View.OnClickLis
         rebootComputer_moreInforIV.setOnClickListener(this);
         checkExe_moreInforIV.setOnClickListener(this);
         regEdit_moreInforIV.setOnClickListener(this);
+        changePairingCodeLL.setOnClickListener(this);
     }
 
     private void initView() {
@@ -77,6 +87,7 @@ public class computerSettingActivity extends Activity implements View.OnClickLis
         rebootComputer_moreInforIV = (ImageView) findViewById(R.id.rebootComputer_moreInforIV);
         checkExe_moreInforIV = (ImageView) findViewById(R.id.checkExe_moreInforIV);
         regEdit_moreInforIV = (ImageView) findViewById(R.id.regEdit_moreInforIV);
+        changePairingCodeLL = (LinearLayout) findViewById(R.id.changePairingCode) ;
 
         loadingView  = LayoutInflater.from(this).inflate(R.layout.tab04_loadingcontent, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -118,6 +129,9 @@ public class computerSettingActivity extends Activity implements View.OnClickLis
                 break;
             case R.id.regEdit_linearLayout:
                 changeRegDialog();
+                break;
+            case R.id.changePairingCode:
+                changePairingCodeDialog();
                 break;
         }
     }
@@ -197,4 +211,55 @@ public class computerSettingActivity extends Activity implements View.OnClickLis
 
     private void changeReg(String regPathName, String value) {
     }
+
+    private void changePairingCodeDialog(){
+        final ActionDialog_addFolder dialog = new ActionDialog_addFolder(this);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+        dialog.setTitleText("修改电脑配对码");
+        dialog.setEditHintText("请输入新的配对码");
+        dialog.setPositiveButtonText("确定");
+        dialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String code = dialog.getEditText();
+                if (code.length() < 8 ||code.length() >16){
+                    Toast.makeText(computerSettingActivity.this, "配对码长度为8至16位", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
+                if (!code.matches(regex)) {
+                    Toast.makeText(computerSettingActivity.this, "配对码必须包含字母和数字", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                dialog.dismiss();
+                new Send2PCThread(PAIRCODE,UPDATEPAIRCODE,code,handler).start();
+
+                new Thread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(1000);
+                                    MyApplication.addPCMac(selectedPCIP.mac,code);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                ).start();
+            }
+        });
+
+    }
+
+    private Handler handler = new Handler();
 }

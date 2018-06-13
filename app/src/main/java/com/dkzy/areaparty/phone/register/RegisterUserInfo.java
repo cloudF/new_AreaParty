@@ -342,7 +342,7 @@ public class RegisterUserInfo extends BaseActivity {
         Matcher m = p.matcher(userName);
         return m.matches();
     }
-    private boolean isKeyWord (String keyWord) {
+    public static boolean isKeyWord (String keyWord) {
         Pattern p = Pattern.compile("^([A-Z]|[a-z]|[0-9]|[_`~!@#$%^&*()+=|{}':;',\\\\\\\\[\\\\\\\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]){6,20}$");
         Matcher m = p.matcher(keyWord);
         return m.matches();

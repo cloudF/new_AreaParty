@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.OkHttpClient;
+
 /**
  * Created by borispaul on 2017/6/29.
  * 部分指令集
@@ -501,6 +503,15 @@ public class CommandUtil {
     public static PCCommandItem openUtorrent() {
         PCCommandItem cmd = new PCCommandItem();
         cmd.setName(OrderConst.UTOrrent);
+        return cmd;
+    }
+    public static PCCommandItem changePairCode(String code) {
+        PCCommandItem cmd = new PCCommandItem();
+        cmd.setName(OrderConst.PAIRCODE);
+        cmd.setCommand(OrderConst.UPDATEPAIRCODE);
+        Map<String, String> params = new HashMap<>();
+        params.put("paircode", code);
+        cmd.param = params;
         return cmd;
     }
 

@@ -4,7 +4,7 @@
     android:description="@string/service_name"
     android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged|typeViewClicked"
     android:accessibilityFeedbackType="feedbackAllMask"
-    android:packageNames="com.youku.phone,com.tencent.qqlive,com.tencent.mobileqq,com.letv.android.client,com.qiyi.video"
+    android:packageNames="com.youku.phone,com.tencent.qqlive,com.tencent.mobileqq,com.qiyi.video"
     android:notificationTimeout="10"
     android:accessibilityFlags="flagReportViewIds"
     android:canRequestFilterKeyEvents="true"

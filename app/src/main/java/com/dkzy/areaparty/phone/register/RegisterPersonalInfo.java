@@ -151,6 +151,14 @@ public class RegisterPersonalInfo extends BaseActivity {
                     et_mobileNo.setError("请正确填写手机号");
                 }
                 if (isMobileNO(mobile)) {
+
+                    et_userCode.requestFocus();
+                    et_userCode.setFocusable(true);
+                    et_userCode.setFocusableInTouchMode(true);
+                    et_userCode.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(et_userCode,0);
+
                     new Thread(new Runnable() {
                         @Override
                         public void run() {

@@ -247,11 +247,17 @@ public class VipLeaseActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     try {
+                                        try {
+                                            Thread.sleep(1000);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
                                         VipMsg.SmsTestReq.Builder builder = VipMsg.SmsTestReq.newBuilder();
                                         builder.setUserId(Login.userId);
                                         byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.SMS_TEST_VALUE, builder.build().toByteArray());
                                         if (Login.base != null) {
                                             Login.base.writeToServer(Login.outputStream, byteArray);
+
                                             EventBus.getDefault().post(true, "smsVerify");
                                         }
                                     } catch (IOException e) {
@@ -307,7 +313,8 @@ public class VipLeaseActivity extends AppCompatActivity {
     @OnClick(R.id.submitBT)
     public void onClick() {
         if (!serviceEnabled) {
-            Toasty.warning(this, "请先开启自助登录服务").show();
+            //Toasty.warning(this, "请先开启自助登录服务").show();
+            showDialog("提示：","请先开启自助登录服务");
             return;
         }
         if (TextUtils.isEmpty(accountET.getText().toString())) {
@@ -319,15 +326,18 @@ public class VipLeaseActivity extends AppCompatActivity {
             return;
         }
         if (TextUtils.isEmpty(zfbAccount)) {
-            Toast.makeText(this, "请先设置支付宝收款账号", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "请先设置支付宝收款账号", Toast.LENGTH_SHORT).show();
+            showDialog("提示：","请先设置支付宝收款账号");
             return;
         }
         if (applicationSP.getSelectedItemPosition() > 0 && !accountET.getText().toString().equals(userMobile)) {
-            Toast.makeText(this, getAppName(applicationSP.getSelectedItemPosition()) + "账号仅支持AreaParty注册电话号码", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, getAppName(applicationSP.getSelectedItemPosition()) + "账号仅支持AreaParty注册电话号码", Toast.LENGTH_SHORT).show();
+            showDialog("提示：",getAppName(applicationSP.getSelectedItemPosition()) + "账号仅支持AreaParty注册电话号码");
             return;
         }
         if (applicationSP.getSelectedItemPosition() > 0 && !smsCanReceive) {
-            Toast.makeText(this, "分享" + getAppName(applicationSP.getSelectedItemPosition()) + "账号需要先验证短信验证码读取功能", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "分享" + getAppName(applicationSP.getSelectedItemPosition()) + "账号需要先验证短信验证码读取功能", Toast.LENGTH_SHORT).show();
+            showDialog("提示：","分享" + getAppName(applicationSP.getSelectedItemPosition()) + "账号需要先验证短信验证码读取功能");
             return;
         }
         final ActionDialog_help dialog = new ActionDialog_help(this);
@@ -348,8 +358,9 @@ public class VipLeaseActivity extends AppCompatActivity {
                 if (getVersionCode(applicationSP.getSelectedItemPosition()) == 0) {
                     Toasty.error(VipLeaseActivity.this, "你未安装 " + getAppName(applicationSP.getSelectedItemPosition())).show();
                 } else {
-                    openApp(applicationSP.getSelectedItemPosition());
                     AutoLoginService.state = getAccessibilityState(applicationSP.getSelectedItemPosition());
+                    openApp(applicationSP.getSelectedItemPosition());
+
                     FloatView.name = accountET.getText().toString();
                     FloatView.password = passwordET.getText().toString();
                     FloatView.appId = applicationSP.getSelectedItemPosition();
@@ -408,11 +419,7 @@ public class VipLeaseActivity extends AppCompatActivity {
             passwordET.setText("");
         } else {
             /*Toasty.error(this,response.getMessage(),Toast.LENGTH_LONG).show();*/
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("出租失败：");
-            builder.setMessage(response.getMessage());
-            builder.setCancelable(true);
-            builder.show();
+            showDialog("出租失败：",response.getMessage());
         }
     }
 
@@ -523,6 +530,14 @@ public class VipLeaseActivity extends AppCompatActivity {
         dialog.show();
         dialog.setText(text);
         dialog.setTitle(title);
+    }
+
+    private void showDialog(String title, String text){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(text);
+        builder.setCancelable(true);
+        builder.show();
     }
 
     class MyCount extends CountDownTimer {

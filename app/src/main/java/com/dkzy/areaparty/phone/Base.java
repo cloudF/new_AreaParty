@@ -7,6 +7,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.dkzy.areaparty.phone.fragment01.PCDevicesActivity;
 import com.dkzy.areaparty.phone.fragment01.model.SharedfileBean;
 import com.dkzy.areaparty.phone.fragment01.setting.SettingAddressActivity;
 import com.dkzy.areaparty.phone.fragment01.setting.SettingMainPhoneActivity;
@@ -88,7 +89,7 @@ import static com.dkzy.areaparty.phone.fragment01.websitemanager.readSms.ReadSms
 public class Base {
     public static final int HEAD_INT_SIZE = 4;
     public static final int FILENUM = 3;
-    private Socket socket;
+    public Socket socket;
     private InputStream inputStream;
     private OutputStream outputStream;
     public List<String> onlineUserId = Collections.synchronizedList(new ArrayList<String>());
@@ -174,6 +175,10 @@ public class Base {
                     timer.cancel();
                     return;
                 }
+                if (!Login.autoLogin){
+                    timer.cancel();
+                    return;
+                }
                 Date date = new Date();
                 long a = date.getTime();
                 long b = aliveDate.getTime();
@@ -182,6 +187,7 @@ public class Base {
                 if (c > 21){//25s没有接受到KEEP_ALIVE_SYNC,连接可能断开，尝试重新连接
                     if (NetUtil.getNetWorkState(MyApplication.getContext()) != NetUtil.NETWORK_NONE){
                         reLogin();
+                        Log.w("login","KEEP_ALIVE_SYNC多次未收到自动登录");
                     }
                     timer.cancel();
                 }
@@ -198,112 +204,113 @@ public class Base {
                 timer();
 
                 while (socket.isConnected() && r == random) {
-                    byte[] byteArray = readFromServer(inputStream);
-                    int size = DataTypeTranslater.bytesToInt(byteArray, 0);
-                    System.out.println("BaseServer size: " + size);
-                    ProtoHead.ENetworkMessage type = ProtoHead.ENetworkMessage.valueOf(DataTypeTranslater.bytesToInt(byteArray,HEAD_INT_SIZE));
-                    System.out.println("BaseServer Type : " + type.toString());
 
-                    if (r != random) break;//已经建立新的Base时，结束此线程
-                    switch (type){
-                        case KEEP_ALIVE_SYNC:
-                            aliveDate = new Date();
-                            keepAlive(byteArray, size);
-                            break;
-                        case LOGIN_RSP:
-                            logInMsg(byteArray, size);
-                            break;
-                        case GET_USERINFO_RSP :
-                            getUserInfo(byteArray, size);
-                            break;
-                        case SEND_CHAT_RSP:
-                            sendChat(byteArray, size);
-                            break;
-                        case RECEIVE_CHAT_SYNC:
-                            receiveChat(byteArray, size);
-                            break;
-                        /*case GET_FILE_INFO_RSP:
-                            getFileInfo(byteArray, size);
-                            break;*/
-                        case GET_PERSONALINFO_RSP:
-                            getPersonalInfo(byteArray,size);
-//                            new Thread(new getPersonalInfo(byteArray, size));
-                            break;
-                        case ADD_FRIEND_RSP:
-                            addFriend(byteArray, size);
-                            break;
-                        case CHANGE_FRIEND_SYNC:
-                            changeFriend(byteArray, size);
-                            break;
-                        case ADD_FILE_RSP:
-                            addFile(byteArray, size);
-                            break;
-                        case ACCREDIT_RSP:
-                            accredit(byteArray, size);
-                            break;
-                        case GET_DOWNLOAD_FILE_INFO_RSP:
-                            getProgress(byteArray, size);
-                            break;
-                        case PERSONALSETTINGS_RSP:
-                            personalSetting(byteArray, size);
-                            break;
-                        case OFFLINE_SYNC:
-                            offlineSync(byteArray, size);
-                            break;
-                        case DELETE_FILE_RSP:
-                            deleteFile(byteArray, size);
-                            break;
-                        case CREATE_GROUP_CHAT_RSP:
-                            createGroupChat(byteArray, size);
-                            break;
-                        case GET_GROUP_INFO_RSP:
-                            getGroupInfo(byteArray,size);
-                            break;
-                        case CHANGE_GROUP_RSP:
-                            changeGroupInfo(byteArray,size);
-                            break;
-                        case VIP_SHARE:
-                            //vipInfo(byteArray,size);
-                            vipRentTest(byteArray, size);
-                            break;
-                        case VIP_RENTINFO:
-                            vipRentInfo(byteArray, size);
-                            break;
-                        case VIP_RENT:
-                            vipRent(byteArray, size);
-                            break;
-                        case VIP_LEASEINFO:
-                            vipLeaseInfo(byteArray, size);
-                            break;
-                        case VIP_LEASE:
-                            vipLease(byteArray, size);
-                            break;
-                        case VIP_LEASE_CODE:
-                            vipLeaseCode(byteArray,size);
-                            break;
-                        case VIP_RENT_CODE:
-                            vipRentCode(byteArray,size);
-                            break;
-                        case SMS_TEST_VERIFY:
-                            smsTestVerify(byteArray,size);
-                            break;
-                        case ZFB_ACCOUNT_SETTING:
-                            zfnAccountSetting(byteArray,size);
-                            break;
-                        case ALIPAY:
-                            alipay(byteArray,size);
-                            break;
-                        case NOTIFICATION:
-                            notification(byteArray,size);
-                            break;
-                        case LEASSEMESSAGE:
-                            leaseMessage(byteArray,size);
-                            break;
-                        default:
-                            break;
-                    }
+                        byte[] byteArray = readFromServer(inputStream);
+                        int size = DataTypeTranslater.bytesToInt(byteArray, 0);
+                        System.out.println("BaseServer size: " + size);
+                        ProtoHead.ENetworkMessage type = ProtoHead.ENetworkMessage.valueOf(DataTypeTranslater.bytesToInt(byteArray,HEAD_INT_SIZE));
+                        System.out.println("BaseServer Type : " + type.toString());
+
+                        if (r != random) break;//已经建立新的Base时，结束此线程
+                        switch (type){
+                            case KEEP_ALIVE_SYNC:
+                                aliveDate = new Date();
+                                keepAlive(byteArray, size);
+                                break;
+                            case LOGIN_RSP:
+                                logInMsg(byteArray, size);
+                                break;
+                            case GET_USERINFO_RSP :
+                                getUserInfo(byteArray, size);
+                                break;
+                            case SEND_CHAT_RSP:
+                                sendChat(byteArray, size);
+                                break;
+                            case RECEIVE_CHAT_SYNC:
+                                receiveChat(byteArray, size);
+                                break;
+                            /*case GET_FILE_INFO_RSP:
+                                getFileInfo(byteArray, size);
+                                break;*/
+                            case GET_PERSONALINFO_RSP:
+                                getPersonalInfo(byteArray,size);
+    //                            new Thread(new getPersonalInfo(byteArray, size));
+                                break;
+                            case ADD_FRIEND_RSP:
+                                addFriend(byteArray, size);
+                                break;
+                            case CHANGE_FRIEND_SYNC:
+                                changeFriend(byteArray, size);
+                                break;
+                            case ADD_FILE_RSP:
+                                addFile(byteArray, size);
+                                break;
+                            case ACCREDIT_RSP:
+                                accredit(byteArray, size);
+                                break;
+                            case GET_DOWNLOAD_FILE_INFO_RSP:
+                                getProgress(byteArray, size);
+                                break;
+                            case PERSONALSETTINGS_RSP:
+                                personalSetting(byteArray, size);
+                                break;
+                            case OFFLINE_SYNC:
+                                offlineSync(byteArray, size);
+                                break;
+                            case DELETE_FILE_RSP:
+                                deleteFile(byteArray, size);
+                                break;
+                            case CREATE_GROUP_CHAT_RSP:
+                                createGroupChat(byteArray, size);
+                                break;
+                            case GET_GROUP_INFO_RSP:
+                                getGroupInfo(byteArray,size);
+                                break;
+                            case CHANGE_GROUP_RSP:
+                                changeGroupInfo(byteArray,size);
+                                break;
+                            case VIP_SHARE:
+                                //vipInfo(byteArray,size);
+                                vipRentTest(byteArray, size);
+                                break;
+                            case VIP_RENTINFO:
+                                vipRentInfo(byteArray, size);
+                                break;
+                            case VIP_RENT:
+                                vipRent(byteArray, size);
+                                break;
+                            case VIP_LEASEINFO:
+                                vipLeaseInfo(byteArray, size);
+                                break;
+                            case VIP_LEASE:
+                                vipLease(byteArray, size);
+                                break;
+                            case VIP_LEASE_CODE:
+                                vipLeaseCode(byteArray,size);
+                                break;
+                            case VIP_RENT_CODE:
+                                vipRentCode(byteArray,size);
+                                break;
+                            case SMS_TEST_VERIFY:
+                                smsTestVerify(byteArray,size);
+                                break;
+                            case ZFB_ACCOUNT_SETTING:
+                                zfnAccountSetting(byteArray,size);
+                                break;
+                            case ALIPAY:
+                                alipay(byteArray,size);
+                                break;
+                            case NOTIFICATION:
+                                notification(byteArray,size);
+                                break;
+                            case LEASSEMESSAGE:
+                                leaseMessage(byteArray,size);
+                                break;
+                            default:
+                                break;
+                        }
                 }
-            }catch (IOException e) {
+            }catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -429,7 +436,14 @@ public class Base {
                     for (int i = 0; i < objBytes.length; i++)
                         objBytes[i] = byteArray[NetworkPacket.getMessageObjectStartIndex() + i];
                     LoginMsg.LoginRsp response = LoginMsg.LoginRsp.parseFrom(objBytes);
+                    if (PCDevicesActivity.verifying){
+                        EventBus.getDefault().post(response,"loginVerify");
+                    }
+                    if (response.getResultCode().equals(LoginMsg.LoginRsp.ResultCode.FAIL)){
+                        return;
+                    }
                     String id = response.getUserItem(0).getUserId();
+
                     //另一个用户登录时如果MainActivity.handlerTab06还没有初始化，造成闪退
                     if(!response.getUserItem(0).getUserId().equals(Login.userId)){
                         if(MainActivity.handlerTab06 == null){
@@ -449,7 +463,8 @@ public class Base {
                                 userMsg.obj = user;
                                 MainActivity.handlerTab06.sendMessage(userMsg);
                             }
-                        }else{
+                        }
+                        else{
                             Message userMsg = MainActivity.handlerTab06.obtainMessage();
                             userObj user = new userObj();
                             user.setUserId(id);
@@ -465,7 +480,7 @@ public class Base {
                             MainActivity.handlerTab06.sendMessage(userMsg);
                         }
                     }
-                }catch (IOException e){
+                }catch (Exception e){
                     e.printStackTrace();
                 }
             }

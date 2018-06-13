@@ -20,6 +20,7 @@ import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.dkzy.areaparty.phone.AESc;
@@ -662,12 +663,14 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
             FillingIPInforList.startBroadCastAndListen(10000, 10000);
             getAddress();
             ReadSmsService.reLogin();
+            Log.w("login","wifi重新登录");
         } else {
             OkDownload.getInstance().pauseAll();
             FillingIPInforList.setCloseSignal(true);
             Log.e("MyApplication", "当前是移动网");
             getAddress();
             ReadSmsService.reLogin();
+            Log.w("login","移动网重新登录");
         }
 
 
@@ -1042,5 +1045,15 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         Looper.loop();
     }
 
+    public static void showToast(final String text){
+        Looper.prepare();
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+            }
+        });
 
+        Looper.loop();
+    }
 }

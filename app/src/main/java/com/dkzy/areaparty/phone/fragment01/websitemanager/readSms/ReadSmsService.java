@@ -15,7 +15,10 @@ import android.os.IBinder;
 import android.telephony.SmsMessage;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.dkzy.areaparty.phone.Base;
+import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.vipShare.VipRentActivity;
 import com.dkzy.areaparty.phone.myapplication.MyApplication;
@@ -53,7 +56,8 @@ import static com.dkzy.areaparty.phone.myapplication.MyApplication.getContext;
 public class ReadSmsService extends Service {
     public static final String ONCLICK = "com.app.onclick";
     private static final String TAG = ReadSmsService.class.getSimpleName();
-    Timer timer;
+    public static Timer timer;
+    Base base;
     ReadSmsService.SMSBroadcastReceiver  mSMSBroadcastReceiver;
     public ReadSmsService() {
     }
@@ -81,8 +85,8 @@ public class ReadSmsService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        base = Login.base;
         Log.w(TAG,"OnCreat");
-        timer();
         EventBus.getDefault().register(this);
 
         IntentFilter filter_click = new IntentFilter();
@@ -279,13 +283,20 @@ public class ReadSmsService extends Service {
                         smsMessage = SmsMessage.createFromPdu((byte[])pdu,format) ;
                     }
                     String sender = smsMessage.getDisplayOriginatingAddress();
-                    String content = smsMessage.getDisplayMessageBody();
+                    final String content = smsMessage.getDisplayMessageBody();
                     long date = smsMessage.getTimestampMillis();
                     Date tiemDate = new Date(date);
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String time = simpleDateFormat.format(tiemDate);
                     if(!TextUtils.isEmpty(content)){
                         Log.w(TAG,content);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                MyApplication.showToast(content);
+                            }
+                        }).start();
+
                         listener.onReceive(time,content);
                         //SharedPreferenceUtils.putString(time,content);
                     }else {
@@ -315,7 +326,7 @@ public class ReadSmsService extends Service {
     }
 
 
-    private  void timer() {
+    public static  void timer() {
 
         // TODO Auto-generated method stub
         timer = new Timer();
@@ -324,11 +335,18 @@ public class ReadSmsService extends Service {
             public void run() {
                 if (socket == null || !socket.isConnected()){
                     Log.w(TAG, "socket有问题");
-                    if (NetUtil.getNetWorkState(MyApplication.getContext()) != NetUtil.NETWORK_NONE){
-                        reLogin();
+
+                    if (!Login.autoLogin){
+                        timer.cancel();
+
+                    }else {
+                        if (NetUtil.getNetWorkState(MyApplication.getContext()) != NetUtil.NETWORK_NONE){
+                            reLogin();
+                            Log.w("login","socket故障而重新登录");
+                        }
                     }
                 }else {
-                    Log.w(TAG, "socket已连接");
+                    //Log.w(TAG, "socket已连接");
                 }
             }
         }, new Date(),1000 * 10);//每10s
@@ -336,9 +354,10 @@ public class ReadSmsService extends Service {
 
     public static void reLogin(){
         SharedPreferences sp = MyApplication.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        SharedPreferences sp2 = MyApplication.getContext().getSharedPreferences("serverInfo", Context.MODE_PRIVATE);
         boolean autoLogin = sp.getBoolean("autoLogin",false);
         if (!autoLogin) return;
+        if (NetUtil.getNetWorkState(MyApplication.getContext()) == NetUtil.NETWORK_NONE) return;
+        SharedPreferences sp2 = MyApplication.getContext().getSharedPreferences("serverInfo", Context.MODE_PRIVATE);
         userId = sp.getString("USER_ID", "");
         userPwd = sp.getString("USER_PWD", "");
 
@@ -347,6 +366,8 @@ public class ReadSmsService extends Service {
         userMac = getAdresseMAC(MyApplication.getContext());
         if (!TextUtils.isEmpty(host)){
             AREAPARTY_NET = host;
+        }else {
+            host = AREAPARTY_NET;
         }
 
         if (!TextUtils.isEmpty(userPwd) && !TextUtils.isEmpty(userId) && !TextUtils.isEmpty(userMac)) {//自动登录

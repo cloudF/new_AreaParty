@@ -1,5 +1,6 @@
 package com.dkzy.areaparty.phone.fragment02;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -18,7 +20,6 @@ import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.androideventbusutils.events.TvPlayerChangeEvent;
-import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_page;
 import com.dkzy.areaparty.phone.fragment02.lyric.ActionDialog_Lyric;
 import com.dkzy.areaparty.phone.fragment02.lyric.LyricUtil;
 import com.dkzy.areaparty.phone.fragment02.subtitle.ActionDialog_subTitle;
@@ -26,6 +27,7 @@ import com.dkzy.areaparty.phone.fragment02.subtitle.SubTitleUtil;
 import com.dkzy.areaparty.phone.fragment02.view.RemoteControlView;
 import com.dkzy.areaparty.phone.fragment03.utils.TVAppHelper;
 import com.dkzy.areaparty.phone.utils_comman.ReceiveCommandFromTVPlayer;
+import com.dkzy.areaparty.phone.voiceAssistant.ActivityVoiceAssistant;
 
 import org.simple.eventbus.EventBus;
 
@@ -39,8 +41,9 @@ import es.dmoral.toasty.Toasty;
 
 import static com.dkzy.areaparty.phone.R.drawable.vedio_play_control_pause;
 import static com.dkzy.areaparty.phone.R.drawable.vedio_play_control_play;
+import static com.dkzy.areaparty.phone.R.id.setting_address;
 
-public class vedioPlayControl extends AppCompatActivity {
+public class vedioPlayControl extends AppCompatActivity implements View.OnClickListener{
     public static boolean isplaying=true;
     public static SeekBar seekBar;
     public static  TextView player_overlay_time;
@@ -49,6 +52,7 @@ public class vedioPlayControl extends AppCompatActivity {
     public static Button Subtitle;
     public static Button subtitle_before;
     public static Button subtitle_delay;
+    public static ImageButton control_backBtn;
 
     SubTitleUtil subTitleUtil;
 
@@ -75,6 +79,7 @@ public class vedioPlayControl extends AppCompatActivity {
         FrameLayout view=(FrameLayout) findViewById(R.id.control_circle);
 
         initView();
+        initEvents();
 
 
         seekBar.setMax(500000);//设置进度条.500秒
@@ -414,17 +419,6 @@ public class vedioPlayControl extends AppCompatActivity {
                     }
                 });
 
-        roundMenuView.setBackMenu(Color.WHITE,
-                Color.GRAY, Color.GRAY
-                , 1, 0.43, BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_back), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(mTimer!=null)
-                        mTimer.cancel();
-                        vedioPlayControl.this.finish();
-
-                    }
-                });
         roundMenuView.setStopMenu(Color.rgb(219,219,219),
                 Color.rgb(205,205,205), Color.rgb(219,219,219)
                 , 2, 0.4, BitmapFactory.decodeResource(getResources(), R.drawable.vedio_play_control_stop), new View.OnClickListener() {
@@ -438,11 +432,26 @@ public class vedioPlayControl extends AppCompatActivity {
                     }
                 });
 
+        roundMenuView.setVoiceMenu(Color.WHITE,
+                Color.GRAY, Color.GRAY
+                , 1, 0.43, BitmapFactory.decodeResource(getResources(), R.drawable.voice), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(mTimer!=null)
+                            mTimer.cancel();
+                        startActivity(new Intent(vedioPlayControl.this, ActivityVoiceAssistant.class));
+
+                    }
+                });
+
 
 
 
     }
 
+    private void  initEvents(){
+        control_backBtn.setOnClickListener(this);
+    }
     private void  initView(){
         seekBar=(SeekBar)findViewById(R.id.player_overlay_seekbar);
         player_overlay_length=(TextView)findViewById(R.id.player_overlay_length);
@@ -451,6 +460,7 @@ public class vedioPlayControl extends AppCompatActivity {
         Subtitle=(Button) findViewById(R.id.subtitle);
         subtitle_before=(Button)findViewById(R.id.subtitle_before);
         subtitle_delay=(Button)findViewById(R.id.subtitle_delay);
+        control_backBtn=(ImageButton)findViewById(R.id.control_backBtn);
         if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("audio")){
             Subtitle.setText("加载歌词");
         }
@@ -468,6 +478,8 @@ public class vedioPlayControl extends AppCompatActivity {
             }
         },3500);
     }
+
+
     private void checkPlayerType(){
         if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("audio")){
             Subtitle.setText("加载歌词");
@@ -737,5 +749,20 @@ public class vedioPlayControl extends AppCompatActivity {
         /*if(ReceiveCommandFromTVPlayer.playerType.equalsIgnoreCase("VIDEO")){
             Subtitle.setText("隐藏字幕");
         }*/
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.control_backBtn:
+                vedioPlayControl.this.finish();
+                break;
+            case R.id.sendChangeAddressMsgBtn:
+
+                break;
+            case setting_address:
+
+                break;
+        }
     }
 }

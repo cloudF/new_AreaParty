@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.fragment01.page01Fragment;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_page;
+import com.dkzy.areaparty.phone.fragment01.websitemanager.readSms.ReadSmsService;
 import com.dkzy.areaparty.phone.fragment02.page02Fragment;
 import com.dkzy.areaparty.phone.fragment03.page03Fragment;
 import com.dkzy.areaparty.phone.fragment03.utils.TVAppHelper;
@@ -61,8 +62,13 @@ import protocol.Data.ChatData;
 import protocol.Data.UserData;
 import protocol.Msg.LogoutMsg;
 import protocol.Msg.SendCode;
+import protocol.Msg.VipMsg;
 import protocol.ProtoHead;
 import server.NetworkPacket;
+
+import static com.dkzy.areaparty.phone.Login.getAdresseMAC;
+import static com.dkzy.areaparty.phone.Login.outline;
+import static com.dkzy.areaparty.phone.fragment01.websitemanager.readSms.ReadSmsService.timer;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
@@ -131,6 +137,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public static MyHandler btHandler = null;
     public static MyHandler downloadHandler = null;
 
+    public static boolean vipLeased = false;
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -174,36 +182,36 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     if ((MyApplication.isSelectedTVOnline() && exitDialog.isRadioButtonChecked())){
                         TVAppHelper.vedioPlayControlExit();
                     }
-                    if (!TextUtils.isEmpty(Login.userId)){
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    LogoutMsg.LogoutReq.Builder builder = LogoutMsg.LogoutReq.newBuilder();
-                                    builder.setLogoutType(LogoutMsg.LogoutReq.LogoutType.MOBILE);
-                                    builder.setUserId(Login.userId);
-                                    byte[] reByteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.LOGOUT_REQ.getNumber(), builder.build().toByteArray());
-                                    Login.base.writeToServer(Login.outputStream, reByteArray);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }).start();
-                    }
+                    MyApplication.getInstance().sendLogoutMessage();
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    MyApplication.getInstance().exit();
+                    exit();
                 }else {
-                    MyApplication.getInstance().exit();
+                    exit();
                 }
 
             }
         });
+    }
+    private void exit(){
+        if (outline){
+            MyApplication.getInstance().exit();
+        }else {
+            if (vipLeased){
+                Log.w("MainActivity","回到桌面");
+                Intent home = new Intent(Intent.ACTION_MAIN);
+                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                home.addCategory(Intent.CATEGORY_HOME);
+                startActivity(home);
+            }else {
+                Log.w("MainActivity","退出应用");
+                MyApplication.getInstance().exit();
+            }
+        }
+
     }
 
     @Override
@@ -214,7 +222,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
     }
 
 
@@ -223,6 +230,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         Log.e("change", "Create");
         verifyStoragePermissions(this);
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         MyApplication.getInstance().addActivity(this);
@@ -235,6 +243,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
          * 获取聊天数据库，如果当前用户第一次登陆，新建表
          */
         if(Login.userId!=""){
+            getVipLeaseHistory();
+            timer();
             chatDBManager = new ChatDBManager(this);
             groupChatDBManager = new GroupChatDBManager(this);
             friendRequestDBManager = new FriendRequestDBManager(this);
@@ -612,4 +622,32 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         dialog.show();
     }
 
+    @Subscriber(tag = "vipLease")
+    private void vipLease(VipMsg.VipLeaseRsp response) {
+        //Toast.makeText(this, "response:" + response, Toast.LENGTH_SHORT).show();
+        Log.w("vipLease", response.toString());
+        if (response.getSmsReaderShouldOpen()){
+            startService(new Intent(this,ReadSmsService.class));
+            vipLeased = true;
+        }
+    }
+
+    private void getVipLeaseHistory() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    VipMsg.VipLeaseReq.Builder builder = VipMsg.VipLeaseReq.newBuilder();
+                    builder.setUserId(Login.userId);
+                    builder.setUserMac(getAdresseMAC(MainActivity.this));
+                    byte[] byteArray = NetworkPacket.packMessage(ProtoHead.ENetworkMessage.VIP_LEASE_VALUE, builder.build().toByteArray());
+                    if (Login.base != null) {
+                        Login.base.writeToServer(Login.outputStream, byteArray);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 }

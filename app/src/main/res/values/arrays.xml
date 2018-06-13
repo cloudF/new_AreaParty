@@ -26,4 +26,14 @@
         <item>3</item>
         <item>4</item>
     </string-array>
+    <string-array name="osType">
+        <item>操作系统win7，内存大小2G</item>
+        <item>操作系统win7，内存大小4G </item>
+        <item>操作系统win10，内存大小2G</item>
+    </string-array>
+    <string-array name="networkType">
+        <item>内网带宽4M/s，外网带宽1M/s</item>
+        <item>内网带宽8M/s，外网带宽2M/s</item>
+        <item>内网带宽1M/s，外网带宽0M/s</item>
+    </string-array>
 </resources>

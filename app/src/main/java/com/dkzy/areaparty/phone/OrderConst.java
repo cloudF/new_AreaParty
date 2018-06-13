@@ -152,6 +152,8 @@ public class OrderConst {
     public static final String exeAction_get_more_param = "GETMOREEXE";
 
     public static final String addPathToHttp_Name = "PC";
+    public static final String PAIRCODE = "PAIRCODE";
+    public static final String UPDATEPAIRCODE = "UpdatePairCode";
     public static final String addPathToHttp_command = "AddDirsHTTP";
 
     public static final String Media_Search_By_Key = "SEARCH";
