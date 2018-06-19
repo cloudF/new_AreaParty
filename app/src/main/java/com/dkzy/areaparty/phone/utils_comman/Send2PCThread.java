@@ -12,6 +12,7 @@ import com.dkzy.areaparty.phone.fragment03.Model.AppItem;
 import com.dkzy.areaparty.phone.fragment03.Model.PCInforBean;
 import com.dkzy.areaparty.phone.fragment03.utils.PCAppHelper;
 import com.dkzy.areaparty.phone.model_comman.PCCommandItem;
+import com.dkzy.areaparty.phone.model_comman.TVCommandItem;
 import com.dkzy.areaparty.phone.utils_comman.jsonFormat.IPInforBean;
 import com.dkzy.areaparty.phone.utils_comman.jsonFormat.JsonUitl;
 import com.dkzy.areaparty.phone.utils_comman.jsonFormat.ReceivedActionMessageFormat;
@@ -345,6 +346,38 @@ public class Send2PCThread extends Thread {
                     case OrderConst.mediaAction_DELETE_command:
                         break;
                     case OrderConst.mediaAction_play_command:
+                    case OrderConst.mediaAction_playALL_command:
+                        final List<String> urls = gson.fromJson(reader,new TypeToken<List<String>>(){}.getType());
+                        new Thread(){
+                            @Override
+                            public void run() {
+                                TVCommandItem cmdTV = new TVCommandItem();
+                                cmdTV.setFirstcommand("OPEN_HTTP_MEDIA");
+                                cmdTV.setSecondcommand(null);
+                                cmdTV.setThirdcommand(false);
+                                cmdTV.setFourthCommand("");
+                                cmdTV.setFifthCommand(typeName);
+                                cmdTV.setSixthcommand(urls);
+                                cmdTV.setSevencommand(null);
+                                String TV_IP = MyApplication.getSelectedTVIP().getIp();
+                                int TV_Port = MyApplication.getSelectedTVIP().getPort();
+
+                                Socket client = new Socket();
+                                try {
+                                    client.connect(new InetSocketAddress(TV_IP,TV_Port),3000);
+                                    String requestMsg = JsonUitl.objectToString(cmdTV);
+                                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+                                    writer.write(requestMsg);
+                                    writer.flush();
+                                    writer.close();
+                                    client.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }.start();
+                        break;
                     case OrderConst.mediaAction_addSet_command:
                     case OrderConst.mediaAction_deleteSet_command:
                     case OrderConst.mediaAction_addFilesToSet_command:

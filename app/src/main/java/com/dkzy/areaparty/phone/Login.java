@@ -128,6 +128,8 @@ public class Login extends AppCompatActivity {
     public static boolean mainMobile;
     public static int userHeadIndex;
     public static myChatList myChats = new myChatList();
+    public static int shareFileCount = 0;
+    public static int shareFileLimit = 10;
 
     public static boolean autoLogin = false;
     public static String userPwd;
@@ -753,6 +755,12 @@ public class Login extends AppCompatActivity {
                     userNet.clear();
                     userGroups.clear();
                     base.onlineUserId.add(userId);
+                    try {
+                        shareFileCount= response.getShareFileCount();
+                        shareFileLimit = response.getShareFileLimit();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
 
                     GroupData.GroupItem.Builder ggb = GroupData.GroupItem.newBuilder();
                     ggb.setGroupName("全部好友");
@@ -818,7 +826,7 @@ public class Login extends AppCompatActivity {
                                 editor.apply();
                             }
                         }
-                        //电话号码登录
+
                         userName = fileresponse.getUserItem(0).getUserName();
                         userHeadIndex = fileresponse.getUserItem(0).getHeadIndex();
                         System.out.println("Response : " + GetUserInfoMsg.GetUserInfoRsp.ResultCode.valueOf(fileresponse.getResultCode().getNumber()));

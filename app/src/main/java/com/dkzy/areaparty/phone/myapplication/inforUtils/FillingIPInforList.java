@@ -250,7 +250,7 @@ public class FillingIPInforList {
      * </summary>
      * <param name="object">IPInforMessageBean</param>
      */
-    private static void parse(IPInforMessageBean object) {
+    public static void parse(IPInforMessageBean object) {
         if(object != null) {
             if((object.source).equals(OrderConst.ip_TV_source)) {
                 for (IPInforBean IPinfor : object.param) {
@@ -302,7 +302,7 @@ public class FillingIPInforList {
         }
     }
 
-    private static void sendIPInfor() {
+    public static void sendIPInfor() {
         if((isNewTVList || isNewPC_YList) && TVList.size() > 0 && PCList_Y.size() > 0) {
             IPInforMessageBean message = new IPInforMessageBean();
             message.source = OrderConst.ip_phone_source;

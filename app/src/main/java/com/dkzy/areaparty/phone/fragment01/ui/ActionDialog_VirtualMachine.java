@@ -56,10 +56,10 @@ public class ActionDialog_VirtualMachine extends Dialog {
         getWindow().setAttributes(p);
 
     }
-    public int getSelectType(){
+    public String getSelectType(){
         int os = osType.getSelectedItemPosition() + 1;
-        int network = (int) Math.pow(10, networkType.getSelectedItemPosition() + 1);
-        return os + network;
+        int network = networkType.getSelectedItemPosition()+1;
+        return os+","+network;
     }
     public String getEditText(){
         return valueEditText.getText().toString();

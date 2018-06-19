@@ -1,7 +1,9 @@
 package com.dkzy.areaparty.phone.fragment01;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dkzy.areaparty.phone.Login;
+import com.dkzy.areaparty.phone.OrderConst;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_VirtualMachine;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_addFolder;
@@ -48,6 +51,7 @@ import com.dkzy.areaparty.phone.utils_comman.jsonFormat.ReceivedActionMessageFor
 import com.dkzy.areaparty.phone.utils_comman.netWork.NetBroadcastReceiver;
 import com.dkzy.areaparty.phone.utils_comman.netWork.NetUtil;
 
+import org.apache.commons.io.IOUtils;
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
@@ -68,6 +72,7 @@ import server.NetworkPacket;
 
 import static com.dkzy.areaparty.phone.Login.getAdresseMAC;
 import static com.dkzy.areaparty.phone.Login.getPhoneInfo;
+import static com.dkzy.areaparty.phone.myapplication.MyApplication.getContext;
 import static com.dkzy.areaparty.phone.register.RegisterUserInfo.isKeyWord;
 
 /**
@@ -103,8 +108,14 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
     IPInforBean selectedPCIPInfor;
 
     public static boolean verifying = false;
-    String serveIp = "";
-    int port = 16540;
+    public static String serveIp = "";
+    public static int port = 16540;
+
+    public static String pattern =
+            "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+                    "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+                    "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+                    "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
     @Override
     protected void onDestroy() {
@@ -129,6 +140,15 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
             ViewCompat.setFitsSystemWindows(mChildView, false);
         }
 
+
+
+        if (TextUtils.isEmpty(DirectToPC.PC_Ip)){
+            getVMIP();
+        }else {
+            new DirectToPC().start();
+        }
+
+
         initData();
         initView();
         initEvent();
@@ -152,6 +172,12 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
             Log.e(tag, "终端个数" + pcList.size());
             pcAdapter.notifyDataSetChanged();
 
+        }
+
+        if (TextUtils.isEmpty(DirectToPC.PC_Ip)){
+            getVMIP();
+        }else {
+            new DirectToPC().start();
         }
         devicesRefreshSRL.setRefreshing(false);
     }
@@ -445,11 +471,6 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
             @Override
             public void onClick(View view) {
                 final String ip = dialog.getEditText();
-                String pattern =
-                        "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-                                "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-                                "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-                                "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
                 if (!ip.matches(pattern)){
                     Toast.makeText(PCDevicesActivity.this, "qing'sh请输入合法的IP地址", Toast.LENGTH_SHORT).show();
                     return;
@@ -486,6 +507,7 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
                     ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(dataReceived, ReceivedActionMessageFormat.class);
                     if (receivedMsg.getStatus() == 200){
                         Log.w("sendMessageToService2","连接成功");
+
                         if (receivedMsg.getMessage().equals("NONEVM")){
                             myHandler.sendEmptyMessage(1);
                         }else if(receivedMsg.getMessage().equals("hasVM")){
@@ -496,6 +518,10 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
                                 }
                             });
                         }
+
+                        SharedPreferences.Editor editor = getContext().getSharedPreferences("XQServeInfo", Context.MODE_PRIVATE).edit();
+                        editor.putString("serveIP",serveIp);
+                        editor.apply();
                     }else {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -516,6 +542,10 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
                             Toast.makeText(PCDevicesActivity.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
                         }
                     });
+                }finally {
+                    if (!client.isClosed()) {
+                        IOUtils.closeQuietly(client);
+                    }
                 }
 
             }
@@ -598,7 +628,7 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
         dialog.setOnPositiveListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int select = dialog.getSelectType();
+                String select = dialog.getSelectType();
                 String hostName = dialog.getEditText();
                 if(TextUtils.isEmpty(hostName)){
                     Toast.makeText(PCDevicesActivity.this, "请设置主机名", Toast.LENGTH_SHORT).show();
@@ -610,7 +640,7 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
         });
 
     }
-    private void sendCreateVirtualMachineRequest(final int select, final String hostName){
+    private void sendCreateVirtualMachineRequest(final String select, final String hostName){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -629,9 +659,65 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
                     writer.flush();
                     dataReceived = reader.readLine();
                     Log.w("sendMessageToService2",dataReceived);
+                    ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(dataReceived, ReceivedActionMessageFormat.class);
+                    if (receivedMsg.getStatus() == OrderConst.failure){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(PCDevicesActivity.this, "当前有其他用户正在创建虚拟机，请稍后再试", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.w("sendMessageToService3","超时");
+                }finally {
+                    if (!client.isClosed()) {
+                        IOUtils.closeQuietly(client);
+                    }
+                }
+
+            }
+        }).start();
+    }
+
+    public static void getVMIP(){
+        if (TextUtils.isEmpty(serveIp)){
+            SharedPreferences sp = MyApplication.getContext().getSharedPreferences("XQServeInfo", Context.MODE_PRIVATE);
+            serveIp = sp.getString("serveIP","");
+        }
+        if (!TextUtils.isEmpty(serveIp) && serveIp.matches(pattern))
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String cmd = "{\"command\":\"\",\"name\":\"GETVMIP\",\"param\":\""+Login.getAdresseMAC(MyApplication.getContext())+"\"}";
+                Log.w("sendMessageToService1",cmd);
+
+                String dataReceived = "";
+                Socket client = new Socket();
+
+                try {
+                    client.connect(new InetSocketAddress(serveIp, port), 5000);
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+                    writer.write(cmd);
+                    writer.newLine();
+                    writer.flush();
+                    dataReceived = reader.readLine();
+                    Log.w("sendMessageToService2",dataReceived);
+                    ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(dataReceived, ReceivedActionMessageFormat.class);
+                    if (!TextUtils.isEmpty(receivedMsg.getMessage()) && receivedMsg.getMessage().matches(pattern)){
+                        DirectToPC.PC_Ip = receivedMsg.getMessage();
+                        new DirectToPC().start();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.w("sendMessageToService3","超时");
+                }finally {
+                    if (!client.isClosed()) {
+                        IOUtils.closeQuietly(client);
+                    }
                 }
 
             }

@@ -140,6 +140,7 @@ public class diskContentActivity extends Activity implements View.OnClickListene
                         break;
                     case OrderConst.addSharedFilePath_successful:
                         activity.addSharedFilePathSuccess(msg);
+                        Login.shareFileCount ++ ;
                         break;
                     case OrderConst.addSharedFilePath_fail:
                         activity.addSharedFilePathFail(msg);
@@ -678,6 +679,12 @@ public class diskContentActivity extends Activity implements View.OnClickListene
             case R.id.bar02MoreShareLL: {
                 page04DiskContentBar02MoreRootLL.setVisibility(View.GONE);
                 String name = PCFileHelper.getSelectedFiles().get(0).name;
+
+                if (Login.shareFileCount >= Login.shareFileLimit){
+                    Toasty.error(this,"您分享的文件个数已达上限").show();
+                    return;
+                }
+
                 if (name.length() > 100){
                     Toasty.error(this,"文件名过长，不能分享").show();
                 }else {

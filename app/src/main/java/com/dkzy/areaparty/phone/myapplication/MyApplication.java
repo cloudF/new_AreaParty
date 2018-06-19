@@ -109,6 +109,7 @@ import server.NetworkPacket;
 
 import static android.R.attr.tag;
 import static com.dkzy.areaparty.phone.IPAddressConst.statisticServer_ip;
+import static com.dkzy.areaparty.phone.fragment01.PCDevicesActivity.getVMIP;
 import static com.dkzy.areaparty.phone.fragment01.websitemanager.readSms.ReadSmsService.ONCLICK;
 import static com.dkzy.areaparty.phone.utils_comman.Send2SpecificTVThread.stringToMD5;
 
@@ -764,6 +765,8 @@ public class MyApplication extends Application implements NetBroadcastReceiver.n
         startCheckIsNewVersionExist();
 
         registerNotificationReceiver();
+
+        getVMIP();
     }
     private void registerNotificationReceiver(){
         IntentFilter filter_click = new IntentFilter();

@@ -2,6 +2,7 @@ package com.dkzy.areaparty.phone.fragment06;
 
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +87,7 @@ public class mFriendFileAdapter extends BaseAdapter {
 
         int headIndex = (int) file.get("fileImg");
         final String fileName =  (String) file.get("fileName");
+        final String info = (String) file.get("fileInfo");
         final long fileDate = Long.parseLong((String)file.get("fileDate"));
         SimpleDateFormat sdf= new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         Date dt = new Date(fileDate);
@@ -93,7 +95,12 @@ public class mFriendFileAdapter extends BaseAdapter {
         final String fileSize = (String)file.get("fileSize");
         String fileInfo = sDateTime + "  " + getSize(Integer.valueOf(fileSize));
         holder.fileImg.setImageResource(headIndex);
-        holder.fileName.setText(fileName);
+        if (TextUtils.isEmpty(info)){
+            holder.fileName.setText(fileName);
+        }else {
+            holder.fileName.setText(info);
+        }
+
         if(fileInfo.equals(""))
             holder.fileInfo.setText("该用户什么都没写");
         else

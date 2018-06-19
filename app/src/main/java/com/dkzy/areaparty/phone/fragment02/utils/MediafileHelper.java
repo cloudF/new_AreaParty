@@ -6,6 +6,8 @@ import android.util.Log;
 import com.dkzy.areaparty.phone.OrderConst;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_playPicList;
 import com.dkzy.areaparty.phone.fragment02.Model.MediaItem;
+import com.dkzy.areaparty.phone.myapplication.MyApplication;
+import com.dkzy.areaparty.phone.myapplication.inforUtils.FillingIPInforList;
 import com.dkzy.areaparty.phone.utils_comman.ReceiveCommandFromTVPlayer;
 import com.dkzy.areaparty.phone.utils_comman.jsonFormat.JsonUitl;
 import com.dkzy.areaparty.phone.utils_comman.CommandUtil;
@@ -198,18 +200,43 @@ public class MediafileHelper {
      */
     public static void playMediaFile(String filetype, String path, String filename, String tvname, Handler myhandler) {
         Map<String, String> param = new HashMap<>();
+        String PC_IP = MyApplication.getSelectedPCIP().getIp();
+        String APP_IP = FillingIPInforList.getIpStr();
+
         param.put("path", path);
-        param.put("filename", filename);
+       // param.put("filename", filename);
         param.put("tvname", tvname);
+        if(!compareIP(PC_IP,APP_IP)){
+            param.put("filename","RETURNTOAPP");
+        }else {
+            param.put("filename",filename);
+        }
         new Send2PCThread(filetype, OrderConst.mediaAction_play_command, param, myhandler).start();
         if (!ReceiveCommandFromTVPlayer.getPlayerIsRun()){
             new ReceiveCommandFromTVPlayer(true).start();
 //            EventBus.getDefault().post(new TvPlayerChangeEvent(true), "tvPlayerStateChanged");
         }
     }
+    private static boolean compareIP(String ip1,String ip2) {
+        String[] arr1 = ip1.split("\\.");
+        String[] arr2 = ip2.split("\\.");
+
+        if (arr1[2].equals(arr2[2]))
+            return true;
+        return false;
+    }
     public static void playAllMediaFile(String filetype, String folderPath, String tvname, Handler myhandler) {
+        String PC_IP = MyApplication.getSelectedPCIP().getIp();
+        String APP_IP = FillingIPInforList.getIpStr();
         Map<String, String> param = new HashMap<>();
-        param.put("folder", folderPath);
+
+        //param.put("folder", folderPath);
+
+        if(!compareIP(PC_IP,APP_IP)){
+            param.put("folder",folderPath+"RETURNTOAPP");
+        }else {
+            param.put("folder",folderPath);
+        }
         param.put("tvname", tvname);
         param.put("t",""+ ActionDialog_playPicList.t);
         new Send2PCThread(filetype, OrderConst.mediaAction_playALL_command, param, myhandler).start();
