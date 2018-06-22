@@ -30,6 +30,7 @@ public class DirectToPC extends Thread {
     @Override
     public void run() {
 
+
         RequestFormat requestFormat = new RequestFormat();
         requestFormat.setName("PC");
         requestFormat.setCommand("AppConnectPCDirectly");

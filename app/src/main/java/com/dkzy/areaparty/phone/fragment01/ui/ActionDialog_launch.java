@@ -32,6 +32,7 @@ public class ActionDialog_launch extends Dialog {
     private RadioButton radioButton;
     private TextView autoLogin_help;
     private boolean isRadioButtonChecked = false;
+    private TextView text1,text2,text3;
 
     public ActionDialog_launch(Context context) {
         super(context, R.style.CustomDialog);
@@ -62,6 +63,10 @@ public class ActionDialog_launch extends Dialog {
                 }
             }
         });
+
+        text1 = (TextView) mView.findViewById(R.id.text1);
+        text2 = (TextView) mView.findViewById(R.id.text2);
+        text3 = (TextView) mView.findViewById(R.id.text3);
 
         super.setContentView(mView);
 
@@ -94,5 +99,17 @@ public class ActionDialog_launch extends Dialog {
     }
     public void setNegativeButtonText(String text) {
         this.negativeButton.setText(text);
+    }
+    public void setText1(String text){
+        text1.setText(text);
+    }
+    public void setText2(String text){
+        text2.setText(text);
+    }
+    public void setText3InVisible(){
+        text3.setVisibility(View.GONE);
+    }
+    public void setRadioButtonText(String text){
+        radioButton.setText(text);
     }
 }

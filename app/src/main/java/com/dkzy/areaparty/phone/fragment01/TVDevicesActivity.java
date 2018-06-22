@@ -42,6 +42,8 @@ import java.util.ArrayList;
 
 import es.dmoral.toasty.Toasty;
 
+import static com.dkzy.areaparty.phone.fragment01.PCDevicesActivity.sendMacToService;
+
 /**
  * Project Name： FamilyCentralControler
  * Description:   显示已扫描到的TV设备
@@ -309,6 +311,8 @@ public class TVDevicesActivity extends Activity implements View.OnClickListener,
                 case 200: {
                     String t = (String)msg.obj;
                     if(t.equals("true")) {
+                        sendMacToService();
+
                         MyApplication.selectedTVVerified = true;
                         MyApplication.setSelectedTVIP(temp);
                         MyApplication.addTVMac(temp.mac, code);

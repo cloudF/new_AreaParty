@@ -522,6 +522,8 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
                         SharedPreferences.Editor editor = getContext().getSharedPreferences("XQServeInfo", Context.MODE_PRIVATE).edit();
                         editor.putString("serveIP",serveIp);
                         editor.apply();
+
+                        sendMacToService();
                     }else {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -686,41 +688,92 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
             SharedPreferences sp = MyApplication.getContext().getSharedPreferences("XQServeInfo", Context.MODE_PRIVATE);
             serveIp = sp.getString("serveIP","");
         }
-        if (!TextUtils.isEmpty(serveIp) && serveIp.matches(pattern))
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String cmd = "{\"command\":\"\",\"name\":\"GETVMIP\",\"param\":\""+Login.getAdresseMAC(MyApplication.getContext())+"\"}";
-                Log.w("sendMessageToService1",cmd);
+        if (!TextUtils.isEmpty(serveIp) && serveIp.matches(pattern)){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String cmd = "{\"command\":\"\",\"name\":\"GETVMIP\",\"param\":\""+Login.getAdresseMAC(MyApplication.getContext())+"\"}";
+                    Log.w("sendMessageToService1",cmd);
 
-                String dataReceived = "";
-                Socket client = new Socket();
+                    String dataReceived = "";
+                    Socket client = new Socket();
 
-                try {
-                    client.connect(new InetSocketAddress(serveIp, port), 5000);
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
-                    writer.write(cmd);
-                    writer.newLine();
-                    writer.flush();
-                    dataReceived = reader.readLine();
-                    Log.w("sendMessageToService2",dataReceived);
-                    ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(dataReceived, ReceivedActionMessageFormat.class);
-                    if (!TextUtils.isEmpty(receivedMsg.getMessage()) && receivedMsg.getMessage().matches(pattern)){
-                        DirectToPC.PC_Ip = receivedMsg.getMessage();
-                        new DirectToPC().start();
+                    try {
+                        client.connect(new InetSocketAddress(serveIp, port), 5000);
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+                        writer.write(cmd);
+                        writer.newLine();
+                        writer.flush();
+                        dataReceived = reader.readLine();
+                        Log.w("sendMessageToService2",dataReceived);
+                        ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(dataReceived, ReceivedActionMessageFormat.class);
+                        if (!TextUtils.isEmpty(receivedMsg.getMessage()) && receivedMsg.getMessage().matches(pattern)){
+                            DirectToPC.PC_Ip = receivedMsg.getMessage();
+                            new DirectToPC().start();
+
+                            sendMacToService();
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.w("sendMessageToService3","超时");
+                    }finally {
+                        if (!client.isClosed()) {
+                            IOUtils.closeQuietly(client);
+                        }
                     }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.w("sendMessageToService3","超时");
-                }finally {
-                    if (!client.isClosed()) {
-                        IOUtils.closeQuietly(client);
-                    }
                 }
+            }).start();
+        }
+    }
 
-            }
-        }).start();
+    public static void sendMacToService(){
+        if (TextUtils.isEmpty(serveIp)){
+            SharedPreferences sp = MyApplication.getContext().getSharedPreferences("XQServeInfo", Context.MODE_PRIVATE);
+            serveIp = sp.getString("serveIP","");
+        }
+        if (!TextUtils.isEmpty(serveIp) && serveIp.matches(pattern)){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String tvMac = "";
+                    if (MyApplication.isSelectedTVOnline()){
+                        tvMac = MyApplication.getSelectedTVIP().mac;
+                    }
+                    String cmd = "{\"command\":\""+tvMac+"\",\"name\":\"TVMAC\",\"param\":\""+Login.getAdresseMAC(MyApplication.getContext())+"\"}";
+                    Log.w("sendMessageToService1",cmd);
+
+                    String dataReceived = "";
+                    Socket client = new Socket();
+
+                    try {
+                        client.connect(new InetSocketAddress(serveIp, port), 5000);
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+                        writer.write(cmd);
+                        writer.newLine();
+                        writer.flush();
+                        dataReceived = reader.readLine();
+                        Log.w("sendMessageToService2",dataReceived);
+                        ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(dataReceived, ReceivedActionMessageFormat.class);
+                        if (!TextUtils.isEmpty(receivedMsg.getMessage()) && receivedMsg.getMessage().matches(pattern)){
+                            DirectToPC.PC_Ip = receivedMsg.getMessage();
+                            new DirectToPC().start();
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.w("sendMessageToService3","超时");
+                    }finally {
+                        if (!client.isClosed()) {
+                            IOUtils.closeQuietly(client);
+                        }
+                    }
+
+                }
+            }).start();
+        }
     }
 }

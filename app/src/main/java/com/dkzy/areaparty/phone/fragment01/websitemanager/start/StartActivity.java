@@ -35,6 +35,7 @@ import com.dkzy.areaparty.phone.IPAddressConst;
 import com.dkzy.areaparty.phone.Login;
 import com.dkzy.areaparty.phone.R;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_help;
+import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_launch;
 import com.dkzy.areaparty.phone.fragment01.ui.ActionDialog_page;
 import com.dkzy.areaparty.phone.fragment01.utorrent.utils.OkHttpUtils;
 import com.dkzy.areaparty.phone.fragment01.websitemanager.hdhome.CookieJarImpl;
@@ -221,7 +222,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                }else if (!Login.mainMobile){
                    Toast.makeText(this, "当前设备不是主设备", Toast.LENGTH_SHORT).show();
                }else {
-                   startActivity(new Intent(StartActivity.this, VipRentActivity.class));
+                   //startActivity(new Intent(StartActivity.this, VipRentActivity.class));
+                   showVIPRentEntry();
                }
                break;
            case R.id.vipLease:
@@ -230,7 +232,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                }else if (!Login.mainMobile){
                    Toast.makeText(this, "当前设备不是主设备", Toast.LENGTH_SHORT).show();
                }else {
-                   startActivity(new Intent(StartActivity.this, VipLeaseActivity.class));
+                   //startActivity(new Intent(StartActivity.this, VipLeaseActivity.class));
+                    showVIPLeaseEntry();
                }
                break;
            case R.id.helpInfo:
@@ -247,6 +250,64 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
        }
     }
+    private void showVIPRentEntry(){
+        final ActionDialog_launch dialog = new ActionDialog_launch(this);
+        dialog.setCancelable(false);
+        dialog.show();
+        dialog.setTitleText("VIP账号租用");
+        dialog.setText1("本软件仅提供一个VIP账号的出租平台，使用自动登录技术向租用方屏蔽出租方的用户密码，并向租用方提供了特定条件下的申述退款机制。");
+        dialog.setText2("本平台不承诺租借用户打入平台账户的资金安全，也不对出租、租借双方因使用本平台造成的一切损失负责");
+        dialog.setRadioButtonText("同意上述条款");
+        dialog.setText3InVisible();
+        dialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dialog.isRadioButtonChecked()){
+                    dialog.dismiss();
+                    startActivity(new Intent(StartActivity.this, VipRentActivity.class));
+                }else {
+                    Toast.makeText(StartActivity.this, "请先同意上述条款", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
+
+    private void showVIPLeaseEntry(){
+        final ActionDialog_launch dialog = new ActionDialog_launch(this);
+        dialog.setCancelable(false);
+        dialog.show();
+        dialog.setTitleText("VIP账号出租");
+        dialog.setText1("本软件仅提供一个VIP账号的出租平台，使用自动登录技术向租用方屏蔽出租方的用户密码，并向租用方提供了特定条件下的申述退款机制。");
+        dialog.setText2("本平台不承诺出租用户的密码安全，不对出租、租借双方因使用本平台造成的一切损失负责。");
+        dialog.setRadioButtonText("同意上述条款");
+        dialog.setText3InVisible();
+        dialog.setOnNegativeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dialog.isRadioButtonChecked()){
+                    startActivity(new Intent(StartActivity.this, VipLeaseActivity.class));
+                    dialog.dismiss();
+                }else {
+                    Toast.makeText(StartActivity.this, "请先同意上述条款", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
     public  void showHelpInfoDialog(int layout){
         final ActionDialog_page dialog = new ActionDialog_page(this,layout);
         dialog.setCancelable(true);
