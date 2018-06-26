@@ -134,10 +134,28 @@
             android:layout_height="70dp" />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/virtualMachine"
+    <LinearLayout
         android:layout_alignParentBottom="true"
-        android:text="创建个人虚拟机"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <Button
+            android:visibility="gone"
+            android:id="@+id/virtualMachine"
+            android:text="创建个人虚拟机"
+            android:layout_width="0dp"
+            android:padding="3dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <Button
+            android:visibility="gone"
+            android:id="@+id/deleteVM"
+            android:text="删除个人虚拟机"
+            android:padding="3dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
 </RelativeLayout>

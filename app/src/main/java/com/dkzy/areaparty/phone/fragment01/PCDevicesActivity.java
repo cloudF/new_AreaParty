@@ -100,7 +100,7 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
 
     private View loadingView;
     private AlertDialog dialog;
-    private Button virtualMachineBtn;
+    private Button virtualMachineBtn,deleteVM;
 
     private Intent intent;
     MyAdapter<IPInforBean> pcAdapter;
@@ -333,7 +333,16 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
         wifiStateTV  = (TextView) findViewById(R.id.wifiStateTV);
         devicesRefreshSRL = (SwipeRefreshLayout)findViewById(R.id.devicesRefreshSRL);
         virtualMachineBtn = (Button) findViewById(R.id.virtualMachine);
-        if (TextUtils.isEmpty(Login.userId)){virtualMachineBtn.setVisibility(View.GONE);}
+        virtualMachineBtn.setVisibility(View.VISIBLE);
+        deleteVM = (Button) findViewById(R.id.deleteVM);
+        deleteVM.setVisibility(View.VISIBLE);
+        deleteVM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteVM();
+            }
+        });
+        if (TextUtils.isEmpty(Login.userId)){virtualMachineBtn.setVisibility(View.GONE);deleteVM.setVisibility(View.GONE);}
 
         loadingView = LayoutInflater.from(this).inflate(R.layout.tab04_loadingcontent, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -743,6 +752,54 @@ public class PCDevicesActivity extends Activity implements View.OnClickListener,
                         tvMac = MyApplication.getSelectedTVIP().mac;
                     }
                     String cmd = "{\"command\":\""+tvMac+"\",\"name\":\"TVMAC\",\"param\":\""+Login.getAdresseMAC(MyApplication.getContext())+"\"}";
+                    Log.w("sendMessageToService1",cmd);
+
+                    String dataReceived = "";
+                    Socket client = new Socket();
+
+                    try {
+                        client.connect(new InetSocketAddress(serveIp, port), 5000);
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+                        writer.write(cmd);
+                        writer.newLine();
+                        writer.flush();
+                        dataReceived = reader.readLine();
+                        Log.w("sendMessageToService2",dataReceived);
+                        ReceivedActionMessageFormat receivedMsg = JsonUitl.stringToBean(dataReceived, ReceivedActionMessageFormat.class);
+                        if (!TextUtils.isEmpty(receivedMsg.getMessage()) && receivedMsg.getMessage().matches(pattern)){
+                            DirectToPC.PC_Ip = receivedMsg.getMessage();
+                            new DirectToPC().start();
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.w("sendMessageToService3","超时");
+                    }finally {
+                        if (!client.isClosed()) {
+                            IOUtils.closeQuietly(client);
+                        }
+                    }
+
+                }
+            }).start();
+        }
+    }
+
+    public static void deleteVM(){
+        if (TextUtils.isEmpty(serveIp)){
+            SharedPreferences sp = MyApplication.getContext().getSharedPreferences("XQServeInfo", Context.MODE_PRIVATE);
+            serveIp = sp.getString("serveIP","");
+        }
+        if (!TextUtils.isEmpty(serveIp) && serveIp.matches(pattern)){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String tvMac = "";
+                    if (MyApplication.isSelectedTVOnline()){
+                        tvMac = MyApplication.getSelectedTVIP().mac;
+                    }
+                    String cmd = "{\"command\":\"\",\"name\":\"DELETEVM\",\"param\":\""+Login.getAdresseMAC(MyApplication.getContext())+"\"}";
                     Log.w("sendMessageToService1",cmd);
 
                     String dataReceived = "";
